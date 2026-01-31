@@ -32,6 +32,13 @@ jobs:
         run: |
           python scripts/build_countries_snapshot.py
 
+      - name: Build countries_snapshot.json
+        env:
+          TRANSLATE_ENDPOINT: ${{ secrets.TRANSLATE_ENDPOINT }}
+          TRANSLATE_API_KEY: ${{ secrets.TRANSLATE_API_KEY }}
+        run: |
+          python scripts/build_countries_snapshot.py
+
       - name: Copy countries_snapshot.json to docs for GitHub Pages
         run: |
           mkdir -p docs
