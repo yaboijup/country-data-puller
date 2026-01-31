@@ -2,6 +2,7 @@
 Build a Base44-friendly JSON snapshot for multiple countries.
 
 Outputs: public/countries_snapshot.json
+
 Format:
 {
   "generatedAt": "...Z",
@@ -23,123 +24,30 @@ Data sources (best-effort, resilient):
 - Government/leaders/political system: Wikidata SPARQL
 - News (last 3 days): GDELT 2.1 DOC API
 - Trends + US interest: pytrends (Google Trends, unofficial; can be flaky in CI)
+- Optional translation: user-provided translation endpoint (e.g., LibreTranslate)
 
 Notes:
-- "Party control" is HARD to do universally without paid/parliament datasets.
+- "Party control" is HARD to do universally without seat datasets.
   This script outputs:
     - Executive party (from leader party when available)
-    - Legislature: "unknown" + a note (unless party control can be inferred)
+    - Legislature bodies listed with controller="unknown" + a note
 - "Political skew" is heuristic; mapped when party ideologies are known in overrides.
   Otherwise "unknown/contested" and flagged with warnings.
+- English-first: If title/query doesn't look English, we translate (if configured)
+  and include original text + disclaimer fields.
 """
 
 from __future__ import annotations
 
 import json
 import os
+import re
 import time
-from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 import requests
-
-import re
-from typing import Optional, Dict, Any, Tuple
-
-def looks_english(text: str) -> bool:
-    """
-    Heuristic: detects whether text *looks* English-ish.
-    Not perfect, but good enough to decide when to translate.
-    """
-    if not text:
-        return False
-    t = text.strip()
-    if len(t) < 3:
-        return False
-    # If most chars are ASCII and it contains Latin letters, treat as English-ish
-    ascii_chars = sum(1 for ch in t if ord(ch) < 128)
-    if ascii_chars / max(1, len(t)) < 0.80:
-        return False
-    if not re.search(r"[A-Za-z]", t):
-        return False
-    return True
-
-# ---------------- Translation (pluggable) ----------------
-# Recommended: set TRANSLATE_ENDPOINT to your own LibreTranslate instance (or another service)
-# Example: https://libretranslate.yourdomain.com/translate
-# Optional: TRANSLATE_API_KEY if your endpoint requires it.
-
-TRANSLATE_ENDPOINT = os.getenv("TRANSLATE_ENDPOINT", "").strip()
-TRANSLATE_API_KEY = os.getenv("TRANSLATE_API_KEY", "").strip()
-TRANSLATE_TIMEOUT = 20
-
-def translate_to_english(text: str, source_lang: str = "auto") -> Tuple[str, Dict[str, Any]]:
-    """
-    Translate to English using a translation endpoint you control/provide.
-    Returns (translated_text, meta).
-    If translation isn't configured/available, returns original text and meta.
-    """
-    meta: Dict[str, Any] = {
-        "translated": False,
-        "translationProvider": None,
-        "translationNotes": None,
-        "original": text,
-        "detectedSourceLang": None,
-    }
-
-    if not text or looks_english(text):
-        return text, meta
-
-    # If no endpoint configured, don't attempt translation
-    if not TRANSLATE_ENDPOINT:
-        meta["translationNotes"] = "Translation skipped (TRANSLATE_ENDPOINT not configured)."
-        return text, meta
-
-    payload = {
-        "q": text,
-        "source": source_lang,
-        "target": "en",
-        "format": "text",
-    }
-    headers = {"Content-Type": "application/json"}
-    if TRANSLATE_API_KEY:
-        # LibreTranslate commonly uses "api_key"
-        payload["api_key"] = TRANSLATE_API_KEY
-
-    try:
-        r = requests.post(
-            TRANSLATE_ENDPOINT,
-            json=payload,
-            headers=headers,
-            timeout=TRANSLATE_TIMEOUT,
-        )
-        if r.status_code == 200:
-            data = r.json()
-            translated = (data.get("translatedText") or "").strip()
-            detected = data.get("detectedLanguage") or data.get("detected_language")
-            if translated:
-                meta["translated"] = True
-                meta["translationProvider"] = TRANSLATE_ENDPOINT
-                meta["detectedSourceLang"] = detected
-                meta["translationNotes"] = "Headline/query was machine-translated to English."
-                return translated, meta
-    except Exception:
-        pass
-
-    meta["translationNotes"] = "Translation failed (endpoint error)."
-    return text, meta
-
-
-def ensure_english_item(text: str) -> Tuple[str, Dict[str, Any]]:
-    """
-    Returns text in English if possible.
-    - If already English-ish: unchanged, translated=False
-    - Else: translate and annotate (or keep original if translation unavailable)
-    """
-    return translate_to_english(text, source_lang="auto")
-
 
 
 # ---------------------------- CONFIG ----------------------------
@@ -151,6 +59,7 @@ HEADERS = {
         "Chrome/121.0.0.0 Safari/537.36"
     )
 }
+
 TIMEOUT = 25
 MAX_RETRIES = 3
 RETRY_SLEEP = 1.5
@@ -163,9 +72,12 @@ TOP_NEWS_N = 3
 WIKIDATA_SPARQL = "https://query.wikidata.org/sparql"
 GDELT_DOC = "https://api.gdeltproject.org/api/v2/doc/doc"
 
-# Your country list from the UI screenshot.
-# For stability + speed, we use ISO2 and (optionally) Wikidata QIDs.
-# If you later add more countries, just append entries here.
+# Translation (optional): set secrets TRANSLATE_ENDPOINT / TRANSLATE_API_KEY
+TRANSLATE_ENDPOINT = os.getenv("TRANSLATE_ENDPOINT", "").strip()
+TRANSLATE_API_KEY = os.getenv("TRANSLATE_API_KEY", "").strip()
+TRANSLATE_TIMEOUT = 20
+
+# Country list
 COUNTRIES: List[Dict[str, str]] = [
     {"country": "Ukraine", "iso2": "UA"},
     {"country": "Russia", "iso2": "RU"},
@@ -213,8 +125,6 @@ COUNTRIES: List[Dict[str, str]] = [
     {"country": "Sudan", "iso2": "SD"},
 ]
 
-# Query aliases can improve Trends/News accuracy for ambiguous names.
-# (Add more as you notice issues.)
 QUERY_ALIASES: Dict[str, List[str]] = {
     "UAE": ["United Arab Emirates", "UAE"],
     "United Kingdom": ["United Kingdom", "UK", "Britain"],
@@ -224,31 +134,36 @@ QUERY_ALIASES: Dict[str, List[str]] = {
     "South Korea": ["South Korea", "Republic of Korea"],
 }
 
-# Political skew mapping is inherently approximate.
-# You can expand this over time as you see recurring parties.
 PARTY_SKEW_OVERRIDES: Dict[str, str] = {
-    # UK
     "Conservative Party (UK)": "center-right / right",
     "Labour Party (UK)": "center-left",
     "Liberal Democrats (UK)": "center / center-left",
-    # US-ish examples (not in your list, but shows pattern)
-    "Democratic Party (United States)": "center-left",
-    "Republican Party (United States)": "center-right / right",
-    # Germany
     "Christian Democratic Union of Germany": "center-right",
     "Social Democratic Party of Germany": "center-left",
     "Alliance 90/The Greens": "left / center-left",
-    # Japan
     "Liberal Democratic Party (Japan)": "center-right",
 }
 
-# ---------------------------- HELPERS ----------------------------
+
+# ---------------------------- SMALL HELPERS ----------------------------
 
 def now_utc() -> datetime:
     return datetime.now(timezone.utc)
 
 def iso_z(dt: datetime) -> str:
     return dt.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+
+def safe_get(d: dict, *keys: str, default=None):
+    cur = d
+    for k in keys:
+        if not isinstance(cur, dict) or k not in cur:
+            return default
+        cur = cur[k]
+    return cur
+
+def pick_primary_query(country_name: str) -> str:
+    aliases = QUERY_ALIASES.get(country_name)
+    return aliases[0] if aliases else country_name
 
 def req_json(url: str, params: Optional[dict] = None, headers: Optional[dict] = None) -> Optional[dict]:
     h = dict(HEADERS)
@@ -265,34 +180,83 @@ def req_json(url: str, params: Optional[dict] = None, headers: Optional[dict] = 
         time.sleep(RETRY_SLEEP * attempt)
     return None
 
-def req_text(url: str, params: Optional[dict] = None, headers: Optional[dict] = None) -> Optional[str]:
-    h = dict(HEADERS)
-    if headers:
-        h.update(headers)
 
-    for attempt in range(1, MAX_RETRIES + 1):
-        try:
-            r = requests.get(url, params=params, headers=h, timeout=TIMEOUT)
-            if r.status_code == 200 and r.text:
-                return r.text
-        except requests.RequestException:
-            pass
-        time.sleep(RETRY_SLEEP * attempt)
-    return None
+# ---------------------------- ENGLISH + TRANSLATION ----------------------------
 
-def safe_get(d: dict, *keys: str, default=None):
-    cur = d
-    for k in keys:
-        if not isinstance(cur, dict) or k not in cur:
-            return default
-        cur = cur[k]
-    return cur
+def looks_english(text: str) -> bool:
+    """
+    Heuristic: does the text look English-ish?
+    """
+    if not text:
+        return False
+    t = text.strip()
+    if len(t) < 3:
+        return False
 
-def pick_primary_query(country_name: str) -> str:
-    aliases = QUERY_ALIASES.get(country_name)
-    if aliases:
-        return aliases[0]
-    return country_name
+    ascii_chars = sum(1 for ch in t if ord(ch) < 128)
+    if ascii_chars / max(1, len(t)) < 0.80:
+        return False
+
+    if not re.search(r"[A-Za-z]", t):
+        return False
+
+    return True
+
+def translate_to_english(text: str, source_lang: str = "auto") -> Tuple[str, Dict[str, Any]]:
+    """
+    Translate to English using a translation endpoint you provide (e.g., LibreTranslate).
+    Returns (translated_text, meta). If translation isn't configured/available, returns original.
+    """
+    meta: Dict[str, Any] = {
+        "translated": False,
+        "translationProvider": None,
+        "translationNotes": None,
+        "original": text,
+        "detectedSourceLang": None,
+    }
+
+    if not text or looks_english(text):
+        return text, meta
+
+    if not TRANSLATE_ENDPOINT:
+        meta["translationNotes"] = "Translation skipped (TRANSLATE_ENDPOINT not configured)."
+        return text, meta
+
+    payload: Dict[str, Any] = {
+        "q": text,
+        "source": source_lang,
+        "target": "en",
+        "format": "text",
+    }
+    if TRANSLATE_API_KEY:
+        payload["api_key"] = TRANSLATE_API_KEY
+
+    try:
+        r = requests.post(
+            TRANSLATE_ENDPOINT,
+            json=payload,
+            headers={"Content-Type": "application/json"},
+            timeout=TRANSLATE_TIMEOUT,
+        )
+        if r.status_code == 200:
+            data = r.json()
+            translated = (data.get("translatedText") or "").strip()
+            detected = data.get("detectedLanguage") or data.get("detected_language")
+            if translated:
+                meta["translated"] = True
+                meta["translationProvider"] = TRANSLATE_ENDPOINT
+                meta["detectedSourceLang"] = detected
+                meta["translationNotes"] = "Machine-translated to English."
+                return translated, meta
+    except Exception:
+        pass
+
+    meta["translationNotes"] = "Translation failed (endpoint error)."
+    return text, meta
+
+def ensure_english_item(text: str) -> Tuple[str, Dict[str, Any]]:
+    return translate_to_english(text, source_lang="auto")
+
 
 # ---------------------------- WIKIDATA ----------------------------
 
@@ -309,10 +273,7 @@ def _wd_val(b: dict, key: str) -> Optional[str]:
         return None
     return v.get("value")
 
-def get_wikidata_country_qid(country_label: str, iso2: str) -> Optional[str]:
-    """
-    Resolve the country entity by ISO2 first (more stable than label).
-    """
+def get_wikidata_country_qid(iso2: str) -> Optional[str]:
     q = f"""
     SELECT ?country WHERE {{
       ?country wdt:P297 "{iso2}" .
@@ -325,19 +286,9 @@ def get_wikidata_country_qid(country_label: str, iso2: str) -> Optional[str]:
     uri = _wd_val(bindings[0], "country")
     if not uri:
         return None
-    return uri.rsplit("/", 1)[-1]  # Qxxx
+    return uri.rsplit("/", 1)[-1]
 
 def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
-    """
-    Pull:
-    - political system (P122)
-    - head of state (P35)
-    - head of government (P6)
-    - legislature (P194)
-    - (best-effort) next election (varies; may be empty)
-    - leader parties (P102)
-    """
-    # We also grab labels in English.
     q = f"""
     SELECT
       ?polsysLabel
@@ -374,7 +325,6 @@ def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
     data = wikidata_sparql(q)
     bindings = safe_get(data, "results", "bindings", default=[])
 
-    # Aggregate (because SPARQL can return multiple rows).
     pol_systems = set()
     legislatures = set()
 
@@ -382,8 +332,6 @@ def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
     hos_party = None
     hog_name = None
     hog_party = None
-
-    # Titles from P39 are noisy; we’ll keep them only if they look plausible.
     hos_title = None
     hog_title = None
 
@@ -396,7 +344,6 @@ def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
         if leg:
             legislatures.add(leg)
 
-        # heads may repeat; choose the first non-empty.
         if not hos_name:
             hos_name = _wd_val(b, "hosLabel")
         if not hos_title:
@@ -413,7 +360,7 @@ def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
 
     political_system = ", ".join(sorted(pol_systems)) if pol_systems else "unknown"
 
-    leaders = []
+    leaders: List[Dict[str, Any]] = []
     if hos_name:
         leaders.append({
             "name": hos_name,
@@ -431,10 +378,9 @@ def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
             "party": hog_party,
         })
 
-    # Party control (best effort): infer executive controlling party from HoG/HoS party
     executive_party = hog_party or hos_party
 
-    party_control = []
+    party_control: List[Dict[str, Any]] = []
     if executive_party:
         party_control.append({
             "body": "Executive (approx.)",
@@ -442,7 +388,6 @@ def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
             "controlType": "leader-party",
             "notes": "Derived from leader party; not a seat-count dataset."
         })
-    # Legislature is usually present, but "control" needs seat data; we keep body + unknown controller
     for leg in sorted(legislatures):
         party_control.append({
             "body": leg,
@@ -451,20 +396,16 @@ def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
             "notes": "Seat/coalition control not reliably available via Wikidata alone."
         })
 
-    # Political skew summary (heuristic from leader party)
     skew = "unknown/contested"
     if executive_party and executive_party in PARTY_SKEW_OVERRIDES:
         skew = PARTY_SKEW_OVERRIDES[executive_party]
 
-    # Next election: Wikidata is inconsistent. We'll attempt a tiny best-effort query:
-    # Look for "election" items in the country that have a future date (P585 = point in time).
-    # This often returns nothing; we treat as unknown.
     next_election = {"date": None, "type": None, "notes": "unknown"}
     try:
         q2 = f"""
         SELECT ?eLabel ?date WHERE {{
           ?e wdt:P17 wd:{country_qid} .
-          ?e wdt:P31/wdt:P279* wd:Q40231 .  # election (class/subclass)
+          ?e wdt:P31/wdt:P279* wd:Q40231 .
           ?e wdt:P585 ?date .
           FILTER(?date > NOW())
           SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }}
@@ -476,7 +417,6 @@ def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
             date_raw = _wd_val(b2[0], "date")
             e_label = _wd_val(b2[0], "eLabel") or "Election"
             if date_raw:
-                # Keep YYYY-MM-DD if possible
                 next_election = {
                     "date": date_raw[:10],
                     "type": e_label,
@@ -485,10 +425,9 @@ def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
     except Exception:
         pass
 
-    # Leader notes if none found
     leader_notes = ""
     if not leaders:
-        leader_notes = "No definitive national leader found via Wikidata fields (P35/P6). Country may have collective leadership or missing data."
+        leader_notes = "No definitive leader found via Wikidata (P35/P6). Possible collective leadership or missing data."
 
     return {
         "politicalSystem": political_system,
@@ -502,64 +441,65 @@ def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
 
 # ---------------------------- GDELT NEWS ----------------------------
 
-def gdelt_top_stories(country_name: str, max_records: int = TOP_NEWS_N) -> List[Dict[str, str]]:
-    """
-    Uses GDELT DOC API with a 3-day window.
-    We keep results simple: title/url/source/publishedAt.
-    """
+def gdelt_top_stories(country_name: str, max_records: int = TOP_NEWS_N) -> List[Dict[str, Any]]:
     start = (now_utc() - timedelta(days=NEWS_WINDOW_DAYS)).strftime("%Y%m%d%H%M%S")
     end = now_utc().strftime("%Y%m%d%H%M%S")
 
-    # Use quoted phrase query to reduce noise, but allow aliases if configured.
     queries = QUERY_ALIASES.get(country_name, [country_name])
-    # Build OR query: ("Iran" OR "Islamic Republic of Iran") etc.
     q = " OR ".join([f'"{x}"' for x in queries])
 
     params = {
         "query": q,
         "mode": "ArtList",
         "format": "json",
-        "maxrecords": str(max_records * 5),  # pull extra then dedupe
+        "maxrecords": str(max_records * 10),
         "startdatetime": start,
         "enddatetime": end,
-        "sourcelang": "English",  # keep consistent for now; can remove for local-language
-        "formatting": "json",
-        "sort": "HybridRel",  # relevance + recency
+        "sourcelang": "English",
+        "sort": "HybridRel",
     }
 
     data = req_json(GDELT_DOC, params=params)
     arts = safe_get(data, "articles", default=[]) if isinstance(data, dict) else []
 
-    out: List[Dict[str, str]] = []
+    out: List[Dict[str, Any]] = []
     seen = set()
-    for a in arts:
-        title = a.get("title") or ""
-        url = a.get("url") or ""
-        source = a.get("sourceCountry") or a.get("sourceCollection") or a.get("sourceCommonName") or a.get("source") or ""
-        dt = a.get("seendate") or a.get("date") or ""
 
-        key = (title.strip().lower(), url.strip().lower())
-        if not title or not url or key in seen:
+    for a in arts:
+        title = (a.get("title") or "").strip()
+        url = (a.get("url") or "").strip()
+        source = (a.get("sourceCommonName") or a.get("source") or "GDELT").strip()
+        dt = (a.get("seendate") or a.get("date") or "").strip()
+
+        if not title or not url:
+            continue
+
+        key = (title.lower(), url.lower())
+        if key in seen:
             continue
         seen.add(key)
 
+        final_title, tmeta = ensure_english_item(title)
+
         out.append({
-            "title": title.strip(),
-            "url": url.strip(),
-            "source": str(source).strip()[:80] if source else "GDELT",
-            "publishedAt": dt.strip(),
+            "title": final_title,
+            "titleOriginal": tmeta["original"],
+            "titleWasTranslated": tmeta["translated"],
+            "titleTranslationNotes": tmeta["translationNotes"],
+            "url": url,
+            "source": source[:80],
+            "publishedAt": dt,
         })
+
         if len(out) >= TOP_NEWS_N:
             break
+
     return out
 
 
 # ---------------------------- TRENDS (PYTRENDS) ----------------------------
 
 def _init_pytrends():
-    """
-    Lazy import so the whole job doesn't fail if pytrends is blocked.
-    """
     try:
         from pytrends.request import TrendReq  # type: ignore
         proxy = os.getenv("PYTRENDS_PROXY", "").strip()
@@ -569,55 +509,67 @@ def _init_pytrends():
         return None
 
 def trends_top_searches(country_iso2: str) -> Tuple[List[Dict[str, Any]], str]:
-    """
-    Best-effort top searches in the last ~day.
-    pytrends daily_trends returns "today's" trends for certain geos.
-    Many geos return empty or error; we return [] with a note.
-    """
     pytrends = _init_pytrends()
     if pytrends is None:
         return [], "pytrends unavailable"
 
+    geo = country_iso2.lower()
+
+    # today_searches
     try:
-        df = pytrends.today_searches(pn=country_iso2.lower())
-        # today_searches returns a list-like series depending on version.
-        items = []
+        df = pytrends.today_searches(pn=geo)
+        items: List[Dict[str, Any]] = []
         for i, q in enumerate(list(df)[:TOP_TRENDS_N], start=1):
-            items.append({"query": str(q), "rank": i})
+            q_str = str(q).strip()
+            q_en, qmeta = ensure_english_item(q_str)
+            items.append({
+                "query": q_en,
+                "queryOriginal": qmeta["original"],
+                "queryWasTranslated": qmeta["translated"],
+                "queryTranslationNotes": qmeta["translationNotes"],
+                "rank": i
+            })
         return items, "google_trends_today_searches"
     except Exception:
-        # fallback: daily_trends exists for some countries (geo must be like 'UNITED_STATES' etc.)
-        try:
-            daily = pytrends.daily_trends(country=country_iso2.upper())
-            # daily_trends returns a dataframe with a 'trend' column in some versions.
-            if "trend" in daily.columns:
-                vals = daily["trend"].tolist()
-            else:
-                vals = daily.iloc[:, 0].tolist()
-            items = [{"query": str(q), "rank": i} for i, q in enumerate(vals[:TOP_TRENDS_N], start=1)]
-            return items, "google_trends_daily_trends"
-        except Exception:
-            return [], "google_trends_unavailable_for_geo"
+        pass
+
+    # daily_trends fallback
+    try:
+        daily = pytrends.daily_trends(country=country_iso2.upper())
+        if hasattr(daily, "columns") and "trend" in daily.columns:
+            vals = daily["trend"].tolist()
+        else:
+            vals = daily.iloc[:, 0].tolist()
+
+        items = []
+        for i, q in enumerate(vals[:TOP_TRENDS_N], start=1):
+            q_str = str(q).strip()
+            q_en, qmeta = ensure_english_item(q_str)
+            items.append({
+                "query": q_en,
+                "queryOriginal": qmeta["original"],
+                "queryWasTranslated": qmeta["translated"],
+                "queryTranslationNotes": qmeta["translationNotes"],
+                "rank": i
+            })
+        return items, "google_trends_daily_trends"
+    except Exception:
+        return [], "google_trends_unavailable_for_geo"
 
 def us_interest(country_query: str) -> Tuple[Dict[str, Any], str]:
-    """
-    US interest (past 24 hours). Returns:
-      - interestIndex (latest)
-      - sparkline (list of ints)
-    """
     pytrends = _init_pytrends()
     if pytrends is None:
         return {"query": country_query, "window": "past_24h", "interestIndex": 0, "sparkline": []}, "pytrends unavailable"
 
     try:
-        kw = [country_query]
-        pytrends.build_payload(kw_list=kw, timeframe="now 1-d", geo="US")
+        pytrends.build_payload(kw_list=[country_query], timeframe="now 1-d", geo="US")
         df = pytrends.interest_over_time()
         if df is None or df.empty:
             return {"query": country_query, "window": "past_24h", "interestIndex": 0, "sparkline": []}, "google_trends_interest_empty"
+
         series = df[country_query].tolist()
         latest = int(series[-1]) if series else 0
-        spark = [int(x) for x in series[-24:]]  # last 24 points if hourly-ish
+        spark = [int(x) for x in series[-24:]]
         return {"query": country_query, "window": "past_24h", "interestIndex": latest, "sparkline": spark}, "google_trends_interest_over_time_us"
     except Exception:
         return {"query": country_query, "window": "past_24h", "interestIndex": 0, "sparkline": []}, "google_trends_interest_failed"
@@ -639,7 +591,7 @@ def build_country(country_name: str, iso2: str) -> Dict[str, Any]:
         "nextElection": {"date": None, "type": None, "notes": "unknown"},
     }
 
-    qid = get_wikidata_country_qid(country_name, iso2)
+    qid = get_wikidata_country_qid(iso2)
     if not qid:
         warnings.append("Wikidata country entity not found via ISO2; government fields missing.")
         confidence -= 0.25
@@ -650,9 +602,8 @@ def build_country(country_name: str, iso2: str) -> Dict[str, Any]:
                 warnings.append("Political skew is heuristic and may be contested or unavailable.")
                 confidence -= 0.05
             if not gov.get("leaders"):
-                warnings.append("Leader fields missing; country may have collective leadership or Wikidata gaps.")
+                warnings.append("Leader fields missing; possible collective leadership or Wikidata gaps.")
                 confidence -= 0.10
-            # Next election often missing
             ne = gov.get("nextElection", {})
             if not ne or not ne.get("date"):
                 warnings.append("Next election not reliably available; verify with official election bodies.")
@@ -661,13 +612,16 @@ def build_country(country_name: str, iso2: str) -> Dict[str, Any]:
             warnings.append("Wikidata query error; government fields partially missing.")
             confidence -= 0.20
 
-    # Trends (in-country)
+    # Trends
     trends_items, trends_method = trends_top_searches(iso2)
     if not trends_items:
         warnings.append("Top searches unavailable for this geo via Google Trends (common in CI).")
         confidence -= 0.10
+    elif not TRANSLATE_ENDPOINT:
+        warnings.append("Translation not configured; non-English trends may appear unmodified.")
+        confidence -= 0.03
 
-    # News (GDELT)
+    # News
     try:
         stories = gdelt_top_stories(country_name)
         if len(stories) < TOP_NEWS_N:
@@ -707,6 +661,8 @@ def build_country(country_name: str, iso2: str) -> Dict[str, Any]:
             "confidence": round(confidence, 2),
             "warnings": warnings,
             "lastSuccessfulUpdate": iso_z(now_utc()),
+            "translationEnabled": bool(TRANSLATE_ENDPOINT),
+            "translationProvider": TRANSLATE_ENDPOINT or None,
         }
     }
 
@@ -722,7 +678,6 @@ def main():
         iso2 = c["iso2"]
         print(f"▶ Building snapshot for {country_name} ({iso2}) ...")
         out["countries"].append(build_country(country_name, iso2))
-        # tiny sleep to reduce rate-limit risk
         time.sleep(0.2)
 
     out_dir = Path("public")
