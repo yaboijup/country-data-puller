@@ -1,0 +1,3563 @@
+{
+  "generatedAt": "2026-01-31T21:58:52.569632Z",
+  "windowHours": 24,
+  "countries": [
+    {
+      "country": "Ukraine",
+      "iso2": "UA",
+      "government": {
+        "politicalSystem": "semi-presidential system",
+        "leaders": [
+          {
+            "name": "Volodymyr Zelenskyy",
+            "title": "Supreme Commander of the Armed Forces of Ukraine",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Servant of the People"
+          },
+          {
+            "name": "Yulia Svyrydenko",
+            "title": "First Deputy Prime Minister of Ukraine",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": null
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Servant of the People",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Verkhovna Rada",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": null,
+          "type": null,
+          "notes": "unknown"
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "Пророссийское подполье срывает логистику ВСУ по всей Украине",
+            "url": "https://ria.ru/20260129/podpole-2070894503.html",
+            "source": "GDELT",
+            "publishedAt": "20260129T033000Z"
+          },
+          {
+            "title": "В МИД России назвали лучшую гарантию безопасности для Украины",
+            "url": "https://ria.ru/20260131/mid-2071382290.html",
+            "source": "GDELT",
+            "publishedAt": "20260131T060000Z"
+          },
+          {
+            "title": "В МИД назвали лучшую гарантию безопасности Украины",
+            "url": "https://ria.ru/20260131/ukraina-2071378501.html",
+            "source": "GDELT",
+            "publishedAt": "20260131T050000Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Ukraine",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.7,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Next election not reliably available; verify with official election bodies.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T21:58:55.977804Z"
+      }
+    },
+    {
+      "country": "Russia",
+      "iso2": "RU",
+      "government": {
+        "politicalSystem": "super-presidential republic",
+        "leaders": [
+          {
+            "name": "Vladimir Putin",
+            "title": "President of Russia",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": null
+          },
+          {
+            "name": "Mikhail Mishustin",
+            "title": "Prime Minister of Russia",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": null
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Federal Assembly of the Russian Federation",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2026-09-20",
+          "type": "2026 Russian legislative election",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "В Прокопьевске ликвидировали пожар в сауне",
+            "url": "https://ria.ru/20260131/pozhar-2071468782.html",
+            "source": "GDELT",
+            "publishedAt": "20260131T173000Z"
+          },
+          {
+            "title": "В Германии призвали Мерца восстановить диалог с Россией",
+            "url": "https://ria.ru/20260130/germanija-2071161985.html",
+            "source": "GDELT",
+            "publishedAt": "20260130T080000Z"
+          },
+          {
+            "title": "Захарова пожелала новому послу Белоруссии в России успехов",
+            "url": "https://ria.ru/20260130/moskva-2071286416.html",
+            "source": "GDELT",
+            "publishedAt": "20260130T134500Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Russia",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.75,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T21:59:03.652283Z"
+      }
+    },
+    {
+      "country": "India",
+      "iso2": "IN",
+      "government": {
+        "politicalSystem": "federal republic, parliamentary democracy",
+        "leaders": [
+          {
+            "name": "Droupadi Murmu",
+            "title": "President of India",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Bharatiya Janata Party"
+          },
+          {
+            "name": "Narendra Modi",
+            "title": "member of the Lok Sabha",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "Bharatiya Janata Party"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Bharatiya Janata Party",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Parliament of India",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2026-05-01",
+          "type": "next Tamil Nadu Legislative Assembly election",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "ഇന്ത്യയ്ക്ക്  നാറ്റോ  യിൽ ചേരാതെ തുല്യപദവി നൽകാൻ യൂറോപ്യൻ യൂണിയൻ : ആഗോള സമവാക്യങ്ങൾ മാറുന്നു",
+            "url": "https://www.mathrubhumi.com/technology/defence/india-eu-security-defense-pact-tpjqazku",
+            "source": "GDELT",
+            "publishedAt": "20260130T160000Z"
+          },
+          {
+            "title": "印度认清现实了 ： 缺了中国 ， 啥啥不行  |中印|辛格|夏尔马",
+            "url": "https://www.163.com/news/article/KKFMU0G80001899O.html",
+            "source": "GDELT",
+            "publishedAt": "20260129T151500Z"
+          },
+          {
+            "title": "印度认清现实了 ： 美国靠不住 ， 缺了中国全卡壳  |印度 _ 新浪财经 _ 新浪网",
+            "url": "https://finance.sina.com.cn/roll/2026-01-29/doc-inhixurz6750541.shtml",
+            "source": "GDELT",
+            "publishedAt": "20260129T040000Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "India",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.75,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T21:59:08.151194Z"
+      }
+    },
+    {
+      "country": "Pakistan",
+      "iso2": "PK",
+      "government": {
+        "politicalSystem": "federal republic, parliamentary republic",
+        "leaders": [
+          {
+            "name": "Asif Ali Zardari",
+            "title": "President of Pakistan",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Pakistan Peoples Party"
+          },
+          {
+            "name": "Shehbaz Sharif",
+            "title": "President of the Pakistan Muslim League (N)",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "Pakistan Muslim League (N)"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Pakistan Muslim League (N)",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Parliament of Pakistan",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2029-01-01",
+          "type": "next Pakistani general election",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "中國大挫敗 ！ 李嘉誠港口經營權遭撤 巴拿馬運河暫由馬士基接手",
+            "url": "https://ec.ltn.com.tw/article/breakingnews/5328240",
+            "source": "GDELT",
+            "publishedAt": "20260131T070000Z"
+          },
+          {
+            "title": "巴基斯坦俾路支省爆發分離主義分子攻擊衝突 釀47死 - 國際",
+            "url": "https://news.ltn.com.tw/news/world/breakingnews/5328536",
+            "source": "GDELT",
+            "publishedAt": "20260131T133000Z"
+          },
+          {
+            "title": "فیفا ورلڈکپ ٹرافی کا ایونٹ سے قبل پاکستان کا دورہ متوقع",
+            "url": "https://www.express.pk/story/2798501/fifa-world-cup-trophy-expected-to-visit-pakistan-ahead-of-event-2798501",
+            "source": "GDELT",
+            "publishedAt": "20260129T100000Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Pakistan",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.75,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T21:59:15.836760Z"
+      }
+    },
+    {
+      "country": "China",
+      "iso2": "CN",
+      "government": {
+        "politicalSystem": "communist dictatorship, constitutional republic, democratic centralism, one-party state, parliamentary republic, republic, unitary state",
+        "leaders": [
+          {
+            "name": "Xi Jinping",
+            "title": "member of the Politburo of the Chinese Communist Party",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Chinese Communist Party"
+          },
+          {
+            "name": "Li Qiang",
+            "title": "Premier of the People's Republic of China",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "Chinese Communist Party"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Chinese Communist Party",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "National People's Congress",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": null,
+          "type": null,
+          "notes": "unknown"
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "跨国企业负责人高度肯定中国经济成绩单 共享中国经济发展红利",
+            "url": "https://baijiahao.baidu.com/s?id=1855819485586989195",
+            "source": "GDELT",
+            "publishedAt": "20260131T090000Z"
+          },
+          {
+            "title": "跨国企业负责人高度肯定中国经济成绩单 共享中国经济发展红利",
+            "url": "https://baijiahao.baidu.com/s?id=1855815803080494338",
+            "source": "GDELT",
+            "publishedAt": "20260131T074500Z"
+          },
+          {
+            "title": "跨国企业负责人高度肯定中国经济成绩单 共享中国经济发展红利",
+            "url": "https://baijiahao.baidu.com/s?id=1855836334134580286",
+            "source": "GDELT",
+            "publishedAt": "20260131T153000Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "China",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.7,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Next election not reliably available; verify with official election bodies.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T21:59:23.323989Z"
+      }
+    },
+    {
+      "country": "United Kingdom",
+      "iso2": "GB",
+      "government": {
+        "politicalSystem": "constitutional monarchy",
+        "leaders": [
+          {
+            "name": "Charles III",
+            "title": "monarch of the United Kingdom",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": null
+          },
+          {
+            "name": "Keir Starmer",
+            "title": "Leader of the Labour Party",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "Labour Party"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Labour Party",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Parliament of the United Kingdom",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2026-02-26",
+          "type": "2026 Gorton and Denton by-election",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "United Kingdom",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.7,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "Fewer than 3 recent stories found via GDELT with current filters.",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T21:59:35.734473Z"
+      }
+    },
+    {
+      "country": "Germany",
+      "iso2": "DE",
+      "government": {
+        "politicalSystem": "federal parliamentary republic, federation, parliamentary republic, republic",
+        "leaders": [
+          {
+            "name": "Frank-Walter Steinmeier",
+            "title": "president of Germany",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Social Democratic Party of Germany"
+          },
+          {
+            "name": "Friedrich Merz",
+            "title": "member of the German Bundestag",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "Christian Democratic Union"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Christian Democratic Union",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Bundesrat",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          },
+          {
+            "body": "German Bundestag",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2026-03-08",
+          "type": "2026 Baden-Württemberg state election",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "德国1月失业人数突破300万创12年新高",
+            "url": "https://baijiahao.baidu.com/s?id=1855840620857345312",
+            "source": "GDELT",
+            "publishedAt": "20260131T153000Z"
+          },
+          {
+            "title": "I . Ruginienė kertiniu saugumo elementu vadina JAV ir Vokietijos karių buvimą Lietuvoje",
+            "url": "https://www.lrytas.lt/lietuvosdiena/aktualijos/2026/01/29/news/i-ruginiene-kertiniu-saugumo-elementu-vadina-jav-ir-vokietijos-kariu-buvima-lietuvoje-41147353/",
+            "source": "GDELT",
+            "publishedAt": "20260129T151500Z"
+          },
+          {
+            "title": "В Германии призвали Мерца восстановить диалог с Россией",
+            "url": "https://ria.ru/20260130/germanija-2071161985.html",
+            "source": "GDELT",
+            "publishedAt": "20260130T080000Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Germany",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.75,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T21:59:39.261383Z"
+      }
+    },
+    {
+      "country": "UAE",
+      "iso2": "AE",
+      "government": {
+        "politicalSystem": "absolute monarchy, constitutional monarchy, federal monarchy",
+        "leaders": [
+          {
+            "name": "Mohammed Bin Zayed Al Nahyan",
+            "title": "Ruler of Abu Dhabi",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": null
+          },
+          {
+            "name": "Mohammed bin Rashid Al Maktoum",
+            "title": "Ruler of Dubai",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": null
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Federal Supreme Council",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": null,
+          "type": null,
+          "notes": "unknown"
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "United Arab Emirates",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.65,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Next election not reliably available; verify with official election bodies.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "Fewer than 3 recent stories found via GDELT with current filters.",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T21:59:50.550572Z"
+      }
+    },
+    {
+      "country": "Saudi Arabia",
+      "iso2": "SA",
+      "government": {
+        "politicalSystem": "absolute monarchy, monarchy, theocracy",
+        "leaders": [
+          {
+            "name": "Salman bin Abdulaziz Al Saud",
+            "title": "Custodian of the Two Holy Mosques",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": null
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Prime Minister of Saudi Arabia",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": null,
+          "type": null,
+          "notes": "unknown"
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "سعر الذهب في السعودية اليوم السبت 31 يناير 2026 وفق أحدث التعاملات",
+            "url": "https://www.dostor.org/5402030",
+            "source": "GDELT",
+            "publishedAt": "20260131T091500Z"
+          },
+          {
+            "title": "سعر الريال السعودي مقابل الجنيه اليوم الخميس 29 يناير 2026 في البنوك",
+            "url": "https://www.dostor.org/5400761",
+            "source": "GDELT",
+            "publishedAt": "20260129T214500Z"
+          },
+          {
+            "title": "سعر الريال السعودي اليوم الخميس 29 يناير 2026 في مصر لحظة بلحظة",
+            "url": "https://www.dostor.org/5400764",
+            "source": "GDELT",
+            "publishedAt": "20260129T213000Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Saudi Arabia",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.7,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Next election not reliably available; verify with official election bodies.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T21:59:58.481420Z"
+      }
+    },
+    {
+      "country": "Israel",
+      "iso2": "IL",
+      "government": {
+        "politicalSystem": "parliamentary republic, unitary state",
+        "leaders": [
+          {
+            "name": "Isaac Herzog",
+            "title": "President of Israel",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Israeli Labor Party"
+          },
+          {
+            "name": "Benjamin Netanyahu",
+            "title": "Regional Development Minister of Israel",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "Likud"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Likud",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "The Knesset",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2026-10-27",
+          "type": "next Israeli legislative election",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "V izraelskih napadih v Gazi trije mrtvi",
+            "url": "https://siol.net/novice/svet/v-izraelskih-napadih-v-gazi-trije-mrtvi-683112",
+            "source": "GDELT",
+            "publishedAt": "20260130T130000Z"
+          },
+          {
+            "title": "اثرات جنگ احتمالی آینده با ایران بر اقتصاد اسرائیل",
+            "url": "https://www.radiofarda.com/a/israeli-economists-examine-the-effects-of-iran-related-military-developments-on-country-s-economy/33660401.html",
+            "source": "GDELT",
+            "publishedAt": "20260129T151500Z"
+          },
+          {
+            "title": "Ракетный эсминец ВМС США пришвартовался в порту на юге Израиля",
+            "url": "https://ria.ru/20260130/esminets-2071196220.html",
+            "source": "GDELT",
+            "publishedAt": "20260130T100000Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Israel",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.75,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:00:03.237994Z"
+      }
+    },
+    {
+      "country": "Palestine",
+      "iso2": "PS",
+      "government": {
+        "politicalSystem": "parliamentary republic",
+        "leaders": [
+          {
+            "name": "Mahmoud Abbas",
+            "title": "Chairman of the Executive Committee of the Palestine Liberation Organization",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Fatah"
+          },
+          {
+            "name": "Mohammad Mustafa",
+            "title": "Prime Minister of the State of Palestine",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "independent politician"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "independent politician",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Palestinian Legislative Council",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": null,
+          "type": null,
+          "notes": "unknown"
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Palestine",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.65,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Next election not reliably available; verify with official election bodies.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "Fewer than 3 recent stories found via GDELT with current filters.",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:00:14.431226Z"
+      }
+    },
+    {
+      "country": "Mexico",
+      "iso2": "MX",
+      "government": {
+        "politicalSystem": "federal republic",
+        "leaders": [
+          {
+            "name": "Claudia Sheinbaum",
+            "title": "President of Mexico",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Morena"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Morena",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Congress of the Union",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": null,
+          "type": null,
+          "notes": "unknown"
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "Sheinbaum y Trump conversan por teléfono sobre temas relevantes de relación México - EEUU",
+            "url": "http://spanish.xinhuanet.com/20260130/32c9c52a7b5c4394a15ed8b93bc5df83/c.html",
+            "source": "GDELT",
+            "publishedAt": "20260130T033000Z"
+          },
+          {
+            "title": "Serie del Caribe 2026 : Fechas y horarios de los partidos de México",
+            "url": "https://www.eluniversal.com.mx/deportes/serie-del-caribe-2026-fechas-y-horarios-de-los-partidos-de-mexico/",
+            "source": "GDELT",
+            "publishedAt": "20260131T034500Z"
+          },
+          {
+            "title": "Turis Bawa Vape ke Negara ini Bisa Didenda hingga Masuk Penjara",
+            "url": "https://www.cnnindonesia.com/gaya-hidup/20260128171904-269-1322076/turis-bawa-vape-ke-negara-ini-bisa-didenda-hingga-masuk-penjara",
+            "source": "GDELT",
+            "publishedAt": "20260129T043000Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Mexico",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.7,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Next election not reliably available; verify with official election bodies.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:00:23.578848Z"
+      }
+    },
+    {
+      "country": "Brazil",
+      "iso2": "BR",
+      "government": {
+        "politicalSystem": "federal republic, presidential system, representative democracy",
+        "leaders": [
+          {
+            "name": "Luiz Inácio Lula da Silva",
+            "title": "President of Brazil",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Workers' Party"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Workers' Party",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "National Congress of Brazil",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2026-10-04",
+          "type": "2026 Brazilian parliamentary election",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "Grade de Programao TV Brasil de 02 a 08 . 02 . 2026",
+            "url": "https://www.ebc.com.br/imprensa/2026/grade-de-programacao-tv-brasil-de-02-a-08-02.2026",
+            "source": "GDELT",
+            "publishedAt": "20260130T140000Z"
+          },
+          {
+            "title": "Lore Improta e Léo Santana reúnem famosos na  Noite da Aclamao  | Celebridades",
+            "url": "https://odia.ig.com.br/diversao/celebridades/2026/01/7200220-lore-improta-e-leo-santana-reunem-famosos-na-noite-da-aclamacao.html",
+            "source": "GDELT",
+            "publishedAt": "20260129T151500Z"
+          },
+          {
+            "title": "BBB 26 tem novo beijo na boca durante festa com Diogo Nogueira",
+            "url": "https://www.correio24horas.com.br/em-alta/bbb-26-tem-novo-beijo-na-boca-durante-festa-com-diogo-nogueira-0126",
+            "source": "GDELT",
+            "publishedAt": "20260131T114500Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Brazil",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.75,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:00:32.796010Z"
+      }
+    },
+    {
+      "country": "Canada",
+      "iso2": "CA",
+      "government": {
+        "politicalSystem": "constitutional monarchy, federation, parliamentary system",
+        "leaders": [
+          {
+            "name": "Charles III",
+            "title": "monarch of the United Kingdom",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": null
+          },
+          {
+            "name": "Mark Carney",
+            "title": "member of the House of Commons of Canada",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "Liberal Party of Canada"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Liberal Party of Canada",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Parliament of Canada",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2026-03-29",
+          "type": "2026 New Democratic Party leadership election",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "加拿大CEO信心崩跌 最怕美國關稅 | 加拿大經濟",
+            "url": "https://www.epochtimes.com/b5/26/1/22/n14681872.htm",
+            "source": "GDELT",
+            "publishedAt": "20260129T100000Z"
+          },
+          {
+            "title": "川普稱將取消加拿大製飛機認證 ， 揚言祭 50 % 關稅",
+            "url": "https://technews.tw/2026/01/30/trump-threatens-50-tariffs-on-canadian-made-aircraft/",
+            "source": "GDELT",
+            "publishedAt": "20260130T060000Z"
+          },
+          {
+            "title": "加國籍法廢除 「 一代 」 限制 祖父母是公民孫輩也能申請 | 加拿大 | 加拿大國籍法",
+            "url": "https://www.epochtimes.com/b5/26/1/22/n14681876.htm",
+            "source": "GDELT",
+            "publishedAt": "20260129T100000Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Canada",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.75,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:00:41.821451Z"
+      }
+    },
+    {
+      "country": "Nigeria",
+      "iso2": "NG",
+      "government": {
+        "politicalSystem": "federal republic",
+        "leaders": [
+          {
+            "name": "Bola Ahmed Tinubu",
+            "title": "Chairperson of ECOWAS",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Action Congress of Nigeria"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Action Congress of Nigeria",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "National Assembly of Nigeria",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2026-08-08",
+          "type": "2026 Osun State gubernatorial election",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "Dele Oye Pushes for Enhanced Private Sectors Investment Cooperation with Turkey – THISDAYLIVE",
+            "url": "https://www.thisdaylive.com/2026/01/29/dele-oye-pushes-for-enhanced-private-sectors-investment-cooperation-with-turkey/",
+            "source": "GDELT",
+            "publishedAt": "20260129T024500Z"
+          },
+          {
+            "title": "Jetour Nigeria Names 7 Accredited Dealers , Shakes Up Auto Market – THISDAYLIVE",
+            "url": "https://www.thisdaylive.com/2026/01/31/jetour-nigeria-names-7-accredited-dealers-shakes-up-auto-market/",
+            "source": "GDELT",
+            "publishedAt": "20260131T021500Z"
+          },
+          {
+            "title": "开拓者97 - 127惨败尼克斯 ， 杨瀚森无数据进账 ， 夏普26分",
+            "url": "https://www.163.com/dy/article/KKJKB3QS0549BAP0.html",
+            "source": "GDELT",
+            "publishedAt": "20260131T034500Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Nigeria",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.75,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:01:00.878988Z"
+      }
+    },
+    {
+      "country": "Japan",
+      "iso2": "JP",
+      "government": {
+        "politicalSystem": "constitutional monarchy",
+        "leaders": [
+          {
+            "name": "Naruhito",
+            "title": "Emperor of Japan",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": null
+          },
+          {
+            "name": "Sanae Takaichi",
+            "title": "Prime Minister of Japan",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "Liberal Democratic Party"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Liberal Democratic Party",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "National Diet",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2026-02-08",
+          "type": "2026 Osaka mayoral election",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "坚决遏制日本右翼拥核野心 -- 军事 -- 人民网",
+            "url": "http://military.people.com.cn/n1/2026/0129/c1011-40655368.html",
+            "source": "GDELT",
+            "publishedAt": "20260129T040000Z"
+          },
+          {
+            "title": "Dari Perkenalan dalam Bahasa Jepang hingga Kerja Tim , Ini Pola Wawancara Kerja di Jepang",
+            "url": "https://ohayojepang.kompas.com/read/2291/dari-perkenalan-dalam-bahasa-jepang-hingga-kerja-tim-ini-pola-wawancara-kerja-di-jepang",
+            "source": "GDELT",
+            "publishedAt": "20260130T041500Z"
+          },
+          {
+            "title": "台灣對日本為何重要 日學者 ： 具3大戰略價值 | 政治",
+            "url": "https://www.cna.com.tw:443/news/aipl/202601310016.aspx",
+            "source": "GDELT",
+            "publishedAt": "20260131T031500Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Japan",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.75,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:01:21.318872Z"
+      }
+    },
+    {
+      "country": "Iran",
+      "iso2": "IR",
+      "government": {
+        "politicalSystem": "Islamic Republic, presidential system, theocracy, unitary state",
+        "leaders": [
+          {
+            "name": "Ali Khamenei",
+            "title": "Chairman of the Expediency Discernment Council",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Combatant Clergy Association"
+          },
+          {
+            "name": "Masoud Pezeshkian",
+            "title": "President of Iran",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "independent politician"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "independent politician",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Islamic Consultative Assembly",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": null,
+          "type": null,
+          "notes": "unknown"
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Iran",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.65,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Next election not reliably available; verify with official election bodies.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "Fewer than 3 recent stories found via GDELT with current filters.",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:01:32.724192Z"
+      }
+    },
+    {
+      "country": "Syria",
+      "iso2": "SY",
+      "government": {
+        "politicalSystem": "semi-presidential system",
+        "leaders": [],
+        "leaderNotes": "No definitive national leader found via Wikidata fields (P35/P6). Country may have collective leadership or missing data.",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "People's Assembly of Syria",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2028-01-01",
+          "type": "2028 Syrian presidential election",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "Devlet Bahçeli , Suriye eski Geçici Hükümeti Başkanı  nı kabul etti",
+            "url": "https://www.ensonhaber.com/gundem/devlet-bahceli-suriye-eski-gecici-hukumeti-baskanini-kabul-etti",
+            "source": "GDELT",
+            "publishedAt": "20260131T150000Z"
+          },
+          {
+            "title": "AA ekibi , Suriye ordusu ve terör örgütü YPGnin Hasekedeki temas noktasını görüntüledi",
+            "url": "https://www.aa.com.tr/tr/pg/foto-galeri/aa-ekibi-suriye-ordusu-ve-teror-orgutu-ypgnin-hasekedeki-temas-noktasini-goruntuledi",
+            "source": "GDELT",
+            "publishedAt": "20260129T151500Z"
+          },
+          {
+            "title": "AA ekibi , Suriye ordusu ve terör örgütü YPGnin Hasekedeki temas noktasını görüntüledi",
+            "url": "https://www.aa.com.tr/tr/pg/foto-galeri/aa-ekibi-suriye-ordusu-ve-teror-orgutu-ypgnin-hasekedeki-temas-noktasini-goruntuledi/0",
+            "source": "GDELT",
+            "publishedAt": "20260129T151500Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Syria",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.65,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Leader fields missing; country may have collective leadership or Wikidata gaps.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:01:36.396968Z"
+      }
+    },
+    {
+      "country": "France",
+      "iso2": "FR",
+      "government": {
+        "politicalSystem": "semi-presidential system",
+        "leaders": [
+          {
+            "name": "Emmanuel Macron",
+            "title": "President of the French Republic",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Socialist Party"
+          },
+          {
+            "name": "Sébastien Lecornu",
+            "title": "Mayor of Vernon, Eure",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "Renaissance"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Renaissance",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "French Parliament",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2026-03-01",
+          "type": "Q135673801",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "Допомога Україні : Франція готує додаткові літаки",
+            "url": "https://gazeta.ua/articles/politics/_franciya-nadast-ukrayini-dodatkovi-litakivinischuvachi/1242535",
+            "source": "GDELT",
+            "publishedAt": "20260129T021500Z"
+          },
+          {
+            "title": "Perancis Pakai Aplikasi Lokal untuk Rapat Pemerintah , Tendang Zoom dan Teams Buatan AS",
+            "url": "https://tekno.kompas.com/read/2026/01/28/13080017/perancis-pakai-aplikasi-lokal-untuk-rapat-pemerintah-tendang-zoom-dan-teams",
+            "source": "GDELT",
+            "publishedAt": "20260128T231500Z"
+          },
+          {
+            "title": "Yunanistan ve Fransa , savunma alanındaki işbirliği anlaşmasını yenilemeye hazırlanıyor",
+            "url": "https://www.haberler.com/guncel/yunanistan-ve-fransa-savunma-anlasmasini-yeniliyor-19516410-haberi/",
+            "source": "GDELT",
+            "publishedAt": "20260129T151500Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "France",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.75,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:01:41.882845Z"
+      }
+    },
+    {
+      "country": "Turkey",
+      "iso2": "TR",
+      "government": {
+        "politicalSystem": "presidential system, unitary state",
+        "leaders": [
+          {
+            "name": "Recep Tayyip Erdoğan",
+            "title": "mayor of Istanbul",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "National Salvation Party"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "National Salvation Party",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Grand National Assembly of Turkey",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2028-01-01",
+          "type": "Next Turkish presidential election",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "Reklam yasak ama Googleda var ! MEXC Global Türkiyede ne yapıyor ?",
+            "url": "https://www.haberler.com/haberler/reklam-yasak-ama-google-da-var-mexc-global-19518881-haberi/",
+            "source": "GDELT",
+            "publishedAt": "20260130T104500Z"
+          },
+          {
+            "title": "سعر الذهب في تركيا اليوم السبت 31 يناير 2026 بالليرة والدولار",
+            "url": "https://www.dostor.org/5402092",
+            "source": "GDELT",
+            "publishedAt": "20260131T094500Z"
+          },
+          {
+            "title": "Spotify duyurdu : Türkiye ofisi Hazirana kadar açılacak !",
+            "url": "https://www.donanimhaber.com/spotify-duyurdu-turkiye-ofisi-haziran-a-kadar-acilacak--201519",
+            "source": "GDELT",
+            "publishedAt": "20260130T210000Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Turkey",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.75,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:01:45.511840Z"
+      }
+    },
+    {
+      "country": "Venezuela",
+      "iso2": "VE",
+      "government": {
+        "politicalSystem": "federal republic, presidential system",
+        "leaders": [
+          {
+            "name": "Delcy Rodríguez",
+            "title": "Minister of People's Power of Hydrocarbons",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Movement We Are Venezuela"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Movement We Are Venezuela",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "National Assembly",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": null,
+          "type": null,
+          "notes": "unknown"
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "США обязали отчитываться поставщиков нефти из Венесуэлы",
+            "url": "https://ria.ru/20260130/ssha-2071108880.html",
+            "source": "GDELT",
+            "publishedAt": "20260129T231500Z"
+          },
+          {
+            "title": "川普下令重開委內瑞拉空域 美航擬恢復飛往該國航班 - 國際",
+            "url": "https://news.ltn.com.tw/news/world/breakingnews/5326819",
+            "source": "GDELT",
+            "publishedAt": "20260129T211500Z"
+          },
+          {
+            "title": "委内瑞拉代总统 ： 计划实行大赦 ！ 委军方表态 ： 对她绝对忠诚与服从",
+            "url": "https://www.163.com/dy/article/KKKP63FR0512B07B.html",
+            "source": "GDELT",
+            "publishedAt": "20260131T150000Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Venezuela",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.7,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Next election not reliably available; verify with official election bodies.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:01:53.334743Z"
+      }
+    },
+    {
+      "country": "Vietnam",
+      "iso2": "VN",
+      "government": {
+        "politicalSystem": "one-party state, republic, unitary state",
+        "leaders": [
+          {
+            "name": "Tô Lâm",
+            "title": "General Secretary of the Communist Party of Vietnam",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Communist Party of Vietnam"
+          },
+          {
+            "name": "Phạm Minh Chính",
+            "title": "Prime Minister of Vietnam",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "Communist Party of Vietnam"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Communist Party of Vietnam",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "National Assembly of Vietnam",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2026-03-15",
+          "type": "2026 Vietnamese legislative election",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "Việt Nam thua sát nút Thái Lan ở giải Vô địch futsal châu Á 2026",
+            "url": "https://tienphong.vn/viet-nam-thua-sat-nut-thai-lan-o-giai-vo-dich-futsal-chau-a-2026-post1817388.tpo",
+            "source": "GDELT",
+            "publishedAt": "20260131T100000Z"
+          },
+          {
+            "title": "Mercedes - Benz Việt Nam thay tướng , dự kiến ra mắt 5 xe mới năm nay",
+            "url": "https://dantri.com.vn/o-to-xe-may/mercedes-benz-viet-nam-thay-tuong-du-kien-ra-mat-5-xe-moi-nam-nay-20260130133803213.htm",
+            "source": "GDELT",
+            "publishedAt": "20260130T121500Z"
+          },
+          {
+            "title": "Thủ tướng : Khuyến khích đầu tư trong lĩnh vực kinh tế tuần hoàn",
+            "url": "https://baomoi.com/thu-tuong-khuyen-khich-dau-tu-trong-linh-vuc-kinh-te-tuan-hoan-c54382448.epi",
+            "source": "GDELT",
+            "publishedAt": "20260131T021500Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Vietnam",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.75,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:02:11.829332Z"
+      }
+    },
+    {
+      "country": "Taiwan",
+      "iso2": "TW",
+      "government": {
+        "politicalSystem": "constitutional republic, democracy, semi-presidential system",
+        "leaders": [
+          {
+            "name": "Lai Ching-te",
+            "title": "Chairperson of the Democratic Progressive Party",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Democratic Progressive Party"
+          },
+          {
+            "name": "Cho Jung-tai",
+            "title": "Premier of the Republic of China",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "Democratic Progressive Party"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Democratic Progressive Party",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Legislative Yuan",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": null,
+          "type": null,
+          "notes": "unknown"
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Taiwan",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.65,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Next election not reliably available; verify with official election bodies.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "Fewer than 3 recent stories found via GDELT with current filters.",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:02:22.963200Z"
+      }
+    },
+    {
+      "country": "South Korea",
+      "iso2": "KR",
+      "government": {
+        "politicalSystem": "presidential system, republic",
+        "leaders": [
+          {
+            "name": "Lee Jae Myung",
+            "title": "Member of the National Assembly of South Korea",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Democratic Party of Korea"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Democratic Party of Korea",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "National Assembly",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2027-01-01",
+          "type": "2027 South Korean by-elections",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "South Korea",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.7,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "Fewer than 3 recent stories found via GDELT with current filters.",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:02:34.165779Z"
+      }
+    },
+    {
+      "country": "North Korea",
+      "iso2": "KP",
+      "government": {
+        "politicalSystem": "Juche, communist dictatorship, family dictatorship, one-party state, republic, socialist state, unitary state",
+        "leaders": [
+          {
+            "name": "Kim Jong-un",
+            "title": "General Secretary of the Workers' Party of Korea",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Workers’ Party of Korea"
+          },
+          {
+            "name": "Pak Thae-song",
+            "title": "Vice Chairman of the Workers' Party of Korea",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "Workers’ Party of Korea"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Workers’ Party of Korea",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Supreme People's Assembly",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": null,
+          "type": null,
+          "notes": "unknown"
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "North Korea",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.65,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Next election not reliably available; verify with official election bodies.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "Fewer than 3 recent stories found via GDELT with current filters.",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:02:45.465404Z"
+      }
+    },
+    {
+      "country": "Indonesia",
+      "iso2": "ID",
+      "government": {
+        "politicalSystem": "republic",
+        "leaders": [
+          {
+            "name": "Prabowo Subianto",
+            "title": "President of Indonesia",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Golkar"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Golkar",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "People's Consultative Assembly",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2029-01-01",
+          "type": "2029 Indonesian People's Representative Council election",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "Jadwal Thailand Masters 2026 Kamis : 13 Wakil Indonesia Main",
+            "url": "https://www.tempo.co/olahraga/jadwal-thailand-masters-2026-kamis-13-wakil-indonesia-main-2110853",
+            "source": "GDELT",
+            "publishedAt": "20260129T023000Z"
+          },
+          {
+            "title": "Klasemen Grup A Piala Asia Futsal 2026 Usai Skor Indonesia Vs Irak 1 - 1",
+            "url": "https://bola.kompas.com/read/2026/01/31/20432338/klasemen-grup-a-piala-asia-futsal-2026-usai-skor-indonesia-vs-irak-1-1",
+            "source": "GDELT",
+            "publishedAt": "20260131T140000Z"
+          },
+          {
+            "title": "Calon Lawan Timnas Futsal Indonesia di 8 Besar Piala Asia Futsal 2026",
+            "url": "https://bola.kompas.com/read/2026/01/29/21574038/calon-lawan-timnas-futsal-indonesia-di-8-besar-piala-asia-futsal-2026",
+            "source": "GDELT",
+            "publishedAt": "20260129T153000Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Indonesia",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.75,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:02:52.424042Z"
+      }
+    },
+    {
+      "country": "Myanmar",
+      "iso2": "MM",
+      "government": {
+        "politicalSystem": "republic",
+        "leaders": [
+          {
+            "name": "Myint Swe",
+            "title": "Vice President of Burma",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Union Solidarity and Development Party"
+          },
+          {
+            "name": "Min Aung Hlaing",
+            "title": "Commander-in-Chief of Defence Services",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "Union Solidarity and Development Party"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Union Solidarity and Development Party",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Assembly of the Union",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": null,
+          "type": null,
+          "notes": "unknown"
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "아세안 외교장관회의  미얀마 총선 인정하지 않겠다",
+            "url": "https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003203084&PAGE_CD=N0002&CMPT_CD=M0118",
+            "source": "GDELT",
+            "publishedAt": "20260130T020000Z"
+          },
+          {
+            "title": "Indonesia siap fasilitasi dialog inklusif untuk Myanmar",
+            "url": "https://www.antaranews.com/berita/5383354/indonesia-siap-fasilitasi-dialog-inklusif-untuk-myanmar",
+            "source": "GDELT",
+            "publishedAt": "20260129T093000Z"
+          },
+          {
+            "title": "Kubu pro - junta militer menang besar dalam pemilu legislatif Myanmar",
+            "url": "https://www.antaranews.com/berita/5387198/kubu-pro-junta-militer-menang-besar-dalam-pemilu-legislatif-myanmar",
+            "source": "GDELT",
+            "publishedAt": "20260130T181500Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Myanmar",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.7,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Next election not reliably available; verify with official election bodies.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:02:55.961107Z"
+      }
+    },
+    {
+      "country": "Armenia",
+      "iso2": "AM",
+      "government": {
+        "politicalSystem": "parliamentary system, republic, unitary state",
+        "leaders": [
+          {
+            "name": "Vahagn Khachatryan",
+            "title": "member of the National Assembly of Armenia",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Armenian National Congress"
+          },
+          {
+            "name": "Nikol Pashinyan",
+            "title": "member of the National Assembly of Armenia",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "My Step Alliance"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "My Step Alliance",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "National Assembly of Armenia",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2026-06-07",
+          "type": "next Armenian parliamentary election",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "« Իրական անվտանգություն կարող է լինել , եթե դու Զելենսկի չես դառնում , Սահակաշվիլի չես դառնում »․ Անդրանիկ Թեւանյան",
+            "url": "https://www.aravot.am/2026/01/30/1536566/",
+            "source": "GDELT",
+            "publishedAt": "20260130T123000Z"
+          },
+          {
+            "title": "ԵՄ - ն հաստատել է Հայաստանին Եվրոպական խաղաղության գործիքակազմի ներքո 20 մլն . եվրո արժողությամբ աջակցության միջոցի տրամադրումը",
+            "url": "https://www.aravot.am/2026/01/30/1536520/",
+            "source": "GDELT",
+            "publishedAt": "20260130T084500Z"
+          },
+          {
+            "title": "Եվրամիությունը Հայաստանի Զինված ուժերի կարողությունների ուժեղացման նպատակով 20 մլն եվրո կհատկացնի",
+            "url": "https://armtimes.com/hy/article/330385",
+            "source": "GDELT",
+            "publishedAt": "20260130T123000Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Armenia",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.75,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:03:08.250692Z"
+      }
+    },
+    {
+      "country": "Azerbaijan",
+      "iso2": "AZ",
+      "government": {
+        "politicalSystem": "republic, semi-presidential system, unitary state",
+        "leaders": [
+          {
+            "name": "Ilham Aliyev",
+            "title": "president",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "New Azerbaijan Party"
+          },
+          {
+            "name": "Ali Asadov",
+            "title": "Prime Minister of Azerbaijan",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "New Azerbaijan Party"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "New Azerbaijan Party",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "National Assembly of Azerbaijan",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": null,
+          "type": null,
+          "notes": "unknown"
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "Ալիևը կցանկանար , որ TRIPP նախագիծը հայ - ամերիկյան իրավական ուժ ունեցող համաձայնագիր չդառնա",
+            "url": "https://www.1in.am/3675218.html",
+            "source": "GDELT",
+            "publishedAt": "20260129T153000Z"
+          },
+          {
+            "title": "Azerbaijan proposes insurance companies to address CBA for NBCI bond purchase",
+            "url": "https://www.trend.az/business/4147421.html",
+            "source": "GDELT",
+            "publishedAt": "20260129T100000Z"
+          },
+          {
+            "title": "Из Германии в Азербайджан в рамках проекта IDEA с Минэкологии и WWF отправлены 18 зубров",
+            "url": "https://1news.az/news/20260129112522991-Iz-Germanii-v-Azerbaidzhan-v-ramkakh-proekta-IDEA-s-Minekologii-i-WWF-otpravleny-18-zubrov",
+            "source": "GDELT",
+            "publishedAt": "20260129T220000Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Azerbaijan",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.7,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Next election not reliably available; verify with official election bodies.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:03:11.969203Z"
+      }
+    },
+    {
+      "country": "Morocco",
+      "iso2": "MA",
+      "government": {
+        "politicalSystem": "constitutional monarchy",
+        "leaders": [
+          {
+            "name": "Mohammed VI of Morocco",
+            "title": "King of Morocco",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": null
+          },
+          {
+            "name": "Aziz Akhannouch",
+            "title": "Prime Minister of Morocco",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "National Rally of Independents"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "National Rally of Independents",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Parliament of Morocco",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": null,
+          "type": null,
+          "notes": "unknown"
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "موعد أذان العشاء اليوم السبت 31 يناير 2026 في جميع المحافظات",
+            "url": "https://www.dostor.org/5402280",
+            "source": "GDELT",
+            "publishedAt": "20260131T120000Z"
+          },
+          {
+            "title": "Senegal and Morocco fined after African Cup final chaos : NPR",
+            "url": "https://www.npr.org/2026/01/29/g-s1-107750/senegal-morocco-fined-african-cup-final-chaos",
+            "source": "GDELT",
+            "publishedAt": "20260129T120000Z"
+          },
+          {
+            "title": "مواقيت الصلاة .. موعد المغرب والعشاء اليوم الخميس 29 يناير 2026 بمصر",
+            "url": "https://www.dostor.org/5399717",
+            "source": "GDELT",
+            "publishedAt": "20260129T074500Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Morocco",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.7,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Next election not reliably available; verify with official election bodies.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:03:20.197235Z"
+      }
+    },
+    {
+      "country": "Somalia",
+      "iso2": "SO",
+      "government": {
+        "politicalSystem": "federal republic",
+        "leaders": [
+          {
+            "name": "Hassan Sheikh Mohamud",
+            "title": "President of Somalia",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Union for Peace and Development Party"
+          },
+          {
+            "name": "Mohamed Hussein Roble",
+            "title": "Prime Minister of Somalia",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "independent politician"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "independent politician",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Federal Parliament of Somalia",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": null,
+          "type": null,
+          "notes": "unknown"
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "Les Etats - Unis reprennent leur aide alimentaire à la Somalie",
+            "url": "https://www.lemonde.fr/afrique/article/2026/01/29/les-etats-unis-reprennent-leur-aide-alimentaire-a-la-somalie_6664579_3212.html",
+            "source": "GDELT",
+            "publishedAt": "20260129T094500Z"
+          },
+          {
+            "title": "موقع إيطالي : قاعدة إسرائيلية بأرض الصومال ستؤجج الصراع مع تركيا",
+            "url": "https://www.aljazeera.net/politics/2026/1/31/%D9%85%D9%88%D9%82%D8%B9-%D8%A5%D9%8A%D8%B7%D8%A7%D9%84%D9%8A-%D9%82%D8%A7%D8%B9%D8%AF%D8%A9-%D8%A5%D8%B3%D8%B1%D8%A7%D8%A6%D9%8A%D9%84%D9%8A%D8%A9-%D8%A8%D8%A3%D8%B1%D8%B6",
+            "source": "GDELT",
+            "publishedAt": "20260131T183000Z"
+          },
+          {
+            "title": "Turecko vyslalo stíhačky F - 16 do Somálska",
+            "url": "https://www.topky.sk/cl/11/9311491/Vojensky-tah-Ankary--Turecke-F-16-posilnuju-pritomnost-v-Africkom-rohu",
+            "source": "GDELT",
+            "publishedAt": "20260130T181500Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Somalia",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.7,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Next election not reliably available; verify with official election bodies.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:03:28.700170Z"
+      }
+    },
+    {
+      "country": "Yemen",
+      "iso2": "YE",
+      "government": {
+        "politicalSystem": "presidential system, republic",
+        "leaders": [
+          {
+            "name": "Rashad al-Alimi",
+            "title": "President of Yemen",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "General People's Congress"
+          },
+          {
+            "name": "Salem Saleh bin Braik",
+            "title": "Minister of Finance",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": null
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "General People's Congress",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Parliament of Yemen",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": null,
+          "type": null,
+          "notes": "unknown"
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "البرنامج السعودي يدشن المرحلة الثالثة لتطوير مطار عدن الدولي .. فيديو وصور",
+            "url": "https://slaati.com/2026/01/29/p2768956.html",
+            "source": "GDELT",
+            "publishedAt": "20260130T001500Z"
+          },
+          {
+            "title": "​محافظ عدن : بصمات السعودية التنموية تعزز استقرارنا",
+            "url": "https://www.okaz.com.sa/politics/na/2233410",
+            "source": "GDELT",
+            "publishedAt": "20260129T233000Z"
+          },
+          {
+            "title": "حسين البدوي لـ « الوطن »: كتاب « ألغام اليمن السعيد » صرخة لإنقاذ الأبرياء من عدو لا ينام « حوار »",
+            "url": "https://www.elwatannews.com/news/details/8216731",
+            "source": "GDELT",
+            "publishedAt": "20260131T124500Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Yemen",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.7,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Next election not reliably available; verify with official election bodies.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:03:37.830065Z"
+      }
+    },
+    {
+      "country": "Libya",
+      "iso2": "LY",
+      "government": {
+        "politicalSystem": "republic",
+        "leaders": [
+          {
+            "name": "Mohamed al-Menfi",
+            "title": "Chairman of the Presidential Council",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "independent politician"
+          },
+          {
+            "name": "Abd al-Hamid Dbeibeh",
+            "title": "Minister of Defence",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "independent politician"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "independent politician",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "High Council of State",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          },
+          {
+            "body": "House of Representatives",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": null,
+          "type": null,
+          "notes": "unknown"
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "Libya energy revival and an emerging balance of power",
+            "url": "https://www.dailysabah.com/opinion/op-ed/libyas-energy-revival-and-an-emerging-balance-of-power",
+            "source": "GDELT",
+            "publishedAt": "20260130T010000Z"
+          },
+          {
+            "title": "Анкара допускает своп ливийского газа с азербайджанским для поставок в Италию",
+            "url": "https://www.interfax.ru/business/1070277",
+            "source": "GDELT",
+            "publishedAt": "20260130T101500Z"
+          },
+          {
+            "title": "شركة سعودية توقع مذكرة تفاهم مع « محفظة ليبيا إفريقيا » للاستثمار",
+            "url": "https://www.libyaakhbar.com/news/2715323.html",
+            "source": "GDELT",
+            "publishedAt": "20260129T033000Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Libya",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.7,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Next election not reliably available; verify with official election bodies.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:03:42.506530Z"
+      }
+    },
+    {
+      "country": "Egypt",
+      "iso2": "EG",
+      "government": {
+        "politicalSystem": "republic",
+        "leaders": [
+          {
+            "name": "Abdel Fattah el-Sisi",
+            "title": "Chairperson of the African Union",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "independent politician"
+          },
+          {
+            "name": "Mostafa Madbouly",
+            "title": "Prime Minister of Egypt",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "independent politician"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "independent politician",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Parliament of Egypt",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2030-01-01",
+          "type": "2030 Egyptian presidential election",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "كرة اليد ، منتخب مصر يقترب من تحطيم الرقم القياسي في أمم أفريقيا",
+            "url": "https://www.vetogate.com/5585124",
+            "source": "GDELT",
+            "publishedAt": "20260131T180000Z"
+          },
+          {
+            "title": "منتخب مصر يهزم تونس ويتوج بطلا لكأس الأمم الأفريقية لليد",
+            "url": "https://www.vetogate.com/5584716",
+            "source": "GDELT",
+            "publishedAt": "20260131T164500Z"
+          },
+          {
+            "title": "نهائي أفريقيا لليد ، منتخب مصر يتقدم على تونس في الشوط الأول",
+            "url": "https://www.vetogate.com/5584711",
+            "source": "GDELT",
+            "publishedAt": "20260131T150000Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Egypt",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.75,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:03:44.811349Z"
+      }
+    },
+    {
+      "country": "Algeria",
+      "iso2": "DZ",
+      "government": {
+        "politicalSystem": "semi-presidential system",
+        "leaders": [
+          {
+            "name": "Abdelmadjid Tebboune",
+            "title": "Minister of National Defence of Algeria",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "National Liberation Front"
+          },
+          {
+            "name": "Sifi Ghrieb",
+            "title": "Prime Minister of Algeria",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": null
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "National Liberation Front",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Parliament of Algeria",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2026-06-01",
+          "type": "2026 Algerian parliamentary election",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "الجزائر تطلق من الصين القمر الصناعي  الجزائر سات 3 بي  | علوم",
+            "url": "https://www.aljazeera.net/science/2026/1/31/%D8%A7%D9%84%D8%AC%D8%B2%D8%A7%D8%A6%D8%B1-%D8%AA%D8%B7%D9%84%D9%82-%D9%85%D9%86-%D8%A7%D9%84%D8%B5%D9%8A%D9%86-%D8%A7%D9%84%D9%82%D9%85%D8%B1-%D8%A7%D9%84%D8%B5%D9%86%D8%A7%D8%B9%D9%8A",
+            "source": "GDELT",
+            "publishedAt": "20260131T183000Z"
+          },
+          {
+            "title": "Mohammed Harbi , une mémoire algérienne , une pensée libre et exigeante",
+            "url": "https://www.nouvelobs.com/teleobs/20260131.OBS112011/mohammed-harbi-une-memoire-algerienne-une-pensee-libre-et-exigeante.html",
+            "source": "GDELT",
+            "publishedAt": "20260131T144500Z"
+          },
+          {
+            "title": "Ségolène Royal : Complément denquête vise à « disqualifier » les élus franco - algériens",
+            "url": "https://www.tsa-algerie.com/segolene-royal-soupconne-retailleau-davoir-oriente-complement-denquete-sur-lalgerie/",
+            "source": "GDELT",
+            "publishedAt": "20260129T010000Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Algeria",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.75,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:03:51.473537Z"
+      }
+    },
+    {
+      "country": "Argentina",
+      "iso2": "AR",
+      "government": {
+        "politicalSystem": "federal republic",
+        "leaders": [
+          {
+            "name": "Javier Milei",
+            "title": "President of La Libertad Avanza (Argentina)",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Freedom Advances"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Avanza Libertad",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Argentine National Congress",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2027-10-24",
+          "type": "2027 Argentine general election",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "Tigre y Racing Club se encuentran en la fecha 3",
+            "url": "https://www.eldestapeweb.com/deportes/argentina---liga-profesional-2021/tigre-y-racing-club-se-encuentran-en-la-fecha-3-202613083739",
+            "source": "GDELT",
+            "publishedAt": "20260130T121500Z"
+          },
+          {
+            "title": "Estudiantes Río Cuarto y Argentinos Juniors empataron 0 - 0 por el Torneo Apertura 2026",
+            "url": "https://www.lanacion.com.ar/deportes/canchallena/estudiantes-rio-cuarto-y-argentinos-juniors-empataron-0-0-por-el-torneo-apertura-2026-nid29012026/",
+            "source": "GDELT",
+            "publishedAt": "20260130T043000Z"
+          },
+          {
+            "title": "San Lorenzo vs Central Córdoba ( SE ): previa , horario y cómo llegan para la fecha 3 del Apertura",
+            "url": "https://www.eldestapeweb.com/deportes/argentina---liga-profesional-2021/san-lorenzo-vs-central-cordoba-se-previa-horario-y-como-llegan-para-la-fecha-3-del-apertura-202612892123",
+            "source": "GDELT",
+            "publishedAt": "20260129T111500Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Argentina",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.75,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:03:59.992067Z"
+      }
+    },
+    {
+      "country": "Chile",
+      "iso2": "CL",
+      "government": {
+        "politicalSystem": "democratic republic",
+        "leaders": [
+          {
+            "name": "Gabriel Boric",
+            "title": "President of Chile",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Broad Front"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Broad Front",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "National Congress of Chile",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": null,
+          "type": null,
+          "notes": "unknown"
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "投资7亿 ， 开通不足3年 ， 停运了",
+            "url": "https://www.163.com/dy/article/KKEL3Q5N0514BE2Q.html",
+            "source": "GDELT",
+            "publishedAt": "20260129T063000Z"
+          },
+          {
+            "title": "开通不到3年 ， 投资超7亿元的  西北第一智轨  停运 ！ 居民 ： 乘客  少得可怜 ， 知情人士 ： 票价收入远低于运营成本 ！ 客服 ： 没有恢复时间表|西咸|西咸新区",
+            "url": "https://www.163.com/news/article/KKFO3TT70001899O.html",
+            "source": "GDELT",
+            "publishedAt": "20260129T151500Z"
+          },
+          {
+            "title": "新华时评丨小小车厘子成就合作  大生意  |水果|马兰|智利",
+            "url": "https://www.163.com/dy/article/KKD4RE5505346RC6.html",
+            "source": "GDELT",
+            "publishedAt": "20260129T014500Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Chile",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.7,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Next election not reliably available; verify with official election bodies.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:04:04.865633Z"
+      }
+    },
+    {
+      "country": "Peru",
+      "iso2": "PE",
+      "government": {
+        "politicalSystem": "presidential system",
+        "leaders": [
+          {
+            "name": "José Jerí",
+            "title": "president of the Congress of the Republic of Peru",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "We Are Peru Democratic Party"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Alliance for Progress",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Congress of the Republic of Peru",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2026-04-12",
+          "type": "2026 Peruvian general election",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Peru",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.7,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "Fewer than 3 recent stories found via GDELT with current filters.",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:04:16.570516Z"
+      }
+    },
+    {
+      "country": "Cuba",
+      "iso2": "CU",
+      "government": {
+        "politicalSystem": "unitary state",
+        "leaders": [
+          {
+            "name": "Miguel Díaz-Canel",
+            "title": "President of Cuba",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Communist Party of Cuba"
+          },
+          {
+            "name": "Manuel Marrero Cruz",
+            "title": "Prime Minister of Cuba",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "Communist Party of Cuba"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Communist Party of Cuba",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "National Assembly of People's Power",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": null,
+          "type": null,
+          "notes": "unknown"
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Cuba",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.65,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Next election not reliably available; verify with official election bodies.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "Fewer than 3 recent stories found via GDELT with current filters.",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:04:27.773093Z"
+      }
+    },
+    {
+      "country": "Colombia",
+      "iso2": "CO",
+      "government": {
+        "politicalSystem": "republic",
+        "leaders": [
+          {
+            "name": "Gustavo Petro",
+            "title": "President of Colombia",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Alianza Democrática"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Alternative Democratic Pole",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Congress of Colombia",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2026-03-08",
+          "type": "2026 Colombian parliamentary election",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "Pesawat yang Membawa Anggota DPR Kolombia Jatuh di Pegunungan",
+            "url": "https://visual.republika.co.id/berita/t9mn2l375/pesawat-yang-membawa-anggota-dpr-kolombia-jatuh-di-pegunungan",
+            "source": "GDELT",
+            "publishedAt": "20260129T133000Z"
+          },
+          {
+            "title": "콜롬비아 반군 지역에 하원의원 탑승기 추락 , 15명 전원 사망",
+            "url": "https://www.fnnews.com/news/202601290738090770",
+            "source": "GDELT",
+            "publishedAt": "20260129T043000Z"
+          },
+          {
+            "title": "Ecuador y Colombia inician diálogo en Panamá por tensiones comerciales recientes",
+            "url": "https://www.cadena3.com/noticia/mundo/ecuador-y-colombia-inician-dialogo-en-panama-por-tensiones-comerciales-recientes_514039",
+            "source": "GDELT",
+            "publishedAt": "20260129T223000Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Colombia",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.75,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:04:38.107403Z"
+      }
+    },
+    {
+      "country": "Panama",
+      "iso2": "PA",
+      "government": {
+        "politicalSystem": "presidential system",
+        "leaders": [
+          {
+            "name": "José Raúl Mulino",
+            "title": "Minister of Government of Panama",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Realizing Goals"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Democratic Change",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "National Assembly of Panama",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": null,
+          "type": null,
+          "notes": "unknown"
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "裁定长和港口运营合同无效 巴拿马 ： 丹麦公司将接管",
+            "url": "https://www.wenxuecity.com/news/2026/01/31/126514472.html",
+            "source": "GDELT",
+            "publishedAt": "20260131T164500Z"
+          },
+          {
+            "title": "Ronda de 8 al rojo vivo en el Béisbol Juvenil 2026",
+            "url": "https://www.midiario.com/deportivas/ronda-de-8-al-rojo-vivo-en-el-beisbol-juvenil-2026/",
+            "source": "GDELT",
+            "publishedAt": "20260130T031500Z"
+          },
+          {
+            "title": "KBS 뉴스",
+            "url": "https://news.kbs.co.kr/news/pc/view/view.do?ncd=8473970",
+            "source": "GDELT",
+            "publishedAt": "20260130T201500Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Panama",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.7,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Next election not reliably available; verify with official election bodies.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:04:41.859892Z"
+      }
+    },
+    {
+      "country": "El Salvador",
+      "iso2": "SV",
+      "government": {
+        "politicalSystem": "presidential system, representative democracy, republic",
+        "leaders": [
+          {
+            "name": "Nayib Bukele",
+            "title": "President of El Salvador",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": "Nuevas Ideas"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Democratic Change",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Legislative Assembly of El Salvador",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": "2027-01-01",
+          "type": "2027 Salvadoran presidential election",
+          "notes": "Best-effort from Wikidata; verify with official election bodies."
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "美에 딱 붙은 엘살바도르 ,  0 % 관세  협정에 고무",
+            "url": "https://www.fnnews.com/news/202601300352575940",
+            "source": "GDELT",
+            "publishedAt": "20260129T214500Z"
+          },
+          {
+            "title": "US , El Salvador sign trade agreement to boost critical minerals investment",
+            "url": "https://www.marketscreener.com/news/us-el-salvador-sign-trade-agreement-to-boost-critical-minerals-investment-ce7e5bdfde8af220",
+            "source": "GDELT",
+            "publishedAt": "20260130T010000Z"
+          },
+          {
+            "title": "മറ്റത്തൂര്‍ പഞ്ചായത്ത് വൈസ് പ്രസിഡന്റ് തിരഞ്ഞെടുപ്പ് : കോണ്‍ഗ്രസ്സിന് വോട്ട് ചെയ്ത് ബി ജെ പി",
+            "url": "https://www.sirajlive.com/mattathur-panchayat-vice-president-election-bjp-votes-for-congress.html",
+            "source": "GDELT",
+            "publishedAt": "20260130T104500Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "El Salvador",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.75,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:04:53.793130Z"
+      }
+    },
+    {
+      "country": "Denmark",
+      "iso2": "DK",
+      "government": {
+        "politicalSystem": "constitutional monarchy",
+        "leaders": [
+          {
+            "name": "Frederik X of Denmark",
+            "title": "monarch of Denmark",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": null
+          },
+          {
+            "name": "Mette Frederiksen",
+            "title": "Minister for Employment",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": "Social Democrats"
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "Executive (approx.)",
+            "controller": "Social Democrats",
+            "controlType": "leader-party",
+            "notes": "Derived from leader party; not a seat-count dataset."
+          },
+          {
+            "body": "Folketing",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": null,
+          "type": null,
+          "notes": "unknown"
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "В Гренландии заявили , что Дания уже вводит пошлины для острова",
+            "url": "https://ria.ru/20260130/grenlandiya-2071113328.html",
+            "source": "GDELT",
+            "publishedAt": "20260130T000000Z"
+          },
+          {
+            "title": "Danijos veteranai surengė protestą prie JAV ambasados",
+            "url": "https://www.15min.lt/naujiena/aktualu/pasaulis/danijos-veteranai-surenge-protesta-prie-jav-ambasados-57-2612738",
+            "source": "GDELT",
+            "publishedAt": "20260131T150000Z"
+          },
+          {
+            "title": "Iškilmingame vakare – Danijos karališkosios poros atsisveikinimas su Lietuva",
+            "url": "https://www.delfi.lt/veidai/zmones/danijos-karaliskoji-pora-ir-lietuvos-pirmoji-pora-120205207",
+            "source": "GDELT",
+            "publishedAt": "20260129T201500Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Denmark",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.7,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Next election not reliably available; verify with official election bodies.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:05:09.014361Z"
+      }
+    },
+    {
+      "country": "Sudan",
+      "iso2": "SD",
+      "government": {
+        "politicalSystem": "federal republic",
+        "leaders": [
+          {
+            "name": "Abdel Fattah al-Burhan",
+            "title": "Chairman of the Sovereignty Council of Sudan",
+            "isHeadOfState": true,
+            "isHeadOfGovernment": false,
+            "party": null
+          },
+          {
+            "name": "Abdalla Hamdok",
+            "title": "Prime Minister of Sudan",
+            "isHeadOfState": false,
+            "isHeadOfGovernment": true,
+            "party": null
+          }
+        ],
+        "leaderNotes": "",
+        "politicalSkewSummary": "unknown/contested",
+        "partyControl": [
+          {
+            "body": "National Legislature",
+            "controller": "unknown",
+            "controlType": "unknown",
+            "notes": "Seat/coalition control not reliably available via Wikidata alone."
+          }
+        ],
+        "nextElection": {
+          "date": null,
+          "type": null,
+          "notes": "unknown"
+        }
+      },
+      "trends": {
+        "topSearchesPast24h": [],
+        "method": "pytrends unavailable"
+      },
+      "news": {
+        "topStoriesPast3d": [
+          {
+            "title": "سعر الدولار في بنك السودان المركزي ( آخر تحديث )",
+            "url": "https://www.vetogate.com/5584071",
+            "source": "GDELT",
+            "publishedAt": "20260130T120000Z"
+          },
+          {
+            "title": "الدولار يسجل 448 . 73 جنيه في بنك السودان المركزي بختام تعاملات الأسبوع",
+            "url": "https://www.vetogate.com/5584353",
+            "source": "GDELT",
+            "publishedAt": "20260130T180000Z"
+          },
+          {
+            "title": "سعر صرف الدولار أمام الجنيه السوداني اليوم السبت",
+            "url": "https://www.vetogate.com/5584951",
+            "source": "GDELT",
+            "publishedAt": "20260131T150000Z"
+          }
+        ],
+        "method": "gdelt_doc_api"
+      },
+      "usInterest": {
+        "query": "Sudan",
+        "window": "past_24h",
+        "interestIndex": 0,
+        "sparkline": [],
+        "method": "pytrends unavailable"
+      },
+      "quality": {
+        "confidence": 0.7,
+        "warnings": [
+          "Political skew is heuristic and may be contested or unavailable.",
+          "Next election not reliably available; verify with official election bodies.",
+          "Top searches unavailable for this geo via Google Trends (common in CI).",
+          "US search interest unavailable/empty via Google Trends (common in CI)."
+        ],
+        "lastSuccessfulUpdate": "2026-01-31T22:05:17.851660Z"
+      }
+    }
+  ]
+}
