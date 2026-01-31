@@ -2,7 +2,7 @@ name: Build countries_snapshot.json
 
 on:
   schedule:
-    - cron: "15 */6 * * *"  # every 6 hours
+    - cron: "15 9 * * *"  # every 24 hours at 09:15 UTC
   workflow_dispatch:
 
 permissions:
@@ -16,7 +16,7 @@ jobs:
       - name: Check out repo
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # helps rebase/push
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -29,13 +29,10 @@ jobs:
           pip install -r requirements.txt
 
       - name: Build countries_snapshot.json
-        run: |
-          python scripts/build_countries_snapshot.py
-
-      - name: Build countries_snapshot.json
         env:
           TRANSLATE_ENDPOINT: ${{ secrets.TRANSLATE_ENDPOINT }}
           TRANSLATE_API_KEY: ${{ secrets.TRANSLATE_API_KEY }}
+          PYTRENDS_PROXY: ""   # optional
         run: |
           python scripts/build_countries_snapshot.py
 
@@ -43,15 +40,15 @@ jobs:
         run: |
           mkdir -p docs
           cp public/countries_snapshot.json docs/countries_snapshot.json
+          touch docs/.nojekyll
 
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add public/countries_snapshot.json docs/countries_snapshot.json
+          git add public/countries_snapshot.json docs/countries_snapshot.json docs/.nojekyll
           git diff --cached --quiet || git commit -m "Update countries_snapshot.json"
 
-          # rebase on latest main then push
           git pull --rebase origin main
           git push origin main
