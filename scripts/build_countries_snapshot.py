@@ -45,6 +45,102 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import requests
 
+import re
+from typing import Optional, Dict, Any, Tuple
+
+def looks_english(text: str) -> bool:
+    """
+    Heuristic: detects whether text *looks* English-ish.
+    Not perfect, but good enough to decide when to translate.
+    """
+    if not text:
+        return False
+    t = text.strip()
+    if len(t) < 3:
+        return False
+    # If most chars are ASCII and it contains Latin letters, treat as English-ish
+    ascii_chars = sum(1 for ch in t if ord(ch) < 128)
+    if ascii_chars / max(1, len(t)) < 0.80:
+        return False
+    if not re.search(r"[A-Za-z]", t):
+        return False
+    return True
+
+# ---------------- Translation (pluggable) ----------------
+# Recommended: set TRANSLATE_ENDPOINT to your own LibreTranslate instance (or another service)
+# Example: https://libretranslate.yourdomain.com/translate
+# Optional: TRANSLATE_API_KEY if your endpoint requires it.
+
+TRANSLATE_ENDPOINT = os.getenv("TRANSLATE_ENDPOINT", "").strip()
+TRANSLATE_API_KEY = os.getenv("TRANSLATE_API_KEY", "").strip()
+TRANSLATE_TIMEOUT = 20
+
+def translate_to_english(text: str, source_lang: str = "auto") -> Tuple[str, Dict[str, Any]]:
+    """
+    Translate to English using a translation endpoint you control/provide.
+    Returns (translated_text, meta).
+    If translation isn't configured/available, returns original text and meta.
+    """
+    meta: Dict[str, Any] = {
+        "translated": False,
+        "translationProvider": None,
+        "translationNotes": None,
+        "original": text,
+        "detectedSourceLang": None,
+    }
+
+    if not text or looks_english(text):
+        return text, meta
+
+    # If no endpoint configured, don't attempt translation
+    if not TRANSLATE_ENDPOINT:
+        meta["translationNotes"] = "Translation skipped (TRANSLATE_ENDPOINT not configured)."
+        return text, meta
+
+    payload = {
+        "q": text,
+        "source": source_lang,
+        "target": "en",
+        "format": "text",
+    }
+    headers = {"Content-Type": "application/json"}
+    if TRANSLATE_API_KEY:
+        # LibreTranslate commonly uses "api_key"
+        payload["api_key"] = TRANSLATE_API_KEY
+
+    try:
+        r = requests.post(
+            TRANSLATE_ENDPOINT,
+            json=payload,
+            headers=headers,
+            timeout=TRANSLATE_TIMEOUT,
+        )
+        if r.status_code == 200:
+            data = r.json()
+            translated = (data.get("translatedText") or "").strip()
+            detected = data.get("detectedLanguage") or data.get("detected_language")
+            if translated:
+                meta["translated"] = True
+                meta["translationProvider"] = TRANSLATE_ENDPOINT
+                meta["detectedSourceLang"] = detected
+                meta["translationNotes"] = "Headline/query was machine-translated to English."
+                return translated, meta
+    except Exception:
+        pass
+
+    meta["translationNotes"] = "Translation failed (endpoint error)."
+    return text, meta
+
+
+def ensure_english_item(text: str) -> Tuple[str, Dict[str, Any]]:
+    """
+    Returns text in English if possible.
+    - If already English-ish: unchanged, translated=False
+    - Else: translate and annotate (or keep original if translation unavailable)
+    """
+    return translate_to_english(text, source_lang="auto")
+
+
 
 # ---------------------------- CONFIG ----------------------------
 
