@@ -3,38 +3,17 @@ Build a Base44-friendly JSON snapshot for multiple countries.
 
 Outputs: public/countries_snapshot.json
 
-Format:
-{
-  "generatedAt": "...Z",
-  "windowHours": 24,
-  "countries": [
-    {
-      "country": "Iran",
-      "iso2": "IR",
-      "government": {...},
-      "trends": {...},
-      "news": {...},
-      "usInterest": {...},
-      "quality": {...}
-    }
-  ]
-}
-
-Data sources (best-effort, resilient):
-- Government/leaders/political system: Wikidata SPARQL
-- News (last 3 days): GDELT 2.1 DOC API
-- Trends + US interest: pytrends (Google Trends, unofficial; can be flaky in CI)
-- Optional translation: user-provided translation endpoint (e.g., LibreTranslate)
+What it does (best-effort):
+- Government snapshot (leaders + political system + legislature) via Wikidata SPARQL
+- 3 recent English news stories (last 3 days) via GDELT DOC 2.1
+- "Top searches" (past ~24h) via Google Trends (pytrends) when available
+  - If unavailable, fallback = "proxy trends" extracted from top recent news headlines
+- US search interest (past 24h) via Google Trends interest_over_time when available
 
 Notes:
-- "Party control" is HARD to do universally without seat datasets.
-  This script outputs:
-    - Executive party (from leader party when available)
-    - Legislature bodies listed with controller="unknown" + a note
-- "Political skew" is heuristic; mapped when party ideologies are known in overrides.
-  Otherwise "unknown/contested" and flagged with warnings.
-- English-first: If title/query doesn't look English, we translate (if configured)
-  and include original text + disclaimer fields.
+- Real "party control of parliament" is not universally reliable from Wikidata alone.
+  We output "executive party (approx.)" from leader party when available and mark legislature control as unknown.
+- For countries where Google Trends is blocked/unavailable (common in CI), we degrade gracefully.
 """
 
 from __future__ import annotations
@@ -59,7 +38,6 @@ HEADERS = {
         "Chrome/121.0.0.0 Safari/537.36"
     )
 }
-
 TIMEOUT = 25
 MAX_RETRIES = 3
 RETRY_SLEEP = 1.5
@@ -72,12 +50,6 @@ TOP_NEWS_N = 3
 WIKIDATA_SPARQL = "https://query.wikidata.org/sparql"
 GDELT_DOC = "https://api.gdeltproject.org/api/v2/doc/doc"
 
-# Translation (optional): set secrets TRANSLATE_ENDPOINT / TRANSLATE_API_KEY
-TRANSLATE_ENDPOINT = os.getenv("TRANSLATE_ENDPOINT", "").strip()
-TRANSLATE_API_KEY = os.getenv("TRANSLATE_API_KEY", "").strip()
-TRANSLATE_TIMEOUT = 20
-
-# Country list
 COUNTRIES: List[Dict[str, str]] = [
     {"country": "Ukraine", "iso2": "UA"},
     {"country": "Russia", "iso2": "RU"},
@@ -145,7 +117,7 @@ PARTY_SKEW_OVERRIDES: Dict[str, str] = {
 }
 
 
-# ---------------------------- SMALL HELPERS ----------------------------
+# ---------------------------- BASICS ----------------------------
 
 def now_utc() -> datetime:
     return datetime.now(timezone.utc)
@@ -153,23 +125,13 @@ def now_utc() -> datetime:
 def iso_z(dt: datetime) -> str:
     return dt.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
 
-def safe_get(d: dict, *keys: str, default=None):
-    cur = d
-    for k in keys:
-        if not isinstance(cur, dict) or k not in cur:
-            return default
-        cur = cur[k]
-    return cur
-
-def pick_primary_query(country_name: str) -> str:
-    aliases = QUERY_ALIASES.get(country_name)
-    return aliases[0] if aliases else country_name
+def _sleep_backoff(attempt: int) -> None:
+    time.sleep(RETRY_SLEEP * attempt)
 
 def req_json(url: str, params: Optional[dict] = None, headers: Optional[dict] = None) -> Optional[dict]:
     h = dict(HEADERS)
     if headers:
         h.update(headers)
-
     for attempt in range(1, MAX_RETRIES + 1):
         try:
             r = requests.get(url, params=params, headers=h, timeout=TIMEOUT)
@@ -177,85 +139,33 @@ def req_json(url: str, params: Optional[dict] = None, headers: Optional[dict] = 
                 return r.json()
         except requests.RequestException:
             pass
-        time.sleep(RETRY_SLEEP * attempt)
+        _sleep_backoff(attempt)
     return None
 
+def safe_get(d: Any, *keys: str, default=None):
+    cur = d
+    for k in keys:
+        if not isinstance(cur, dict) or k not in cur:
+            return default
+        cur = cur[k]
+    return cur
 
-# ---------------------------- ENGLISH + TRANSLATION ----------------------------
+
+# ---------------------------- ENGLISH DETECT (light heuristic) ----------------------------
+
+_non_ascii = re.compile(r"[^\x00-\x7F]+")
+_has_latin = re.compile(r"[A-Za-z]")
 
 def looks_english(text: str) -> bool:
-    """
-    Heuristic: does the text look English-ish?
-    """
     if not text:
         return False
     t = text.strip()
     if len(t) < 3:
         return False
-
-    ascii_chars = sum(1 for ch in t if ord(ch) < 128)
-    if ascii_chars / max(1, len(t)) < 0.80:
-        return False
-
-    if not re.search(r"[A-Za-z]", t):
-        return False
-
-    return True
-
-def translate_to_english(text: str, source_lang: str = "auto") -> Tuple[str, Dict[str, Any]]:
-    """
-    Translate to English using a translation endpoint you provide (e.g., LibreTranslate).
-    Returns (translated_text, meta). If translation isn't configured/available, returns original.
-    """
-    meta: Dict[str, Any] = {
-        "translated": False,
-        "translationProvider": None,
-        "translationNotes": None,
-        "original": text,
-        "detectedSourceLang": None,
-    }
-
-    if not text or looks_english(text):
-        return text, meta
-
-    if not TRANSLATE_ENDPOINT:
-        meta["translationNotes"] = "Translation skipped (TRANSLATE_ENDPOINT not configured)."
-        return text, meta
-
-    payload: Dict[str, Any] = {
-        "q": text,
-        "source": source_lang,
-        "target": "en",
-        "format": "text",
-    }
-    if TRANSLATE_API_KEY:
-        payload["api_key"] = TRANSLATE_API_KEY
-
-    try:
-        r = requests.post(
-            TRANSLATE_ENDPOINT,
-            json=payload,
-            headers={"Content-Type": "application/json"},
-            timeout=TRANSLATE_TIMEOUT,
-        )
-        if r.status_code == 200:
-            data = r.json()
-            translated = (data.get("translatedText") or "").strip()
-            detected = data.get("detectedLanguage") or data.get("detected_language")
-            if translated:
-                meta["translated"] = True
-                meta["translationProvider"] = TRANSLATE_ENDPOINT
-                meta["detectedSourceLang"] = detected
-                meta["translationNotes"] = "Machine-translated to English."
-                return translated, meta
-    except Exception:
+    if _non_ascii.search(t):
+        # could still be English with accents, but treat as "maybe non-English"
         pass
-
-    meta["translationNotes"] = "Translation failed (endpoint error)."
-    return text, meta
-
-def ensure_english_item(text: str) -> Tuple[str, Dict[str, Any]]:
-    return translate_to_english(text, source_lang="auto")
+    return bool(_has_latin.search(t))
 
 
 # ---------------------------- WIKIDATA ----------------------------
@@ -273,7 +183,7 @@ def _wd_val(b: dict, key: str) -> Optional[str]:
         return None
     return v.get("value")
 
-def get_wikidata_country_qid(iso2: str) -> Optional[str]:
+def get_wikidata_country_qid_by_iso2(iso2: str) -> Optional[str]:
     q = f"""
     SELECT ?country WHERE {{
       ?country wdt:P297 "{iso2}" .
@@ -292,8 +202,8 @@ def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
     q = f"""
     SELECT
       ?polsysLabel
-      ?hosLabel ?hosTitleLabel ?hosPartyLabel
-      ?hogLabel ?hogTitleLabel ?hogPartyLabel
+      ?hosLabel ?hosPartyLabel
+      ?hogLabel ?hogPartyLabel
       ?legLabel
     WHERE {{
       OPTIONAL {{
@@ -303,14 +213,12 @@ def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
 
       OPTIONAL {{
         wd:{country_qid} wdt:P35 ?hos .
-        OPTIONAL {{ ?hos wdt:P39 ?hosTitle . }}
         OPTIONAL {{ ?hos wdt:P102 ?hosParty . }}
         SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }}
       }}
 
       OPTIONAL {{
         wd:{country_qid} wdt:P6 ?hog .
-        OPTIONAL {{ ?hog wdt:P39 ?hogTitle . }}
         OPTIONAL {{ ?hog wdt:P102 ?hogParty . }}
         SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }}
       }}
@@ -320,7 +228,7 @@ def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
         SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }}
       }}
     }}
-    LIMIT 50
+    LIMIT 80
     """
     data = wikidata_sparql(q)
     bindings = safe_get(data, "results", "bindings", default=[])
@@ -332,8 +240,6 @@ def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
     hos_party = None
     hog_name = None
     hog_party = None
-    hos_title = None
-    hog_title = None
 
     for b in bindings:
         ps = _wd_val(b, "polsysLabel")
@@ -346,25 +252,19 @@ def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
 
         if not hos_name:
             hos_name = _wd_val(b, "hosLabel")
-        if not hos_title:
-            hos_title = _wd_val(b, "hosTitleLabel")
         if not hos_party:
             hos_party = _wd_val(b, "hosPartyLabel")
 
         if not hog_name:
             hog_name = _wd_val(b, "hogLabel")
-        if not hog_title:
-            hog_title = _wd_val(b, "hogTitleLabel")
         if not hog_party:
             hog_party = _wd_val(b, "hogPartyLabel")
 
-    political_system = ", ".join(sorted(pol_systems)) if pol_systems else "unknown"
-
-    leaders: List[Dict[str, Any]] = []
+    leaders = []
     if hos_name:
         leaders.append({
             "name": hos_name,
-            "title": hos_title or "Head of State",
+            "title": "Head of State",
             "isHeadOfState": True,
             "isHeadOfGovernment": False,
             "party": hos_party,
@@ -372,7 +272,7 @@ def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
     if hog_name and hog_name != hos_name:
         leaders.append({
             "name": hog_name,
-            "title": hog_title or "Head of Government",
+            "title": "Head of Government",
             "isHeadOfState": False,
             "isHeadOfGovernment": True,
             "party": hog_party,
@@ -380,7 +280,7 @@ def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
 
     executive_party = hog_party or hos_party
 
-    party_control: List[Dict[str, Any]] = []
+    party_control = []
     if executive_party:
         party_control.append({
             "body": "Executive (approx.)",
@@ -400,34 +300,12 @@ def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
     if executive_party and executive_party in PARTY_SKEW_OVERRIDES:
         skew = PARTY_SKEW_OVERRIDES[executive_party]
 
-    next_election = {"date": None, "type": None, "notes": "unknown"}
-    try:
-        q2 = f"""
-        SELECT ?eLabel ?date WHERE {{
-          ?e wdt:P17 wd:{country_qid} .
-          ?e wdt:P31/wdt:P279* wd:Q40231 .
-          ?e wdt:P585 ?date .
-          FILTER(?date > NOW())
-          SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }}
-        }} ORDER BY ?date LIMIT 1
-        """
-        d2 = wikidata_sparql(q2)
-        b2 = safe_get(d2, "results", "bindings", default=[])
-        if b2:
-            date_raw = _wd_val(b2[0], "date")
-            e_label = _wd_val(b2[0], "eLabel") or "Election"
-            if date_raw:
-                next_election = {
-                    "date": date_raw[:10],
-                    "type": e_label,
-                    "notes": "Best-effort from Wikidata; verify with official election bodies."
-                }
-    except Exception:
-        pass
+    political_system = ", ".join(sorted(pol_systems)) if pol_systems else "unknown"
 
+    next_election = {"date": None, "type": None, "notes": "unknown"}
     leader_notes = ""
     if not leaders:
-        leader_notes = "No definitive leader found via Wikidata (P35/P6). Possible collective leadership or missing data."
+        leader_notes = "No definitive national leader found via Wikidata fields (P35/P6) or data missing."
 
     return {
         "politicalSystem": political_system,
@@ -435,24 +313,27 @@ def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
         "leaderNotes": leader_notes,
         "politicalSkewSummary": skew,
         "partyControl": party_control,
-        "nextElection": next_election,
+        "nextElection": next_election,  # keep as unknown unless you add a specialized election source later
     }
 
 
-# ---------------------------- GDELT NEWS ----------------------------
+# ---------------------------- NEWS (GDELT) ----------------------------
 
-def gdelt_top_stories(country_name: str, max_records: int = TOP_NEWS_N) -> List[Dict[str, Any]]:
+def _country_queries(country_name: str) -> List[str]:
+    return QUERY_ALIASES.get(country_name, [country_name])
+
+def gdelt_recent_articles(country_name: str, max_pull: int = 50) -> List[Dict[str, str]]:
     start = (now_utc() - timedelta(days=NEWS_WINDOW_DAYS)).strftime("%Y%m%d%H%M%S")
     end = now_utc().strftime("%Y%m%d%H%M%S")
 
-    queries = QUERY_ALIASES.get(country_name, [country_name])
+    queries = _country_queries(country_name)
     q = " OR ".join([f'"{x}"' for x in queries])
 
     params = {
         "query": q,
         "mode": "ArtList",
         "format": "json",
-        "maxrecords": str(max_records * 10),
+        "maxrecords": str(max_pull),
         "startdatetime": start,
         "enddatetime": end,
         "sourcelang": "English",
@@ -462,42 +343,38 @@ def gdelt_top_stories(country_name: str, max_records: int = TOP_NEWS_N) -> List[
     data = req_json(GDELT_DOC, params=params)
     arts = safe_get(data, "articles", default=[]) if isinstance(data, dict) else []
 
-    out: List[Dict[str, Any]] = []
+    out = []
     seen = set()
-
     for a in arts:
         title = (a.get("title") or "").strip()
         url = (a.get("url") or "").strip()
-        source = (a.get("sourceCommonName") or a.get("source") or "GDELT").strip()
         dt = (a.get("seendate") or a.get("date") or "").strip()
+        source = (a.get("sourceCommonName") or a.get("source") or a.get("sourceCountry") or "").strip()
 
         if not title or not url:
             continue
-
         key = (title.lower(), url.lower())
         if key in seen:
             continue
         seen.add(key)
 
-        final_title, tmeta = ensure_english_item(title)
-
         out.append({
-            "title": final_title,
-            "titleOriginal": tmeta["original"],
-            "titleWasTranslated": tmeta["translated"],
-            "titleTranslationNotes": tmeta["translationNotes"],
+            "title": title,
             "url": url,
             "source": source[:80],
             "publishedAt": dt,
+            "language": "en",
+            "needsTranslation": False,  # sourcelang=English, but leave for UI extension later
         })
-
-        if len(out) >= TOP_NEWS_N:
-            break
 
     return out
 
+def gdelt_top_stories(country_name: str, n: int = TOP_NEWS_N) -> List[Dict[str, str]]:
+    arts = gdelt_recent_articles(country_name, max_pull=60)
+    return arts[:n]
 
-# ---------------------------- TRENDS (PYTRENDS) ----------------------------
+
+# ---------------------------- TRENDS (pytrends) ----------------------------
 
 def _init_pytrends():
     try:
@@ -508,65 +385,103 @@ def _init_pytrends():
     except Exception:
         return None
 
-def trends_top_searches(country_iso2: str) -> Tuple[List[Dict[str, Any]], str]:
+def trends_top_searches_google(country_iso2: str) -> Tuple[List[Dict[str, Any]], str]:
     pytrends = _init_pytrends()
     if pytrends is None:
-        return [], "pytrends unavailable"
+        return [], "pytrends_unavailable"
 
-    geo = country_iso2.lower()
-
-    # today_searches
+    # today_searches is inconsistent by geo; daily_trends also inconsistent.
     try:
-        df = pytrends.today_searches(pn=geo)
+        series = pytrends.today_searches(pn=country_iso2.lower())
         items: List[Dict[str, Any]] = []
-        for i, q in enumerate(list(df)[:TOP_TRENDS_N], start=1):
-            q_str = str(q).strip()
-            q_en, qmeta = ensure_english_item(q_str)
+        for i, q in enumerate(list(series)[:TOP_TRENDS_N], start=1):
+            q = str(q).strip()
             items.append({
-                "query": q_en,
-                "queryOriginal": qmeta["original"],
-                "queryWasTranslated": qmeta["translated"],
-                "queryTranslationNotes": qmeta["translationNotes"],
-                "rank": i
+                "query": q,
+                "rank": i,
+                "language": "en" if looks_english(q) else "unknown",
+                "needsTranslation": not looks_english(q),
+                "source": "google_trends",
             })
         return items, "google_trends_today_searches"
     except Exception:
-        pass
+        try:
+            daily = pytrends.daily_trends(country=country_iso2.upper())
+            col = "trend" if "trend" in getattr(daily, "columns", []) else None
+            vals = daily[col].tolist() if col else daily.iloc[:, 0].tolist()
 
-    # daily_trends fallback
-    try:
-        daily = pytrends.daily_trends(country=country_iso2.upper())
-        if hasattr(daily, "columns") and "trend" in daily.columns:
-            vals = daily["trend"].tolist()
-        else:
-            vals = daily.iloc[:, 0].tolist()
+            items: List[Dict[str, Any]] = []
+            for i, q in enumerate([str(x).strip() for x in vals[:TOP_TRENDS_N]], start=1):
+                items.append({
+                    "query": q,
+                    "rank": i,
+                    "language": "en" if looks_english(q) else "unknown",
+                    "needsTranslation": not looks_english(q),
+                    "source": "google_trends",
+                })
+            return items, "google_trends_daily_trends"
+        except Exception:
+            return [], "google_trends_unavailable_for_geo"
 
-        items = []
-        for i, q in enumerate(vals[:TOP_TRENDS_N], start=1):
-            q_str = str(q).strip()
-            q_en, qmeta = ensure_english_item(q_str)
-            items.append({
-                "query": q_en,
-                "queryOriginal": qmeta["original"],
-                "queryWasTranslated": qmeta["translated"],
-                "queryTranslationNotes": qmeta["translationNotes"],
-                "rank": i
-            })
-        return items, "google_trends_daily_trends"
-    except Exception:
-        return [], "google_trends_unavailable_for_geo"
+def _extract_proxy_trends_from_titles(titles: List[str], n: int = TOP_TRENDS_N) -> List[Dict[str, Any]]:
+    """
+    Fallback when search-trends are unavailable:
+    - Extract frequent meaningful tokens/entities from recent English headlines.
+    - This is NOT real search data; it's a proxy for "what's being talked about".
+    """
+    text = " ".join(titles)
+    text = re.sub(r"[^A-Za-z0-9\s\-]", " ", text)
+    tokens = [t.lower() for t in text.split() if len(t) >= 4]
+
+    stop = {
+        "after","with","from","that","this","they","their","have","will","would",
+        "says","said","over","into","amid","more","than","about","what","when",
+        "been","were","also","which","who","your","them","today","news",
+        "country","government","president","minister","prime","state",
+    }
+    counts: Dict[str, int] = {}
+    for tok in tokens:
+        if tok in stop:
+            continue
+        counts[tok] = counts.get(tok, 0) + 1
+
+    top = sorted(counts.items(), key=lambda x: x[1], reverse=True)[:n]
+    out = []
+    for i, (tok, c) in enumerate(top, start=1):
+        out.append({
+            "query": tok,
+            "rank": i,
+            "count": c,
+            "language": "en",
+            "needsTranslation": False,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines).",
+        })
+    return out
+
+def trends_top_searches(country_name: str, iso2: str) -> Tuple[List[Dict[str, Any]], str]:
+    items, method = trends_top_searches_google(iso2)
+    if items:
+        return items, method
+
+    # fallback proxy using news
+    arts = gdelt_recent_articles(country_name, max_pull=60)
+    titles = [a["title"] for a in arts[:25] if a.get("title")]
+    proxy = _extract_proxy_trends_from_titles(titles, n=TOP_TRENDS_N)
+    return proxy, "news_proxy_trends"
+
 
 def us_interest(country_query: str) -> Tuple[Dict[str, Any], str]:
     pytrends = _init_pytrends()
     if pytrends is None:
-        return {"query": country_query, "window": "past_24h", "interestIndex": 0, "sparkline": []}, "pytrends unavailable"
+        return {"query": country_query, "window": "past_24h", "interestIndex": 0, "sparkline": []}, "pytrends_unavailable"
 
     try:
-        pytrends.build_payload(kw_list=[country_query], timeframe="now 1-d", geo="US")
+        kw = [country_query]
+        pytrends.build_payload(kw_list=kw, timeframe="now 1-d", geo="US")
         df = pytrends.interest_over_time()
         if df is None or df.empty:
             return {"query": country_query, "window": "past_24h", "interestIndex": 0, "sparkline": []}, "google_trends_interest_empty"
-
         series = df[country_query].tolist()
         latest = int(series[-1]) if series else 0
         spark = [int(x) for x in series[-24:]]
@@ -577,12 +492,15 @@ def us_interest(country_query: str) -> Tuple[Dict[str, Any], str]:
 
 # ---------------------------- BUILD ----------------------------
 
+def pick_primary_query(country_name: str) -> str:
+    aliases = QUERY_ALIASES.get(country_name)
+    return aliases[0] if aliases else country_name
+
 def build_country(country_name: str, iso2: str) -> Dict[str, Any]:
     warnings: List[str] = []
     confidence = 1.0
 
-    # Government
-    gov: Dict[str, Any] = {
+    gov = {
         "politicalSystem": "unknown",
         "leaders": [],
         "leaderNotes": "",
@@ -591,7 +509,7 @@ def build_country(country_name: str, iso2: str) -> Dict[str, Any]:
         "nextElection": {"date": None, "type": None, "notes": "unknown"},
     }
 
-    qid = get_wikidata_country_qid(iso2)
+    qid = get_wikidata_country_qid_by_iso2(iso2)
     if not qid:
         warnings.append("Wikidata country entity not found via ISO2; government fields missing.")
         confidence -= 0.25
@@ -602,37 +520,30 @@ def build_country(country_name: str, iso2: str) -> Dict[str, Any]:
                 warnings.append("Political skew is heuristic and may be contested or unavailable.")
                 confidence -= 0.05
             if not gov.get("leaders"):
-                warnings.append("Leader fields missing; possible collective leadership or Wikidata gaps.")
+                warnings.append("Leader fields missing; country may have collective leadership or Wikidata gaps.")
                 confidence -= 0.10
-            ne = gov.get("nextElection", {})
-            if not ne or not ne.get("date"):
-                warnings.append("Next election not reliably available; verify with official election bodies.")
-                confidence -= 0.05
         except Exception:
             warnings.append("Wikidata query error; government fields partially missing.")
             confidence -= 0.20
 
-    # Trends
-    trends_items, trends_method = trends_top_searches(iso2)
+    trends_items, trends_method = trends_top_searches(country_name, iso2)
     if not trends_items:
-        warnings.append("Top searches unavailable for this geo via Google Trends (common in CI).")
+        warnings.append("Top searches unavailable; proxy trends also empty.")
         confidence -= 0.10
-    elif not TRANSLATE_ENDPOINT:
-        warnings.append("Translation not configured; non-English trends may appear unmodified.")
-        confidence -= 0.03
+    elif trends_method.startswith("news_proxy"):
+        warnings.append("Top searches are proxy trends (news-derived), not actual search queries.")
+        confidence -= 0.05
 
-    # News
     try:
         stories = gdelt_top_stories(country_name)
         if len(stories) < TOP_NEWS_N:
-            warnings.append("Fewer than 3 recent stories found via GDELT with current filters.")
+            warnings.append("Fewer than 3 recent stories found via GDELT.")
             confidence -= 0.05
     except Exception:
         stories = []
         warnings.append("GDELT fetch failed; news empty.")
         confidence -= 0.15
 
-    # US interest
     primary_query = pick_primary_query(country_name)
     us_obj, us_method = us_interest(primary_query)
     if not us_obj.get("sparkline"):
@@ -661,8 +572,6 @@ def build_country(country_name: str, iso2: str) -> Dict[str, Any]:
             "confidence": round(confidence, 2),
             "warnings": warnings,
             "lastSuccessfulUpdate": iso_z(now_utc()),
-            "translationEnabled": bool(TRANSLATE_ENDPOINT),
-            "translationProvider": TRANSLATE_ENDPOINT or None,
         }
     }
 
@@ -674,10 +583,10 @@ def main():
     }
 
     for c in COUNTRIES:
-        country_name = c["country"]
+        name = c["country"]
         iso2 = c["iso2"]
-        print(f"▶ Building snapshot for {country_name} ({iso2}) ...")
-        out["countries"].append(build_country(country_name, iso2))
+        print(f"▶ Building snapshot for {name} ({iso2}) ...")
+        out["countries"].append(build_country(name, iso2))
         time.sleep(0.2)
 
     out_dir = Path("public")
