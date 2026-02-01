@@ -8,9 +8,14 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: countries-snapshot
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Check out repo
@@ -22,6 +27,7 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: "pip"
 
       - name: Install dependencies
         run: |
@@ -58,8 +64,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+          # Always sync first to reduce rebase conflicts
+          git pull --rebase origin main
+
           git add public/countries_snapshot.json docs/countries_snapshot.json docs/.nojekyll docs/index.html
           git diff --cached --quiet || git commit -m "Update countries_snapshot.json"
-
-          git pull --rebase origin main
           git push origin main
