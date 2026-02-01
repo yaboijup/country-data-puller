@@ -22,6 +22,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: true
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -60,13 +62,30 @@ jobs:
           EOF
 
       - name: Commit and push if changed
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -e
+
+          # Fix for "dubious ownership" (exit 128)
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Always sync first to reduce rebase conflicts
-          git pull --rebase origin main
+          BRANCH="${GITHUB_REF_NAME:-main}"
+
+          # Make sure we're up to date
+          git fetch origin "$BRANCH"
+          git rebase "origin/$BRANCH" || { git rebase --abort; exit 1; }
 
           git add public/countries_snapshot.json docs/countries_snapshot.json docs/.nojekyll docs/index.html
-          git diff --cached --quiet || git commit -m "Update countries_snapshot.json"
-          git push origin main
+
+          # If no changes, exit cleanly
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Update countries_snapshot.json"
+          git push origin "HEAD:$BRANCH"
