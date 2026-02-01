@@ -93,3 +93,6 @@ jobs:
 
           git commit -m "Update countries_snapshot.json"
           git push origin "$BRANCH"
+
+          git commit -m "Update countries_snapshot.json"
+          git push origin "$BRANCH"
