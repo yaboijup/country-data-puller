@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-02-01T02:37:50.073440Z",
+  "generatedAt": "2026-02-01T07:52:02.976360Z",
   "windowHours": 24,
   "countries": [
     {
@@ -69,9 +69,9 @@
       "trends": {
         "topSearchesPast24h": [
           {
-            "query": "ukrajina",
+            "query": "ukraine",
             "rank": 1,
-            "count": 5,
+            "count": 15,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -79,9 +79,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "ukraine",
+            "query": "russia",
             "rank": 2,
-            "count": 3,
+            "count": 4,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -91,7 +91,7 @@
           {
             "query": "moldova",
             "rank": 3,
-            "count": 3,
+            "count": 4,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -99,7 +99,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "2027",
+            "query": "ucrania",
             "rank": 4,
             "count": 3,
             "languageGuess": "en",
@@ -109,9 +109,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "witkoff",
+            "query": "peace",
             "rank": 5,
-            "count": 2,
+            "count": 3,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -119,9 +119,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "spacex",
+            "query": "talks",
             "rank": 6,
-            "count": 2,
+            "count": 3,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -129,7 +129,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "starlink",
+            "query": "witkoff",
             "rank": 7,
             "count": 2,
             "languageGuess": "en",
@@ -139,7 +139,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "dmitrijev",
+            "query": "krieg",
             "rank": 8,
             "count": 2,
             "languageGuess": "en",
@@ -149,7 +149,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "oglasio",
+            "query": "gespr",
             "rank": 9,
             "count": 2,
             "languageGuess": "en",
@@ -159,7 +159,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "posle",
+            "query": "dhabi",
             "rank": 10,
             "count": 2,
             "languageGuess": "en",
@@ -174,26 +174,26 @@
       "news": {
         "topStoriesPast3d": [
           {
+            "title": "Witkoff o  produktywnym  spotkaniu z rosyjską delegacją . Opowiedź Zełenskiego",
+            "url": "https://tvn24.pl/swiat/witkoff-o-produktywnym-spotkaniu-z-rosyjska-delegacja-opowiedz-zelenskiego-st8878359",
+            "source": "",
+            "publishedAt": "20260201T071500Z",
+            "languageGuess": "en",
+            "needsTranslation": false
+          },
+          {
+            "title": "Krieg in der Ukraine - Ukraine - Gespräche in Abu Dhabi gehen weiter",
+            "url": "https://www.srf.ch/news/international/ukraine/krieg-in-der-ukraine-ukraine-gespraeche-in-abu-dhabi-gehen-weiter",
+            "source": "",
+            "publishedAt": "20260201T053000Z",
+            "languageGuess": "en",
+            "needsTranslation": false
+          },
+          {
             "title": "Zelenski : Ukrajina se sprema za pregovore sljedeće sedmice",
             "url": "https://rtvbn.com/4087465/zelenski-ukrajina-se-sprema-za-pregovore-sljedece-sedmice",
             "source": "",
             "publishedAt": "20260201T010000Z",
-            "languageGuess": "en",
-            "needsTranslation": false
-          },
-          {
-            "title": "ABDli Temsilci Witkoff , Putinin Özel Temsilcisi Dmitriev ile görüştü",
-            "url": "https://www.haberler.com/politika/abd-ve-rusya-dan-baris-gorusmeleri-witkoff-ve-dmitriev-florida-da-bir-araya-geldi-19523981-haberi/",
-            "source": "",
-            "publishedAt": "20260201T021500Z",
-            "languageGuess": "en",
-            "needsTranslation": false
-          },
-          {
-            "title": "Η SpaceX παίρνει μέτρα ενάντια στη χρήση του Starlink από τη Ρωσία σε επιθέσεις με drones στην Ουκρανία [ βίντεο ]",
-            "url": "https://www.in.gr/2026/02/01/world/spacex-pairnei-metra-enantia-sti-xrisi-tou-starlink-apo-ti-rosia-se-epitheseis-drones-stin-oukrania-vinteo/",
-            "source": "",
-            "publishedAt": "20260201T011500Z",
             "languageGuess": "en",
             "needsTranslation": false
           }
@@ -216,7 +216,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:38:11.879532Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:52:21.552063Z"
       }
     },
     {
@@ -284,11 +284,137 @@
         "notes": "Freedom House score not found in OWID tables."
       },
       "trends": {
-        "topSearchesPast24h": [],
+        "topSearchesPast24h": [
+          {
+            "query": "know",
+            "rank": 1,
+            "count": 6,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "russia",
+            "rank": 2,
+            "count": 6,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "milan",
+            "rank": 3,
+            "count": 6,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "cortina",
+            "rank": 4,
+            "count": 6,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "olympics",
+            "rank": 5,
+            "count": 6,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "ukraine",
+            "rank": 6,
+            "count": 4,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "krieg",
+            "rank": 7,
+            "count": 3,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "aktuell",
+            "rank": 8,
+            "count": 3,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "verhandler",
+            "rank": 9,
+            "count": 3,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "united",
+            "rank": 10,
+            "count": 3,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          }
+        ],
         "method": "news_proxy_trends"
       },
       "news": {
-        "topStoriesPast3d": [],
+        "topStoriesPast3d": [
+          {
+            "title": "Wojna wypala Rosję od środka . Putin vs rekordowy spadek urodzeń i masowa emigracja",
+            "url": "https://www.bankier.pl/wiadomosc/Wojna-wypala-Rosje-od-srodka-Putin-vs-rekordowy-spadek-urodzen-i-masowa-emigracja-9076032.html",
+            "source": "",
+            "publishedAt": "20260201T064500Z",
+            "languageGuess": "en",
+            "needsTranslation": false
+          },
+          {
+            "title": "Ukraine - Friedensgespräche verschieben sich womöglich",
+            "url": "https://www.tagesschau.de/ausland/europa/ukraine-gespraeche-abu-dhabi-100.html",
+            "source": "",
+            "publishedAt": "20260201T043000Z",
+            "languageGuess": "en",
+            "needsTranslation": false
+          },
+          {
+            "title": "What to know about Russia at the Milan Cortina Olympics – NBC 5 Dallas - Fort Worth",
+            "url": "https://www.nbcdfw.com/olympics/2026-milan-cortina/russia-name-ain-individual-neutral-athletes/3969127/",
+            "source": "",
+            "publishedAt": "20260201T054500Z",
+            "languageGuess": "en",
+            "needsTranslation": false
+          }
+        ],
         "method": "gdelt_doc_api",
         "englishOnly": true
       },
@@ -300,15 +426,14 @@
         "method": "pytrends_unavailable"
       },
       "quality": {
-        "confidence": 0.67,
+        "confidence": 0.79,
         "warnings": [
           "Legislative control winner not found (Wikidata election winner missing).",
           "Political freedom rating unavailable (OWID Freedom House tables missing this entity).",
-          "Top searches unavailable; proxy trends also empty.",
-          "Fewer than 3 recent English stories found via GDELT.",
+          "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:38:22.746757Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:52:32.075010Z"
       }
     },
     {
@@ -380,17 +505,7 @@
           {
             "query": "india",
             "rank": 1,
-            "count": 33,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
-            "query": "arab",
-            "rank": 2,
-            "count": 8,
+            "count": 34,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -399,8 +514,18 @@
           },
           {
             "query": "deal",
+            "rank": 2,
+            "count": 5,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "2026",
             "rank": 3,
-            "count": 5,
+            "count": 4,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -408,9 +533,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "visit",
+            "query": "economic",
             "rank": 4,
-            "count": 5,
+            "count": 4,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -418,9 +543,29 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "world",
+            "query": "survey",
             "rank": 5,
-            "count": 5,
+            "count": 4,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "foreign",
+            "rank": 6,
+            "count": 4,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "arab",
+            "rank": 7,
+            "count": 4,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -429,26 +574,6 @@
           },
           {
             "query": "records",
-            "rank": 6,
-            "count": 3,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
-            "query": "below",
-            "rank": 7,
-            "count": 3,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
-            "query": "normal",
             "rank": 8,
             "count": 3,
             "languageGuess": "en",
@@ -458,7 +583,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "rainfall",
+            "query": "below",
             "rank": 9,
             "count": 3,
             "languageGuess": "en",
@@ -468,7 +593,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "temperatures",
+            "query": "normal",
             "rank": 10,
             "count": 3,
             "languageGuess": "en",
@@ -525,7 +650,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:38:35.480191Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:52:38.771995Z"
       }
     },
     {
@@ -635,7 +760,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "ashamed",
+            "query": "rkiyeden",
             "rank": 5,
             "count": 5,
             "languageGuess": "en",
@@ -645,37 +770,37 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "crisis",
-            "rank": 6,
-            "count": 4,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
-            "query": "bangladesh",
-            "rank": 7,
-            "count": 4,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
-            "query": "rkiyeden",
-            "rank": 8,
-            "count": 4,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
             "query": "taziye",
+            "rank": 6,
+            "count": 5,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "mesaj",
+            "rank": 7,
+            "count": 5,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "ashamed",
+            "rank": 8,
+            "count": 5,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "india",
             "rank": 9,
             "count": 4,
             "languageGuess": "en",
@@ -685,7 +810,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "mesaj",
+            "query": "crisis",
             "rank": 10,
             "count": 4,
             "languageGuess": "en",
@@ -742,7 +867,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:38:45.294582Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:52:41.950993Z"
       }
     },
     {
@@ -812,7 +937,7 @@
       "trends": {
         "topSearchesPast24h": [
           {
-            "query": "china",
+            "query": "astrazeneca",
             "rank": 1,
             "count": 4,
             "languageGuess": "en",
@@ -822,9 +947,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "denizinde",
+            "query": "china",
             "rank": 2,
-            "count": 2,
+            "count": 3,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -832,7 +957,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "ihtilafl",
+            "query": "denizinde",
             "rank": 3,
             "count": 2,
             "languageGuess": "en",
@@ -842,7 +967,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "scarborough",
+            "query": "ihtilafl",
             "rank": 4,
             "count": 2,
             "languageGuess": "en",
@@ -852,7 +977,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "evresinde",
+            "query": "scarborough",
             "rank": 5,
             "count": 2,
             "languageGuess": "en",
@@ -862,7 +987,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "askeri",
+            "query": "evresinde",
             "rank": 6,
             "count": 2,
             "languageGuess": "en",
@@ -872,7 +997,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "devriye",
+            "query": "askeri",
             "rank": 7,
             "count": 2,
             "languageGuess": "en",
@@ -882,7 +1007,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "yapt",
+            "query": "devriye",
             "rank": 8,
             "count": 2,
             "languageGuess": "en",
@@ -892,7 +1017,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "astrazeneca",
+            "query": "yapt",
             "rank": 9,
             "count": 2,
             "languageGuess": "en",
@@ -925,16 +1050,16 @@
             "needsTranslation": false
           },
           {
-            "title": "İşgal edilen ülke Doğu Türkistan",
-            "url": "https://www.yeniakit.com.tr/yazarlar/ali-erkan-kavakli/isgal-edilen-ulke-dogu-turkistan-51549.html",
+            "title": "Çin , Güney Çin Denizinde ihtilaflı Scarborough Sığı çevresinde askeri devriye yaptı",
+            "url": "http://www.haberler.com/guncel/cin-guney-cin-denizi-nde-askeri-devriye-faaliyetlerine-basladi-19521244-haberi/",
             "source": "",
-            "publishedAt": "20260201T011500Z",
+            "publishedAt": "20260131T044500Z",
             "languageGuess": "en",
             "needsTranslation": false
           },
           {
             "title": "Çin , Güney Çin Denizinde ihtilaflı Scarborough Sığı çevresinde askeri devriye yaptı",
-            "url": "http://www.haberler.com/guncel/cin-guney-cin-denizi-nde-askeri-devriye-faaliyetlerine-basladi-19521244-haberi/",
+            "url": "https://www.haberler.com/guncel/cin-guney-cin-denizi-nde-askeri-devriye-faaliyetlerine-basladi-19521244-haberi/",
             "source": "",
             "publishedAt": "20260131T044500Z",
             "languageGuess": "en",
@@ -959,7 +1084,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:38:55.514590Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:52:56.549122Z"
       }
     },
     {
@@ -1051,7 +1176,7 @@
           "Fewer than 3 recent English stories found via GDELT.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:39:19.017761Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:53:20.406626Z"
       }
     },
     {
@@ -1133,7 +1258,7 @@
           {
             "query": "deutschland",
             "rank": 1,
-            "count": 14,
+            "count": 13,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -1151,7 +1276,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "premjer",
+            "query": "deutsche",
             "rank": 3,
             "count": 3,
             "languageGuess": "en",
@@ -1161,7 +1286,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "gegen",
+            "query": "vokietijos",
             "rank": 4,
             "count": 2,
             "languageGuess": "en",
@@ -1171,7 +1296,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "vokietijos",
+            "query": "mehr",
             "rank": 5,
             "count": 2,
             "languageGuess": "en",
@@ -1181,7 +1306,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "vokietijoje",
+            "query": "fordert",
             "rank": 6,
             "count": 2,
             "languageGuess": "en",
@@ -1191,7 +1316,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "alies",
+            "query": "atomwaffen",
             "rank": 7,
             "count": 2,
             "languageGuess": "en",
@@ -1201,7 +1326,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "vadovais",
+            "query": "germany",
             "rank": 8,
             "count": 2,
             "languageGuess": "en",
@@ -1211,7 +1336,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "merzu",
+            "query": "nemark",
             "rank": 9,
             "count": 2,
             "languageGuess": "en",
@@ -1221,7 +1346,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "fordert",
+            "query": "fast",
             "rank": 10,
             "count": 2,
             "languageGuess": "en",
@@ -1236,26 +1361,26 @@
       "news": {
         "topStoriesPast3d": [
           {
-            "title": "Streit um Visumpflicht : EU leitet Vertragsverletzungsverfahren gegen Deutschland ein",
-            "url": "https://de.nachrichten.yahoo.com/streit-um-visumpflicht-eu-leitet-174024069.html",
-            "source": "",
-            "publishedAt": "20260201T021500Z",
-            "languageGuess": "en",
-            "needsTranslation": false
-          },
-          {
-            "title": "Club - Angebote für Reisebegeisterte in Deutschland",
-            "url": "https://www.presseportal.de/pm/180558/6207863",
-            "source": "",
-            "publishedAt": "20260201T000000Z",
-            "languageGuess": "en",
-            "needsTranslation": false
-          },
-          {
             "title": "I . Ruginienė kertiniu saugumo elementu vadina JAV ir Vokietijos karių buvimą Lietuvoje",
             "url": "https://www.lrytas.lt/lietuvosdiena/aktualijos/2026/01/29/news/i-ruginiene-kertiniu-saugumo-elementu-vadina-jav-ir-vokietijos-kariu-buvima-lietuvoje-41147353/",
             "source": "",
             "publishedAt": "20260129T151500Z",
+            "languageGuess": "en",
+            "needsTranslation": false
+          },
+          {
+            "title": "Realitätscheck : Wetten , ihr liegt bei mehr als der Hälfte dieser Gehälter falsch ?",
+            "url": "https://www.giga.de/tech/realitaetscheck-wetten-ihr-liegt-bei-mehr-als-der-haelfte-dieser-gehaelter-falsch--01KCTQRDWTGC4Q1RERM2BWR893",
+            "source": "",
+            "publishedAt": "20260201T064500Z",
+            "languageGuess": "en",
+            "needsTranslation": false
+          },
+          {
+            "title": "Njemačke kompanije sele se u Mađarsku i Srbiju",
+            "url": "https://www.dw.com/bs/njema%C4%8Dke-kompanije-sele-se-u-ma%C4%91arsku-i-srbiju/a-75713059",
+            "source": "",
+            "publishedAt": "20260129T133000Z",
             "languageGuess": "en",
             "needsTranslation": false
           }
@@ -1278,7 +1403,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:39:30.981191Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:53:33.411150Z"
       }
     },
     {
@@ -1370,7 +1495,7 @@
           "Fewer than 3 recent English stories found via GDELT.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:39:51.952796Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:53:53.279977Z"
       }
     },
     {
@@ -1442,7 +1567,7 @@
           {
             "query": "saudi",
             "rank": 1,
-            "count": 18,
+            "count": 17,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -1452,7 +1577,7 @@
           {
             "query": "arabia",
             "rank": 2,
-            "count": 11,
+            "count": 10,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -1520,9 +1645,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "dolarl",
+            "query": "defence",
             "rank": 9,
-            "count": 3,
+            "count": 4,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -1530,7 +1655,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "defence",
+            "query": "dolarl",
             "rank": 10,
             "count": 3,
             "languageGuess": "en",
@@ -1545,14 +1670,6 @@
       "news": {
         "topStoriesPast3d": [
           {
-            "title": "ഇറാനെതിരെ ആക്രമണത്തിന് തയാർ ; ഭീഷണിയുമായി വീണ്ടും ട്രംപ് | Trump threatens Iran again , says he is ready to attack",
-            "url": "https://www.madhyamam.com/world/trump-threatens-iran-again-says-he-is-ready-to-attack-1490084",
-            "source": "",
-            "publishedAt": "20260129T040000Z",
-            "languageGuess": "en",
-            "needsTranslation": false
-          },
-          {
             "title": "ABDden İsrail ve Suudi Arabistana 15 milyar dolarlık askeri teçhizat satışı",
             "url": "https://www.haberler.com/politika/abd-israil-ve-suudi-arabistan-a-15-milyar-dolar-askeri-techizat-satisi-onayladi-19521587-haberi/",
             "source": "",
@@ -1565,6 +1682,14 @@
             "url": "http://www.haberler.com/politika/abd-israil-ve-suudi-arabistan-a-15-milyar-dolar-askeri-techizat-satisi-onayladi-19521587-haberi/",
             "source": "",
             "publishedAt": "20260131T081500Z",
+            "languageGuess": "en",
+            "needsTranslation": false
+          },
+          {
+            "title": "Reiche will Energiepartnerschaft mit Saudi - Arabien besiegeln",
+            "url": "https://www.faz.net/aktuell/wirtschaft/mehr-wirtschaft/reiche-will-energiepartnerschaft-mit-saudi-arabien-besiegeln-accg-200494540.html",
+            "source": "",
+            "publishedAt": "20260131T160000Z",
             "languageGuess": "en",
             "needsTranslation": false
           }
@@ -1587,7 +1712,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:40:02.100124Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:54:01.789215Z"
       }
     },
     {
@@ -1657,7 +1782,7 @@
       "trends": {
         "topSearchesPast24h": [
           {
-            "query": "israel",
+            "query": "srail",
             "rank": 1,
             "count": 9,
             "languageGuess": "en",
@@ -1667,7 +1792,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "srail",
+            "query": "israel",
             "rank": 2,
             "count": 8,
             "languageGuess": "en",
@@ -1679,7 +1804,7 @@
           {
             "query": "sald",
             "rank": 3,
-            "count": 5,
+            "count": 6,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -1687,9 +1812,19 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "iran",
+            "query": "bnan",
             "rank": 4,
-            "count": 3,
+            "count": 4,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "zenledi",
+            "rank": 5,
+            "count": 4,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -1698,16 +1833,6 @@
           },
           {
             "query": "stephen",
-            "rank": 5,
-            "count": 3,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
-            "query": "curry",
             "rank": 6,
             "count": 3,
             "languageGuess": "en",
@@ -1717,7 +1842,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "sava",
+            "query": "curry",
             "rank": 7,
             "count": 3,
             "languageGuess": "en",
@@ -1727,7 +1852,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "lusu",
+            "query": "sava",
             "rank": 8,
             "count": 3,
             "languageGuess": "en",
@@ -1737,7 +1862,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "siyonist",
+            "query": "lusu",
             "rank": 9,
             "count": 3,
             "languageGuess": "en",
@@ -1747,7 +1872,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "irketlere",
+            "query": "siyonist",
             "rank": 10,
             "count": 3,
             "languageGuess": "en",
@@ -1770,18 +1895,18 @@
             "needsTranslation": false
           },
           {
-            "title": "Israel Diam - diam Incar Perubahan Rezim Iran , Minta Bantuan AS Tumbangkan Teheran",
-            "url": "https://www.kompas.com/tren/read/2026/02/01/073000465/israel-diam-diam-incar-perubahan-rezim-iran-minta-bantuan-as-tumbangkan",
-            "source": "",
-            "publishedAt": "20260201T011500Z",
-            "languageGuess": "en",
-            "needsTranslation": false
-          },
-          {
             "title": "Izrael označil vyhostenie charge daffaires z JAR za recipročný krok",
             "url": "https://www.topky.sk/cl/11/9311653/Izrael-oznacil-vyhostenie-charge-d-affaires-z-JAR-za-reciprocny-krok",
             "source": "",
             "publishedAt": "20260131T070000Z",
+            "languageGuess": "en",
+            "needsTranslation": false
+          },
+          {
+            "title": "Gilėjant nesutarimams , Izraelis ir PAR išsiunčia savo pasiuntinius",
+            "url": "https://www.15min.lt/naujiena/aktualu/pasaulis/gilejant-nesutarimams-izraelis-ir-par-issiuncia-savo-pasiuntinius-57-2612526",
+            "source": "",
+            "publishedAt": "20260130T180000Z",
             "languageGuess": "en",
             "needsTranslation": false
           }
@@ -1804,7 +1929,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:40:13.933409Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:54:15.286397Z"
       }
     },
     {
@@ -1896,7 +2021,7 @@
           "Fewer than 3 recent English stories found via GDELT.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:40:34.883273Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:54:35.288766Z"
       }
     },
     {
@@ -1968,7 +2093,7 @@
           {
             "query": "xico",
             "rank": 1,
-            "count": 20,
+            "count": 22,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -1978,7 +2103,7 @@
           {
             "query": "sheinbaum",
             "rank": 2,
-            "count": 14,
+            "count": 12,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -2006,7 +2131,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "2026",
+            "query": "anuncia",
             "rank": 5,
             "count": 5,
             "languageGuess": "en",
@@ -2016,7 +2141,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "concierto",
+            "query": "2026",
             "rank": 6,
             "count": 4,
             "languageGuess": "en",
@@ -2026,7 +2151,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "para",
+            "query": "concierto",
             "rank": 7,
             "count": 4,
             "languageGuess": "en",
@@ -2036,18 +2161,8 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "anuncia",
-            "rank": 8,
-            "count": 4,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
             "query": "kanye",
-            "rank": 9,
+            "rank": 8,
             "count": 3,
             "languageGuess": "en",
             "needsTranslation": false,
@@ -2057,6 +2172,16 @@
           },
           {
             "query": "west",
+            "rank": 9,
+            "count": 3,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "puentes",
             "rank": 10,
             "count": 3,
             "languageGuess": "en",
@@ -2087,10 +2212,10 @@
             "needsTranslation": false
           },
           {
-            "title": "Turis Bawa Vape ke Negara ini Bisa Didenda hingga Masuk Penjara",
-            "url": "https://www.cnnindonesia.com/gaya-hidup/20260128171904-269-1322076/turis-bawa-vape-ke-negara-ini-bisa-didenda-hingga-masuk-penjara",
+            "title": "Kanye West en México 2026 : Cómo ver su concierto EN VIVO hoy - Grupo Milenio",
+            "url": "https://www.milenio.com/espectaculos/musica/kanye-west-mexico-link-en-vivo-concierto-plaza-toros",
             "source": "",
-            "publishedAt": "20260129T043000Z",
+            "publishedAt": "20260131T190000Z",
             "languageGuess": "en",
             "needsTranslation": false
           }
@@ -2113,7 +2238,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:40:48.924567Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:54:41.469905Z"
       }
     },
     {
@@ -2185,7 +2310,7 @@
           {
             "query": "brasil",
             "rank": 1,
-            "count": 15,
+            "count": 17,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -2273,7 +2398,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "interrail",
+            "query": "brasilien",
             "rank": 10,
             "count": 3,
             "languageGuess": "en",
@@ -2304,10 +2429,10 @@
             "needsTranslation": false
           },
           {
-            "title": "Entenda o que é o The Send Brasil e por que o movimento tem levado multidões a estádios",
-            "url": "https://oglobo.globo.com/ela/noticia/2026/01/31/entenda-o-que-e-o-the-send-brasil-e-por-que-o-movimento-tem-levado-multidoes-a-estadios.ghtml",
+            "title": "BBB 26 tem novo beijo na boca durante festa com Diogo Nogueira",
+            "url": "https://www.correio24horas.com.br/em-alta/bbb-26-tem-novo-beijo-na-boca-durante-festa-com-diogo-nogueira-0126",
             "source": "",
-            "publishedAt": "20260201T011500Z",
+            "publishedAt": "20260131T114500Z",
             "languageGuess": "en",
             "needsTranslation": false
           }
@@ -2330,7 +2455,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:40:58.489475Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:54:49.742819Z"
       }
     },
     {
@@ -2402,17 +2527,7 @@
           {
             "query": "trump",
             "rank": 1,
-            "count": 27,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
-            "query": "kanada",
-            "rank": 2,
-            "count": 13,
+            "count": 24,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -2421,8 +2536,8 @@
           },
           {
             "query": "canada",
-            "rank": 3,
-            "count": 12,
+            "rank": 2,
+            "count": 11,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -2430,9 +2545,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "threatens",
-            "rank": 4,
-            "count": 8,
+            "query": "kanada",
+            "rank": 3,
+            "count": 11,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -2441,17 +2556,7 @@
           },
           {
             "query": "tariff",
-            "rank": 5,
-            "count": 7,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
-            "query": "aircraft",
-            "rank": 6,
+            "rank": 4,
             "count": 6,
             "languageGuess": "en",
             "needsTranslation": false,
@@ -2460,8 +2565,8 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "droht",
-            "rank": 7,
+            "query": "threatens",
+            "rank": 5,
             "count": 6,
             "languageGuess": "en",
             "needsTranslation": false,
@@ -2471,8 +2576,28 @@
           },
           {
             "query": "donald",
+            "rank": 6,
+            "count": 4,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "aircraft",
+            "rank": 7,
+            "count": 4,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "droht",
             "rank": 8,
-            "count": 5,
+            "count": 4,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -2482,7 +2607,7 @@
           {
             "query": "canadian",
             "rank": 9,
-            "count": 5,
+            "count": 4,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -2490,9 +2615,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "neuem",
+            "query": "kanad",
             "rank": 10,
-            "count": 5,
+            "count": 3,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -2505,26 +2630,26 @@
       "news": {
         "topStoriesPast3d": [
           {
-            "title": "Donald Trump Canada Jet Tariff , कनाडा - अमेरिका में और बढ़ी रार , ट्रंप की विमानों पर 50 फीसदी टैरिफ लगाने की धमकी , जानें पूरा मामला - donald trump threatens canada with 50 precent tariff on aircraft sold to america - America News",
-            "url": "https://navbharattimes.indiatimes.com/world/america/donald-trump-threatens-canada-with-50-precent-tariff-on-aircraft-sold-to-america/articleshow/127788443.cms",
+            "title": "Tentara NATO Tewas dalam Operasi di Dekat Rusia , Apa Penyebabnya ?",
+            "url": "https://international.sindonews.com/read/1672215/41/tentara-nato-tewas-dalam-operasi-di-dekat-rusia-apa-penyebabnya-1769914960",
             "source": "",
-            "publishedAt": "20260130T013000Z",
+            "publishedAt": "20260201T061500Z",
             "languageGuess": "en",
             "needsTranslation": false
           },
           {
-            "title": "Canada Alberta Separatists Meet US Officials | PM Trudeau Responds",
-            "url": "https://www.bhaskar.com/g/international/news/canada-alberta-separatists-us-officials-visit-pm-trudeau-137085030.html",
+            "title": "Trumo pohrozil Kanadě kvůli případné dohodě s Čínou | Ekonomika",
+            "url": "https://www.lidovky.cz/byznys/donald-trump-usa-kanada-cina.A260201_075528_ln_ekonomika_lsva",
             "source": "",
-            "publishedAt": "20260131T033000Z",
+            "publishedAt": "20260201T071500Z",
             "languageGuess": "en",
             "needsTranslation": false
           },
           {
-            "title": "Trump threatens 50 % tariffs on Canadian aircraft sold to US :  Decertifying Bombardier Global Expresses",
-            "url": "https://www.moneycontrol.com/world/trump-threatens-50-tariffs-on-canadian-aircraft-sold-to-us-decertifying-bombardier-global-expresses-article-13798600.html",
+            "title": "Tramp zapretio Kanadi :  Ako se okrenete Kini , stiže brutalan odgovor Amerike",
+            "url": "https://naslovi.net/2026-02-01/mondo/tramp-zapretio-kanadi-ako-se-okrenete-kini-stize-brutalan-odgovor-amerike/41289064",
             "source": "",
-            "publishedAt": "20260130T044500Z",
+            "publishedAt": "20260201T070000Z",
             "languageGuess": "en",
             "needsTranslation": false
           }
@@ -2547,7 +2672,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:41:04.071848Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:55:05.556110Z"
       }
     },
     {
@@ -2629,7 +2754,7 @@
           {
             "query": "thisdaylive",
             "rank": 2,
-            "count": 9,
+            "count": 8,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -2637,7 +2762,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "dans",
+            "query": "reforms",
             "rank": 3,
             "count": 4,
             "languageGuess": "en",
@@ -2647,7 +2772,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "rkiye",
+            "query": "2026",
             "rank": 4,
             "count": 4,
             "languageGuess": "en",
@@ -2657,9 +2782,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "super",
+            "query": "dans",
             "rank": 5,
-            "count": 3,
+            "count": 4,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -2667,9 +2792,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "2026",
+            "query": "rkiye",
             "rank": 6,
-            "count": 3,
+            "count": 4,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -2677,7 +2802,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "dizaines",
+            "query": "super",
             "rank": 7,
             "count": 3,
             "languageGuess": "en",
@@ -2687,7 +2812,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "morts",
+            "query": "dizaines",
             "rank": 8,
             "count": 3,
             "languageGuess": "en",
@@ -2697,7 +2822,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "attaque",
+            "query": "morts",
             "rank": 9,
             "count": 3,
             "languageGuess": "en",
@@ -2707,7 +2832,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "djihadiste",
+            "query": "attaque",
             "rank": 10,
             "count": 3,
             "languageGuess": "en",
@@ -2722,10 +2847,10 @@
       "news": {
         "topStoriesPast3d": [
           {
-            "title": "Dele Oye Pushes for Enhanced Private Sectors Investment Cooperation with Turkey – THISDAYLIVE",
-            "url": "https://www.thisdaylive.com/2026/01/29/dele-oye-pushes-for-enhanced-private-sectors-investment-cooperation-with-turkey/",
+            "title": "How Nigeria Oil Tax Reforms Can Unlock Value in the Sector",
+            "url": "https://punchng.com/tax-reforms-can-unlock-oil-gas-value/",
             "source": "",
-            "publishedAt": "20260129T024500Z",
+            "publishedAt": "20260201T020000Z",
             "languageGuess": "en",
             "needsTranslation": false
           },
@@ -2764,7 +2889,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:41:15.742340Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:55:09.911045Z"
       }
     },
     {
@@ -2836,7 +2961,7 @@
           {
             "query": "jepang",
             "rank": 1,
-            "count": 10,
+            "count": 8,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -2846,17 +2971,7 @@
           {
             "query": "japanese",
             "rank": 2,
-            "count": 8,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
-            "query": "kerja",
-            "rank": 3,
-            "count": 4,
+            "count": 7,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -2865,6 +2980,16 @@
           },
           {
             "query": "japan",
+            "rank": 3,
+            "count": 5,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "kerja",
             "rank": 4,
             "count": 4,
             "languageGuess": "en",
@@ -2914,7 +3039,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "hingga",
+            "query": "starmer",
             "rank": 9,
             "count": 2,
             "languageGuess": "en",
@@ -2924,7 +3049,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "salju",
+            "query": "kasus",
             "rank": 10,
             "count": 2,
             "languageGuess": "en",
@@ -2947,18 +3072,18 @@
             "needsTranslation": false
           },
           {
-            "title": "Jepang Siaga Salju Lebat , Tokyo Akan Diguyur Salju hingga Kamis",
-            "url": "https://ohayojepang.kompas.com/read/5367/jepang-siaga-salju-lebat-tokyo-akan-diguyur-salju-hingga-kamis",
-            "source": "",
-            "publishedAt": "20260129T064500Z",
-            "languageGuess": "en",
-            "needsTranslation": false
-          },
-          {
             "title": "Jepang Penyumbang Signifikan PMA Jatim , Total Investasi Lebih dari USD 5 Miliar",
             "url": "https://surabaya.tribunnews.com/gebrakan-sang-pemimpin/1929861/jepang-penyumbang-signifikan-pma-jatim-total-investasi-lebih-dari-usd-5-miliar",
             "source": "",
             "publishedAt": "20260131T170000Z",
+            "languageGuess": "en",
+            "needsTranslation": false
+          },
+          {
+            "title": "Keir Starmer invites Japan PM Sanae Takaichi to united kingdom",
+            "url": "https://jang.com.pk/en/58800-keir-starmer-invites-japans-pm-sanae-takaichi-to-uk-news",
+            "source": "",
+            "publishedAt": "20260131T190000Z",
             "languageGuess": "en",
             "needsTranslation": false
           }
@@ -2981,7 +3106,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:41:21.855047Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:55:15.649795Z"
       }
     },
     {
@@ -3073,7 +3198,7 @@
           "Fewer than 3 recent English stories found via GDELT.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:41:42.916194Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:55:35.662110Z"
       }
     },
     {
@@ -3134,27 +3259,7 @@
           {
             "query": "suriye",
             "rank": 1,
-            "count": 14,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
-            "query": "anla",
-            "rank": 2,
-            "count": 8,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
-            "query": "meti",
-            "rank": 3,
-            "count": 5,
+            "count": 11,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -3163,7 +3268,37 @@
           },
           {
             "query": "rkiye",
+            "rank": 2,
+            "count": 9,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "suriyeden",
+            "rank": 3,
+            "count": 8,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "anla",
             "rank": 4,
+            "count": 7,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "netimine",
+            "rank": 5,
             "count": 5,
             "languageGuess": "en",
             "needsTranslation": false,
@@ -3172,8 +3307,18 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "suriyede",
-            "rank": 5,
+            "query": "meti",
+            "rank": 6,
+            "count": 5,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "meleri",
+            "rank": 7,
             "count": 4,
             "languageGuess": "en",
             "needsTranslation": false,
@@ -3182,29 +3327,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "ordusu",
-            "rank": 6,
-            "count": 3,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
-            "query": "noktas",
-            "rank": 7,
-            "count": 3,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
-            "query": "barrack",
+            "query": "ekilmek",
             "rank": 8,
-            "count": 3,
+            "count": 4,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -3212,7 +3337,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "detay",
+            "query": "cumhurba",
             "rank": 9,
             "count": 3,
             "languageGuess": "en",
@@ -3222,7 +3347,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "suriyenin",
+            "query": "macron",
             "rank": 10,
             "count": 3,
             "languageGuess": "en",
@@ -3237,26 +3362,26 @@
       "news": {
         "topStoriesPast3d": [
           {
-            "title": "Sonunda oldu ama",
-            "url": "https://www.yeniakit.com.tr/yazarlar/ali-akben/sonunda-oldu-ama-51550.html",
+            "title": "Cumhurbaşkanı El - Şara , Macron ile Bölgesel Gelişmeleri ve Suriyeye Desteği Görüştü",
+            "url": "https://sana.sy/tr/politics/2280832/",
             "source": "",
-            "publishedAt": "20260201T011500Z",
+            "publishedAt": "20260201T064500Z",
             "languageGuess": "en",
             "needsTranslation": false
           },
           {
-            "title": "Devlet Bahçeli , Suriye eski Geçici Hükümeti Başkanı  nı kabul etti",
-            "url": "https://www.ensonhaber.com/gundem/devlet-bahceli-suriye-eski-gecici-hukumeti-baskanini-kabul-etti",
+            "title": "Şara ile Macron Suriyedeki gelişmeleri görüştü",
+            "url": "https://www.haberturk.com/sara-ile-macron-suriye-deki-gelismeleri-gorustu-3858101",
             "source": "",
-            "publishedAt": "20260131T150000Z",
+            "publishedAt": "20260201T061500Z",
             "languageGuess": "en",
             "needsTranslation": false
           },
           {
-            "title": "AA ekibi , Suriye ordusu ve terör örgütü YPGnin Hasekedeki temas noktasını görüntüledi",
-            "url": "https://www.aa.com.tr/tr/pg/foto-galeri/aa-ekibi-suriye-ordusu-ve-teror-orgutu-ypgnin-hasekedeki-temas-noktasini-goruntuledi",
+            "title": "Türkiye , Şara yönetimine Suriyeden çekilmek için 3 şart sundu",
+            "url": "https://www.sozcu.com.tr/turkiye-sara-yonetimine-suriye-den-cekilmek-icin-3-sartini-acikladi-p289107",
             "source": "",
-            "publishedAt": "20260129T151500Z",
+            "publishedAt": "20260201T064500Z",
             "languageGuess": "en",
             "needsTranslation": false
           }
@@ -3280,7 +3405,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:41:53.599258Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:55:45.321380Z"
       }
     },
     {
@@ -3362,7 +3487,7 @@
           {
             "query": "travail",
             "rank": 2,
-            "count": 5,
+            "count": 4,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -3372,7 +3497,7 @@
           {
             "query": "2026",
             "rank": 3,
-            "count": 4,
+            "count": 3,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -3390,7 +3515,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "fransa",
+            "query": "frans",
             "rank": 5,
             "count": 2,
             "languageGuess": "en",
@@ -3400,7 +3525,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "programme",
+            "query": "soir",
             "rank": 6,
             "count": 2,
             "languageGuess": "en",
@@ -3410,7 +3535,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "pour",
+            "query": "notre",
             "rank": 7,
             "count": 2,
             "languageGuess": "en",
@@ -3420,7 +3545,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "marwadi",
+            "query": "lection",
             "rank": 8,
             "count": 2,
             "languageGuess": "en",
@@ -3430,7 +3555,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "university",
+            "query": "marwadi",
             "rank": 9,
             "count": 2,
             "languageGuess": "en",
@@ -3440,7 +3565,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "becomes",
+            "query": "university",
             "rank": 10,
             "count": 2,
             "languageGuess": "en",
@@ -3455,18 +3580,18 @@
       "news": {
         "topStoriesPast3d": [
           {
-            "title": "The long half - life of France nuclear tests in Polynesia",
-            "url": "https://www.yahoo.com/news/articles/long-half-life-france-nuclear-163431645.html",
+            "title": "Fransız basını duyurdu : John Duran  ın Rennese transferi iptal oldu",
+            "url": "https://www.ensonhaber.com/kralspor/futbol/fransiz-basini-duyurdu-john-duranin-rennese-transferi-iptal-oldu",
             "source": "",
-            "publishedAt": "20260201T011500Z",
+            "publishedAt": "20260201T070000Z",
             "languageGuess": "en",
             "needsTranslation": false
           },
           {
-            "title": "EVP - Chef Weber macht Druck für europäischen Atomschirm",
-            "url": "https://www.br.de/nachrichten/deutschland-welt/evp-chef-weber-macht-druck-fuer-europaeischen-atomschirm,V9uZZq4",
+            "title": "Ce soir à la tél : notre sélection du dimanche 1ᵉʳ fvrier",
+            "url": "https://www.telerama.fr/television/ce-soir-a-la-tele-notre-selection-du-dimanche-1-fevrier-7029508.php",
             "source": "",
-            "publishedAt": "20260201T000000Z",
+            "publishedAt": "20260201T071500Z",
             "languageGuess": "en",
             "needsTranslation": false
           },
@@ -3497,7 +3622,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:42:04.955013Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:55:50.010055Z"
       }
     },
     {
@@ -3569,17 +3694,7 @@
           {
             "query": "rkiye",
             "rank": 1,
-            "count": 15,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
-            "query": "duyurdu",
-            "rank": 2,
-            "count": 3,
+            "count": 18,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -3588,6 +3703,16 @@
           },
           {
             "query": "rkiyeye",
+            "rank": 2,
+            "count": 4,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "duyurdu",
             "rank": 3,
             "count": 3,
             "languageGuess": "en",
@@ -3597,7 +3722,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "avrupa",
+            "query": "bayra",
             "rank": 4,
             "count": 3,
             "languageGuess": "en",
@@ -3607,9 +3732,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "etti",
+            "query": "avrupa",
             "rank": 5,
-            "count": 2,
+            "count": 3,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -3617,7 +3742,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "reklam",
+            "query": "lgeye",
             "rank": 6,
             "count": 2,
             "languageGuess": "en",
@@ -3627,7 +3752,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "yasak",
+            "query": "recinde",
             "rank": 7,
             "count": 2,
             "languageGuess": "en",
@@ -3637,7 +3762,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "googleda",
+            "query": "rtlerin",
             "rank": 8,
             "count": 2,
             "languageGuess": "en",
@@ -3647,7 +3772,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "mexc",
+            "query": "gelece",
             "rank": 9,
             "count": 2,
             "languageGuess": "en",
@@ -3657,7 +3782,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "global",
+            "query": "reklam",
             "rank": 10,
             "count": 2,
             "languageGuess": "en",
@@ -3672,26 +3797,26 @@
       "news": {
         "topStoriesPast3d": [
           {
-            "title": "ABDnin İsrail Büyükelçisi , Türkiyenin ABDden F - 35 savaş uçaklarını teslim alamayacağını iddia etti",
-            "url": "https://www.birgun.net/haber/abd-nin-israil-buyukelcisi-turkiye-nin-abd-den-f-35-savas-ucaklarini-teslim-alamayacagini-iddia-etti-688965",
+            "title": "Terörsüz Türkiye ve bölgeye geçiş sürecinde Kürtlerin geleceği",
+            "url": "http://www.haberler.com/guncel/terorsuz-turkiye-ve-bolgeye-gecis-surecinde-19524219-haberi/",
             "source": "",
-            "publishedAt": "20260201T010000Z",
+            "publishedAt": "20260201T070000Z",
             "languageGuess": "en",
             "needsTranslation": false
           },
           {
-            "title": "Dijital oyunlara temsilci mecburiyeti",
-            "url": "https://www.turkiyegazetesi.com.tr/teknoloji/dijital-oyunlara-temsilci-mecburiyeti-1767677",
+            "title": "Terörsüz Türkiye ve bölgeye geçiş sürecinde Kürtlerin geleceği",
+            "url": "https://www.haberler.com/guncel/terorsuz-turkiye-ve-bolgeye-gecis-surecinde-19524219-haberi/",
             "source": "",
-            "publishedAt": "20260201T011500Z",
+            "publishedAt": "20260201T064500Z",
             "languageGuess": "en",
             "needsTranslation": false
           },
           {
-            "title": "Reklam yasak ama Googleda var ! MEXC Global Türkiyede ne yapıyor ?",
-            "url": "https://www.haberler.com/haberler/reklam-yasak-ama-google-da-var-mexc-global-19518881-haberi/",
+            "title": "Türkiye , Şara yönetimine Suriyeden çekilmek için 3 şart sundu",
+            "url": "https://www.sozcu.com.tr/turkiye-sara-yonetimine-suriye-den-cekilmek-icin-3-sartini-acikladi-p289107",
             "source": "",
-            "publishedAt": "20260130T104500Z",
+            "publishedAt": "20260201T064500Z",
             "languageGuess": "en",
             "needsTranslation": false
           }
@@ -3714,7 +3839,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:42:13.501790Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:55:55.314598Z"
       }
     },
     {
@@ -3791,7 +3916,7 @@
           {
             "query": "trump",
             "rank": 2,
-            "count": 19,
+            "count": 20,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -3809,9 +3934,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "minyak",
+            "query": "anuncia",
             "rank": 4,
-            "count": 5,
+            "count": 6,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -3819,7 +3944,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "anuncia",
+            "query": "minyak",
             "rank": 5,
             "count": 5,
             "languageGuess": "en",
@@ -3859,7 +3984,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "rodr",
+            "query": "entre",
             "rank": 9,
             "count": 4,
             "languageGuess": "en",
@@ -3869,7 +3994,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "guez",
+            "query": "vuelos",
             "rank": 10,
             "count": 4,
             "languageGuess": "en",
@@ -3926,7 +4051,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:42:23.949282Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:56:03.080564Z"
       }
     },
     {
@@ -3998,7 +4123,7 @@
           {
             "query": "trung",
             "rank": 1,
-            "count": 5,
+            "count": 6,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -4036,7 +4161,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "nguy",
+            "query": "indonesia",
             "rank": 5,
             "count": 3,
             "languageGuess": "en",
@@ -4046,9 +4171,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "trong",
+            "query": "nguy",
             "rank": 6,
-            "count": 2,
+            "count": 3,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -4056,7 +4181,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "kinh",
+            "query": "trong",
             "rank": 7,
             "count": 2,
             "languageGuess": "en",
@@ -4066,7 +4191,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "truy",
+            "query": "kinh",
             "rank": 8,
             "count": 2,
             "languageGuess": "en",
@@ -4076,7 +4201,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "indonesia",
+            "query": "truy",
             "rank": 9,
             "count": 2,
             "languageGuess": "en",
@@ -4143,7 +4268,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:42:28.053518Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:56:11.135705Z"
       }
     },
     {
@@ -4235,7 +4360,7 @@
           "Fewer than 3 recent English stories found via GDELT.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:42:49.079679Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:56:31.208629Z"
       }
     },
     {
@@ -4327,7 +4452,7 @@
           "Fewer than 3 recent English stories found via GDELT.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:43:09.995724Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:56:51.187740Z"
       }
     },
     {
@@ -4419,7 +4544,7 @@
           "Fewer than 3 recent English stories found via GDELT.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:43:30.930257Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:57:11.023841Z"
       }
     },
     {
@@ -4491,7 +4616,7 @@
           {
             "query": "indonesia",
             "rank": 1,
-            "count": 33,
+            "count": 34,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -4501,7 +4626,7 @@
           {
             "query": "futsal",
             "rank": 2,
-            "count": 24,
+            "count": 25,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -4511,7 +4636,7 @@
           {
             "query": "2026",
             "rank": 3,
-            "count": 15,
+            "count": 16,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -4541,7 +4666,7 @@
           {
             "query": "timnas",
             "rank": 6,
-            "count": 14,
+            "count": 12,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -4551,7 +4676,7 @@
           {
             "query": "irak",
             "rank": 7,
-            "count": 8,
+            "count": 11,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -4569,9 +4694,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "vietnam",
+            "query": "perempat",
             "rank": 9,
-            "count": 7,
+            "count": 6,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -4579,7 +4704,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "perempat",
+            "query": "final",
             "rank": 10,
             "count": 6,
             "languageGuess": "en",
@@ -4594,14 +4719,6 @@
       "news": {
         "topStoriesPast3d": [
           {
-            "title": "Daftar Pinjol Resmi OJK Februari 2026 , Ada 95 Aplikasi Legal dan Aman",
-            "url": "https://money.kompas.com/read/2026/02/01/073300126/daftar-pinjol-resmi-ojk-februari-2026-ada-95-aplikasi-legal-dan-aman",
-            "source": "",
-            "publishedAt": "20260201T011500Z",
-            "languageGuess": "en",
-            "needsTranslation": false
-          },
-          {
             "title": "Klasemen Grup A Piala Asia Futsal 2026 Usai Skor Indonesia Vs Irak 1 - 1",
             "url": "https://bola.kompas.com/read/2026/01/31/20432338/klasemen-grup-a-piala-asia-futsal-2026-usai-skor-indonesia-vs-irak-1-1",
             "source": "",
@@ -4614,6 +4731,14 @@
             "url": "https://bola.kompas.com/read/2026/01/29/21574038/calon-lawan-timnas-futsal-indonesia-di-8-besar-piala-asia-futsal-2026",
             "source": "",
             "publishedAt": "20260129T153000Z",
+            "languageGuess": "en",
+            "needsTranslation": false
+          },
+          {
+            "title": "Hasil Piala Asia Futsal 2026 : Indonesia Susul 3 Tim Lain ke 8 Besar",
+            "url": "https://bola.kompas.com/read/2026/01/29/21313668/hasil-piala-asia-futsal-2026-indonesia-susul-3-tim-lain-ke-8-besar",
+            "source": "",
+            "publishedAt": "20260129T150000Z",
             "languageGuess": "en",
             "needsTranslation": false
           }
@@ -4636,7 +4761,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:43:55.588494Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:57:17.737269Z"
       }
     },
     {
@@ -4728,7 +4853,7 @@
           {
             "query": "china",
             "rank": 3,
-            "count": 9,
+            "count": 8,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -4736,7 +4861,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "members",
+            "query": "peace",
             "rank": 4,
             "count": 4,
             "languageGuess": "en",
@@ -4756,7 +4881,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "peace",
+            "query": "plan",
             "rank": 6,
             "count": 3,
             "languageGuess": "en",
@@ -4766,7 +4891,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "plan",
+            "query": "members",
             "rank": 7,
             "count": 3,
             "languageGuess": "en",
@@ -4776,7 +4901,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "scam",
+            "query": "thailand",
             "rank": 8,
             "count": 3,
             "languageGuess": "en",
@@ -4786,7 +4911,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "executes",
+            "query": "proposes",
             "rank": 9,
             "count": 3,
             "languageGuess": "en",
@@ -4796,7 +4921,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "thailand",
+            "query": "calibrated",
             "rank": 10,
             "count": 3,
             "languageGuess": "en",
@@ -4853,7 +4978,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:44:12.924436Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:57:31.403720Z"
       }
     },
     {
@@ -4925,7 +5050,7 @@
           {
             "query": "armenia",
             "rank": 1,
-            "count": 13,
+            "count": 12,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -5070,7 +5195,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:44:34.172874Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:57:52.920357Z"
       }
     },
     {
@@ -5150,7 +5275,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "rkiye",
+            "query": "aliyev",
             "rank": 2,
             "count": 6,
             "languageGuess": "en",
@@ -5160,9 +5285,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "azerbaijan",
+            "query": "rkiye",
             "rank": 3,
-            "count": 5,
+            "count": 6,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -5170,7 +5295,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "cumhurba",
+            "query": "peze",
             "rank": 4,
             "count": 5,
             "languageGuess": "en",
@@ -5180,7 +5305,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "rana",
+            "query": "kiyan",
             "rank": 5,
             "count": 5,
             "languageGuess": "en",
@@ -5190,7 +5315,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "bakan",
+            "query": "cumhurba",
             "rank": 6,
             "count": 5,
             "languageGuess": "en",
@@ -5200,7 +5325,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "izin",
+            "query": "rana",
             "rank": 7,
             "count": 5,
             "languageGuess": "en",
@@ -5210,7 +5335,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "inyandan",
+            "query": "bakan",
             "rank": 8,
             "count": 5,
             "languageGuess": "en",
@@ -5220,7 +5345,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "aliyev",
+            "query": "izin",
             "rank": 9,
             "count": 5,
             "languageGuess": "en",
@@ -5230,7 +5355,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "ermenistan",
+            "query": "inyandan",
             "rank": 10,
             "count": 5,
             "languageGuess": "en",
@@ -5245,6 +5370,14 @@
       "news": {
         "topStoriesPast3d": [
           {
+            "title": "Aliyev ile Pezeşkiyan telefonda görüştü",
+            "url": "https://www.haberler.com/dunya/aliyev-ve-pezeskiyan-dan-telefon-gorusmesi-19524243-haberi/",
+            "source": "",
+            "publishedAt": "20260201T064500Z",
+            "languageGuess": "en",
+            "needsTranslation": false
+          },
+          {
             "title": "Ալիևը կցանկանար , որ TRIPP նախագիծը հայ - ամերիկյան իրավական ուժ ունեցող համաձայնագիր չդառնա",
             "url": "https://www.1in.am/3675218.html",
             "source": "",
@@ -5257,14 +5390,6 @@
             "url": "https://www.trend.az/business/4147421.html",
             "source": "",
             "publishedAt": "20260129T100000Z",
-            "languageGuess": "en",
-            "needsTranslation": false
-          },
-          {
-            "title": "Azerbaycan Cumhurbaşkanı Aliyevden İrana  gerginliği düşürme  mesajı",
-            "url": "https://www.haberler.com/politika/aliyev-ve-pezeskiyan-dan-ikili-iliskiler-uzerine-telefon-gorusmesi-19523779-haberi/",
-            "source": "",
-            "publishedAt": "20260131T201500Z",
             "languageGuess": "en",
             "needsTranslation": false
           }
@@ -5287,7 +5412,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:44:41.667187Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:58:02.278443Z"
       }
     },
     {
@@ -5359,7 +5484,7 @@
           {
             "query": "senegal",
             "rank": 1,
-            "count": 12,
+            "count": 11,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -5369,7 +5494,7 @@
           {
             "query": "final",
             "rank": 2,
-            "count": 12,
+            "count": 11,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -5379,7 +5504,7 @@
           {
             "query": "morocco",
             "rank": 3,
-            "count": 11,
+            "count": 10,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -5397,9 +5522,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "chaos",
+            "query": "marruecos",
             "rank": 5,
-            "count": 5,
+            "count": 6,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -5407,7 +5532,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "marruecos",
+            "query": "chaos",
             "rank": 6,
             "count": 5,
             "languageGuess": "en",
@@ -5417,9 +5542,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "fined",
+            "query": "copa",
             "rank": 7,
-            "count": 4,
+            "count": 5,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -5427,7 +5552,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "african",
+            "query": "fined",
             "rank": 8,
             "count": 4,
             "languageGuess": "en",
@@ -5437,7 +5562,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "tras",
+            "query": "african",
             "rank": 9,
             "count": 4,
             "languageGuess": "en",
@@ -5447,7 +5572,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "copa",
+            "query": "tras",
             "rank": 10,
             "count": 4,
             "languageGuess": "en",
@@ -5504,7 +5629,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:44:53.701311Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:58:30.004939Z"
       }
     },
     {
@@ -5576,7 +5701,17 @@
           {
             "query": "somalia",
             "rank": 1,
-            "count": 14,
+            "count": 12,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "somali",
+            "rank": 2,
+            "count": 5,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -5585,16 +5720,6 @@
           },
           {
             "query": "rkiye",
-            "rank": 2,
-            "count": 4,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
-            "query": "africa",
             "rank": 3,
             "count": 4,
             "languageGuess": "en",
@@ -5604,7 +5729,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "resume",
+            "query": "africa",
             "rank": 4,
             "count": 4,
             "languageGuess": "en",
@@ -5614,7 +5739,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "while",
+            "query": "resume",
             "rank": 5,
             "count": 4,
             "languageGuess": "en",
@@ -5624,7 +5749,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "somali",
+            "query": "while",
             "rank": 6,
             "count": 4,
             "languageGuess": "en",
@@ -5721,7 +5846,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:45:11.468159Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:58:33.664196Z"
       }
     },
     {
@@ -5793,7 +5918,7 @@
           {
             "query": "yemen",
             "rank": 1,
-            "count": 13,
+            "count": 14,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -5821,18 +5946,8 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "gaza",
-            "rank": 4,
-            "count": 4,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
             "query": "houthi",
-            "rank": 5,
+            "rank": 4,
             "count": 3,
             "languageGuess": "en",
             "needsTranslation": false,
@@ -5842,7 +5957,7 @@
           },
           {
             "query": "split",
-            "rank": 6,
+            "rank": 5,
             "count": 3,
             "languageGuess": "en",
             "needsTranslation": false,
@@ -5852,7 +5967,7 @@
           },
           {
             "query": "assets",
-            "rank": 7,
+            "rank": 6,
             "count": 2,
             "languageGuess": "en",
             "needsTranslation": false,
@@ -5862,7 +5977,7 @@
           },
           {
             "query": "equipment",
-            "rank": 8,
+            "rank": 7,
             "count": 2,
             "languageGuess": "en",
             "needsTranslation": false,
@@ -5872,7 +5987,7 @@
           },
           {
             "query": "telecom",
-            "rank": 9,
+            "rank": 8,
             "count": 2,
             "languageGuess": "en",
             "needsTranslation": false,
@@ -5882,6 +5997,16 @@
           },
           {
             "query": "food",
+            "rank": 9,
+            "count": 2,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "rebel",
             "rank": 10,
             "count": 2,
             "languageGuess": "en",
@@ -5938,7 +6063,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:45:32.156824Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:58:38.813868Z"
       }
     },
     {
@@ -6020,7 +6145,17 @@
           {
             "query": "libya",
             "rank": 1,
-            "count": 12,
+            "count": 11,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "epstein",
+            "rank": 2,
+            "count": 6,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -6029,16 +6164,6 @@
           },
           {
             "query": "plan",
-            "rank": 2,
-            "count": 5,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
-            "query": "libyan",
             "rank": 3,
             "count": 5,
             "languageGuess": "en",
@@ -6048,7 +6173,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "epstein",
+            "query": "libyan",
             "rank": 4,
             "count": 5,
             "languageGuess": "en",
@@ -6098,7 +6223,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "abdli",
+            "query": "libyada",
             "rank": 9,
             "count": 3,
             "languageGuess": "en",
@@ -6108,7 +6233,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "milyarder",
+            "query": "itime",
             "rank": 10,
             "count": 3,
             "languageGuess": "en",
@@ -6131,18 +6256,18 @@
             "needsTranslation": false
           },
           {
-            "title": "Genelkurmay Başkanı Orgeneral Bayraktaroğlu , Libya Savunma Bakan Vekili Tümgeneral Zubi ile Görüştü",
-            "url": "https://www.haberler.com/guncel/libya-savunma-bakan-vekili-turkiye-de-resmi-temaslarda-bulundu-19523289-haberi/",
+            "title": "Epstein belgelerinde Libya detayı !",
+            "url": "https://www.haber7.com/dunya/haber/3600665-epstein-belgelerinde-libya-detayi",
             "source": "",
-            "publishedAt": "20260131T183000Z",
+            "publishedAt": "20260201T034500Z",
             "languageGuess": "en",
             "needsTranslation": false
           },
           {
             "title": "Genelkurmay Başkanı Orgeneral Bayraktaroğlu , Libya Savunma Bakan Vekili Tümgeneral Zubi ile Görüştü",
-            "url": "http://www.haberler.com/guncel/libya-savunma-bakan-vekili-turkiye-de-resmi-temaslarda-bulundu-19523289-haberi/",
+            "url": "https://www.haberler.com/guncel/libya-savunma-bakan-vekili-turkiye-de-resmi-temaslarda-bulundu-19523289-haberi/",
             "source": "",
-            "publishedAt": "20260131T153000Z",
+            "publishedAt": "20260131T183000Z",
             "languageGuess": "en",
             "needsTranslation": false
           }
@@ -6165,7 +6290,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:45:47.432303Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:58:54.877616Z"
       }
     },
     {
@@ -6235,9 +6360,9 @@
       "trends": {
         "topSearchesPast24h": [
           {
-            "query": "gaza",
+            "query": "rafah",
             "rank": 1,
-            "count": 2,
+            "count": 4,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -6245,7 +6370,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "rafah",
+            "query": "gaza",
             "rank": 2,
             "count": 2,
             "languageGuess": "en",
@@ -6255,7 +6380,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "egypt",
+            "query": "dibuka",
             "rank": 3,
             "count": 2,
             "languageGuess": "en",
@@ -6265,9 +6390,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "mesir",
+            "query": "semula",
             "rank": 4,
-            "count": 1,
+            "count": 2,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -6275,9 +6400,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "sedia",
+            "query": "israel",
             "rank": 5,
-            "count": 1,
+            "count": 2,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -6285,7 +6410,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "terima",
+            "query": "mesir",
             "rank": 6,
             "count": 1,
             "languageGuess": "en",
@@ -6295,7 +6420,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "orang",
+            "query": "sedia",
             "rank": 7,
             "count": 1,
             "languageGuess": "en",
@@ -6305,7 +6430,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "awam",
+            "query": "terima",
             "rank": 8,
             "count": 1,
             "languageGuess": "en",
@@ -6315,7 +6440,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "cedera",
+            "query": "orang",
             "rank": 9,
             "count": 1,
             "languageGuess": "en",
@@ -6325,7 +6450,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "dari",
+            "query": "awam",
             "rank": 10,
             "count": 1,
             "languageGuess": "en",
@@ -6348,18 +6473,18 @@
             "needsTranslation": false
           },
           {
-            "title": "What Was Ancient Egypt Like Under Roman Rule ? - GreekReporter . com",
-            "url": "https://greekreporter.com/2026/01/29/ancient-egypt-roman-rule/",
-            "source": "",
-            "publishedAt": "20260129T054500Z",
-            "languageGuess": "en",
-            "needsTranslation": false
-          },
-          {
             "title": "Somalia , Egypt Strengthen Disaster Management Cooperation",
             "url": "https://allafrica.com/stories/202601300052.html",
             "source": "",
             "publishedAt": "20260130T070000Z",
+            "languageGuess": "en",
+            "needsTranslation": false
+          },
+          {
+            "title": "Cheops - Pyramide viel älter ? Neue Studie sorgt für Mega - Streit",
+            "url": "https://www.express.de:443/panorama/cheops-pyramide-viel-aelter-neue-studie-sorgt-fuer-mega-streit-1-1202443",
+            "source": "",
+            "publishedAt": "20260131T181500Z",
             "languageGuess": "en",
             "needsTranslation": false
           }
@@ -6382,7 +6507,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:46:13.357795Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:59:07.060342Z"
       }
     },
     {
@@ -6522,7 +6647,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "trois",
+            "query": "rienne",
             "rank": 8,
             "count": 4,
             "languageGuess": "en",
@@ -6532,7 +6657,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "fran",
+            "query": "trois",
             "rank": 9,
             "count": 4,
             "languageGuess": "en",
@@ -6599,7 +6724,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:46:27.397076Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:59:20.688427Z"
       }
     },
     {
@@ -6671,7 +6796,7 @@
           {
             "query": "argentina",
             "rank": 1,
-            "count": 18,
+            "count": 17,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -6681,7 +6806,7 @@
           {
             "query": "2026",
             "rank": 2,
-            "count": 8,
+            "count": 9,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -6689,7 +6814,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "para",
+            "query": "apertura",
             "rank": 3,
             "count": 8,
             "languageGuess": "en",
@@ -6699,19 +6824,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "apertura",
+            "query": "para",
             "rank": 4,
-            "count": 6,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
-            "query": "argentinos",
-            "rank": 5,
-            "count": 5,
+            "count": 8,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -6720,6 +6835,16 @@
           },
           {
             "query": "torneo",
+            "rank": 5,
+            "count": 7,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "argentinos",
             "rank": 6,
             "count": 5,
             "languageGuess": "en",
@@ -6749,9 +6874,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "cuarto",
+            "query": "venci",
             "rank": 9,
-            "count": 3,
+            "count": 4,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -6759,7 +6884,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "venci",
+            "query": "cuarto",
             "rank": 10,
             "count": 3,
             "languageGuess": "en",
@@ -6816,7 +6941,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:46:41.596671Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:59:30.582849Z"
       }
     },
     {
@@ -6888,17 +7013,7 @@
           {
             "query": "chile",
             "rank": 1,
-            "count": 10,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
-            "query": "colo",
-            "rank": 2,
-            "count": 6,
+            "count": 12,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -6907,6 +7022,16 @@
           },
           {
             "query": "chilena",
+            "rank": 2,
+            "count": 7,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "jordan",
             "rank": 3,
             "count": 5,
             "languageGuess": "en",
@@ -6916,7 +7041,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "jordan",
+            "query": "olympic",
             "rank": 4,
             "count": 5,
             "languageGuess": "en",
@@ -6926,7 +7051,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "olympic",
+            "query": "energieprojekt",
             "rank": 5,
             "count": 5,
             "languageGuess": "en",
@@ -6936,19 +7061,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "energieprojekt",
-            "rank": 6,
-            "count": 4,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
             "query": "nahe",
-            "rank": 7,
-            "count": 4,
+            "rank": 6,
+            "count": 5,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -6957,8 +7072,8 @@
           },
           {
             "query": "sternwarte",
-            "rank": 8,
-            "count": 4,
+            "rank": 7,
+            "count": 5,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -6967,6 +7082,16 @@
           },
           {
             "query": "abgesagt",
+            "rank": 8,
+            "count": 5,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "colo",
             "rank": 9,
             "count": 4,
             "languageGuess": "en",
@@ -6976,7 +7101,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "chiles",
+            "query": "astronomie",
             "rank": 10,
             "count": 4,
             "languageGuess": "en",
@@ -7033,7 +7158,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:46:50.034083Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:59:36.399820Z"
       }
     },
     {
@@ -7125,7 +7250,7 @@
           "Fewer than 3 recent English stories found via GDELT.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:47:10.723678Z"
+        "lastSuccessfulUpdate": "2026-02-01T07:59:56.204168Z"
       }
     },
     {
@@ -7217,7 +7342,7 @@
           "Fewer than 3 recent English stories found via GDELT.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:47:31.645288Z"
+        "lastSuccessfulUpdate": "2026-02-01T08:00:21.400795Z"
       }
     },
     {
@@ -7289,7 +7414,7 @@
           {
             "query": "colombia",
             "rank": 1,
-            "count": 28,
+            "count": 27,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -7434,7 +7559,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:47:36.003590Z"
+        "lastSuccessfulUpdate": "2026-02-01T08:00:54.192823Z"
       }
     },
     {
@@ -7506,7 +7631,7 @@
           {
             "query": "panama",
             "rank": 1,
-            "count": 21,
+            "count": 23,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -7516,7 +7641,7 @@
           {
             "query": "canal",
             "rank": 2,
-            "count": 19,
+            "count": 20,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -7534,7 +7659,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "panam",
+            "query": "hong",
             "rank": 4,
             "count": 12,
             "languageGuess": "en",
@@ -7544,7 +7669,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "hong",
+            "query": "kong",
             "rank": 5,
             "count": 12,
             "languageGuess": "en",
@@ -7554,7 +7679,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "kong",
+            "query": "ports",
             "rank": 6,
             "count": 12,
             "languageGuess": "en",
@@ -7564,7 +7689,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "ports",
+            "query": "unconstitutional",
             "rank": 7,
             "count": 12,
             "languageGuess": "en",
@@ -7574,9 +7699,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "unconstitutional",
+            "query": "panam",
             "rank": 8,
-            "count": 12,
+            "count": 11,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -7617,18 +7742,18 @@
             "needsTranslation": false
           },
           {
-            "title": "Csavaros revansot vesznek a dánok Grönlandért – átveszik Panama irányítását",
-            "url": "https://www.portfolio.hu/gazdasag/20260131/csavaros-revansot-vesznek-a-danok-gronlandert-atveszik-panama-iranyitasat-814920",
+            "title": "Panama Supreme Court Ends Chinese Port Control , Marking Major Geopolitical Shift in Canal Zone",
+            "url": "https://legalinsurrection.com/2026/01/panama-supreme-court-ends-chinese-port-control-marking-major-geopolitical-shift-in-canal-zone/",
             "source": "",
-            "publishedAt": "20260131T160000Z",
+            "publishedAt": "20260201T023000Z",
             "languageGuess": "en",
             "needsTranslation": false
           },
           {
-            "title": "Cancillería de Panamá se pronuncia tras accidente en Atitlán donde murieron dos turistas panameñas",
-            "url": "https://www.prensalibre.com/ahora/guatemala/comunitario/cancilleria-de-panama-se-pronuncia-tras-accidente-en-atitlan-donde-murieron-dos-turistas-panamenas/",
+            "title": "Csavaros revansot vesznek a dánok Grönlandért – átveszik Panama irányítását",
+            "url": "https://www.portfolio.hu/gazdasag/20260131/csavaros-revansot-vesznek-a-danok-gronlandert-atveszik-panama-iranyitasat-814920",
             "source": "",
-            "publishedAt": "20260130T000000Z",
+            "publishedAt": "20260131T160000Z",
             "languageGuess": "en",
             "needsTranslation": false
           }
@@ -7651,7 +7776,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:47:45.126399Z"
+        "lastSuccessfulUpdate": "2026-02-01T08:01:17.599328Z"
       }
     },
     {
@@ -7761,7 +7886,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "para",
+            "query": "salvadore",
             "rank": 5,
             "count": 6,
             "languageGuess": "en",
@@ -7771,9 +7896,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "salvadore",
+            "query": "para",
             "rank": 6,
-            "count": 5,
+            "count": 6,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -7868,7 +7993,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:47:52.607384Z"
+        "lastSuccessfulUpdate": "2026-02-01T08:02:04.365639Z"
       }
     },
     {
@@ -7948,19 +8073,9 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "danmark",
-            "rank": 2,
-            "count": 6,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
             "query": "protest",
-            "rank": 3,
-            "count": 6,
+            "rank": 2,
+            "count": 5,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -7969,6 +8084,16 @@
           },
           {
             "query": "karali",
+            "rank": 3,
+            "count": 5,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "danmark",
             "rank": 4,
             "count": 5,
             "languageGuess": "en",
@@ -7980,7 +8105,7 @@
           {
             "query": "danish",
             "rank": 5,
-            "count": 5,
+            "count": 4,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -7990,7 +8115,7 @@
           {
             "query": "veterans",
             "rank": 6,
-            "count": 5,
+            "count": 4,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -8000,7 +8125,7 @@
           {
             "query": "outside",
             "rank": 7,
-            "count": 5,
+            "count": 4,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -8010,7 +8135,7 @@
           {
             "query": "embassy",
             "rank": 8,
-            "count": 5,
+            "count": 4,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -8018,7 +8143,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "kroner",
+            "query": "veteranai",
             "rank": 9,
             "count": 3,
             "languageGuess": "en",
@@ -8028,7 +8153,7 @@
             "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
           },
           {
-            "query": "veteranai",
+            "query": "sureng",
             "rank": 10,
             "count": 3,
             "languageGuess": "en",
@@ -8043,14 +8168,6 @@
       "news": {
         "topStoriesPast3d": [
           {
-            "title": "Danmark samler over 100 millioner kroner ind til børn i glemte kriser | Nyheder",
-            "url": "https://www.dr.dk/nyheder/seneste/danmark-samler-over-100-millioner-kroner-ind-til-boern-i-glemte-kriser",
-            "source": "",
-            "publishedAt": "20260201T011500Z",
-            "languageGuess": "en",
-            "needsTranslation": false
-          },
-          {
             "title": "Danijos veteranai surengė protestą prie JAV ambasados",
             "url": "https://www.15min.lt/naujiena/aktualu/pasaulis/danijos-veteranai-surenge-protesta-prie-jav-ambasados-57-2612738",
             "source": "",
@@ -8059,10 +8176,18 @@
             "needsTranslation": false
           },
           {
-            "title": "Danmarks Indsamling 2026 : Så meget blev der samlet ind",
-            "url": "https://www.alt.dk/kendte/danmarks-indsamling-beloeb-2026-overblik/5715736",
+            "title": "Iškilmingame vakare – Danijos karališkosios poros atsisveikinimas su Lietuva",
+            "url": "https://www.delfi.lt/veidai/zmones/danijos-karaliskoji-pora-ir-lietuvos-pirmoji-pora-120205207",
             "source": "",
-            "publishedAt": "20260201T011500Z",
+            "publishedAt": "20260129T201500Z",
+            "languageGuess": "en",
+            "needsTranslation": false
+          },
+          {
+            "title": "Danskerne samlede over 100 millioner ind til børn i verdens glemte kriser",
+            "url": "https://www.dr.dk/om-dr/nyheder/danskerne-samlede-over-100-millioner-ind-til-boern-i-verdens-glemte-kriser",
+            "source": "",
+            "publishedAt": "20260201T023000Z",
             "languageGuess": "en",
             "needsTranslation": false
           }
@@ -8085,7 +8210,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:48:04.775838Z"
+        "lastSuccessfulUpdate": "2026-02-01T08:02:16.812970Z"
       }
     },
     {
@@ -8157,17 +8282,7 @@
           {
             "query": "sudan",
             "rank": 1,
-            "count": 24,
-            "languageGuess": "en",
-            "needsTranslation": false,
-            "translationHint": null,
-            "source": "news_proxy",
-            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
-          },
-          {
-            "query": "india",
-            "rank": 2,
-            "count": 8,
+            "count": 23,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -8176,8 +8291,18 @@
           },
           {
             "query": "south",
+            "rank": 2,
+            "count": 7,
+            "languageGuess": "en",
+            "needsTranslation": false,
+            "translationHint": null,
+            "source": "news_proxy",
+            "notes": "Proxy trend (derived from frequent terms in recent English headlines). Not actual search data."
+          },
+          {
+            "query": "india",
             "rank": 3,
-            "count": 8,
+            "count": 6,
             "languageGuess": "en",
             "needsTranslation": false,
             "translationHint": null,
@@ -8302,7 +8427,7 @@
           "Top searches are proxy trends (news-derived), not actual search queries.",
           "US search interest unavailable/empty via Google Trends (common in CI)."
         ],
-        "lastSuccessfulUpdate": "2026-02-01T02:48:08.925495Z"
+        "lastSuccessfulUpdate": "2026-02-01T08:02:55.183666Z"
       }
     }
   ],
