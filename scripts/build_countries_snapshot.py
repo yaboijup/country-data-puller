@@ -1,36 +1,32 @@
 """
 Build a Base44-friendly JSON snapshot for multiple countries.
 
-Outputs: public/countries_snapshot.json
+Output: public/countries_snapshot.json
 
-Focus (no news, no Wikipedia summary):
-- Political system (Wikidata P122 labels)
-- Head of State (P35) + party (P102)
-- Head of Government (P6) + party (P102)
-- Legislature bodies (P194 labels)
-- Executive / Legislature "type" heuristics (best-effort, with nuance notes)
-- Party control (best-effort):
-  - Executive: HoG party (fallback HoS party)
-  - Legislature: last national legislative election winner (P1346) from Wikidata (approximate!)
-- Elections:
-  - nextExecutiveElection (best-effort)
-  - nextLegislativeElection (best-effort)
-  - nuance flags when elections are non-competitive or not meaningful (heuristic)
+Fields returned per country:
+- Head of State (+ party)
+- Head of Government (+ party)
+- Legislative body/bodies
+- Party/group in charge of legislature body/bodies (best-effort via Wikidata last legislative election winner)
+- Executive party/leader (best-effort: HoG party -> fallback HoS party)
+- Freedom House score (numeric + qualitative), from Freedom House country page for (current_year - 1)
+- Political system type (Wikidata P122 labels)
+- Next legislative election (date + election type + exists?)
+- Next executive election (date + election type + exists?)
 
-- Freedom House rating:
-  - PR (0–40) + CL (0–60) total (0–100) from OWID grapher CSVs
+Data sources:
+- Wikidata SPARQL (government structure, leaders, parties, political system, elections)
+- Freedom House website (Freedom in the World pages)
 """
 
 from __future__ import annotations
 
-import csv
-import io
 import json
 import re
 import time
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional
 
 import requests
 
@@ -49,16 +45,12 @@ MAX_RETRIES = 3
 RETRY_SLEEP = 1.5
 
 WIKIDATA_SPARQL = "https://query.wikidata.org/sparql"
-
-# Freedom House (via Our World in Data grapher CSVs, updated annually)
-OWID_FH_PR_CSV = "https://ourworldindata.org/grapher/political-rights-score-fh.csv"
-OWID_FH_CL_CSV = "https://ourworldindata.org/grapher/civil-liberties-score-fh.csv"
+FREEDOM_HOUSE_BASE = "https://freedomhouse.org/country"
 
 
 # ---------------------------- COUNTRY LIST ----------------------------
 
 COUNTRIES: List[Dict[str, str]] = [
-    {"country": "Ukraine", "iso2": "UA"},
     {"country": "Russia", "iso2": "RU"},
     {"country": "India", "iso2": "IN"},
     {"country": "Pakistan", "iso2": "PK"},
@@ -104,17 +96,28 @@ COUNTRIES: List[Dict[str, str]] = [
     {"country": "Sudan", "iso2": "SD"},
 ]
 
-QUERY_ALIASES: Dict[str, List[str]] = {
-    "UAE": ["United Arab Emirates", "UAE"],
-    "United Kingdom": ["United Kingdom", "UK", "Britain"],
-    "Palestine": ["Palestine", "Palestinian Territories"],
-    "Taiwan": ["Taiwan", "Republic of China"],
-    "North Korea": ["North Korea", "DPRK"],
-    "South Korea": ["South Korea", "Republic of Korea"],
+# Freedom House slug exceptions (everything else can be slugified)
+FH_SLUG_OVERRIDES: Dict[str, str] = {
+    "UAE": "united-arab-emirates",
+    "United Kingdom": "united-kingdom",
+    "South Korea": "south-korea",
+    "North Korea": "north-korea",
+    "El Salvador": "el-salvador",
 }
 
+# Some country names don’t match Wikidata/other naming perfectly, but ISO2 lookup should work.
+# This is only for Freedom House URL building.
+def fh_slug(country_name: str) -> str:
+    if country_name in FH_SLUG_OVERRIDES:
+        return FH_SLUG_OVERRIDES[country_name]
+    # basic slugify
+    s = country_name.strip().lower()
+    s = re.sub(r"[’']", "", s)
+    s = re.sub(r"[^a-z0-9]+", "-", s).strip("-")
+    return s
 
-# ---------------------------- BASIC HELPERS ----------------------------
+
+# ---------------------------- HELPERS ----------------------------
 
 def now_utc() -> datetime:
     return datetime.now(timezone.utc)
@@ -131,7 +134,7 @@ def req_text(url: str, params: Optional[dict] = None, headers: Optional[dict] = 
         h.update(headers)
     for attempt in range(1, MAX_RETRIES + 1):
         try:
-            r = requests.get(url, params=params, headers=h, timeout=TIMEOUT)
+            r = requests.get(url, params=params, headers=h, timeout=TIMEOUT, allow_redirects=True)
             if r.status_code == 200:
                 return r.text
         except requests.RequestException:
@@ -193,9 +196,6 @@ def get_wikidata_country_qid_by_iso2(iso2: str) -> Optional[str]:
     return uri.rsplit("/", 1)[-1]  # Qxxx
 
 def get_political_system_labels(country_qid: str) -> List[str]:
-    """
-    Return multiple political system labels (English) for nuance.
-    """
     q = f"""
     SELECT ?polsysLabel WHERE {{
       wd:{country_qid} wdt:P122 ?polsys .
@@ -214,9 +214,9 @@ def get_political_system_labels(country_qid: str) -> List[str]:
 
 def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
     """
-    - head of state (P35) + party (P102)
-    - head of government (P6) + party (P102)
-    - legislature bodies (P194)
+    - Head of State (P35) + party (P102)
+    - Head of Government (P6) + party (P102)
+    - Legislature bodies (P194)
     """
     q = f"""
     SELECT
@@ -239,7 +239,6 @@ def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
     }}
     LIMIT 200
     """
-
     data = wikidata_sparql(q)
     bindings = safe_get(data, "results", "bindings", default=[])
 
@@ -262,115 +261,42 @@ def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
         if leg:
             legislatures.add(leg)
 
-    same_person = bool(hos_name and hog_name and hos_name == hog_name)
-
-    leaders: List[Dict[str, Any]] = []
-    if hos_name:
-        leaders.append({"role": "head_of_state", "name": hos_name, "party": hos_party})
-    if hog_name:
-        leaders.append({"role": "head_of_government", "name": hog_name, "party": hog_party})
-
     return {
-        "leaders": leaders,
-        "leadersSamePerson": same_person,
-        "executiveControllerParty": hog_party or hos_party or "unknown",
+        "headOfState": {"name": hos_name, "party": hos_party},
+        "headOfGovernment": {"name": hog_name, "party": hog_party},
         "legislatureBodies": sorted(legislatures),
+        "executiveController": {
+            "leader": hog_name or hos_name,
+            "partyOrGroup": hog_party or hos_party or "unknown",
+            "method": "hog_party_else_hos_party",
+        },
     }
 
 
-# ---------------------------- STRUCTURE HEURISTICS (NUANCE) ----------------------------
-
-def _has_label(labels: List[str], needle: str) -> bool:
-    n = needle.lower()
-    return any(n in (x or "").lower() for x in labels)
-
-def classify_executive_type(political_systems: List[str], leaders: List[Dict[str, Any]]) -> Dict[str, Any]:
-    """
-    Best-effort executive classification.
-    Returns {type, notes}.
-    """
-    # Direct label hints
-    if _has_label(political_systems, "absolute monarchy") or _has_label(political_systems, "monarchy"):
-        return {"type": "monarchy", "notes": "Heuristic from political system labels (Wikidata P122)."}
-    if _has_label(political_systems, "presidential system"):
-        return {"type": "presidential", "notes": "Heuristic from political system labels (Wikidata P122)."}
-    if _has_label(political_systems, "parliamentary system"):
-        return {"type": "parliamentary", "notes": "Heuristic from political system labels (Wikidata P122)."}
-    if _has_label(political_systems, "semi-presidential system"):
-        return {"type": "semi-presidential", "notes": "Heuristic from political system labels (Wikidata P122)."}
-
-    # Fallback: leader roles present
-    has_hos = any(l.get("role") == "head_of_state" for l in leaders)
-    has_hog = any(l.get("role") == "head_of_government" for l in leaders)
-
-    if has_hos and has_hog:
-        return {"type": "dual_executive", "notes": "Both head of state and head of government present; exact subtype may vary."}
-    if has_hos and not has_hog:
-        return {"type": "single_executive", "notes": "Only head of state present in Wikidata; could be monarchy or presidential republic (data gaps possible)."}
-    if has_hog and not has_hos:
-        return {"type": "single_executive", "notes": "Only head of government present in Wikidata; could reflect data gaps."}
-
-    return {"type": "unknown", "notes": "Insufficient data to classify executive structure."}
-
-def classify_legislature_type(leg_bodies: List[str]) -> Dict[str, Any]:
-    """
-    Very light inference: if 2+ bodies -> 'bicameral_or_multi', 1 -> 'unicameral_or_unknown'.
-    """
-    if not leg_bodies:
-        return {"type": "unknown", "notes": "No legislature bodies listed in Wikidata (P194)."}
-    if len(leg_bodies) >= 2:
-        return {"type": "bicameral_or_multi", "notes": "Multiple legislative bodies listed (Wikidata P194)."}
-    return {"type": "unicameral_or_unknown", "notes": "Single legislative body listed (Wikidata P194). Not always definitive."}
-
-
-# ---------------------------- ELECTIONS ----------------------------
+# ---------------------------- ELECTIONS (Wikidata best-effort) ----------------------------
 
 def _today_yyyymmdd() -> str:
     return now_utc().strftime("%Y-%m-%dT00:00:00Z")
 
-def infer_elections_meaningful(political_systems: List[str]) -> Dict[str, Any]:
-    """
-    Returns: {meaningful: True/False/"unknown", notes}
-    This does NOT claim "no elections occur"—it flags cases where national elections may be non-competitive.
-    """
-    s = " | ".join([x.lower() for x in political_systems])
-
-    strong_noncompetitive = [
-        "one-party state",
-        "single-party state",
-        "totalitarian",
-        "military dictatorship",
-        "military junta",
-        "absolute monarchy",
-    ]
-    if any(t in s for t in strong_noncompetitive):
-        return {
-            "meaningful": False,
-            "notes": "Political system labels suggest elections may be absent or non-competitive. Treat election dates (if any) cautiously.",
-        }
-    if political_systems:
-        return {"meaningful": "unknown", "notes": "No strong non-competitive indicators in political system labels."}
-    return {"meaningful": "unknown", "notes": "No political system labels available to infer competitiveness."}
-
 def get_next_election_upcoming(country_qid: str, kind: str) -> Dict[str, Any]:
     """
     kind = "executive" or "legislative"
-    Uses Wikidata election items: jurisdiction (P1001) + date (P585) in the future.
-
-    Executive: prefer presidential election / general election
-    Legislative: prefer parliamentary/legislative/general election
+    Uses Wikidata election items with:
+    - jurisdiction (P1001)
+    - point in time (P585)
+    - instance of (P31) filters (best-effort)
     """
     today = _today_yyyymmdd()
 
     if kind == "executive":
-        type_values = "wd:Q159821 wd:Q152203 wd:Q40231"  # presidential, general, election
-        kind_note = "Executive election (best-effort via Wikidata types)."
+        # presidential election, general election, election
+        type_values = "wd:Q159821 wd:Q152203 wd:Q40231"
     else:
-        type_values = "wd:Q1079032 wd:Q104203 wd:Q152203 wd:Q40231"  # parliamentary, legislative, general, election
-        kind_note = "Legislative election (best-effort via Wikidata types)."
+        # parliamentary election, legislative election, general election, election
+        type_values = "wd:Q1079032 wd:Q104203 wd:Q152203 wd:Q40231"
 
     q = f"""
-    SELECT ?e ?eLabel ?date ?typeLabel WHERE {{
+    SELECT ?eLabel ?date ?typeLabel WHERE {{
       ?e wdt:P1001 wd:{country_qid} .
       ?e wdt:P585 ?date .
       FILTER(?date >= "{today}"^^xsd:dateTime)
@@ -388,169 +314,31 @@ def get_next_election_upcoming(country_qid: str, kind: str) -> Dict[str, Any]:
 
     if not bindings:
         return {
-            "date": None,
-            "name": None,
-            "type": None,
+            "exists": "unknown",
+            "nextDate": None,
+            "electionType": None,
             "method": "wikidata_upcoming",
-            "notes": f"{kind_note} No upcoming election item found in Wikidata (common gap).",
+            "notes": "No upcoming election item found in Wikidata (common gap).",
         }
 
     b = bindings[0]
     return {
-        "date": _wd_val(b, "date"),
-        "name": _wd_val(b, "eLabel"),
-        "type": _wd_val(b, "typeLabel"),
-        "method": "wikidata_upcoming",
-        "notes": f"{kind_note} From Wikidata upcoming election items (jurisdiction + future date).",
-    }
-
-def get_last_election_with_term_hint(country_qid: str, kind: str) -> Dict[str, Any]:
-    """
-    Find most recent election of a kind and try to extract contested office (P541) and term length (P2097).
-    """
-    today = _today_yyyymmdd()
-
-    if kind == "executive":
-        type_values = "wd:Q159821 wd:Q152203"  # presidential, general
-    else:
-        type_values = "wd:Q1079032 wd:Q104203 wd:Q152203"  # parliamentary, legislative, general
-
-    q = f"""
-    SELECT ?e ?eLabel ?date ?typeLabel ?officeLabel ?termYears WHERE {{
-      ?e wdt:P1001 wd:{country_qid} .
-      ?e wdt:P585 ?date .
-      FILTER(?date <= "{today}"^^xsd:dateTime)
-
-      ?e wdt:P31 ?type .
-      VALUES ?type {{ {type_values} }}
-
-      OPTIONAL {{
-        ?e wdt:P541 ?office .
-        OPTIONAL {{ ?office wdt:P2097 ?termYears . }}
-        SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }}
-      }}
-
-      SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }}
-    }}
-    ORDER BY DESC(?date)
-    LIMIT 1
-    """
-    data = wikidata_sparql(q)
-    bindings = safe_get(data, "results", "bindings", default=[])
-    if not bindings:
-        return {"found": False}
-
-    b = bindings[0]
-    term = _wd_val(b, "termYears")
-    term_years = None
-    if term:
-        try:
-            term_years = float(term)
-        except ValueError:
-            term_years = None
-
-    return {
-        "found": True,
-        "electionName": _wd_val(b, "eLabel"),
-        "electionDate": _wd_val(b, "date"),
+        "exists": True,
+        "nextDate": _wd_val(b, "date"),
         "electionType": _wd_val(b, "typeLabel"),
-        "officeContested": _wd_val(b, "officeLabel"),
-        "termYears": term_years,
+        "method": "wikidata_upcoming",
+        "notes": "From Wikidata upcoming election items (jurisdiction + future date).",
     }
-
-def estimate_next_election_from_last(country_qid: str, kind: str) -> Dict[str, Any]:
-    """
-    Estimate: last election date + termYears (if available).
-    """
-    last = get_last_election_with_term_hint(country_qid, kind)
-    if not last.get("found") or not last.get("electionDate"):
-        return {
-            "date": None,
-            "name": None,
-            "type": None,
-            "method": "estimate_from_last_plus_term",
-            "notes": "No prior election found to estimate from.",
-            "basis": None,
-        }
-
-    term_years = last.get("termYears")
-    if not term_years:
-        return {
-            "date": None,
-            "name": None,
-            "type": last.get("electionType"),
-            "method": "estimate_from_last_plus_term",
-            "notes": "Found last election, but term length of contested office missing (P2097). No estimate.",
-            "basis": {
-                "lastElectionName": last.get("electionName"),
-                "lastElectionDate": last.get("electionDate"),
-                "officeContested": last.get("officeContested"),
-            },
-        }
-
-    try:
-        dt = datetime.fromisoformat(str(last["electionDate"]).replace("Z", "+00:00"))
-        # integer year add if term looks integral; else day-based
-        if abs(term_years - round(term_years)) < 1e-6:
-            est = dt.replace(year=dt.year + int(round(term_years)))
-        else:
-            est = dt + timedelta(days=int(term_years * 365.25))
-
-        return {
-            "date": iso_z(est),
-            "name": None,
-            "type": last.get("electionType"),
-            "method": "estimate_from_last_plus_term",
-            "notes": "Estimated as last election date + term length of contested office (P541 + P2097). Treat as an estimate.",
-            "basis": {
-                "lastElectionName": last.get("electionName"),
-                "lastElectionDate": last.get("electionDate"),
-                "officeContested": last.get("officeContested"),
-                "termYears": term_years,
-            },
-        }
-    except Exception:
-        return {
-            "date": None,
-            "name": None,
-            "type": last.get("electionType"),
-            "method": "estimate_from_last_plus_term",
-            "notes": "Failed computing estimate from last election + term length.",
-            "basis": {
-                "lastElectionName": last.get("electionName"),
-                "lastElectionDate": last.get("electionDate"),
-                "officeContested": last.get("officeContested"),
-                "termYears": term_years,
-            },
-        }
-
-def resolve_next_election(country_qid: str, kind: str) -> Dict[str, Any]:
-    """
-    Resolver:
-      1) upcoming item
-      2) estimate from last+term (if possible)
-      3) unknown
-    """
-    upcoming = get_next_election_upcoming(country_qid, kind)
-    if upcoming.get("date"):
-        return upcoming
-
-    est = estimate_next_election_from_last(country_qid, kind)
-    if est.get("date"):
-        return est
-
-    # preserve the more specific "no upcoming found" notes
-    return upcoming
-
 
 def get_last_legislative_election_winner(country_qid: str) -> Dict[str, Any]:
     """
-    Approximate legislature control using winner (P1346) of the most recent
-    legislative/parliamentary/general election.
+    Approximate 'who controls parliament' using winner (P1346) of the most recent
+    national legislative/parliamentary/general election.
+    This can be wrong for coalitions / seat majorities.
     """
     today = _today_yyyymmdd()
     q = f"""
-    SELECT ?e ?eLabel ?date ?winnerLabel ?typeLabel WHERE {{
+    SELECT ?eLabel ?date ?winnerLabel WHERE {{
       ?e wdt:P1001 wd:{country_qid} .
       ?e wdt:P585 ?date .
       FILTER(?date <= "{today}"^^xsd:dateTime)
@@ -573,304 +361,214 @@ def get_last_legislative_election_winner(country_qid: str) -> Dict[str, Any]:
     if not bindings:
         return {
             "winner": "unknown",
-            "electionName": None,
-            "electionDate": None,
+            "method": "wikidata_last_leg_election_winner",
             "notes": "No prior legislative election item found in Wikidata.",
         }
 
     b = bindings[0]
     return {
         "winner": _wd_val(b, "winnerLabel") or "unknown",
-        "electionName": _wd_val(b, "eLabel"),
-        "electionDate": _wd_val(b, "date"),
-        "notes": "Approximate: last national legislative election winner (Wikidata P1346). This can be wrong for coalitions/seat majorities.",
+        "method": "wikidata_last_leg_election_winner",
+        "notes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+        "basis": {
+            "electionName": _wd_val(b, "eLabel"),
+            "electionDate": _wd_val(b, "date"),
+        },
     }
 
 
-# ---------------------------- FREEDOM HOUSE (OWID CSV) ----------------------------
+# ---------------------------- FREEDOM HOUSE (site, year = current-1) ----------------------------
 
-def _parse_owid_csv(url: str) -> Dict[str, Dict[int, float]]:
-    text = req_text(url)
-    if not text:
-        return {}
-    f = io.StringIO(text)
-    reader = csv.DictReader(f)
-    out: Dict[str, Dict[int, float]] = {}
-    for row in reader:
-        entity = (row.get("Entity") or row.get("entity") or "").strip()
-        year_str = (row.get("Year") or row.get("year") or "").strip()
-        val_str = (
-            row.get("political-rights-score-fh")
-            or row.get("civil-liberties-score-fh")
-            or row.get("Value")
-            or row.get("value")
-            or ""
-        ).strip()
+STATUS_RE = r"(Free|Partly Free|Not Free)"
 
-        if not entity or not year_str or not val_str:
-            continue
-        try:
-            year = int(year_str)
-            val = float(val_str)
-        except ValueError:
-            continue
-        out.setdefault(entity, {})[year] = val
-    return out
+def freedom_house_year() -> int:
+    return date.today().year - 1
 
-def load_freedom_house_tables() -> Tuple[Dict[str, Dict[int, float]], Dict[str, Dict[int, float]]]:
-    pr = _parse_owid_csv(OWID_FH_PR_CSV)
-    cl = _parse_owid_csv(OWID_FH_CL_CSV)
-    return pr, cl
+def freedom_house_url(country_name: str) -> str:
+    y = freedom_house_year()
+    slug = fh_slug(country_name)
+    return f"{FREEDOM_HOUSE_BASE}/{slug}/freedom-world/{y}"
 
-def freedom_house_rating(country_name: str, pr_table: Dict[str, Dict[int, float]], cl_table: Dict[str, Dict[int, float]]) -> Dict[str, Any]:
-    candidates = [country_name]
-    if country_name in QUERY_ALIASES:
-        candidates = QUERY_ALIASES[country_name] + candidates
+def parse_fh_score_and_status(html: str) -> (Optional[int], Optional[str]):
+    """
+    Best-effort parsing from Freedom House country page.
+    Looks for common patterns near the top and/or "Global Freedom Score" block.
+    """
+    text = re.sub(r"[ \t]+", " ", html)
+    text = re.sub(r"\r", "", text)
 
-    best_entity = None
-    best_year = None
-    best_pr = None
-    best_cl = None
+    # Pattern A: "Partly Free 54 100"
+    m = re.search(rf"{STATUS_RE}\s+(\d{{1,3}})\s+100", text, flags=re.IGNORECASE)
+    if m:
+        status_raw = m.group(1).lower()
+        score = int(m.group(2))
+        status = {"free": "Free", "partly free": "Partly Free", "not free": "Not Free"}[status_raw]
+        return score, status
 
-    for ent in candidates:
-        pr_years = pr_table.get(ent, {})
-        cl_years = cl_table.get(ent, {})
-        if not pr_years or not cl_years:
-            continue
-        common_years = sorted(set(pr_years.keys()) & set(cl_years.keys()))
-        if not common_years:
-            continue
-        y = common_years[-1]
-        best_entity = ent
-        best_year = y
-        best_pr = pr_years[y]
-        best_cl = cl_years[y]
-        break
+    # Pattern B: "Global Freedom Score 54 100 Partly Free"
+    m = re.search(rf"Global Freedom Score\s+(\d{{1,3}})\s+100\s+{STATUS_RE}", text, flags=re.IGNORECASE)
+    if m:
+        score = int(m.group(1))
+        status_raw = m.group(2).lower()
+        status = {"free": "Free", "partly free": "Partly Free", "not free": "Not Free"}[status_raw]
+        return score, status
 
-    if best_year is None or best_pr is None or best_cl is None:
+    return None, None
+
+def fetch_freedom_house(country_name: str) -> Dict[str, Any]:
+    url = freedom_house_url(country_name)
+    html = req_text(url)
+    if not html:
         return {
             "score": None,
             "status": "unknown",
-            "year": None,
-            "components": None,
-            "sourceEntityName": None,
-            "notes": "Freedom House score not found in OWID tables.",
+            "year": freedom_house_year(),
+            "source": url,
+            "notes": "Failed to fetch Freedom House page.",
         }
 
-    total = float(best_pr) + float(best_cl)
-    if total >= 70:
-        status = "Free"
-    elif total >= 35:
-        status = "Partly Free"
-    else:
-        status = "Not Free"
+    score, status = parse_fh_score_and_status(html)
+    if score is None or status is None:
+        return {
+            "score": None,
+            "status": "unknown",
+            "year": freedom_house_year(),
+            "source": url,
+            "notes": "Fetched page but could not parse score/status (site layout may have changed).",
+        }
 
     return {
-        "score": round(total, 1),
+        "score": score,
         "status": status,
-        "year": best_year,
-        "components": {
-            "politicalRights": round(float(best_pr), 1),
-            "civilLiberties": round(float(best_cl), 1),
-        },
-        "sourceEntityName": best_entity,
-        "notes": "Computed as PR(0–40)+CL(0–60) using OWID grapher (Freedom House).",
+        "year": freedom_house_year(),
+        "source": url,
+        "notes": None,
     }
 
 
 # ---------------------------- BUILD ----------------------------
 
-def build_country(country_name: str, iso2: str, pr_table: Dict[str, Dict[int, float]], cl_table: Dict[str, Dict[int, float]]) -> Dict[str, Any]:
-    retrieved_at = iso_z(now_utc())
-    warnings: List[str] = []
-    confidence = 1.0
-
+def build_country(country_name: str, iso2: str) -> Dict[str, Any]:
     qid = get_wikidata_country_qid_by_iso2(iso2)
-    if not qid:
-        warnings.append("Wikidata entity not found via ISO2; government/elections fields missing.")
-        confidence -= 0.35
 
     political_systems: List[str] = []
-    gov = {"leaders": [], "leadersSamePerson": False, "executiveControllerParty": "unknown", "legislatureBodies": []}
+    gov: Dict[str, Any] = {
+        "headOfState": {"name": None, "party": None},
+        "headOfGovernment": {"name": None, "party": None},
+        "legislatureBodies": [],
+        "executiveController": {"leader": None, "partyOrGroup": "unknown", "method": "hog_party_else_hos_party"},
+    }
+
+    elections_exec = {"exists": "unknown", "nextDate": None, "electionType": None, "method": "wikidata_upcoming", "notes": "unknown"}
+    elections_leg = {"exists": "unknown", "nextDate": None, "electionType": None, "method": "wikidata_upcoming", "notes": "unknown"}
+
+    leg_control = {"winner": "unknown", "method": "wikidata_last_leg_election_winner", "notes": "unknown"}
 
     if qid:
-        try:
-            political_systems = get_political_system_labels(qid)
-            gov = get_government_snapshot(qid)
-        except Exception:
-            warnings.append("Wikidata query error; government fields partially missing.")
-            confidence -= 0.25
+        political_systems = get_political_system_labels(qid) or ["unknown"]
+        gov = get_government_snapshot(qid)
 
-    if not political_systems:
-        warnings.append("Political system labels missing (Wikidata P122 gaps).")
-        confidence -= 0.05
+        elections_exec = get_next_election_upcoming(qid, "executive")
+        elections_leg = get_next_election_upcoming(qid, "legislative")
+        leg_control = get_last_legislative_election_winner(qid)
+    else:
+        political_systems = ["unknown"]
 
-    if not gov.get("leaders"):
-        warnings.append("Leader fields missing (Wikidata P35/P6 gaps).")
-        confidence -= 0.10
+    # Map legislature bodies -> controller
+    bodies = gov.get("legislatureBodies") or []
+    if not bodies:
+        bodies = ["Legislature"]
 
-    # Structure heuristics
-    exec_type = classify_executive_type(political_systems, gov.get("leaders") or [])
-    leg_type = classify_legislature_type(gov.get("legislatureBodies") or [])
-
-    # Elections
-    elections_meaningful = infer_elections_meaningful(political_systems)
-
-    next_exec = {"date": None, "name": None, "type": None, "method": None, "notes": "unknown"}
-    next_leg = {"date": None, "name": None, "type": None, "method": None, "notes": "unknown"}
-    leg_control_basis = {"winner": "unknown", "electionName": None, "electionDate": None, "notes": "unknown"}
-
-    if qid:
-        try:
-            next_exec = resolve_next_election(qid, "executive")
-            next_leg = resolve_next_election(qid, "legislative")
-            leg_control_basis = get_last_legislative_election_winner(qid)
-
-            if elections_meaningful.get("meaningful") is False:
-                warnings.append("System likely non-competitive; election data (if present) may not reflect meaningful democratic turnover.")
-                confidence -= 0.05
-
-            if next_exec.get("date") is None:
-                warnings.append("Next executive election date unavailable (Wikidata gaps and no term-length estimate).")
-                confidence -= 0.04
-
-            if next_leg.get("date") is None:
-                warnings.append("Next legislative election date unavailable (Wikidata gaps and no term-length estimate).")
-                confidence -= 0.04
-
-            if leg_control_basis.get("winner") == "unknown":
-                warnings.append("Legislature control not found (Wikidata winner P1346 missing).")
-                confidence -= 0.04
-        except Exception:
-            warnings.append("Election queries failed; election fields incomplete.")
-            confidence -= 0.12
-
-    # Party control objects
-    party_control: List[Dict[str, Any]] = []
-
-    exec_party = gov.get("executiveControllerParty") or "unknown"
-    party_control.append({
-        "branch_or_body": "Executive",
-        "controller": exec_party,
-        "method": "leader_party",
-        "notes": "Derived from Head of Government party (fallback Head of State party).",
-    })
-
-    leg_bodies = gov.get("legislatureBodies") or []
-    if not leg_bodies:
-        leg_bodies = ["Legislature"]
-
-    for body in leg_bodies:
-        party_control.append({
-            "branch_or_body": body,
-            "controller": leg_control_basis.get("winner") or "unknown",
-            "method": "last_legislative_election_winner",
-            "notes": leg_control_basis.get("notes") or "Approximate from last legislative election winner.",
-            "basis": {
-                "electionName": leg_control_basis.get("electionName"),
-                "electionDate": leg_control_basis.get("electionDate"),
-            },
+    legislature = []
+    for b in bodies:
+        legislature.append({
+            "name": b,
+            "inControl": leg_control.get("winner", "unknown"),
+            "controlMethod": leg_control.get("method"),
+            "controlNotes": leg_control.get("notes"),
+            "controlBasis": leg_control.get("basis"),
         })
 
-    # Freedom House
-    freedom = freedom_house_rating(country_name, pr_table, cl_table)
-    if freedom.get("score") is None:
-        warnings.append("Freedom House score unavailable (OWID entity match missing).")
-        confidence -= 0.05
-
-    confidence = max(0.0, min(1.0, confidence))
+    fh = fetch_freedom_house(country_name)
 
     return {
         "country": country_name,
         "iso2": iso2,
-        "retrievedAt": retrieved_at,
-        "government": {
-            "politicalSystem": {
-                "values": political_systems or ["unknown"],
-                "source": "wikidata:P122",
-                "retrievedAt": retrieved_at,
+        "politicalSystem": {
+            "values": political_systems or ["unknown"],
+            "source": "wikidata:P122",
+        },
+        "executive": {
+            "headOfState": {
+                "name": gov["headOfState"].get("name"),
+                "partyOrGroup": gov["headOfState"].get("party") or "unknown",
+                "source": "wikidata:P35 (+party P102)",
             },
-            "executive": {
-                "leaders": gov.get("leaders", []),
-                "leadersSamePerson": gov.get("leadersSamePerson", False),
-                "type": exec_type,
-                "source": "wikidata:P35,P6,P102 (+heuristics)",
-                "retrievedAt": retrieved_at,
+            "headOfGovernment": {
+                "name": gov["headOfGovernment"].get("name"),
+                "partyOrGroup": gov["headOfGovernment"].get("party") or "unknown",
+                "source": "wikidata:P6 (+party P102)",
             },
-            "legislature": {
-                "bodies": gov.get("legislatureBodies", []),
-                "type": leg_type,
-                "source": "wikidata:P194 (+heuristics)",
-                "retrievedAt": retrieved_at,
-            },
-            "partyControl": {
-                "entries": party_control,
-                "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-                "retrievedAt": retrieved_at,
+            "executiveInPower": {
+                "leader": gov["executiveController"].get("leader"),
+                "partyOrGroup": gov["executiveController"].get("partyOrGroup") or "unknown",
+                "method": gov["executiveController"].get("method"),
             },
         },
-        "elections": {
-            "meaningful": elections_meaningful,
-            "nextExecutiveElection": {
-                **next_exec,
-                "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-                "retrievedAt": retrieved_at,
-            },
-            "nextLegislativeElection": {
-                **next_leg,
-                "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-                "retrievedAt": retrieved_at,
-            },
+        "legislature": {
+            "bodies": legislature,
+            "source": "wikidata:P194 (+control best-effort via elections winner P1346)",
         },
         "freedomHouse": {
-            **freedom,
-            "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-            "retrievedAt": retrieved_at,
+            "score": fh["score"],
+            "status": fh["status"],
+            "year": fh["year"],
+            "source": fh["source"],
+            "notes": fh["notes"],
         },
-        "quality": {
-            "confidence": round(confidence, 2),
-            "warnings": warnings,
+        "elections": {
+            "legislative": {
+                "exists": elections_leg["exists"],
+                "nextDate": elections_leg["nextDate"],
+                "electionType": elections_leg["electionType"],
+                "method": elections_leg["method"],
+                "notes": elections_leg["notes"],
+                "source": "wikidata:P1001,P585,P31",
+            },
+            "executive": {
+                "exists": elections_exec["exists"],
+                "nextDate": elections_exec["nextDate"],
+                "electionType": elections_exec["electionType"],
+                "method": elections_exec["method"],
+                "notes": elections_exec["notes"],
+                "source": "wikidata:P1001,P585,P31",
+            },
         },
     }
 
-def main():
-    generated_at = iso_z(now_utc())
-
-    out: Dict[str, Any] = {
-        "generatedAt": generated_at,
+def main() -> None:
+    out = {
+        "generatedAt": iso_z(now_utc()),
+        "freedomHouseYearRule": "current_year_minus_1",
         "countries": [],
         "sources": {
             "wikidata_sparql": WIKIDATA_SPARQL,
-            "freedom_house_via_owid": {
-                "pr_csv": OWID_FH_PR_CSV,
-                "cl_csv": OWID_FH_CL_CSV,
-                "notes": "Computed PR+CL total (0–100).",
-            },
+            "freedom_house_base": FREEDOM_HOUSE_BASE,
         },
-        "notes": [
-            "This snapshot is best-effort and includes provenance per field.",
-            "Legislature party control is approximate (often coalitions/seat majorities are not represented by a single winner field).",
-            "Election dates are pulled from Wikidata where present; otherwise estimated from last election + term length when available.",
-        ],
     }
-
-    print("▶ Loading Freedom House (OWID) tables...")
-    pr_table, cl_table = load_freedom_house_tables()
-    if not pr_table or not cl_table:
-        print("⚠ Could not load one or both Freedom House tables; ratings may be missing.")
 
     for c in COUNTRIES:
         name = c["country"]
         iso2 = c["iso2"]
-        print(f"▶ Building snapshot for {name} ({iso2}) ...")
-        out["countries"].append(build_country(name, iso2, pr_table, cl_table))
-        time.sleep(0.25)
+        print(f"▶ Building {name} ({iso2}) ...")
+        out["countries"].append(build_country(name, iso2))
+        time.sleep(0.2)  # gentle rate limiting
 
     out_dir = Path("public")
     out_dir.mkdir(parents=True, exist_ok=True)
     out_path = out_dir / "countries_snapshot.json"
     out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"✅ Wrote snapshot for {len(out['countries'])} countries to {out_path.resolve()}")
+    print(f"✅ Wrote {len(out['countries'])} countries to {out_path.resolve()}")
 
 if __name__ == "__main__":
     main()
