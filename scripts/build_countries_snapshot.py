@@ -10,6 +10,7 @@ Fields returned per country:
 - Party/group in charge of legislature body/bodies (best-effort via Wikidata last legislative election winner)
 - Executive party/leader (best-effort: HoG party -> fallback HoS party)
 - Freedom House score (numeric + qualitative), from Freedom House country page for (current_year - 1)
+  - with "sticky" behavior: if the fetch/parse is blocked or returns null AND we have a prior value, keep the prior value
 - Political system type (Wikidata P122 labels)
 - Next legislative election (date + election type + exists?)
 - Next executive election (date + election type + exists?)
@@ -26,7 +27,7 @@ import re
 import time
 from datetime import date, datetime, timezone
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 
 import requests
 
@@ -105,12 +106,9 @@ FH_SLUG_OVERRIDES: Dict[str, str] = {
     "El Salvador": "el-salvador",
 }
 
-# Some country names don’t match Wikidata/other naming perfectly, but ISO2 lookup should work.
-# This is only for Freedom House URL building.
 def fh_slug(country_name: str) -> str:
     if country_name in FH_SLUG_OVERRIDES:
         return FH_SLUG_OVERRIDES[country_name]
-    # basic slugify
     s = country_name.strip().lower()
     s = re.sub(r"[’']", "", s)
     s = re.sub(r"[^a-z0-9]+", "-", s).strip("-")
@@ -163,6 +161,26 @@ def safe_get(d: Any, *keys: str, default=None):
             return default
         cur = cur[k]
     return cur
+
+def load_previous_snapshot(path: Path) -> Dict[str, Any]:
+    """
+    Load previous public/countries_snapshot.json (if present) so we can keep Freedom House
+    scores when new runs are blocked / parse fails.
+    """
+    if not path.exists():
+        return {}
+
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+        countries = data.get("countries", [])
+        by_iso2: Dict[str, Any] = {}
+        for c in countries:
+            iso2 = c.get("iso2")
+            if iso2:
+                by_iso2[iso2] = c
+        return by_iso2
+    except Exception:
+        return {}
 
 
 # ---------------------------- WIKIDATA ----------------------------
@@ -389,15 +407,25 @@ def freedom_house_url(country_name: str) -> str:
     slug = fh_slug(country_name)
     return f"{FREEDOM_HOUSE_BASE}/{slug}/freedom-world/{y}"
 
-def parse_fh_score_and_status(html: str) -> (Optional[int], Optional[str]):
+def looks_like_challenge(html: str) -> bool:
+    h = html.lower()
+    return (
+        "cf-browser-verification" in h
+        or "cloudflare" in h
+        or "attention required" in h
+        or "verify you are human" in h
+        or "captcha" in h
+    )
+
+def parse_fh_score_and_status(html: str) -> Tuple[Optional[int], Optional[str]]:
     """
     Best-effort parsing from Freedom House country page.
-    Looks for common patterns near the top and/or "Global Freedom Score" block.
+    We try multiple common patterns so minor layout changes don't break us.
     """
     text = re.sub(r"[ \t]+", " ", html)
     text = re.sub(r"\r", "", text)
 
-    # Pattern A: "Partly Free 54 100"
+    # A) "Partly Free 54 100"
     m = re.search(rf"{STATUS_RE}\s+(\d{{1,3}})\s+100", text, flags=re.IGNORECASE)
     if m:
         status_raw = m.group(1).lower()
@@ -405,7 +433,7 @@ def parse_fh_score_and_status(html: str) -> (Optional[int], Optional[str]):
         status = {"free": "Free", "partly free": "Partly Free", "not free": "Not Free"}[status_raw]
         return score, status
 
-    # Pattern B: "Global Freedom Score 54 100 Partly Free"
+    # B) "Global Freedom Score 54 100 Partly Free"
     m = re.search(rf"Global Freedom Score\s+(\d{{1,3}})\s+100\s+{STATUS_RE}", text, flags=re.IGNORECASE)
     if m:
         score = int(m.group(1))
@@ -413,11 +441,28 @@ def parse_fh_score_and_status(html: str) -> (Optional[int], Optional[str]):
         status = {"free": "Free", "partly free": "Partly Free", "not free": "Not Free"}[status_raw]
         return score, status
 
+    # C) "Partly Free ... 54 / 100"
+    m = re.search(rf"{STATUS_RE}.*?(\d{{1,3}})\s*/\s*100", text, flags=re.IGNORECASE)
+    if m:
+        status_raw = m.group(1).lower()
+        score = int(m.group(2))
+        status = {"free": "Free", "partly free": "Partly Free", "not free": "Not Free"}[status_raw]
+        return score, status
+
     return None, None
 
 def fetch_freedom_house(country_name: str) -> Dict[str, Any]:
+    """
+    Returns:
+      {
+        score, status, year, source, notes,
+        ok: bool (True if we fetched + parsed successfully),
+        blocked: bool (True if it looks like a bot/challenge page)
+      }
+    """
     url = freedom_house_url(country_name)
     html = req_text(url)
+
     if not html:
         return {
             "score": None,
@@ -425,6 +470,19 @@ def fetch_freedom_house(country_name: str) -> Dict[str, Any]:
             "year": freedom_house_year(),
             "source": url,
             "notes": "Failed to fetch Freedom House page.",
+            "ok": False,
+            "blocked": False,
+        }
+
+    if looks_like_challenge(html):
+        return {
+            "score": None,
+            "status": "unknown",
+            "year": freedom_house_year(),
+            "source": url,
+            "notes": "Blocked by anti-bot / challenge page (Cloudflare-like).",
+            "ok": False,
+            "blocked": True,
         }
 
     score, status = parse_fh_score_and_status(html)
@@ -435,6 +493,8 @@ def fetch_freedom_house(country_name: str) -> Dict[str, Any]:
             "year": freedom_house_year(),
             "source": url,
             "notes": "Fetched page but could not parse score/status (site layout may have changed).",
+            "ok": False,
+            "blocked": False,
         }
 
     return {
@@ -443,12 +503,44 @@ def fetch_freedom_house(country_name: str) -> Dict[str, Any]:
         "year": freedom_house_year(),
         "source": url,
         "notes": None,
+        "ok": True,
+        "blocked": False,
     }
+
+def merge_freedom_house_sticky(new_fh: Dict[str, Any], prev_country_obj: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+    """
+    Sticky rule:
+      - If new fetch/parse is OK -> use it.
+      - If new fetch/parse fails OR is blocked AND previous has a score -> keep the previous values.
+      - Otherwise keep the new (null/unknown) so you can see it's missing.
+    """
+    prev_fh = (prev_country_obj or {}).get("freedomHouse") if isinstance(prev_country_obj, dict) else None
+    prev_score = prev_fh.get("score") if isinstance(prev_fh, dict) else None
+
+    if new_fh.get("ok") is True:
+        # strip internal flags before output
+        return {k: new_fh.get(k) for k in ["score", "status", "year", "source", "notes"]}
+
+    if prev_score is not None:
+        # Keep old score/status/year/source; update notes to reflect we kept it.
+        kept = {
+            "score": prev_fh.get("score"),
+            "status": prev_fh.get("status"),
+            "year": prev_fh.get("year"),
+            "source": prev_fh.get("source"),
+            "notes": (
+                f"Kept previous Freedom House rating because latest fetch/parse failed: {new_fh.get('notes')}"
+            ),
+        }
+        return kept
+
+    # No previous to keep; output the failed result
+    return {k: new_fh.get(k) for k in ["score", "status", "year", "source", "notes"]}
 
 
 # ---------------------------- BUILD ----------------------------
 
-def build_country(country_name: str, iso2: str) -> Dict[str, Any]:
+def build_country(country_name: str, iso2: str, prev_by_iso2: Dict[str, Any]) -> Dict[str, Any]:
     qid = get_wikidata_country_qid_by_iso2(iso2)
 
     political_systems: List[str] = []
@@ -489,7 +581,10 @@ def build_country(country_name: str, iso2: str) -> Dict[str, Any]:
             "controlBasis": leg_control.get("basis"),
         })
 
-    fh = fetch_freedom_house(country_name)
+    # Freedom House (sticky)
+    new_fh = fetch_freedom_house(country_name)
+    prev_obj = prev_by_iso2.get(iso2)
+    fh = merge_freedom_house_sticky(new_fh, prev_obj)
 
     return {
         "country": country_name,
@@ -519,13 +614,7 @@ def build_country(country_name: str, iso2: str) -> Dict[str, Any]:
             "bodies": legislature,
             "source": "wikidata:P194 (+control best-effort via elections winner P1346)",
         },
-        "freedomHouse": {
-            "score": fh["score"],
-            "status": fh["status"],
-            "year": fh["year"],
-            "source": fh["source"],
-            "notes": fh["notes"],
-        },
+        "freedomHouse": fh,
         "elections": {
             "legislative": {
                 "exists": elections_leg["exists"],
@@ -547,6 +636,9 @@ def build_country(country_name: str, iso2: str) -> Dict[str, Any]:
     }
 
 def main() -> None:
+    out_path = Path("public") / "countries_snapshot.json"
+    prev_by_iso2 = load_previous_snapshot(out_path)
+
     out = {
         "generatedAt": iso_z(now_utc()),
         "freedomHouseYearRule": "current_year_minus_1",
@@ -561,14 +653,13 @@ def main() -> None:
         name = c["country"]
         iso2 = c["iso2"]
         print(f"▶ Building {name} ({iso2}) ...")
-        out["countries"].append(build_country(name, iso2))
+        out["countries"].append(build_country(name, iso2, prev_by_iso2))
         time.sleep(0.2)  # gentle rate limiting
 
-    out_dir = Path("public")
-    out_dir.mkdir(parents=True, exist_ok=True)
-    out_path = out_dir / "countries_snapshot.json"
+    out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"✅ Wrote {len(out['countries'])} countries to {out_path.resolve()}")
 
 if __name__ == "__main__":
     main()
+
