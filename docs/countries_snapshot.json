@@ -1,17 +1,17 @@
 {
-  "generatedAt": "2026-02-02T00:07:40.902246Z",
+  "generatedAt": "2026-02-02T03:56:18.405532Z",
   "countries": [
     {
       "country": "Ukraine",
       "iso2": "UA",
-      "retrievedAt": "2026-02-02T00:07:41.058153Z",
+      "retrievedAt": "2026-02-02T03:56:19.545915Z",
       "government": {
         "politicalSystem": {
           "values": [
             "semi-presidential system"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:07:41.058153Z"
+          "retrievedAt": "2026-02-02T03:56:19.545915Z"
         },
         "executive": {
           "leaders": [
@@ -32,7 +32,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:07:41.058153Z"
+          "retrievedAt": "2026-02-02T03:56:19.545915Z"
         },
         "legislature": {
           "bodies": [
@@ -43,7 +43,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:07:41.058153Z"
+          "retrievedAt": "2026-02-02T03:56:19.545915Z"
         },
         "partyControl": {
           "entries": [
@@ -65,7 +65,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:07:41.058153Z"
+          "retrievedAt": "2026-02-02T03:56:19.545915Z"
         }
       },
       "elections": {
@@ -80,7 +80,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:07:41.058153Z"
+          "retrievedAt": "2026-02-02T03:56:19.545915Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -89,7 +89,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:07:41.058153Z"
+          "retrievedAt": "2026-02-02T03:56:19.545915Z"
         }
       },
       "freedomHouse": {
@@ -100,7 +100,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:07:41.058153Z"
+        "retrievedAt": "2026-02-02T03:56:19.545915Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -115,14 +115,14 @@
     {
       "country": "Russia",
       "iso2": "RU",
-      "retrievedAt": "2026-02-02T00:07:43.202501Z",
+      "retrievedAt": "2026-02-02T03:56:21.441856Z",
       "government": {
         "politicalSystem": {
           "values": [
             "super-presidential republic"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:07:43.202501Z"
+          "retrievedAt": "2026-02-02T03:56:21.441856Z"
         },
         "executive": {
           "leaders": [
@@ -143,7 +143,7 @@
             "notes": "Both head of state and head of government present; exact subtype may vary."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:07:43.202501Z"
+          "retrievedAt": "2026-02-02T03:56:21.441856Z"
         },
         "legislature": {
           "bodies": [
@@ -154,7 +154,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:07:43.202501Z"
+          "retrievedAt": "2026-02-02T03:56:21.441856Z"
         },
         "partyControl": {
           "entries": [
@@ -176,7 +176,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:07:43.202501Z"
+          "retrievedAt": "2026-02-02T03:56:21.441856Z"
         }
       },
       "elections": {
@@ -191,7 +191,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). From Wikidata upcoming election items (jurisdiction + future date).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:07:43.202501Z"
+          "retrievedAt": "2026-02-02T03:56:21.441856Z"
         },
         "nextLegislativeElection": {
           "date": "2026-09-20T00:00:00Z",
@@ -200,7 +200,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). From Wikidata upcoming election items (jurisdiction + future date).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:07:43.202501Z"
+          "retrievedAt": "2026-02-02T03:56:21.441856Z"
         }
       },
       "freedomHouse": {
@@ -211,7 +211,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:07:43.202501Z"
+        "retrievedAt": "2026-02-02T03:56:21.441856Z"
       },
       "quality": {
         "confidence": 0.91,
@@ -224,7 +224,7 @@
     {
       "country": "India",
       "iso2": "IN",
-      "retrievedAt": "2026-02-02T00:07:44.685794Z",
+      "retrievedAt": "2026-02-02T03:56:23.022663Z",
       "government": {
         "politicalSystem": {
           "values": [
@@ -232,7 +232,7 @@
             "parliamentary democracy"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:07:44.685794Z"
+          "retrievedAt": "2026-02-02T03:56:23.022663Z"
         },
         "executive": {
           "leaders": [
@@ -253,7 +253,7 @@
             "notes": "Both head of state and head of government present; exact subtype may vary."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:07:44.685794Z"
+          "retrievedAt": "2026-02-02T03:56:23.022663Z"
         },
         "legislature": {
           "bodies": [
@@ -264,7 +264,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:07:44.685794Z"
+          "retrievedAt": "2026-02-02T03:56:23.022663Z"
         },
         "partyControl": {
           "entries": [
@@ -286,7 +286,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:07:44.685794Z"
+          "retrievedAt": "2026-02-02T03:56:23.022663Z"
         }
       },
       "elections": {
@@ -301,7 +301,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:07:44.685794Z"
+          "retrievedAt": "2026-02-02T03:56:23.022663Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -310,7 +310,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:07:44.685794Z"
+          "retrievedAt": "2026-02-02T03:56:23.022663Z"
         }
       },
       "freedomHouse": {
@@ -321,7 +321,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:07:44.685794Z"
+        "retrievedAt": "2026-02-02T03:56:23.022663Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -336,7 +336,7 @@
     {
       "country": "Pakistan",
       "iso2": "PK",
-      "retrievedAt": "2026-02-02T00:07:46.721053Z",
+      "retrievedAt": "2026-02-02T03:56:24.907239Z",
       "government": {
         "politicalSystem": {
           "values": [
@@ -344,7 +344,7 @@
             "parliamentary republic"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:07:46.721053Z"
+          "retrievedAt": "2026-02-02T03:56:24.907239Z"
         },
         "executive": {
           "leaders": [
@@ -365,7 +365,7 @@
             "notes": "Both head of state and head of government present; exact subtype may vary."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:07:46.721053Z"
+          "retrievedAt": "2026-02-02T03:56:24.907239Z"
         },
         "legislature": {
           "bodies": [
@@ -376,7 +376,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:07:46.721053Z"
+          "retrievedAt": "2026-02-02T03:56:24.907239Z"
         },
         "partyControl": {
           "entries": [
@@ -398,7 +398,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:07:46.721053Z"
+          "retrievedAt": "2026-02-02T03:56:24.907239Z"
         }
       },
       "elections": {
@@ -413,7 +413,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:07:46.721053Z"
+          "retrievedAt": "2026-02-02T03:56:24.907239Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -422,7 +422,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:07:46.721053Z"
+          "retrievedAt": "2026-02-02T03:56:24.907239Z"
         }
       },
       "freedomHouse": {
@@ -433,7 +433,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:07:46.721053Z"
+        "retrievedAt": "2026-02-02T03:56:24.907239Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -448,7 +448,7 @@
     {
       "country": "China",
       "iso2": "CN",
-      "retrievedAt": "2026-02-02T00:07:48.703428Z",
+      "retrievedAt": "2026-02-02T03:56:26.598299Z",
       "government": {
         "politicalSystem": {
           "values": [
@@ -461,7 +461,7 @@
             "communist dictatorship"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:07:48.703428Z"
+          "retrievedAt": "2026-02-02T03:56:26.598299Z"
         },
         "executive": {
           "leaders": [
@@ -482,7 +482,7 @@
             "notes": "Both head of state and head of government present; exact subtype may vary."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:07:48.703428Z"
+          "retrievedAt": "2026-02-02T03:56:26.598299Z"
         },
         "legislature": {
           "bodies": [
@@ -493,7 +493,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:07:48.703428Z"
+          "retrievedAt": "2026-02-02T03:56:26.598299Z"
         },
         "partyControl": {
           "entries": [
@@ -515,7 +515,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:07:48.703428Z"
+          "retrievedAt": "2026-02-02T03:56:26.598299Z"
         }
       },
       "elections": {
@@ -530,7 +530,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:07:48.703428Z"
+          "retrievedAt": "2026-02-02T03:56:26.598299Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -539,7 +539,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:07:48.703428Z"
+          "retrievedAt": "2026-02-02T03:56:26.598299Z"
         }
       },
       "freedomHouse": {
@@ -550,7 +550,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:07:48.703428Z"
+        "retrievedAt": "2026-02-02T03:56:26.598299Z"
       },
       "quality": {
         "confidence": 0.78,
@@ -566,14 +566,14 @@
     {
       "country": "United Kingdom",
       "iso2": "GB",
-      "retrievedAt": "2026-02-02T00:07:50.452775Z",
+      "retrievedAt": "2026-02-02T03:56:28.271709Z",
       "government": {
         "politicalSystem": {
           "values": [
             "constitutional monarchy"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:07:50.452775Z"
+          "retrievedAt": "2026-02-02T03:56:28.271709Z"
         },
         "executive": {
           "leaders": [
@@ -594,7 +594,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:07:50.452775Z"
+          "retrievedAt": "2026-02-02T03:56:28.271709Z"
         },
         "legislature": {
           "bodies": [
@@ -605,7 +605,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:07:50.452775Z"
+          "retrievedAt": "2026-02-02T03:56:28.271709Z"
         },
         "partyControl": {
           "entries": [
@@ -627,7 +627,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:07:50.452775Z"
+          "retrievedAt": "2026-02-02T03:56:28.271709Z"
         }
       },
       "elections": {
@@ -642,7 +642,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:07:50.452775Z"
+          "retrievedAt": "2026-02-02T03:56:28.271709Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -651,7 +651,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:07:50.452775Z"
+          "retrievedAt": "2026-02-02T03:56:28.271709Z"
         }
       },
       "freedomHouse": {
@@ -662,7 +662,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:07:50.452775Z"
+        "retrievedAt": "2026-02-02T03:56:28.271709Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -677,7 +677,7 @@
     {
       "country": "Germany",
       "iso2": "DE",
-      "retrievedAt": "2026-02-02T00:07:52.534730Z",
+      "retrievedAt": "2026-02-02T03:56:30.135498Z",
       "government": {
         "politicalSystem": {
           "values": [
@@ -687,7 +687,7 @@
             "federal parliamentary republic"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:07:52.534730Z"
+          "retrievedAt": "2026-02-02T03:56:30.135498Z"
         },
         "executive": {
           "leaders": [
@@ -708,7 +708,7 @@
             "notes": "Both head of state and head of government present; exact subtype may vary."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:07:52.534730Z"
+          "retrievedAt": "2026-02-02T03:56:30.135498Z"
         },
         "legislature": {
           "bodies": [
@@ -720,7 +720,7 @@
             "notes": "Multiple legislative bodies listed (Wikidata P194)."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:07:52.534730Z"
+          "retrievedAt": "2026-02-02T03:56:30.135498Z"
         },
         "partyControl": {
           "entries": [
@@ -752,7 +752,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:07:52.534730Z"
+          "retrievedAt": "2026-02-02T03:56:30.135498Z"
         }
       },
       "elections": {
@@ -767,7 +767,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:07:52.534730Z"
+          "retrievedAt": "2026-02-02T03:56:30.135498Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -776,7 +776,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:07:52.534730Z"
+          "retrievedAt": "2026-02-02T03:56:30.135498Z"
         }
       },
       "freedomHouse": {
@@ -787,7 +787,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:07:52.534730Z"
+        "retrievedAt": "2026-02-02T03:56:30.135498Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -802,7 +802,7 @@
     {
       "country": "UAE",
       "iso2": "AE",
-      "retrievedAt": "2026-02-02T00:07:54.373367Z",
+      "retrievedAt": "2026-02-02T03:56:31.698105Z",
       "government": {
         "politicalSystem": {
           "values": [
@@ -811,7 +811,7 @@
             "federal monarchy"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:07:54.373367Z"
+          "retrievedAt": "2026-02-02T03:56:31.698105Z"
         },
         "executive": {
           "leaders": [
@@ -832,7 +832,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:07:54.373367Z"
+          "retrievedAt": "2026-02-02T03:56:31.698105Z"
         },
         "legislature": {
           "bodies": [
@@ -843,7 +843,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:07:54.373367Z"
+          "retrievedAt": "2026-02-02T03:56:31.698105Z"
         },
         "partyControl": {
           "entries": [
@@ -865,7 +865,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:07:54.373367Z"
+          "retrievedAt": "2026-02-02T03:56:31.698105Z"
         }
       },
       "elections": {
@@ -880,7 +880,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:07:54.373367Z"
+          "retrievedAt": "2026-02-02T03:56:31.698105Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -889,7 +889,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:07:54.373367Z"
+          "retrievedAt": "2026-02-02T03:56:31.698105Z"
         }
       },
       "freedomHouse": {
@@ -900,7 +900,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:07:54.373367Z"
+        "retrievedAt": "2026-02-02T03:56:31.698105Z"
       },
       "quality": {
         "confidence": 0.78,
@@ -916,7 +916,7 @@
     {
       "country": "Saudi Arabia",
       "iso2": "SA",
-      "retrievedAt": "2026-02-02T00:07:56.115496Z",
+      "retrievedAt": "2026-02-02T03:56:33.582001Z",
       "government": {
         "politicalSystem": {
           "values": [
@@ -925,7 +925,7 @@
             "absolute monarchy"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:07:56.115496Z"
+          "retrievedAt": "2026-02-02T03:56:33.582001Z"
         },
         "executive": {
           "leaders": [
@@ -946,7 +946,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:07:56.115496Z"
+          "retrievedAt": "2026-02-02T03:56:33.582001Z"
         },
         "legislature": {
           "bodies": [
@@ -957,7 +957,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:07:56.115496Z"
+          "retrievedAt": "2026-02-02T03:56:33.582001Z"
         },
         "partyControl": {
           "entries": [
@@ -979,7 +979,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:07:56.115496Z"
+          "retrievedAt": "2026-02-02T03:56:33.582001Z"
         }
       },
       "elections": {
@@ -994,7 +994,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:07:56.115496Z"
+          "retrievedAt": "2026-02-02T03:56:33.582001Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -1003,7 +1003,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:07:56.115496Z"
+          "retrievedAt": "2026-02-02T03:56:33.582001Z"
         }
       },
       "freedomHouse": {
@@ -1014,7 +1014,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:07:56.115496Z"
+        "retrievedAt": "2026-02-02T03:56:33.582001Z"
       },
       "quality": {
         "confidence": 0.78,
@@ -1030,7 +1030,7 @@
     {
       "country": "Israel",
       "iso2": "IL",
-      "retrievedAt": "2026-02-02T00:07:57.906604Z",
+      "retrievedAt": "2026-02-02T03:56:35.198530Z",
       "government": {
         "politicalSystem": {
           "values": [
@@ -1038,7 +1038,7 @@
             "parliamentary republic"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:07:57.906604Z"
+          "retrievedAt": "2026-02-02T03:56:35.198530Z"
         },
         "executive": {
           "leaders": [
@@ -1059,7 +1059,7 @@
             "notes": "Both head of state and head of government present; exact subtype may vary."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:07:57.906604Z"
+          "retrievedAt": "2026-02-02T03:56:35.198530Z"
         },
         "legislature": {
           "bodies": [
@@ -1070,7 +1070,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:07:57.906604Z"
+          "retrievedAt": "2026-02-02T03:56:35.198530Z"
         },
         "partyControl": {
           "entries": [
@@ -1092,7 +1092,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:07:57.906604Z"
+          "retrievedAt": "2026-02-02T03:56:35.198530Z"
         }
       },
       "elections": {
@@ -1107,7 +1107,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:07:57.906604Z"
+          "retrievedAt": "2026-02-02T03:56:35.198530Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -1116,7 +1116,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:07:57.906604Z"
+          "retrievedAt": "2026-02-02T03:56:35.198530Z"
         }
       },
       "freedomHouse": {
@@ -1127,7 +1127,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:07:57.906604Z"
+        "retrievedAt": "2026-02-02T03:56:35.198530Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -1142,14 +1142,14 @@
     {
       "country": "Palestine",
       "iso2": "PS",
-      "retrievedAt": "2026-02-02T00:07:59.495944Z",
+      "retrievedAt": "2026-02-02T03:56:36.855465Z",
       "government": {
         "politicalSystem": {
           "values": [
             "parliamentary republic"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:07:59.495944Z"
+          "retrievedAt": "2026-02-02T03:56:36.855465Z"
         },
         "executive": {
           "leaders": [
@@ -1170,7 +1170,7 @@
             "notes": "Both head of state and head of government present; exact subtype may vary."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:07:59.495944Z"
+          "retrievedAt": "2026-02-02T03:56:36.855465Z"
         },
         "legislature": {
           "bodies": [
@@ -1181,7 +1181,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:07:59.495944Z"
+          "retrievedAt": "2026-02-02T03:56:36.855465Z"
         },
         "partyControl": {
           "entries": [
@@ -1203,7 +1203,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:07:59.495944Z"
+          "retrievedAt": "2026-02-02T03:56:36.855465Z"
         }
       },
       "elections": {
@@ -1218,7 +1218,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:07:59.495944Z"
+          "retrievedAt": "2026-02-02T03:56:36.855465Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -1227,7 +1227,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:07:59.495944Z"
+          "retrievedAt": "2026-02-02T03:56:36.855465Z"
         }
       },
       "freedomHouse": {
@@ -1238,7 +1238,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:07:59.495944Z"
+        "retrievedAt": "2026-02-02T03:56:36.855465Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -1253,14 +1253,14 @@
     {
       "country": "Mexico",
       "iso2": "MX",
-      "retrievedAt": "2026-02-02T00:08:01.126871Z",
+      "retrievedAt": "2026-02-02T03:56:38.381092Z",
       "government": {
         "politicalSystem": {
           "values": [
             "federal republic"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:01.126871Z"
+          "retrievedAt": "2026-02-02T03:56:38.381092Z"
         },
         "executive": {
           "leaders": [
@@ -1281,7 +1281,7 @@
             "notes": "Both head of state and head of government present; exact subtype may vary."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:01.126871Z"
+          "retrievedAt": "2026-02-02T03:56:38.381092Z"
         },
         "legislature": {
           "bodies": [
@@ -1292,7 +1292,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:01.126871Z"
+          "retrievedAt": "2026-02-02T03:56:38.381092Z"
         },
         "partyControl": {
           "entries": [
@@ -1314,7 +1314,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:01.126871Z"
+          "retrievedAt": "2026-02-02T03:56:38.381092Z"
         }
       },
       "elections": {
@@ -1329,7 +1329,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:01.126871Z"
+          "retrievedAt": "2026-02-02T03:56:38.381092Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -1338,7 +1338,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:01.126871Z"
+          "retrievedAt": "2026-02-02T03:56:38.381092Z"
         }
       },
       "freedomHouse": {
@@ -1349,7 +1349,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:01.126871Z"
+        "retrievedAt": "2026-02-02T03:56:38.381092Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -1364,7 +1364,7 @@
     {
       "country": "Brazil",
       "iso2": "BR",
-      "retrievedAt": "2026-02-02T00:08:02.802169Z",
+      "retrievedAt": "2026-02-02T03:56:39.880587Z",
       "government": {
         "politicalSystem": {
           "values": [
@@ -1373,7 +1373,7 @@
             "federal republic"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:02.802169Z"
+          "retrievedAt": "2026-02-02T03:56:39.880587Z"
         },
         "executive": {
           "leaders": [
@@ -1394,7 +1394,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:02.802169Z"
+          "retrievedAt": "2026-02-02T03:56:39.880587Z"
         },
         "legislature": {
           "bodies": [
@@ -1405,7 +1405,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:02.802169Z"
+          "retrievedAt": "2026-02-02T03:56:39.880587Z"
         },
         "partyControl": {
           "entries": [
@@ -1427,7 +1427,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:02.802169Z"
+          "retrievedAt": "2026-02-02T03:56:39.880587Z"
         }
       },
       "elections": {
@@ -1442,7 +1442,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:02.802169Z"
+          "retrievedAt": "2026-02-02T03:56:39.880587Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -1451,7 +1451,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:02.802169Z"
+          "retrievedAt": "2026-02-02T03:56:39.880587Z"
         }
       },
       "freedomHouse": {
@@ -1462,7 +1462,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:02.802169Z"
+        "retrievedAt": "2026-02-02T03:56:39.880587Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -1477,7 +1477,7 @@
     {
       "country": "Canada",
       "iso2": "CA",
-      "retrievedAt": "2026-02-02T00:08:04.722900Z",
+      "retrievedAt": "2026-02-02T03:56:41.307192Z",
       "government": {
         "politicalSystem": {
           "values": [
@@ -1486,7 +1486,7 @@
             "parliamentary system"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:04.722900Z"
+          "retrievedAt": "2026-02-02T03:56:41.307192Z"
         },
         "executive": {
           "leaders": [
@@ -1507,7 +1507,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:04.722900Z"
+          "retrievedAt": "2026-02-02T03:56:41.307192Z"
         },
         "legislature": {
           "bodies": [
@@ -1518,7 +1518,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:04.722900Z"
+          "retrievedAt": "2026-02-02T03:56:41.307192Z"
         },
         "partyControl": {
           "entries": [
@@ -1540,7 +1540,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:04.722900Z"
+          "retrievedAt": "2026-02-02T03:56:41.307192Z"
         }
       },
       "elections": {
@@ -1555,7 +1555,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:04.722900Z"
+          "retrievedAt": "2026-02-02T03:56:41.307192Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -1564,7 +1564,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:04.722900Z"
+          "retrievedAt": "2026-02-02T03:56:41.307192Z"
         }
       },
       "freedomHouse": {
@@ -1575,7 +1575,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:04.722900Z"
+        "retrievedAt": "2026-02-02T03:56:41.307192Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -1590,14 +1590,14 @@
     {
       "country": "Nigeria",
       "iso2": "NG",
-      "retrievedAt": "2026-02-02T00:08:06.532704Z",
+      "retrievedAt": "2026-02-02T03:56:42.884553Z",
       "government": {
         "politicalSystem": {
           "values": [
             "federal republic"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:06.532704Z"
+          "retrievedAt": "2026-02-02T03:56:42.884553Z"
         },
         "executive": {
           "leaders": [
@@ -1618,7 +1618,7 @@
             "notes": "Both head of state and head of government present; exact subtype may vary."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:06.532704Z"
+          "retrievedAt": "2026-02-02T03:56:42.884553Z"
         },
         "legislature": {
           "bodies": [
@@ -1629,7 +1629,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:06.532704Z"
+          "retrievedAt": "2026-02-02T03:56:42.884553Z"
         },
         "partyControl": {
           "entries": [
@@ -1651,7 +1651,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:06.532704Z"
+          "retrievedAt": "2026-02-02T03:56:42.884553Z"
         }
       },
       "elections": {
@@ -1666,7 +1666,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:06.532704Z"
+          "retrievedAt": "2026-02-02T03:56:42.884553Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -1675,7 +1675,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:06.532704Z"
+          "retrievedAt": "2026-02-02T03:56:42.884553Z"
         }
       },
       "freedomHouse": {
@@ -1686,7 +1686,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:06.532704Z"
+        "retrievedAt": "2026-02-02T03:56:42.884553Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -1701,14 +1701,14 @@
     {
       "country": "Japan",
       "iso2": "JP",
-      "retrievedAt": "2026-02-02T00:08:08.499801Z",
+      "retrievedAt": "2026-02-02T03:56:44.557282Z",
       "government": {
         "politicalSystem": {
           "values": [
             "constitutional monarchy"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:08.499801Z"
+          "retrievedAt": "2026-02-02T03:56:44.557282Z"
         },
         "executive": {
           "leaders": [
@@ -1729,7 +1729,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:08.499801Z"
+          "retrievedAt": "2026-02-02T03:56:44.557282Z"
         },
         "legislature": {
           "bodies": [
@@ -1740,7 +1740,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:08.499801Z"
+          "retrievedAt": "2026-02-02T03:56:44.557282Z"
         },
         "partyControl": {
           "entries": [
@@ -1762,7 +1762,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:08.499801Z"
+          "retrievedAt": "2026-02-02T03:56:44.557282Z"
         }
       },
       "elections": {
@@ -1777,7 +1777,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:08.499801Z"
+          "retrievedAt": "2026-02-02T03:56:44.557282Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -1786,7 +1786,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:08.499801Z"
+          "retrievedAt": "2026-02-02T03:56:44.557282Z"
         }
       },
       "freedomHouse": {
@@ -1797,7 +1797,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:08.499801Z"
+        "retrievedAt": "2026-02-02T03:56:44.557282Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -1812,7 +1812,7 @@
     {
       "country": "Iran",
       "iso2": "IR",
-      "retrievedAt": "2026-02-02T00:08:10.240521Z",
+      "retrievedAt": "2026-02-02T03:56:46.309696Z",
       "government": {
         "politicalSystem": {
           "values": [
@@ -1822,7 +1822,7 @@
             "Islamic Republic"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:10.240521Z"
+          "retrievedAt": "2026-02-02T03:56:46.309696Z"
         },
         "executive": {
           "leaders": [
@@ -1843,7 +1843,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:10.240521Z"
+          "retrievedAt": "2026-02-02T03:56:46.309696Z"
         },
         "legislature": {
           "bodies": [
@@ -1854,7 +1854,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:10.240521Z"
+          "retrievedAt": "2026-02-02T03:56:46.309696Z"
         },
         "partyControl": {
           "entries": [
@@ -1876,7 +1876,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:10.240521Z"
+          "retrievedAt": "2026-02-02T03:56:46.309696Z"
         }
       },
       "elections": {
@@ -1891,7 +1891,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:10.240521Z"
+          "retrievedAt": "2026-02-02T03:56:46.309696Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -1900,7 +1900,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:10.240521Z"
+          "retrievedAt": "2026-02-02T03:56:46.309696Z"
         }
       },
       "freedomHouse": {
@@ -1911,7 +1911,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:10.240521Z"
+        "retrievedAt": "2026-02-02T03:56:46.309696Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -1926,14 +1926,14 @@
     {
       "country": "Syria",
       "iso2": "SY",
-      "retrievedAt": "2026-02-02T00:08:11.759751Z",
+      "retrievedAt": "2026-02-02T03:56:47.874307Z",
       "government": {
         "politicalSystem": {
           "values": [
             "semi-presidential system"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:11.759751Z"
+          "retrievedAt": "2026-02-02T03:56:47.874307Z"
         },
         "executive": {
           "leaders": [],
@@ -1943,7 +1943,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:11.759751Z"
+          "retrievedAt": "2026-02-02T03:56:47.874307Z"
         },
         "legislature": {
           "bodies": [
@@ -1954,7 +1954,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:11.759751Z"
+          "retrievedAt": "2026-02-02T03:56:47.874307Z"
         },
         "partyControl": {
           "entries": [
@@ -1976,7 +1976,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:11.759751Z"
+          "retrievedAt": "2026-02-02T03:56:47.874307Z"
         }
       },
       "elections": {
@@ -1991,7 +1991,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:11.759751Z"
+          "retrievedAt": "2026-02-02T03:56:47.874307Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -2000,7 +2000,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:11.759751Z"
+          "retrievedAt": "2026-02-02T03:56:47.874307Z"
         }
       },
       "freedomHouse": {
@@ -2011,7 +2011,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:11.759751Z"
+        "retrievedAt": "2026-02-02T03:56:47.874307Z"
       },
       "quality": {
         "confidence": 0.73,
@@ -2027,14 +2027,14 @@
     {
       "country": "France",
       "iso2": "FR",
-      "retrievedAt": "2026-02-02T00:08:13.241615Z",
+      "retrievedAt": "2026-02-02T03:56:49.467084Z",
       "government": {
         "politicalSystem": {
           "values": [
             "semi-presidential system"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:13.241615Z"
+          "retrievedAt": "2026-02-02T03:56:49.467084Z"
         },
         "executive": {
           "leaders": [
@@ -2055,7 +2055,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:13.241615Z"
+          "retrievedAt": "2026-02-02T03:56:49.467084Z"
         },
         "legislature": {
           "bodies": [
@@ -2066,7 +2066,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:13.241615Z"
+          "retrievedAt": "2026-02-02T03:56:49.467084Z"
         },
         "partyControl": {
           "entries": [
@@ -2088,7 +2088,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:13.241615Z"
+          "retrievedAt": "2026-02-02T03:56:49.467084Z"
         }
       },
       "elections": {
@@ -2103,7 +2103,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:13.241615Z"
+          "retrievedAt": "2026-02-02T03:56:49.467084Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -2112,7 +2112,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:13.241615Z"
+          "retrievedAt": "2026-02-02T03:56:49.467084Z"
         }
       },
       "freedomHouse": {
@@ -2123,7 +2123,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:13.241615Z"
+        "retrievedAt": "2026-02-02T03:56:49.467084Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -2138,7 +2138,7 @@
     {
       "country": "Turkey",
       "iso2": "TR",
-      "retrievedAt": "2026-02-02T00:08:14.907134Z",
+      "retrievedAt": "2026-02-02T03:56:51.151598Z",
       "government": {
         "politicalSystem": {
           "values": [
@@ -2146,7 +2146,7 @@
             "unitary state"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:14.907134Z"
+          "retrievedAt": "2026-02-02T03:56:51.151598Z"
         },
         "executive": {
           "leaders": [
@@ -2167,7 +2167,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:14.907134Z"
+          "retrievedAt": "2026-02-02T03:56:51.151598Z"
         },
         "legislature": {
           "bodies": [
@@ -2178,7 +2178,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:14.907134Z"
+          "retrievedAt": "2026-02-02T03:56:51.151598Z"
         },
         "partyControl": {
           "entries": [
@@ -2200,7 +2200,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:14.907134Z"
+          "retrievedAt": "2026-02-02T03:56:51.151598Z"
         }
       },
       "elections": {
@@ -2215,7 +2215,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:14.907134Z"
+          "retrievedAt": "2026-02-02T03:56:51.151598Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -2224,7 +2224,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:14.907134Z"
+          "retrievedAt": "2026-02-02T03:56:51.151598Z"
         }
       },
       "freedomHouse": {
@@ -2235,7 +2235,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:14.907134Z"
+        "retrievedAt": "2026-02-02T03:56:51.151598Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -2250,7 +2250,7 @@
     {
       "country": "Venezuela",
       "iso2": "VE",
-      "retrievedAt": "2026-02-02T00:08:16.461582Z",
+      "retrievedAt": "2026-02-02T03:56:52.767186Z",
       "government": {
         "politicalSystem": {
           "values": [
@@ -2258,7 +2258,7 @@
             "federal republic"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:16.461582Z"
+          "retrievedAt": "2026-02-02T03:56:52.767186Z"
         },
         "executive": {
           "leaders": [
@@ -2274,7 +2274,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:16.461582Z"
+          "retrievedAt": "2026-02-02T03:56:52.767186Z"
         },
         "legislature": {
           "bodies": [
@@ -2285,7 +2285,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:16.461582Z"
+          "retrievedAt": "2026-02-02T03:56:52.767186Z"
         },
         "partyControl": {
           "entries": [
@@ -2307,7 +2307,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:16.461582Z"
+          "retrievedAt": "2026-02-02T03:56:52.767186Z"
         }
       },
       "elections": {
@@ -2322,7 +2322,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:16.461582Z"
+          "retrievedAt": "2026-02-02T03:56:52.767186Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -2331,7 +2331,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:16.461582Z"
+          "retrievedAt": "2026-02-02T03:56:52.767186Z"
         }
       },
       "freedomHouse": {
@@ -2342,7 +2342,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:16.461582Z"
+        "retrievedAt": "2026-02-02T03:56:52.767186Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -2357,7 +2357,7 @@
     {
       "country": "Vietnam",
       "iso2": "VN",
-      "retrievedAt": "2026-02-02T00:08:17.825971Z",
+      "retrievedAt": "2026-02-02T03:56:54.402221Z",
       "government": {
         "politicalSystem": {
           "values": [
@@ -2366,7 +2366,7 @@
             "unitary state"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:17.825971Z"
+          "retrievedAt": "2026-02-02T03:56:54.402221Z"
         },
         "executive": {
           "leaders": [
@@ -2387,7 +2387,7 @@
             "notes": "Both head of state and head of government present; exact subtype may vary."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:17.825971Z"
+          "retrievedAt": "2026-02-02T03:56:54.402221Z"
         },
         "legislature": {
           "bodies": [
@@ -2398,7 +2398,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:17.825971Z"
+          "retrievedAt": "2026-02-02T03:56:54.402221Z"
         },
         "partyControl": {
           "entries": [
@@ -2420,7 +2420,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:17.825971Z"
+          "retrievedAt": "2026-02-02T03:56:54.402221Z"
         }
       },
       "elections": {
@@ -2435,7 +2435,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:17.825971Z"
+          "retrievedAt": "2026-02-02T03:56:54.402221Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -2444,7 +2444,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:17.825971Z"
+          "retrievedAt": "2026-02-02T03:56:54.402221Z"
         }
       },
       "freedomHouse": {
@@ -2455,7 +2455,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:17.825971Z"
+        "retrievedAt": "2026-02-02T03:56:54.402221Z"
       },
       "quality": {
         "confidence": 0.78,
@@ -2471,7 +2471,7 @@
     {
       "country": "Taiwan",
       "iso2": "TW",
-      "retrievedAt": "2026-02-02T00:08:19.530887Z",
+      "retrievedAt": "2026-02-02T03:56:56.017876Z",
       "government": {
         "politicalSystem": {
           "values": [
@@ -2480,7 +2480,7 @@
             "constitutional republic"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:19.530887Z"
+          "retrievedAt": "2026-02-02T03:56:56.017876Z"
         },
         "executive": {
           "leaders": [
@@ -2501,7 +2501,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:19.530887Z"
+          "retrievedAt": "2026-02-02T03:56:56.017876Z"
         },
         "legislature": {
           "bodies": [
@@ -2512,7 +2512,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:19.530887Z"
+          "retrievedAt": "2026-02-02T03:56:56.017876Z"
         },
         "partyControl": {
           "entries": [
@@ -2534,7 +2534,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:19.530887Z"
+          "retrievedAt": "2026-02-02T03:56:56.017876Z"
         }
       },
       "elections": {
@@ -2549,7 +2549,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:19.530887Z"
+          "retrievedAt": "2026-02-02T03:56:56.017876Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -2558,7 +2558,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:19.530887Z"
+          "retrievedAt": "2026-02-02T03:56:56.017876Z"
         }
       },
       "freedomHouse": {
@@ -2569,7 +2569,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:19.530887Z"
+        "retrievedAt": "2026-02-02T03:56:56.017876Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -2584,7 +2584,7 @@
     {
       "country": "South Korea",
       "iso2": "KR",
-      "retrievedAt": "2026-02-02T00:08:21.010891Z",
+      "retrievedAt": "2026-02-02T03:56:57.630158Z",
       "government": {
         "politicalSystem": {
           "values": [
@@ -2592,7 +2592,7 @@
             "presidential system"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:21.010891Z"
+          "retrievedAt": "2026-02-02T03:56:57.630158Z"
         },
         "executive": {
           "leaders": [
@@ -2613,7 +2613,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:21.010891Z"
+          "retrievedAt": "2026-02-02T03:56:57.630158Z"
         },
         "legislature": {
           "bodies": [
@@ -2624,7 +2624,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:21.010891Z"
+          "retrievedAt": "2026-02-02T03:56:57.630158Z"
         },
         "partyControl": {
           "entries": [
@@ -2646,7 +2646,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:21.010891Z"
+          "retrievedAt": "2026-02-02T03:56:57.630158Z"
         }
       },
       "elections": {
@@ -2661,7 +2661,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:21.010891Z"
+          "retrievedAt": "2026-02-02T03:56:57.630158Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -2670,7 +2670,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:21.010891Z"
+          "retrievedAt": "2026-02-02T03:56:57.630158Z"
         }
       },
       "freedomHouse": {
@@ -2681,7 +2681,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:21.010891Z"
+        "retrievedAt": "2026-02-02T03:56:57.630158Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -2696,7 +2696,7 @@
     {
       "country": "North Korea",
       "iso2": "KP",
-      "retrievedAt": "2026-02-02T00:08:22.592673Z",
+      "retrievedAt": "2026-02-02T03:56:59.576152Z",
       "government": {
         "politicalSystem": {
           "values": [
@@ -2709,7 +2709,7 @@
             "communist dictatorship"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:22.592673Z"
+          "retrievedAt": "2026-02-02T03:56:59.576152Z"
         },
         "executive": {
           "leaders": [
@@ -2730,7 +2730,7 @@
             "notes": "Both head of state and head of government present; exact subtype may vary."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:22.592673Z"
+          "retrievedAt": "2026-02-02T03:56:59.576152Z"
         },
         "legislature": {
           "bodies": [
@@ -2741,7 +2741,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:22.592673Z"
+          "retrievedAt": "2026-02-02T03:56:59.576152Z"
         },
         "partyControl": {
           "entries": [
@@ -2763,7 +2763,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:22.592673Z"
+          "retrievedAt": "2026-02-02T03:56:59.576152Z"
         }
       },
       "elections": {
@@ -2778,7 +2778,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:22.592673Z"
+          "retrievedAt": "2026-02-02T03:56:59.576152Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -2787,7 +2787,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:22.592673Z"
+          "retrievedAt": "2026-02-02T03:56:59.576152Z"
         }
       },
       "freedomHouse": {
@@ -2798,7 +2798,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:22.592673Z"
+        "retrievedAt": "2026-02-02T03:56:59.576152Z"
       },
       "quality": {
         "confidence": 0.78,
@@ -2814,14 +2814,14 @@
     {
       "country": "Indonesia",
       "iso2": "ID",
-      "retrievedAt": "2026-02-02T00:08:24.196302Z",
+      "retrievedAt": "2026-02-02T03:57:01.253671Z",
       "government": {
         "politicalSystem": {
           "values": [
             "republic"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:24.196302Z"
+          "retrievedAt": "2026-02-02T03:57:01.253671Z"
         },
         "executive": {
           "leaders": [
@@ -2842,7 +2842,7 @@
             "notes": "Both head of state and head of government present; exact subtype may vary."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:24.196302Z"
+          "retrievedAt": "2026-02-02T03:57:01.253671Z"
         },
         "legislature": {
           "bodies": [
@@ -2853,7 +2853,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:24.196302Z"
+          "retrievedAt": "2026-02-02T03:57:01.253671Z"
         },
         "partyControl": {
           "entries": [
@@ -2875,7 +2875,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:24.196302Z"
+          "retrievedAt": "2026-02-02T03:57:01.253671Z"
         }
       },
       "elections": {
@@ -2890,7 +2890,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:24.196302Z"
+          "retrievedAt": "2026-02-02T03:57:01.253671Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -2899,7 +2899,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:24.196302Z"
+          "retrievedAt": "2026-02-02T03:57:01.253671Z"
         }
       },
       "freedomHouse": {
@@ -2910,7 +2910,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:24.196302Z"
+        "retrievedAt": "2026-02-02T03:57:01.253671Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -2925,14 +2925,14 @@
     {
       "country": "Myanmar",
       "iso2": "MM",
-      "retrievedAt": "2026-02-02T00:08:25.873301Z",
+      "retrievedAt": "2026-02-02T03:57:02.742546Z",
       "government": {
         "politicalSystem": {
           "values": [
             "republic"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:25.873301Z"
+          "retrievedAt": "2026-02-02T03:57:02.742546Z"
         },
         "executive": {
           "leaders": [
@@ -2953,7 +2953,7 @@
             "notes": "Both head of state and head of government present; exact subtype may vary."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:25.873301Z"
+          "retrievedAt": "2026-02-02T03:57:02.742546Z"
         },
         "legislature": {
           "bodies": [
@@ -2964,7 +2964,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:25.873301Z"
+          "retrievedAt": "2026-02-02T03:57:02.742546Z"
         },
         "partyControl": {
           "entries": [
@@ -2986,7 +2986,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:25.873301Z"
+          "retrievedAt": "2026-02-02T03:57:02.742546Z"
         }
       },
       "elections": {
@@ -3001,7 +3001,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:25.873301Z"
+          "retrievedAt": "2026-02-02T03:57:02.742546Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -3010,7 +3010,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:25.873301Z"
+          "retrievedAt": "2026-02-02T03:57:02.742546Z"
         }
       },
       "freedomHouse": {
@@ -3021,7 +3021,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:25.873301Z"
+        "retrievedAt": "2026-02-02T03:57:02.742546Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -3036,7 +3036,7 @@
     {
       "country": "Armenia",
       "iso2": "AM",
-      "retrievedAt": "2026-02-02T00:08:27.535240Z",
+      "retrievedAt": "2026-02-02T03:57:04.211230Z",
       "government": {
         "politicalSystem": {
           "values": [
@@ -3045,7 +3045,7 @@
             "unitary state"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:27.535240Z"
+          "retrievedAt": "2026-02-02T03:57:04.211230Z"
         },
         "executive": {
           "leaders": [
@@ -3066,7 +3066,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:27.535240Z"
+          "retrievedAt": "2026-02-02T03:57:04.211230Z"
         },
         "legislature": {
           "bodies": [
@@ -3077,7 +3077,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:27.535240Z"
+          "retrievedAt": "2026-02-02T03:57:04.211230Z"
         },
         "partyControl": {
           "entries": [
@@ -3099,7 +3099,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:27.535240Z"
+          "retrievedAt": "2026-02-02T03:57:04.211230Z"
         }
       },
       "elections": {
@@ -3114,7 +3114,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:27.535240Z"
+          "retrievedAt": "2026-02-02T03:57:04.211230Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -3123,7 +3123,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:27.535240Z"
+          "retrievedAt": "2026-02-02T03:57:04.211230Z"
         }
       },
       "freedomHouse": {
@@ -3134,7 +3134,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:27.535240Z"
+        "retrievedAt": "2026-02-02T03:57:04.211230Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -3149,7 +3149,7 @@
     {
       "country": "Azerbaijan",
       "iso2": "AZ",
-      "retrievedAt": "2026-02-02T00:08:29.076656Z",
+      "retrievedAt": "2026-02-02T03:57:06.028196Z",
       "government": {
         "politicalSystem": {
           "values": [
@@ -3158,7 +3158,7 @@
             "unitary state"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:29.076656Z"
+          "retrievedAt": "2026-02-02T03:57:06.028196Z"
         },
         "executive": {
           "leaders": [
@@ -3179,7 +3179,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:29.076656Z"
+          "retrievedAt": "2026-02-02T03:57:06.028196Z"
         },
         "legislature": {
           "bodies": [
@@ -3190,7 +3190,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:29.076656Z"
+          "retrievedAt": "2026-02-02T03:57:06.028196Z"
         },
         "partyControl": {
           "entries": [
@@ -3212,7 +3212,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:29.076656Z"
+          "retrievedAt": "2026-02-02T03:57:06.028196Z"
         }
       },
       "elections": {
@@ -3227,7 +3227,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:29.076656Z"
+          "retrievedAt": "2026-02-02T03:57:06.028196Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -3236,7 +3236,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:29.076656Z"
+          "retrievedAt": "2026-02-02T03:57:06.028196Z"
         }
       },
       "freedomHouse": {
@@ -3247,7 +3247,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:29.076656Z"
+        "retrievedAt": "2026-02-02T03:57:06.028196Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -3262,14 +3262,14 @@
     {
       "country": "Morocco",
       "iso2": "MA",
-      "retrievedAt": "2026-02-02T00:08:30.490155Z",
+      "retrievedAt": "2026-02-02T03:57:07.445461Z",
       "government": {
         "politicalSystem": {
           "values": [
             "constitutional monarchy"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:30.490155Z"
+          "retrievedAt": "2026-02-02T03:57:07.445461Z"
         },
         "executive": {
           "leaders": [
@@ -3290,7 +3290,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:30.490155Z"
+          "retrievedAt": "2026-02-02T03:57:07.445461Z"
         },
         "legislature": {
           "bodies": [
@@ -3301,7 +3301,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:30.490155Z"
+          "retrievedAt": "2026-02-02T03:57:07.445461Z"
         },
         "partyControl": {
           "entries": [
@@ -3323,7 +3323,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:30.490155Z"
+          "retrievedAt": "2026-02-02T03:57:07.445461Z"
         }
       },
       "elections": {
@@ -3338,7 +3338,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:30.490155Z"
+          "retrievedAt": "2026-02-02T03:57:07.445461Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -3347,7 +3347,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:30.490155Z"
+          "retrievedAt": "2026-02-02T03:57:07.445461Z"
         }
       },
       "freedomHouse": {
@@ -3358,7 +3358,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:30.490155Z"
+        "retrievedAt": "2026-02-02T03:57:07.445461Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -3373,14 +3373,14 @@
     {
       "country": "Somalia",
       "iso2": "SO",
-      "retrievedAt": "2026-02-02T00:08:31.998113Z",
+      "retrievedAt": "2026-02-02T03:57:09.059843Z",
       "government": {
         "politicalSystem": {
           "values": [
             "federal republic"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:31.998113Z"
+          "retrievedAt": "2026-02-02T03:57:09.059843Z"
         },
         "executive": {
           "leaders": [
@@ -3401,7 +3401,7 @@
             "notes": "Both head of state and head of government present; exact subtype may vary."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:31.998113Z"
+          "retrievedAt": "2026-02-02T03:57:09.059843Z"
         },
         "legislature": {
           "bodies": [
@@ -3412,7 +3412,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:31.998113Z"
+          "retrievedAt": "2026-02-02T03:57:09.059843Z"
         },
         "partyControl": {
           "entries": [
@@ -3434,7 +3434,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:31.998113Z"
+          "retrievedAt": "2026-02-02T03:57:09.059843Z"
         }
       },
       "elections": {
@@ -3449,7 +3449,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:31.998113Z"
+          "retrievedAt": "2026-02-02T03:57:09.059843Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -3458,7 +3458,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:31.998113Z"
+          "retrievedAt": "2026-02-02T03:57:09.059843Z"
         }
       },
       "freedomHouse": {
@@ -3469,7 +3469,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:31.998113Z"
+        "retrievedAt": "2026-02-02T03:57:09.059843Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -3484,7 +3484,7 @@
     {
       "country": "Yemen",
       "iso2": "YE",
-      "retrievedAt": "2026-02-02T00:08:33.743328Z",
+      "retrievedAt": "2026-02-02T03:57:10.723679Z",
       "government": {
         "politicalSystem": {
           "values": [
@@ -3492,7 +3492,7 @@
             "presidential system"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:33.743328Z"
+          "retrievedAt": "2026-02-02T03:57:10.723679Z"
         },
         "executive": {
           "leaders": [
@@ -3513,7 +3513,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:33.743328Z"
+          "retrievedAt": "2026-02-02T03:57:10.723679Z"
         },
         "legislature": {
           "bodies": [
@@ -3524,7 +3524,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:33.743328Z"
+          "retrievedAt": "2026-02-02T03:57:10.723679Z"
         },
         "partyControl": {
           "entries": [
@@ -3546,7 +3546,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:33.743328Z"
+          "retrievedAt": "2026-02-02T03:57:10.723679Z"
         }
       },
       "elections": {
@@ -3561,7 +3561,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:33.743328Z"
+          "retrievedAt": "2026-02-02T03:57:10.723679Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -3570,7 +3570,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:33.743328Z"
+          "retrievedAt": "2026-02-02T03:57:10.723679Z"
         }
       },
       "freedomHouse": {
@@ -3581,7 +3581,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:33.743328Z"
+        "retrievedAt": "2026-02-02T03:57:10.723679Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -3596,14 +3596,14 @@
     {
       "country": "Libya",
       "iso2": "LY",
-      "retrievedAt": "2026-02-02T00:08:35.271948Z",
+      "retrievedAt": "2026-02-02T03:57:12.188964Z",
       "government": {
         "politicalSystem": {
           "values": [
             "republic"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:35.271948Z"
+          "retrievedAt": "2026-02-02T03:57:12.188964Z"
         },
         "executive": {
           "leaders": [
@@ -3624,7 +3624,7 @@
             "notes": "Both head of state and head of government present; exact subtype may vary."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:35.271948Z"
+          "retrievedAt": "2026-02-02T03:57:12.188964Z"
         },
         "legislature": {
           "bodies": [
@@ -3636,7 +3636,7 @@
             "notes": "Multiple legislative bodies listed (Wikidata P194)."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:35.271948Z"
+          "retrievedAt": "2026-02-02T03:57:12.188964Z"
         },
         "partyControl": {
           "entries": [
@@ -3668,7 +3668,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:35.271948Z"
+          "retrievedAt": "2026-02-02T03:57:12.188964Z"
         }
       },
       "elections": {
@@ -3683,7 +3683,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:35.271948Z"
+          "retrievedAt": "2026-02-02T03:57:12.188964Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -3692,7 +3692,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:35.271948Z"
+          "retrievedAt": "2026-02-02T03:57:12.188964Z"
         }
       },
       "freedomHouse": {
@@ -3703,7 +3703,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:35.271948Z"
+        "retrievedAt": "2026-02-02T03:57:12.188964Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -3718,14 +3718,14 @@
     {
       "country": "Egypt",
       "iso2": "EG",
-      "retrievedAt": "2026-02-02T00:08:36.852309Z",
+      "retrievedAt": "2026-02-02T03:57:13.742660Z",
       "government": {
         "politicalSystem": {
           "values": [
             "republic"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:36.852309Z"
+          "retrievedAt": "2026-02-02T03:57:13.742660Z"
         },
         "executive": {
           "leaders": [
@@ -3746,7 +3746,7 @@
             "notes": "Both head of state and head of government present; exact subtype may vary."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:36.852309Z"
+          "retrievedAt": "2026-02-02T03:57:13.742660Z"
         },
         "legislature": {
           "bodies": [
@@ -3757,7 +3757,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:36.852309Z"
+          "retrievedAt": "2026-02-02T03:57:13.742660Z"
         },
         "partyControl": {
           "entries": [
@@ -3779,7 +3779,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:36.852309Z"
+          "retrievedAt": "2026-02-02T03:57:13.742660Z"
         }
       },
       "elections": {
@@ -3794,7 +3794,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:36.852309Z"
+          "retrievedAt": "2026-02-02T03:57:13.742660Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -3803,7 +3803,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:36.852309Z"
+          "retrievedAt": "2026-02-02T03:57:13.742660Z"
         }
       },
       "freedomHouse": {
@@ -3814,7 +3814,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:36.852309Z"
+        "retrievedAt": "2026-02-02T03:57:13.742660Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -3829,14 +3829,14 @@
     {
       "country": "Algeria",
       "iso2": "DZ",
-      "retrievedAt": "2026-02-02T00:08:38.496065Z",
+      "retrievedAt": "2026-02-02T03:57:15.302762Z",
       "government": {
         "politicalSystem": {
           "values": [
             "semi-presidential system"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:38.496065Z"
+          "retrievedAt": "2026-02-02T03:57:15.302762Z"
         },
         "executive": {
           "leaders": [
@@ -3857,7 +3857,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:38.496065Z"
+          "retrievedAt": "2026-02-02T03:57:15.302762Z"
         },
         "legislature": {
           "bodies": [
@@ -3868,7 +3868,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:38.496065Z"
+          "retrievedAt": "2026-02-02T03:57:15.302762Z"
         },
         "partyControl": {
           "entries": [
@@ -3890,7 +3890,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:38.496065Z"
+          "retrievedAt": "2026-02-02T03:57:15.302762Z"
         }
       },
       "elections": {
@@ -3905,7 +3905,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:38.496065Z"
+          "retrievedAt": "2026-02-02T03:57:15.302762Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -3914,7 +3914,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:38.496065Z"
+          "retrievedAt": "2026-02-02T03:57:15.302762Z"
         }
       },
       "freedomHouse": {
@@ -3925,7 +3925,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:38.496065Z"
+        "retrievedAt": "2026-02-02T03:57:15.302762Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -3940,14 +3940,14 @@
     {
       "country": "Argentina",
       "iso2": "AR",
-      "retrievedAt": "2026-02-02T00:08:40.117596Z",
+      "retrievedAt": "2026-02-02T03:57:16.962341Z",
       "government": {
         "politicalSystem": {
           "values": [
             "federal republic"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:40.117596Z"
+          "retrievedAt": "2026-02-02T03:57:16.962341Z"
         },
         "executive": {
           "leaders": [
@@ -3968,7 +3968,7 @@
             "notes": "Both head of state and head of government present; exact subtype may vary."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:40.117596Z"
+          "retrievedAt": "2026-02-02T03:57:16.962341Z"
         },
         "legislature": {
           "bodies": [
@@ -3979,7 +3979,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:40.117596Z"
+          "retrievedAt": "2026-02-02T03:57:16.962341Z"
         },
         "partyControl": {
           "entries": [
@@ -4001,7 +4001,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:40.117596Z"
+          "retrievedAt": "2026-02-02T03:57:16.962341Z"
         }
       },
       "elections": {
@@ -4016,7 +4016,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:40.117596Z"
+          "retrievedAt": "2026-02-02T03:57:16.962341Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -4025,7 +4025,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:40.117596Z"
+          "retrievedAt": "2026-02-02T03:57:16.962341Z"
         }
       },
       "freedomHouse": {
@@ -4036,7 +4036,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:40.117596Z"
+        "retrievedAt": "2026-02-02T03:57:16.962341Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -4051,14 +4051,14 @@
     {
       "country": "Chile",
       "iso2": "CL",
-      "retrievedAt": "2026-02-02T00:08:41.845311Z",
+      "retrievedAt": "2026-02-02T03:57:18.439549Z",
       "government": {
         "politicalSystem": {
           "values": [
             "democratic republic"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:41.845311Z"
+          "retrievedAt": "2026-02-02T03:57:18.439549Z"
         },
         "executive": {
           "leaders": [
@@ -4079,7 +4079,7 @@
             "notes": "Both head of state and head of government present; exact subtype may vary."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:41.845311Z"
+          "retrievedAt": "2026-02-02T03:57:18.439549Z"
         },
         "legislature": {
           "bodies": [
@@ -4090,7 +4090,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:41.845311Z"
+          "retrievedAt": "2026-02-02T03:57:18.439549Z"
         },
         "partyControl": {
           "entries": [
@@ -4112,7 +4112,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:41.845311Z"
+          "retrievedAt": "2026-02-02T03:57:18.439549Z"
         }
       },
       "elections": {
@@ -4127,7 +4127,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:41.845311Z"
+          "retrievedAt": "2026-02-02T03:57:18.439549Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -4136,7 +4136,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:41.845311Z"
+          "retrievedAt": "2026-02-02T03:57:18.439549Z"
         }
       },
       "freedomHouse": {
@@ -4147,7 +4147,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:41.845311Z"
+        "retrievedAt": "2026-02-02T03:57:18.439549Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -4162,14 +4162,14 @@
     {
       "country": "Peru",
       "iso2": "PE",
-      "retrievedAt": "2026-02-02T00:08:43.745803Z",
+      "retrievedAt": "2026-02-02T03:57:20.014965Z",
       "government": {
         "politicalSystem": {
           "values": [
             "presidential system"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:43.745803Z"
+          "retrievedAt": "2026-02-02T03:57:20.014965Z"
         },
         "executive": {
           "leaders": [
@@ -4190,7 +4190,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:43.745803Z"
+          "retrievedAt": "2026-02-02T03:57:20.014965Z"
         },
         "legislature": {
           "bodies": [
@@ -4201,7 +4201,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:43.745803Z"
+          "retrievedAt": "2026-02-02T03:57:20.014965Z"
         },
         "partyControl": {
           "entries": [
@@ -4223,7 +4223,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:43.745803Z"
+          "retrievedAt": "2026-02-02T03:57:20.014965Z"
         }
       },
       "elections": {
@@ -4238,7 +4238,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:43.745803Z"
+          "retrievedAt": "2026-02-02T03:57:20.014965Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -4247,7 +4247,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:43.745803Z"
+          "retrievedAt": "2026-02-02T03:57:20.014965Z"
         }
       },
       "freedomHouse": {
@@ -4258,7 +4258,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:43.745803Z"
+        "retrievedAt": "2026-02-02T03:57:20.014965Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -4273,14 +4273,14 @@
     {
       "country": "Cuba",
       "iso2": "CU",
-      "retrievedAt": "2026-02-02T00:08:45.630360Z",
+      "retrievedAt": "2026-02-02T03:57:21.515555Z",
       "government": {
         "politicalSystem": {
           "values": [
             "unitary state"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:45.630360Z"
+          "retrievedAt": "2026-02-02T03:57:21.515555Z"
         },
         "executive": {
           "leaders": [
@@ -4301,7 +4301,7 @@
             "notes": "Both head of state and head of government present; exact subtype may vary."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:45.630360Z"
+          "retrievedAt": "2026-02-02T03:57:21.515555Z"
         },
         "legislature": {
           "bodies": [
@@ -4312,7 +4312,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:45.630360Z"
+          "retrievedAt": "2026-02-02T03:57:21.515555Z"
         },
         "partyControl": {
           "entries": [
@@ -4334,7 +4334,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:45.630360Z"
+          "retrievedAt": "2026-02-02T03:57:21.515555Z"
         }
       },
       "elections": {
@@ -4349,7 +4349,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:45.630360Z"
+          "retrievedAt": "2026-02-02T03:57:21.515555Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -4358,7 +4358,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:45.630360Z"
+          "retrievedAt": "2026-02-02T03:57:21.515555Z"
         }
       },
       "freedomHouse": {
@@ -4369,7 +4369,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:45.630360Z"
+        "retrievedAt": "2026-02-02T03:57:21.515555Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -4384,14 +4384,14 @@
     {
       "country": "Colombia",
       "iso2": "CO",
-      "retrievedAt": "2026-02-02T00:08:47.149539Z",
+      "retrievedAt": "2026-02-02T03:57:23.139332Z",
       "government": {
         "politicalSystem": {
           "values": [
             "republic"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:47.149539Z"
+          "retrievedAt": "2026-02-02T03:57:23.139332Z"
         },
         "executive": {
           "leaders": [
@@ -4412,7 +4412,7 @@
             "notes": "Both head of state and head of government present; exact subtype may vary."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:47.149539Z"
+          "retrievedAt": "2026-02-02T03:57:23.139332Z"
         },
         "legislature": {
           "bodies": [
@@ -4423,7 +4423,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:47.149539Z"
+          "retrievedAt": "2026-02-02T03:57:23.139332Z"
         },
         "partyControl": {
           "entries": [
@@ -4445,7 +4445,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:47.149539Z"
+          "retrievedAt": "2026-02-02T03:57:23.139332Z"
         }
       },
       "elections": {
@@ -4460,7 +4460,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:47.149539Z"
+          "retrievedAt": "2026-02-02T03:57:23.139332Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -4469,7 +4469,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:47.149539Z"
+          "retrievedAt": "2026-02-02T03:57:23.139332Z"
         }
       },
       "freedomHouse": {
@@ -4480,7 +4480,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:47.149539Z"
+        "retrievedAt": "2026-02-02T03:57:23.139332Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -4495,14 +4495,14 @@
     {
       "country": "Panama",
       "iso2": "PA",
-      "retrievedAt": "2026-02-02T00:08:48.774269Z",
+      "retrievedAt": "2026-02-02T03:57:24.703945Z",
       "government": {
         "politicalSystem": {
           "values": [
             "presidential system"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:48.774269Z"
+          "retrievedAt": "2026-02-02T03:57:24.703945Z"
         },
         "executive": {
           "leaders": [
@@ -4523,7 +4523,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:48.774269Z"
+          "retrievedAt": "2026-02-02T03:57:24.703945Z"
         },
         "legislature": {
           "bodies": [
@@ -4534,7 +4534,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:48.774269Z"
+          "retrievedAt": "2026-02-02T03:57:24.703945Z"
         },
         "partyControl": {
           "entries": [
@@ -4556,7 +4556,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:48.774269Z"
+          "retrievedAt": "2026-02-02T03:57:24.703945Z"
         }
       },
       "elections": {
@@ -4571,7 +4571,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:48.774269Z"
+          "retrievedAt": "2026-02-02T03:57:24.703945Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -4580,7 +4580,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:48.774269Z"
+          "retrievedAt": "2026-02-02T03:57:24.703945Z"
         }
       },
       "freedomHouse": {
@@ -4591,7 +4591,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:48.774269Z"
+        "retrievedAt": "2026-02-02T03:57:24.703945Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -4606,7 +4606,7 @@
     {
       "country": "El Salvador",
       "iso2": "SV",
-      "retrievedAt": "2026-02-02T00:08:50.318518Z",
+      "retrievedAt": "2026-02-02T03:57:26.302697Z",
       "government": {
         "politicalSystem": {
           "values": [
@@ -4615,7 +4615,7 @@
             "representative democracy"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:50.318518Z"
+          "retrievedAt": "2026-02-02T03:57:26.302697Z"
         },
         "executive": {
           "leaders": [
@@ -4636,7 +4636,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:50.318518Z"
+          "retrievedAt": "2026-02-02T03:57:26.302697Z"
         },
         "legislature": {
           "bodies": [
@@ -4647,7 +4647,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:50.318518Z"
+          "retrievedAt": "2026-02-02T03:57:26.302697Z"
         },
         "partyControl": {
           "entries": [
@@ -4669,7 +4669,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:50.318518Z"
+          "retrievedAt": "2026-02-02T03:57:26.302697Z"
         }
       },
       "elections": {
@@ -4684,7 +4684,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). From Wikidata upcoming election items (jurisdiction + future date).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:50.318518Z"
+          "retrievedAt": "2026-02-02T03:57:26.302697Z"
         },
         "nextLegislativeElection": {
           "date": "2027-01-01T00:00:00Z",
@@ -4693,7 +4693,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). From Wikidata upcoming election items (jurisdiction + future date).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:50.318518Z"
+          "retrievedAt": "2026-02-02T03:57:26.302697Z"
         }
       },
       "freedomHouse": {
@@ -4704,7 +4704,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:50.318518Z"
+        "retrievedAt": "2026-02-02T03:57:26.302697Z"
       },
       "quality": {
         "confidence": 0.91,
@@ -4717,14 +4717,14 @@
     {
       "country": "Denmark",
       "iso2": "DK",
-      "retrievedAt": "2026-02-02T00:08:51.817512Z",
+      "retrievedAt": "2026-02-02T03:57:27.932658Z",
       "government": {
         "politicalSystem": {
           "values": [
             "constitutional monarchy"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:51.817512Z"
+          "retrievedAt": "2026-02-02T03:57:27.932658Z"
         },
         "executive": {
           "leaders": [
@@ -4745,7 +4745,7 @@
             "notes": "Heuristic from political system labels (Wikidata P122)."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:51.817512Z"
+          "retrievedAt": "2026-02-02T03:57:27.932658Z"
         },
         "legislature": {
           "bodies": [
@@ -4756,7 +4756,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:51.817512Z"
+          "retrievedAt": "2026-02-02T03:57:27.932658Z"
         },
         "partyControl": {
           "entries": [
@@ -4778,7 +4778,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:51.817512Z"
+          "retrievedAt": "2026-02-02T03:57:27.932658Z"
         }
       },
       "elections": {
@@ -4793,7 +4793,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:51.817512Z"
+          "retrievedAt": "2026-02-02T03:57:27.932658Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -4802,7 +4802,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:51.817512Z"
+          "retrievedAt": "2026-02-02T03:57:27.932658Z"
         }
       },
       "freedomHouse": {
@@ -4813,7 +4813,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:51.817512Z"
+        "retrievedAt": "2026-02-02T03:57:27.932658Z"
       },
       "quality": {
         "confidence": 0.83,
@@ -4828,14 +4828,14 @@
     {
       "country": "Sudan",
       "iso2": "SD",
-      "retrievedAt": "2026-02-02T00:08:53.466072Z",
+      "retrievedAt": "2026-02-02T03:57:29.463425Z",
       "government": {
         "politicalSystem": {
           "values": [
             "federal republic"
           ],
           "source": "wikidata:P122",
-          "retrievedAt": "2026-02-02T00:08:53.466072Z"
+          "retrievedAt": "2026-02-02T03:57:29.463425Z"
         },
         "executive": {
           "leaders": [
@@ -4856,7 +4856,7 @@
             "notes": "Both head of state and head of government present; exact subtype may vary."
           },
           "source": "wikidata:P35,P6,P102 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:53.466072Z"
+          "retrievedAt": "2026-02-02T03:57:29.463425Z"
         },
         "legislature": {
           "bodies": [
@@ -4867,7 +4867,7 @@
             "notes": "Single legislative body listed (Wikidata P194). Not always definitive."
           },
           "source": "wikidata:P194 (+heuristics)",
-          "retrievedAt": "2026-02-02T00:08:53.466072Z"
+          "retrievedAt": "2026-02-02T03:57:29.463425Z"
         },
         "partyControl": {
           "entries": [
@@ -4889,7 +4889,7 @@
             }
           ],
           "notes": "Legislature control is approximate; coalitions/seat majorities often not captured by winner fields.",
-          "retrievedAt": "2026-02-02T00:08:53.466072Z"
+          "retrievedAt": "2026-02-02T03:57:29.463425Z"
         }
       },
       "elections": {
@@ -4904,7 +4904,7 @@
           "method": "wikidata_upcoming",
           "notes": "Executive election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:53.466072Z"
+          "retrievedAt": "2026-02-02T03:57:29.463425Z"
         },
         "nextLegislativeElection": {
           "date": null,
@@ -4913,7 +4913,7 @@
           "method": "wikidata_upcoming",
           "notes": "Legislative election (best-effort via Wikidata types). No upcoming election item found in Wikidata (common gap).",
           "source": "wikidata:P1001,P585,P31 (+fallback estimate P541,P2097)",
-          "retrievedAt": "2026-02-02T00:08:53.466072Z"
+          "retrievedAt": "2026-02-02T03:57:29.463425Z"
         }
       },
       "freedomHouse": {
@@ -4924,7 +4924,7 @@
         "sourceEntityName": null,
         "notes": "Freedom House score not found in OWID tables.",
         "source": "owid_grapher:political-rights-score-fh + civil-liberties-score-fh",
-        "retrievedAt": "2026-02-02T00:08:53.466072Z"
+        "retrievedAt": "2026-02-02T03:57:29.463425Z"
       },
       "quality": {
         "confidence": 0.83,
