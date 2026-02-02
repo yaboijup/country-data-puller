@@ -74,10 +74,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
           BRANCH="${GITHUB_REF_NAME:-main}"
+
+          # Ensure authenticated pushes
           git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 
           git add public/countries_snapshot.json docs/countries_snapshot.json docs/.nojekyll docs/index.html
@@ -86,9 +89,6 @@ jobs:
             echo "No changes to commit."
             exit 0
           fi
-
-          git commit -m "Update countries_snapshot.json"
-          git push origin "HEAD:$BRANCH"
 
           git commit -m "Update countries_snapshot.json"
           git push origin "HEAD:$BRANCH"
