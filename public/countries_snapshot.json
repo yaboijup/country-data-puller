@@ -1,6 +1,7 @@
 {
-  "generatedAt": "2026-02-04T08:01:59.547870Z",
-  "freedomHouseYearRule": "current_year_minus_1",
+  "generatedAt": "2026-02-04T16:06:35.393123Z",
+  "freedomHouseYearRule": "data360_FH_FIW_latest_TIME_PERIOD",
+  "freedomHouseDetectedYear": 2014,
   "countries": [
     {
       "country": "Russia",
@@ -43,9 +44,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/russia/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/russia/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -108,9 +109,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/india/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/india/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -173,9 +174,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/pakistan/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/pakistan/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -243,9 +244,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/china/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/china/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -307,9 +308,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/united-kingdom/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/united-kingdom/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -381,9 +382,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/germany/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/germany/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -447,9 +448,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/united-arab-emirates/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/united-arab-emirates/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -513,9 +514,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/saudi-arabia/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/saudi-arabia/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -578,9 +579,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/israel/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/israel/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -642,8 +643,8 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/palestine/freedom-world/2025",
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/palestine/freedom-world/2014",
         "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
@@ -706,9 +707,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/mexico/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/mexico/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -772,9 +773,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/brazil/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/brazil/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -838,9 +839,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/canada/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/canada/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -902,9 +903,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/nigeria/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/nigeria/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -966,9 +967,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/japan/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/japan/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -1033,9 +1034,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/iran/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/iran/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -1097,9 +1098,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/syria/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/syria/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -1161,9 +1162,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/france/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/france/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -1226,9 +1227,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/turkey/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/turkey/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -1291,9 +1292,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/venezuela/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/venezuela/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -1357,9 +1358,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/vietnam/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/vietnam/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -1423,9 +1424,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/taiwan/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/taiwan/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -1488,9 +1489,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/south-korea/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/south-korea/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -1558,9 +1559,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/north-korea/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/north-korea/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -1622,9 +1623,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/indonesia/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/indonesia/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -1686,9 +1687,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/myanmar/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/myanmar/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -1752,9 +1753,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/armenia/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/armenia/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -1818,9 +1819,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/azerbaijan/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/azerbaijan/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -1882,9 +1883,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/morocco/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/morocco/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -1946,9 +1947,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/somalia/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/somalia/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -2011,9 +2012,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/yemen/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/yemen/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -2082,9 +2083,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/libya/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/libya/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -2146,9 +2147,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/egypt/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/egypt/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -2210,9 +2211,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/algeria/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/algeria/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -2274,9 +2275,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/argentina/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/argentina/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -2338,9 +2339,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/chile/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/chile/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -2402,9 +2403,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/peru/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/peru/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -2466,9 +2467,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/cuba/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/cuba/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -2530,9 +2531,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/colombia/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/colombia/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -2594,9 +2595,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/panama/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/panama/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -2660,9 +2661,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/el-salvador/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/el-salvador/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -2724,9 +2725,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/denmark/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/denmark/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -2788,9 +2789,9 @@
       "freedomHouse": {
         "score": null,
         "status": "unknown",
-        "year": 2025,
-        "source": "https://freedomhouse.org/country/sudan/freedom-world/2025",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+        "year": 2014,
+        "source": "https://freedomhouse.org/country/sudan/freedom-world/2014",
+        "notes": "Failed to fetch Freedom House page."
       },
       "elections": {
         "legislative": {
@@ -2814,6 +2815,8 @@
   ],
   "sources": {
     "wikidata_sparql": "https://query.wikidata.org/sparql",
-    "freedom_house_base": "https://freedomhouse.org/country"
+    "freedom_house_base": "https://freedomhouse.org/country",
+    "data360_api_root": "https://data360api.worldbank.org",
+    "data360_dataset": "FH_FIW"
   }
 }
