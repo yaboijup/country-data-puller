@@ -9,16 +9,16 @@ Fields returned per country:
 - Legislature body/bodies (filtered to "legislature" items)
 - Party/group in charge of legislature body/bodies (best-effort via last legislative/general election winner; often missing)
 - Executive party/leader (best-effort: HoG party -> fallback HoS party)
-- Freedom House score (numeric + qualitative)
-  - Robust year handling: tries a small window of likely FIW years
-  - Sticky behavior: if fetch/parse fails and prior exists, keep prior values
+- World Bank governance snapshot (WGI percentile ranks; overall + components)
+  - Pulls latest non-null values
+  - Sticky behavior: if fetch fails and prior exists, keep prior values
 - Political system type (Wikidata P122 labels)
 - Next legislative election (date + type + exists?)
 - Next executive election (date + type + exists?)
 
 Data sources:
 - Wikidata SPARQL
-- Freedom House website (Freedom in the World pages)
+- World Bank Indicators API (Worldwide Governance Indicators - WGI)
 """
 
 from __future__ import annotations
@@ -26,7 +26,7 @@ from __future__ import annotations
 import json
 import re
 import time
-from datetime import date, datetime, timezone
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -41,7 +41,7 @@ HEADERS = {
         "AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/121.0.0.0 Safari/537.36"
     ),
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept": "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     "Accept-Language": "en-US,en;q=0.9",
     "Connection": "keep-alive",
 }
@@ -50,7 +50,17 @@ MAX_RETRIES = 3
 RETRY_SLEEP = 1.5
 
 WIKIDATA_SPARQL = "https://query.wikidata.org/sparql"
-FREEDOM_HOUSE_BASE = "https://freedomhouse.org/country"
+WORLD_BANK_BASE = "https://api.worldbank.org/v2"
+
+# WGI percentile rank indicators (0..100)
+WGI_PERCENTILE_INDICATORS: Dict[str, str] = {
+    "voiceAccountability": "VA.PER.RNK",      # Voice and Accountability: Percentile Rank
+    "politicalStability": "PV.PER.RNK",       # Political Stability and Absence of Violence/Terrorism: Percentile Rank
+    "governmentEffectiveness": "GE.PER.RNK",  # Government Effectiveness: Percentile Rank
+    "regulatoryQuality": "RQ.PER.RNK",        # Regulatory Quality: Percentile Rank
+    "ruleOfLaw": "RL.PER.RNK",                # Rule of Law: Percentile Rank
+    "controlOfCorruption": "CC.PER.RNK",      # Control of Corruption: Percentile Rank
+}
 
 
 # ---------------------------- COUNTRY LIST ----------------------------
@@ -101,23 +111,6 @@ COUNTRIES: List[Dict[str, str]] = [
     {"country": "Sudan", "iso2": "SD"},
 ]
 
-# Freedom House slug exceptions (everything else can be slugified)
-FH_SLUG_OVERRIDES: Dict[str, str] = {
-    "UAE": "united-arab-emirates",
-    "United Kingdom": "united-kingdom",
-    "South Korea": "south-korea",
-    "North Korea": "north-korea",
-    "El Salvador": "el-salvador",
-}
-
-def fh_slug(country_name: str) -> str:
-    if country_name in FH_SLUG_OVERRIDES:
-        return FH_SLUG_OVERRIDES[country_name]
-    s = country_name.strip().lower()
-    s = re.sub(r"[’']", "", s)
-    s = re.sub(r"[^a-z0-9]+", "-", s).strip("-")
-    return s
-
 
 # ---------------------------- HELPERS ----------------------------
 
@@ -130,27 +123,7 @@ def iso_z(dt: datetime) -> str:
 def _sleep_backoff(attempt: int) -> None:
     time.sleep(RETRY_SLEEP * attempt)
 
-def req_text(url: str, params: Optional[dict] = None, headers: Optional[dict] = None) -> Optional[str]:
-    h = dict(HEADERS)
-    if headers:
-        h.update(headers)
-    last_status = None
-    for attempt in range(1, MAX_RETRIES + 1):
-        try:
-            r = requests.get(url, params=params, headers=h, timeout=TIMEOUT, allow_redirects=True)
-            last_status = r.status_code
-            if r.status_code == 200:
-                return r.text
-            # Treat common bot-block statuses as "no text"
-            if r.status_code in (403, 429):
-                return r.text  # still return HTML; looks_like_challenge() will catch often
-        except requests.RequestException:
-            pass
-        _sleep_backoff(attempt)
-    # nothing
-    return None
-
-def req_json(url: str, params: Optional[dict] = None, headers: Optional[dict] = None) -> Optional[dict]:
+def req_json(url: str, params: Optional[dict] = None, headers: Optional[dict] = None) -> Optional[Any]:
     h = dict(HEADERS)
     if headers:
         h.update(headers)
@@ -159,6 +132,9 @@ def req_json(url: str, params: Optional[dict] = None, headers: Optional[dict] = 
             r = requests.get(url, params=params, headers=h, timeout=TIMEOUT)
             if r.status_code == 200:
                 return r.json()
+            # If WB returns 404/400 etc, don't hammer it
+            if r.status_code in (400, 404):
+                return None
         except requests.RequestException:
             pass
         _sleep_backoff(attempt)
@@ -174,12 +150,11 @@ def safe_get(d: Any, *keys: str, default=None):
 
 def load_previous_snapshot(path: Path) -> Dict[str, Any]:
     """
-    Load previous public/countries_snapshot.json (if present) so we can keep Freedom House
-    scores when new runs are blocked / parse fails.
+    Load previous public/countries_snapshot.json (if present) so we can keep WB governance
+    scores when new runs fail.
     """
     if not path.exists():
         return {}
-
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
         countries = data.get("countries", [])
@@ -317,8 +292,6 @@ def get_next_election_upcoming(country_qid: str, kind: str) -> Dict[str, Any]:
     Tightened types:
       - executive: presidential election (Q159821) + general election (Q152203)
       - legislative: parliamentary election (Q1079032) + legislative election (Q104203) + general election (Q152203)
-
-    We deliberately avoid the generic "election" (Q40231) because it causes false positives.
     """
     today = _today_yyyymmdd()
 
@@ -366,8 +339,6 @@ def get_last_legislative_election_winner(country_qid: str) -> Dict[str, Any]:
     """
     Approximate 'who controls parliament' using winner (P1346) of the most recent
     national legislative/parliamentary/general election.
-    This can be wrong for coalitions / seat majorities.
-    Many election items do NOT have P1346, so unknown is common.
     """
     today = _today_yyyymmdd()
     q = f"""
@@ -410,164 +381,134 @@ def get_last_legislative_election_winner(country_qid: str) -> Dict[str, Any]:
     }
 
 
-# ---------------------------- FREEDOM HOUSE (multi-year retry + parsing + sticky) ----------------------------
+# ---------------------------- WORLD BANK (WGI governance) ----------------------------
 
-STATUS_RE = r"(Free|Partly Free|Not Free)"
+def _wb_indicator_url(iso2: str, indicator: str) -> str:
+    iso2_l = iso2.strip().lower()
+    return f"{WORLD_BANK_BASE}/country/{iso2_l}/indicator/{indicator}"
 
-def looks_like_challenge(html: str) -> bool:
-    h = html.lower()
-    return (
-        "cf-browser-verification" in h
-        or "cloudflare" in h
-        or "attention required" in h
-        or "verify you are human" in h
-        or "captcha" in h
-        or "access denied" in h
-        or "blocked" in h
-    )
-
-def parse_fh_score_and_status(html: str) -> Tuple[Optional[int], Optional[str]]:
+def _parse_wb_series_latest(payload: Any) -> Tuple[Optional[float], Optional[int], Optional[str]]:
     """
-    Best-effort parsing from Freedom House country page.
-    We try multiple common patterns so minor layout changes don't break us.
+    WB JSON responses look like:
+      [ {metadata...}, [ {date: "2023", value: X, ...}, {date:"2022", value:...}, ... ] ]
+
+    Returns (value, year_int, notes)
     """
-    text = re.sub(r"[ \t]+", " ", html)
-    text = re.sub(r"\r", "", text)
+    if not isinstance(payload, list) or len(payload) < 2 or not isinstance(payload[1], list):
+        return None, None, "Unexpected WB response shape."
 
-    # A) "Partly Free 54 100"
-    m = re.search(rf"{STATUS_RE}\s+(\d{{1,3}})\s+100", text, flags=re.IGNORECASE)
-    if m:
-        status_raw = m.group(1).lower()
-        score = int(m.group(2))
-        status = {"free": "Free", "partly free": "Partly Free", "not free": "Not Free"}[status_raw]
-        return score, status
+    series = payload[1]
+    for row in series:
+        if not isinstance(row, dict):
+            continue
+        val = row.get("value")
+        dt = row.get("date")
+        if val is None or dt is None:
+            continue
+        try:
+            year = int(dt)
+        except Exception:
+            year = None
+        try:
+            fval = float(val)
+        except Exception:
+            continue
+        return fval, year, None
 
-    # B) "Global Freedom Score 54 100 Partly Free"
-    m = re.search(rf"Global Freedom Score\s+(\d{{1,3}})\s+100\s+{STATUS_RE}", text, flags=re.IGNORECASE)
-    if m:
-        score = int(m.group(1))
-        status_raw = m.group(2).lower()
-        status = {"free": "Free", "partly free": "Partly Free", "not free": "Not Free"}[status_raw]
-        return score, status
+    return None, None, "No non-null value found."
 
-    # C) "Partly Free ... 54 / 100"
-    m = re.search(rf"{STATUS_RE}.*?(\d{{1,3}})\s*/\s*100", text, flags=re.IGNORECASE)
-    if m:
-        status_raw = m.group(1).lower()
-        score = int(m.group(2))
-        status = {"free": "Free", "partly free": "Partly Free", "not free": "Not Free"}[status_raw]
-        return score, status
+def fetch_wb_indicator_latest(iso2: str, indicator: str) -> Dict[str, Any]:
+    url = _wb_indicator_url(iso2, indicator)
+    payload = req_json(url, params={"format": "json", "per_page": 60})
+    if payload is None:
+        return {"ok": False, "value": None, "year": None, "source": url, "notes": "Failed to fetch WB indicator."}
 
-    return None, None
+    value, year, notes = _parse_wb_series_latest(payload)
+    if value is None or year is None:
+        return {"ok": False, "value": None, "year": None, "source": url, "notes": notes or "Could not parse WB indicator."}
 
-def candidate_fh_years(preferred: Optional[int] = None) -> List[int]:
+    return {"ok": True, "value": value, "year": year, "source": url, "notes": None}
+
+def _band_from_percentile(p: float) -> str:
+    # Simple, predictable buckets for UI
+    if p >= 66.0:
+        return "High"
+    if p >= 33.0:
+        return "Medium"
+    return "Low"
+
+def fetch_wb_wgi_percentiles(iso2: str) -> Dict[str, Any]:
     """
-    Try a small descending window of likely valid FIW years.
-    Freedom House FIW is commonly (current year - 1) but can lag.
-    We also sanity-clamp so we never "detect" something like 2014 as "latest".
+    Pulls latest non-null percentile ranks for all WGI dimensions.
+    Produces:
+      - components: {dimension: {indicator, value, year}}
+      - overallPercentile: average of available components (0..100)
+      - year: max year among available (usually same across)
     """
-    this_year = date.today().year
-    base = preferred or (this_year - 1)
-    if base < this_year - 3 or base > this_year:
-        base = this_year - 1
-    return [base, base - 1, base - 2, base - 3]
+    components: Dict[str, Any] = {}
+    years: List[int] = []
+    values: List[float] = []
+    sources: Dict[str, str] = {}
 
-def freedom_house_url_for_year(country_name: str, y: int) -> str:
-    slug = fh_slug(country_name)
-    return f"{FREEDOM_HOUSE_BASE}/{slug}/freedom-world/{y}"
+    for dim, code in WGI_PERCENTILE_INDICATORS.items():
+        res = fetch_wb_indicator_latest(iso2, code)
+        sources[dim] = res.get("source")
+        if res.get("ok") is True and res.get("value") is not None and res.get("year") is not None:
+            v = float(res["value"])
+            y = int(res["year"])
+            components[dim] = {"indicator": code, "percentile": v, "year": y}
+            years.append(y)
+            values.append(v)
+        else:
+            components[dim] = {"indicator": code, "percentile": None, "year": None, "notes": res.get("notes")}
 
-def fetch_freedom_house(country_name: str, preferred_year: Optional[int] = None) -> Dict[str, Any]:
-    """
-    Try multiple years until we successfully fetch + parse.
-    Returns internal flags ok/blocked for sticky merging.
-    """
-    last: Dict[str, Any] = {
-        "score": None,
-        "status": "unknown",
-        "year": candidate_fh_years(preferred_year)[0],
-        "source": freedom_house_url_for_year(country_name, candidate_fh_years(preferred_year)[0]),
-        "notes": "Failed to fetch Freedom House page.",
-        "ok": False,
-        "blocked": False,
+    if not values:
+        return {
+            "ok": False,
+            "overallPercentile": None,
+            "band": "unknown",
+            "year": None,
+            "components": components,
+            "sources": sources,
+            "notes": "No WGI percentile values available (WB may not have this entity / code).",
+        }
+
+    overall = sum(values) / len(values)
+    yr = max(years) if years else None
+    return {
+        "ok": True,
+        "overallPercentile": round(overall, 2),
+        "band": _band_from_percentile(overall),
+        "year": yr,
+        "components": components,
+        "sources": sources,
+        "notes": None,
     }
 
-    for y in candidate_fh_years(preferred_year):
-        url = freedom_house_url_for_year(country_name, y)
-        html = req_text(url)
-
-        if not html:
-            last = {
-                "score": None,
-                "status": "unknown",
-                "year": y,
-                "source": url,
-                "notes": "Failed to fetch Freedom House page.",
-                "ok": False,
-                "blocked": False,
-            }
-            continue
-
-        if looks_like_challenge(html):
-            last = {
-                "score": None,
-                "status": "unknown",
-                "year": y,
-                "source": url,
-                "notes": "Blocked by anti-bot / challenge page (Cloudflare-like).",
-                "ok": False,
-                "blocked": True,
-            }
-            continue
-
-        score, status = parse_fh_score_and_status(html)
-        if score is None or status is None:
-            last = {
-                "score": None,
-                "status": "unknown",
-                "year": y,
-                "source": url,
-                "notes": "Fetched page but could not parse score/status (site layout may have changed).",
-                "ok": False,
-                "blocked": False,
-            }
-            continue
-
-        return {
-            "score": score,
-            "status": status,
-            "year": y,
-            "source": url,
-            "notes": None,
-            "ok": True,
-            "blocked": False,
-        }
-
-    return last
-
-def merge_freedom_house_sticky(new_fh: Dict[str, Any], prev_country_obj: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+def merge_wb_sticky(new_wb: Dict[str, Any], prev_country_obj: Optional[Dict[str, Any]]) -> Dict[str, Any]:
     """
     Sticky rule:
-      - If new fetch/parse is OK -> use it.
-      - If new fetch/parse fails OR is blocked AND previous has a score -> keep the previous values.
-      - Otherwise keep the new (null/unknown) so you can see it's missing.
+      - If new fetch is OK -> use it.
+      - If new fails AND previous has overallPercentile -> keep previous.
+      - Otherwise keep new (so missingness is visible).
     """
-    prev_fh = (prev_country_obj or {}).get("freedomHouse") if isinstance(prev_country_obj, dict) else None
-    prev_score = prev_fh.get("score") if isinstance(prev_fh, dict) else None
+    prev_wb = (prev_country_obj or {}).get("worldBankGovernance") if isinstance(prev_country_obj, dict) else None
+    prev_overall = prev_wb.get("overallPercentile") if isinstance(prev_wb, dict) else None
 
-    if new_fh.get("ok") is True:
-        return {k: new_fh.get(k) for k in ["score", "status", "year", "source", "notes"]}
+    if new_wb.get("ok") is True:
+        # Don't keep "ok" field in the final object (optional)
+        out = dict(new_wb)
+        out.pop("ok", None)
+        return out
 
-    if prev_score is not None:
-        kept = {
-            "score": prev_fh.get("score"),
-            "status": prev_fh.get("status"),
-            "year": prev_fh.get("year"),
-            "source": prev_fh.get("source"),
-            "notes": f"Kept previous Freedom House rating because latest fetch/parse failed: {new_fh.get('notes')}",
-        }
+    if prev_overall is not None:
+        kept = dict(prev_wb)
+        kept["notes"] = f"Kept previous WB governance values because latest fetch failed: {new_wb.get('notes')}"
         return kept
 
-    return {k: new_fh.get(k) for k in ["score", "status", "year", "source", "notes"]}
+    out = dict(new_wb)
+    out.pop("ok", None)
+    return out
 
 
 # ---------------------------- BUILD ----------------------------
@@ -585,7 +526,6 @@ def build_country(country_name: str, iso2: str, prev_by_iso2: Dict[str, Any]) ->
 
     elections_exec = {"exists": "unknown", "nextDate": None, "electionType": None, "method": "wikidata_upcoming", "notes": "unknown"}
     elections_leg = {"exists": "unknown", "nextDate": None, "electionType": None, "method": "wikidata_upcoming", "notes": "unknown"}
-
     leg_control = {"winner": "unknown", "method": "wikidata_last_leg_election_winner", "notes": "unknown"}
 
     if qid:
@@ -611,10 +551,10 @@ def build_country(country_name: str, iso2: str, prev_by_iso2: Dict[str, Any]) ->
             "controlBasis": leg_control.get("basis"),
         })
 
-    # Freedom House (sticky) with multi-year retry
-    new_fh = fetch_freedom_house(country_name, preferred_year=None)
+    # World Bank WGI governance (sticky)
+    new_wb = fetch_wb_wgi_percentiles(iso2)
     prev_obj = prev_by_iso2.get(iso2)
-    fh = merge_freedom_house_sticky(new_fh, prev_obj)
+    wb_gov = merge_wb_sticky(new_wb, prev_obj)
 
     return {
         "country": country_name,
@@ -644,7 +584,7 @@ def build_country(country_name: str, iso2: str, prev_by_iso2: Dict[str, Any]) ->
             "bodies": legislature,
             "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346",
         },
-        "freedomHouse": fh,
+        "worldBankGovernance": wb_gov,
         "elections": {
             "legislative": {
                 "exists": elections_leg["exists"],
@@ -671,12 +611,13 @@ def main() -> None:
 
     out = {
         "generatedAt": iso_z(now_utc()),
-        "freedomHouseYearRule": "try_current_minus_1_then_backfill_3_years",
+        "worldBankYearRule": "latest_non_null_per_indicator",
         "countries": [],
         "sources": {
             "wikidata_sparql": WIKIDATA_SPARQL,
-            "freedom_house_base": FREEDOM_HOUSE_BASE,
+            "world_bank_base": WORLD_BANK_BASE,
         },
+        "worldBankIndicatorsUsed": WGI_PERCENTILE_INDICATORS,
     }
 
     for c in COUNTRIES:
@@ -684,7 +625,7 @@ def main() -> None:
         iso2 = c["iso2"]
         print(f"▶ Building {name} ({iso2}) ...")
         out["countries"].append(build_country(name, iso2, prev_by_iso2))
-        time.sleep(0.25)  # gentle rate limiting (helps Wikidata + FH)
+        time.sleep(0.25)  # gentle rate limiting (helps Wikidata + WB)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
