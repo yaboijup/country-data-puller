@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-02-04T16:46:05.913040Z",
-  "freedomHouseYearRule": "try_current_minus_1_then_backfill_3_years",
+  "generatedAt": "2026-02-04T17:30:40.379143Z",
+  "worldBankYearRule": "latest_non_null_per_indicator",
   "countries": [
     {
       "country": "Russia",
@@ -40,12 +40,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/russia/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 15.58,
+        "band": "Low",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 13.235294342041,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 13.2701425552368,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 26.4150943756104,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 12.7358493804932,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 12.2641506195068,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 15.5660381317139,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/ru/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/ru/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/ru/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/ru/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/ru/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/ru/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -105,12 +144,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/india/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 47.59,
+        "band": "Medium",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 51.470588684082,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 21.3270149230957,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 67.9245300292969,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 47.1698112487793,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 56.1320762634277,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 41.5094337463379,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/in/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/in/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/in/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/in/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/in/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/in/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -170,12 +248,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/pakistan/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 20.04,
+        "band": "Low",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 23.0392150878906,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 6.63507127761841,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 30.6603775024414,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 19.8113212585449,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 21.2264156341553,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 18.8679237365723,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/pk/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/pk/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/pk/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/pk/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/pk/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/pk/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -240,12 +357,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/china/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 41.97,
+        "band": "Medium",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 7.35294103622437,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 25.1184825897217,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 73.5849075317383,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 38.6792449951172,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 52.8301887512207,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 54.2452812194824,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/cn/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/cn/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/cn/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/cn/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/cn/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/cn/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -304,12 +460,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/united-kingdom/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 84.89,
+        "band": "High",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 90.1960754394531,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 62.0853080749512,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 84.4339599609375,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 92.9245300292969,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 89.1509399414062,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 90.5660400390625,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/gb/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/gb/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/gb/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/gb/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/gb/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/gb/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -371,12 +566,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/germany/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 87.6,
+        "band": "High",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 94.6078414916992,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 66.3507080078125,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 85.3773574829102,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 91.9811325073242,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 92.9245300292969,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 94.3396224975586,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/de/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/de/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/de/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/de/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/de/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/de/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -437,12 +671,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/united-arab-emirates/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 71.24,
+        "band": "High",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 18.6274509429932,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 70.1421813964844,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 95.2830200195312,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 82.0754699707031,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 78.7735824584961,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 82.5471725463867,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/ae/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/ae/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/ae/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/ae/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/ae/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/ae/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -503,12 +776,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/saudi-arabia/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 54.25,
+        "band": "Medium",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 8.82352924346924,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 39.8104248046875,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 78.7735824584961,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 68.8679275512695,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 62.7358474731445,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 66.5094375610352,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/sa/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/sa/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/sa/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/sa/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/sa/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/sa/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -568,12 +880,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/israel/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 67.19,
+        "band": "High",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 69.1176452636719,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 9.95260620117188,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 83.4905624389648,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 84.4339599609375,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 77.3584899902344,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 78.7735824584961,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/il/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/il/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/il/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/il/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/il/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/il/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -632,12 +983,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/palestine/freedom-world/2022",
-        "notes": "Failed to fetch Freedom House page."
+      "worldBankGovernance": {
+        "overallPercentile": 21.66,
+        "band": "Low",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 18.1372547149658,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 7.10900497436523,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 10.3773584365845,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 41.9811325073242,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 25.943395614624,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 26.4150943756104,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/ps/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/ps/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/ps/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/ps/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/ps/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/ps/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -696,12 +1086,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/mexico/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 32.67,
+        "band": "Low",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 42.1568641662598,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 22.748815536499,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 43.3962249755859,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 46.2264137268066,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 24.056604385376,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 17.4528293609619,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/mx/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/mx/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/mx/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/mx/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/mx/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/mx/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -762,12 +1191,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/brazil/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 39.47,
+        "band": "Medium",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 59.8039207458496,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 28.4360198974609,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 32.0754699707031,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 40.0943412780762,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 41.9811325073242,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 34.4339637756348,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/br/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/br/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/br/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/br/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/br/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/br/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -828,12 +1296,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/canada/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 90.52,
+        "band": "High",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 95.0980377197266,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 76.3033142089844,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 91.9811325073242,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 94.8113174438477,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 90.0943374633789,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 94.8113174438477,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/ca/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/ca/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/ca/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/ca/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/ca/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/ca/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -892,12 +1399,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/nigeria/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 19.08,
+        "band": "Low",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 32.3529396057129,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 7.5829381942749,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 20.2830181121826,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 16.9811325073242,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 20.2830181121826,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 16.9811325073242,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/ng/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/ng/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/ng/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/ng/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/ng/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/ng/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -956,12 +1502,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/japan/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 89.75,
+        "band": "High",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 85.2941207885742,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 81.5165863037109,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 96.698112487793,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 92.4528274536133,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 92.4528274536133,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 90.0943374633789,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/jp/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/jp/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/jp/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/jp/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/jp/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/jp/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -1023,12 +1608,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/iran/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 10.12,
+        "band": "Low",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 7.84313726425171,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 8.05687236785889,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 14.1509437561035,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 4.24528312683105,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 16.0377349853516,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 10.3773584365845,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/ir/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/ir/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/ir/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/ir/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/ir/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/ir/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -1087,12 +1711,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/syria/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 1.74,
+        "band": "Low",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 1.47058820724487,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 0.0,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 3.30188679695129,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 3.77358484268188,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 1.41509437561035,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 0.471698105335236,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/sy/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/sy/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/sy/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/sy/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/sy/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/sy/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -1151,12 +1814,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/france/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 79.99,
+        "band": "High",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 86.7647094726562,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 55.9241714477539,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 83.0188674926758,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 85.3773574829102,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 84.9056625366211,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 83.9622650146484,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/fr/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/fr/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/fr/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/fr/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/fr/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/fr/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -1216,12 +1918,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/turkey/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 31.93,
+        "band": "Low",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 25.0,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 13.7440757751465,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 41.5094337463379,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 43.8679237365723,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 32.5471687316895,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 34.9056587219238,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/tr/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/tr/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/tr/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/tr/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/tr/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/tr/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -1281,12 +2022,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/venezuela/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 4.77,
+        "band": "Low",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 6.86274528503418,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 12.3222751617432,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 5.66037750244141,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 1.88679242134094,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 0.471698105335236,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 1.41509437561035,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/ve/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/ve/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/ve/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/ve/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/ve/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/ve/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -1347,12 +2127,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/vietnam/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 40.62,
+        "band": "Medium",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 15.1960783004761,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 45.0236968994141,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 56.1320762634277,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 38.2075462341309,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 50.4716987609863,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 38.6792449951172,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/vn/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/vn/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/vn/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/vn/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/vn/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/vn/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -1413,12 +2232,57 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/taiwan/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": null,
+        "band": "unknown",
+        "year": null,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": null,
+            "year": null,
+            "notes": "Unexpected WB response shape."
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": null,
+            "year": null,
+            "notes": "Unexpected WB response shape."
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": null,
+            "year": null,
+            "notes": "Unexpected WB response shape."
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": null,
+            "year": null,
+            "notes": "Unexpected WB response shape."
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": null,
+            "year": null,
+            "notes": "Unexpected WB response shape."
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": null,
+            "year": null,
+            "notes": "Unexpected WB response shape."
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/tw/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/tw/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/tw/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/tw/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/tw/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/tw/indicator/CC.PER.RNK"
+        },
+        "notes": "No WGI percentile values available (WB may not have this entity / code)."
       },
       "elections": {
         "legislative": {
@@ -1478,12 +2342,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/south-korea/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 80.47,
+        "band": "High",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 73.529411315918,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 68.2464447021484,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 90.5660400390625,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 84.9056625366211,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 85.8490600585938,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 79.7169799804688,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/kr/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/kr/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/kr/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/kr/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/kr/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/kr/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -1548,12 +2451,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/north-korea/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 7.57,
+        "band": "Low",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 0.0,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 30.3317527770996,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 7.07547187805176,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 0.0,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 5.66037750244141,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 2.35849046707153,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/kp/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/kp/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/kp/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/kp/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/kp/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/kp/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -1612,12 +2554,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/indonesia/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 49.17,
+        "band": "Medium",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 52.4509811401367,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 28.9099521636963,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 69.8113174438477,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 60.8490562438965,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 46.698112487793,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 36.3207550048828,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/id/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/id/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/id/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/id/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/id/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/id/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -1676,12 +2657,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/myanmar/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 5.99,
+        "band": "Low",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 2.45098042488098,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 4.7393364906311,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 3.77358484268188,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 7.07547187805176,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 6.13207530975342,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 11.7924528121948,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/mm/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/mm/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/mm/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/mm/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/mm/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/mm/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -1742,12 +2762,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/armenia/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 45.06,
+        "band": "Medium",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 50.4901962280273,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 17.0616111755371,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 43.8679237365723,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 52.8301887512207,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 49.0566024780273,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 57.0754699707031,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/am/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/am/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/am/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/am/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/am/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/am/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -1808,12 +2867,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/azerbaijan/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 28.06,
+        "band": "Low",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 9.31372547149658,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 18.0094795227051,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 50.4716987609863,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 49.0566024780273,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 29.2452831268311,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 12.2641506195068,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/az/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/az/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/az/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/az/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/az/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/az/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -1872,12 +2970,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/morocco/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 41.12,
+        "band": "Medium",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 34.3137245178223,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 29.8578205108643,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 50.0,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 50.9433975219727,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 48.5849075317383,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 33.0188674926758,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/ma/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/ma/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/ma/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/ma/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/ma/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/ma/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -1936,12 +3073,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/somalia/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 2.15,
+        "band": "Low",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 4.41176462173462,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 2.84360194206238,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 1.88679242134094,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 2.8301887512207,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 0.0,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 0.943396210670471,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/so/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/so/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/so/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/so/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/so/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/so/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -2001,12 +3177,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/yemen/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 2.48,
+        "band": "Low",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 6.37254905700684,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 0.947867274284363,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 0.471698105335236,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 3.30188679695129,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 1.88679242134094,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 1.88679242134094,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/ye/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/ye/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/ye/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/ye/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/ye/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/ye/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -2065,12 +3280,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/libya/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 4.62,
+        "band": "Low",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 9.80392169952393,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 4.26540279388428,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 5.18867921829224,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 2.35849046707153,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 2.35849046707153,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 3.77358484268188,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/ly/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/ly/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/ly/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/ly/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/ly/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/ly/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -2129,12 +3383,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/egypt/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 27.52,
+        "band": "Low",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 10.7843141555786,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 16.5876770019531,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 41.9811325073242,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 26.8867931365967,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 44.3396224975586,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 24.5283012390137,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/eg/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/eg/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/eg/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/eg/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/eg/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/eg/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -2193,12 +3486,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/algeria/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 24.21,
+        "band": "Low",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 22.0588226318359,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 23.222749710083,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 27.3584899902344,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 16.0377349853516,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 26.4150943756104,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 30.1886787414551,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/dz/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/dz/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/dz/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/dz/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/dz/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/dz/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -2257,12 +3589,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/argentina/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 42.73,
+        "band": "Medium",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 63.235294342041,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 41.7061614990234,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 36.3207550048828,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 35.3773574829102,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 37.7358474731445,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 41.9811325073242,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/ar/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/ar/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/ar/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/ar/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/ar/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/ar/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -2321,12 +3692,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/chile/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 72.48,
+        "band": "High",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 79.9019622802734,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 50.2369651794434,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 75.9433975219727,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 76.8867950439453,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 71.2264175415039,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 80.6603775024414,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/cl/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/cl/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/cl/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/cl/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/cl/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/cl/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -2385,12 +3795,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/peru/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 37.12,
+        "band": "Medium",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 49.5098037719727,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 24.1706161499023,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 33.0188674926758,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 60.3773574829102,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 30.1886787414551,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 25.4716987609863,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/pe/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/pe/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/pe/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/pe/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/pe/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/pe/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -2449,12 +3898,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/cuba/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 33.16,
+        "band": "Medium",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 14.7058820724487,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 56.8720397949219,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 33.4905662536621,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 5.18867921829224,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 36.3207550048828,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 52.3584899902344,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/cu/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/cu/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/cu/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/cu/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/cu/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/cu/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -2513,12 +4001,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/colombia/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 42.89,
+        "band": "Medium",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 55.3921585083008,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 18.9573459625244,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 48.113208770752,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 54.2452812194824,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 35.8490562438965,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 44.8113212585449,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/co/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/co/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/co/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/co/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/co/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/co/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -2577,12 +4104,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/panama/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 47.3,
+        "band": "Medium",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 64.2156829833984,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 52.6066360473633,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 42.9245300292969,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 55.6603775024414,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 40.0943412780762,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 28.301887512207,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/pa/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/pa/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/pa/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/pa/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/pa/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/pa/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -2643,12 +4209,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/el-salvador/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 40.98,
+        "band": "Medium",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 34.8039207458496,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 46.445499420166,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 53.7735862731934,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 39.6226425170898,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 39.1509437561035,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 32.0754699707031,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/sv/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/sv/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/sv/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/sv/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/sv/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/sv/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -2707,12 +4312,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/denmark/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 95.26,
+        "band": "High",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 98.529411315918,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 76.7772521972656,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 98.5849075317383,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 98.1132049560547,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 99.5283050537109,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 100.0,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/dk/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/dk/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/dk/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/dk/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/dk/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/dk/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -2771,12 +4415,51 @@
         ],
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
-      "freedomHouse": {
-        "score": null,
-        "status": "unknown",
-        "year": 2022,
-        "source": "https://freedomhouse.org/country/sudan/freedom-world/2022",
-        "notes": "Blocked by anti-bot / challenge page (Cloudflare-like)."
+      "worldBankGovernance": {
+        "overallPercentile": 3.89,
+        "band": "Low",
+        "year": 2023,
+        "components": {
+          "voiceAccountability": {
+            "indicator": "VA.PER.RNK",
+            "percentile": 5.88235282897949,
+            "year": 2023
+          },
+          "politicalStability": {
+            "indicator": "PV.PER.RNK",
+            "percentile": 1.89573454856873,
+            "year": 2023
+          },
+          "governmentEffectiveness": {
+            "indicator": "GE.PER.RNK",
+            "percentile": 2.35849046707153,
+            "year": 2023
+          },
+          "regulatoryQuality": {
+            "indicator": "RQ.PER.RNK",
+            "percentile": 4.71698093414307,
+            "year": 2023
+          },
+          "ruleOfLaw": {
+            "indicator": "RL.PER.RNK",
+            "percentile": 4.24528312683105,
+            "year": 2023
+          },
+          "controlOfCorruption": {
+            "indicator": "CC.PER.RNK",
+            "percentile": 4.24528312683105,
+            "year": 2023
+          }
+        },
+        "sources": {
+          "voiceAccountability": "https://api.worldbank.org/v2/country/sd/indicator/VA.PER.RNK",
+          "politicalStability": "https://api.worldbank.org/v2/country/sd/indicator/PV.PER.RNK",
+          "governmentEffectiveness": "https://api.worldbank.org/v2/country/sd/indicator/GE.PER.RNK",
+          "regulatoryQuality": "https://api.worldbank.org/v2/country/sd/indicator/RQ.PER.RNK",
+          "ruleOfLaw": "https://api.worldbank.org/v2/country/sd/indicator/RL.PER.RNK",
+          "controlOfCorruption": "https://api.worldbank.org/v2/country/sd/indicator/CC.PER.RNK"
+        },
+        "notes": null
       },
       "elections": {
         "legislative": {
@@ -2800,6 +4483,14 @@
   ],
   "sources": {
     "wikidata_sparql": "https://query.wikidata.org/sparql",
-    "freedom_house_base": "https://freedomhouse.org/country"
+    "world_bank_base": "https://api.worldbank.org/v2"
+  },
+  "worldBankIndicatorsUsed": {
+    "voiceAccountability": "VA.PER.RNK",
+    "politicalStability": "PV.PER.RNK",
+    "governmentEffectiveness": "GE.PER.RNK",
+    "regulatoryQuality": "RQ.PER.RNK",
+    "ruleOfLaw": "RL.PER.RNK",
+    "controlOfCorruption": "CC.PER.RNK"
   }
 }
