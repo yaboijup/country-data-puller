@@ -9,7 +9,8 @@ Fields returned per country:
 - Legislative body/bodies
 - Party/group in charge of legislature body/bodies (best-effort via Wikidata last legislative election winner)
 - Executive party/leader (best-effort: HoG party -> fallback HoS party)
-- Freedom House score (numeric + qualitative), from Freedom House country page for (current_year - 1)
+- Freedom House score (numeric + qualitative), from Freedom House country page for the MOST RECENT YEAR
+  detected from World Bank Data360 dataset FH_FIW (Freedom in the World)
   - with "sticky" behavior: if the fetch/parse is blocked or returns null AND we have a prior value, keep the prior value
 - Political system type (Wikidata P122 labels)
 - Next legislative election (date + election type + exists?)
@@ -18,6 +19,7 @@ Fields returned per country:
 Data sources:
 - Wikidata SPARQL (government structure, leaders, parties, political system, elections)
 - Freedom House website (Freedom in the World pages)
+- World Bank Data360 API (to detect latest FIW year from dataset FH_FIW)
 """
 
 from __future__ import annotations
@@ -47,6 +49,11 @@ RETRY_SLEEP = 1.5
 
 WIKIDATA_SPARQL = "https://query.wikidata.org/sparql"
 FREEDOM_HOUSE_BASE = "https://freedomhouse.org/country"
+
+# Data360 API (World Bank) – used ONLY to detect latest FIW year for dataset FH_FIW
+DATA360_API_ROOT = "https://data360api.worldbank.org"
+DATA360_FIW_DATASET_ID = "FH_FIW"
+DATA360_FIW_DATABASE_ID = "FH_FIW"  # /data360/data requires DATABASE_ID
 
 
 # ---------------------------- COUNTRY LIST ----------------------------
@@ -181,6 +188,128 @@ def load_previous_snapshot(path: Path) -> Dict[str, Any]:
         return by_iso2
     except Exception:
         return {}
+
+
+# ---------------------------- DATA360 (detect latest FIW year) ----------------------------
+
+_FIW_YEAR_CACHE: Optional[int] = None
+
+def _parse_year(s: Any) -> Optional[int]:
+    if s is None:
+        return None
+    if isinstance(s, int):
+        return s
+    txt = str(s).strip()
+    if re.fullmatch(r"\d{4}", txt):
+        return int(txt)
+    return None
+
+def detect_latest_fiw_year() -> int:
+    """
+    Detect the most recent TIME_PERIOD (year) available in the Data360 dataset FH_FIW.
+
+    Robust approach:
+    - Get list of indicators in FH_FIW
+    - Choose a likely "overall score" indicator if present; otherwise fall back to first indicator
+    - Fetch first page to get `count`, then fetch the last page and compute max TIME_PERIOD.
+    """
+    global _FIW_YEAR_CACHE
+    if _FIW_YEAR_CACHE is not None:
+        return _FIW_YEAR_CACHE
+
+    # Fallback if anything goes wrong
+    fallback = date.today().year - 1
+
+    ind_list = req_json(
+        f"{DATA360_API_ROOT}/data360/indicators",
+        params={"datasetId": DATA360_FIW_DATASET_ID},
+    )
+
+    indicators: List[str] = []
+    if isinstance(ind_list, list):
+        indicators = [str(x) for x in ind_list]
+    elif isinstance(ind_list, dict) and isinstance(ind_list.get("value"), list):
+        indicators = [str(x) for x in ind_list["value"]]
+
+    if not indicators:
+        _FIW_YEAR_CACHE = fallback
+        return _FIW_YEAR_CACHE
+
+    # Prefer overall-ish indicators if they exist (varies by dataset naming)
+    preferred_suffixes = (
+        "TOTAL_SCORE", "FIW_SCORE", "SCORE", "STATUS",
+        "CL_SCORE", "PR_SCORE"
+    )
+    candidates = [i for i in indicators if i.upper().startswith("FH_FIW")]
+    candidates.sort()
+
+    def score_indicator_rank(i: str) -> int:
+        u = i.upper()
+        for idx, suf in enumerate(preferred_suffixes):
+            if u.endswith(suf):
+                return idx
+        return 999
+
+    candidates.sort(key=score_indicator_rank)
+    chosen = candidates[0] if candidates else indicators[0]
+
+    # Page through efficiently: fetch 1st page -> get count -> fetch last page -> compute max year
+    first = req_json(
+        f"{DATA360_API_ROOT}/data360/data",
+        params={
+            "DATABASE_ID": DATA360_FIW_DATABASE_ID,
+            "INDICATOR": chosen,
+            "top": 1,
+            "skip": 0,
+            "format": "json",
+        },
+    )
+
+    if not isinstance(first, dict) or "count" not in first:
+        _FIW_YEAR_CACHE = fallback
+        return _FIW_YEAR_CACHE
+
+    try:
+        total_count = int(first.get("count") or 0)
+    except Exception:
+        total_count = 0
+
+    if total_count <= 0:
+        _FIW_YEAR_CACHE = fallback
+        return _FIW_YEAR_CACHE
+
+    # Data360 returns max 1000 per page typically; pull the last page
+    page_size = 1000
+    last_skip = ((total_count - 1) // page_size) * page_size
+
+    last = req_json(
+        f"{DATA360_API_ROOT}/data360/data",
+        params={
+            "DATABASE_ID": DATA360_FIW_DATABASE_ID,
+            "INDICATOR": chosen,
+            "top": page_size,
+            "skip": last_skip,
+            "format": "json",
+        },
+    )
+
+    years: List[int] = []
+    if isinstance(last, dict) and isinstance(last.get("value"), list):
+        for row in last["value"]:
+            y = _parse_year(row.get("TIME_PERIOD") if isinstance(row, dict) else None)
+            if y is not None:
+                years.append(y)
+
+    if not years:
+        # As a backup, try scanning the first page's value list (in case ordering differs)
+        if isinstance(first, dict) and isinstance(first.get("value"), list):
+            for row in first["value"]:
+                y = _parse_year(row.get("TIME_PERIOD") if isinstance(row, dict) else None)
+                if y is not None:
+                    years.append(y)
+
+    _FIW_YEAR_CACHE = max(years) if years else fallback
+    return _FIW_YEAR_CACHE
 
 
 # ---------------------------- WIKIDATA ----------------------------
@@ -395,12 +524,13 @@ def get_last_legislative_election_winner(country_qid: str) -> Dict[str, Any]:
     }
 
 
-# ---------------------------- FREEDOM HOUSE (site, year = current-1) ----------------------------
+# ---------------------------- FREEDOM HOUSE (site, year = latest detected) ----------------------------
 
 STATUS_RE = r"(Free|Partly Free|Not Free)"
 
 def freedom_house_year() -> int:
-    return date.today().year - 1
+    # NEW: detect latest available year from Data360 FH_FIW dataset
+    return detect_latest_fiw_year()
 
 def freedom_house_url(country_name: str) -> str:
     y = freedom_house_year()
@@ -518,11 +648,9 @@ def merge_freedom_house_sticky(new_fh: Dict[str, Any], prev_country_obj: Optiona
     prev_score = prev_fh.get("score") if isinstance(prev_fh, dict) else None
 
     if new_fh.get("ok") is True:
-        # strip internal flags before output
         return {k: new_fh.get(k) for k in ["score", "status", "year", "source", "notes"]}
 
     if prev_score is not None:
-        # Keep old score/status/year/source; update notes to reflect we kept it.
         kept = {
             "score": prev_fh.get("score"),
             "status": prev_fh.get("status"),
@@ -534,7 +662,6 @@ def merge_freedom_house_sticky(new_fh: Dict[str, Any], prev_country_obj: Optiona
         }
         return kept
 
-    # No previous to keep; output the failed result
     return {k: new_fh.get(k) for k in ["score", "status", "year", "source", "notes"]}
 
 
@@ -566,7 +693,6 @@ def build_country(country_name: str, iso2: str, prev_by_iso2: Dict[str, Any]) ->
     else:
         political_systems = ["unknown"]
 
-    # Map legislature bodies -> controller
     bodies = gov.get("legislatureBodies") or []
     if not bodies:
         bodies = ["Legislature"]
@@ -581,7 +707,6 @@ def build_country(country_name: str, iso2: str, prev_by_iso2: Dict[str, Any]) ->
             "controlBasis": leg_control.get("basis"),
         })
 
-    # Freedom House (sticky)
     new_fh = fetch_freedom_house(country_name)
     prev_obj = prev_by_iso2.get(iso2)
     fh = merge_freedom_house_sticky(new_fh, prev_obj)
@@ -639,13 +764,19 @@ def main() -> None:
     out_path = Path("public") / "countries_snapshot.json"
     prev_by_iso2 = load_previous_snapshot(out_path)
 
+    # Compute once so we can record it + avoid repeated API calls
+    detected_year = detect_latest_fiw_year()
+
     out = {
         "generatedAt": iso_z(now_utc()),
-        "freedomHouseYearRule": "current_year_minus_1",
+        "freedomHouseYearRule": "data360_FH_FIW_latest_TIME_PERIOD",
+        "freedomHouseDetectedYear": detected_year,
         "countries": [],
         "sources": {
             "wikidata_sparql": WIKIDATA_SPARQL,
             "freedom_house_base": FREEDOM_HOUSE_BASE,
+            "data360_api_root": DATA360_API_ROOT,
+            "data360_dataset": DATA360_FIW_DATASET_ID,
         },
     }
 
@@ -654,7 +785,7 @@ def main() -> None:
         iso2 = c["iso2"]
         print(f"▶ Building {name} ({iso2}) ...")
         out["countries"].append(build_country(name, iso2, prev_by_iso2))
-        time.sleep(0.2)  # gentle rate limiting
+        time.sleep(0.2)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -662,4 +793,5 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
 
