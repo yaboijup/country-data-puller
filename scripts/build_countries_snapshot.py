@@ -4,22 +4,21 @@ Build a Base44-friendly JSON snapshot for multiple countries.
 Output: public/countries_snapshot.json
 
 Fields returned per country:
-- Head of State (+ party)
-- Head of Government (+ party)
-- Legislative body/bodies
-- Party/group in charge of legislature body/bodies (best-effort via Wikidata last legislative election winner)
+- Head of State (+ party)  [Wikidata current statement, no end date]
+- Head of Government (+ party) [Wikidata current statement, no end date]
+- Legislature body/bodies (filtered to "legislature" items)
+- Party/group in charge of legislature body/bodies (best-effort via last legislative/general election winner; often missing)
 - Executive party/leader (best-effort: HoG party -> fallback HoS party)
-- Freedom House score (numeric + qualitative), from Freedom House country page for the MOST RECENT YEAR
-  detected from World Bank Data360 dataset FH_FIW (Freedom in the World)
-  - with "sticky" behavior: if the fetch/parse is blocked or returns null AND we have a prior value, keep the prior value
+- Freedom House score (numeric + qualitative)
+  - Robust year handling: tries a small window of likely FIW years
+  - Sticky behavior: if fetch/parse fails and prior exists, keep prior values
 - Political system type (Wikidata P122 labels)
-- Next legislative election (date + election type + exists?)
-- Next executive election (date + election type + exists?)
+- Next legislative election (date + type + exists?)
+- Next executive election (date + type + exists?)
 
 Data sources:
-- Wikidata SPARQL (government structure, leaders, parties, political system, elections)
+- Wikidata SPARQL
 - Freedom House website (Freedom in the World pages)
-- World Bank Data360 API (to detect latest FIW year from dataset FH_FIW)
 """
 
 from __future__ import annotations
@@ -41,7 +40,10 @@ HEADERS = {
         "Mozilla/5.0 (X11; Linux x86_64) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "
         "Chrome/121.0.0.0 Safari/537.36"
-    )
+    ),
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "en-US,en;q=0.9",
+    "Connection": "keep-alive",
 }
 TIMEOUT = 25
 MAX_RETRIES = 3
@@ -49,11 +51,6 @@ RETRY_SLEEP = 1.5
 
 WIKIDATA_SPARQL = "https://query.wikidata.org/sparql"
 FREEDOM_HOUSE_BASE = "https://freedomhouse.org/country"
-
-# Data360 API (World Bank) – used ONLY to detect latest FIW year for dataset FH_FIW
-DATA360_API_ROOT = "https://data360api.worldbank.org"
-DATA360_FIW_DATASET_ID = "FH_FIW"
-DATA360_FIW_DATABASE_ID = "FH_FIW"  # /data360/data requires DATABASE_ID
 
 
 # ---------------------------- COUNTRY LIST ----------------------------
@@ -137,14 +134,20 @@ def req_text(url: str, params: Optional[dict] = None, headers: Optional[dict] = 
     h = dict(HEADERS)
     if headers:
         h.update(headers)
+    last_status = None
     for attempt in range(1, MAX_RETRIES + 1):
         try:
             r = requests.get(url, params=params, headers=h, timeout=TIMEOUT, allow_redirects=True)
+            last_status = r.status_code
             if r.status_code == 200:
                 return r.text
+            # Treat common bot-block statuses as "no text"
+            if r.status_code in (403, 429):
+                return r.text  # still return HTML; looks_like_challenge() will catch often
         except requests.RequestException:
             pass
         _sleep_backoff(attempt)
+    # nothing
     return None
 
 def req_json(url: str, params: Optional[dict] = None, headers: Optional[dict] = None) -> Optional[dict]:
@@ -188,128 +191,6 @@ def load_previous_snapshot(path: Path) -> Dict[str, Any]:
         return by_iso2
     except Exception:
         return {}
-
-
-# ---------------------------- DATA360 (detect latest FIW year) ----------------------------
-
-_FIW_YEAR_CACHE: Optional[int] = None
-
-def _parse_year(s: Any) -> Optional[int]:
-    if s is None:
-        return None
-    if isinstance(s, int):
-        return s
-    txt = str(s).strip()
-    if re.fullmatch(r"\d{4}", txt):
-        return int(txt)
-    return None
-
-def detect_latest_fiw_year() -> int:
-    """
-    Detect the most recent TIME_PERIOD (year) available in the Data360 dataset FH_FIW.
-
-    Robust approach:
-    - Get list of indicators in FH_FIW
-    - Choose a likely "overall score" indicator if present; otherwise fall back to first indicator
-    - Fetch first page to get `count`, then fetch the last page and compute max TIME_PERIOD.
-    """
-    global _FIW_YEAR_CACHE
-    if _FIW_YEAR_CACHE is not None:
-        return _FIW_YEAR_CACHE
-
-    # Fallback if anything goes wrong
-    fallback = date.today().year - 1
-
-    ind_list = req_json(
-        f"{DATA360_API_ROOT}/data360/indicators",
-        params={"datasetId": DATA360_FIW_DATASET_ID},
-    )
-
-    indicators: List[str] = []
-    if isinstance(ind_list, list):
-        indicators = [str(x) for x in ind_list]
-    elif isinstance(ind_list, dict) and isinstance(ind_list.get("value"), list):
-        indicators = [str(x) for x in ind_list["value"]]
-
-    if not indicators:
-        _FIW_YEAR_CACHE = fallback
-        return _FIW_YEAR_CACHE
-
-    # Prefer overall-ish indicators if they exist (varies by dataset naming)
-    preferred_suffixes = (
-        "TOTAL_SCORE", "FIW_SCORE", "SCORE", "STATUS",
-        "CL_SCORE", "PR_SCORE"
-    )
-    candidates = [i for i in indicators if i.upper().startswith("FH_FIW")]
-    candidates.sort()
-
-    def score_indicator_rank(i: str) -> int:
-        u = i.upper()
-        for idx, suf in enumerate(preferred_suffixes):
-            if u.endswith(suf):
-                return idx
-        return 999
-
-    candidates.sort(key=score_indicator_rank)
-    chosen = candidates[0] if candidates else indicators[0]
-
-    # Page through efficiently: fetch 1st page -> get count -> fetch last page -> compute max year
-    first = req_json(
-        f"{DATA360_API_ROOT}/data360/data",
-        params={
-            "DATABASE_ID": DATA360_FIW_DATABASE_ID,
-            "INDICATOR": chosen,
-            "top": 1,
-            "skip": 0,
-            "format": "json",
-        },
-    )
-
-    if not isinstance(first, dict) or "count" not in first:
-        _FIW_YEAR_CACHE = fallback
-        return _FIW_YEAR_CACHE
-
-    try:
-        total_count = int(first.get("count") or 0)
-    except Exception:
-        total_count = 0
-
-    if total_count <= 0:
-        _FIW_YEAR_CACHE = fallback
-        return _FIW_YEAR_CACHE
-
-    # Data360 returns max 1000 per page typically; pull the last page
-    page_size = 1000
-    last_skip = ((total_count - 1) // page_size) * page_size
-
-    last = req_json(
-        f"{DATA360_API_ROOT}/data360/data",
-        params={
-            "DATABASE_ID": DATA360_FIW_DATABASE_ID,
-            "INDICATOR": chosen,
-            "top": page_size,
-            "skip": last_skip,
-            "format": "json",
-        },
-    )
-
-    years: List[int] = []
-    if isinstance(last, dict) and isinstance(last.get("value"), list):
-        for row in last["value"]:
-            y = _parse_year(row.get("TIME_PERIOD") if isinstance(row, dict) else None)
-            if y is not None:
-                years.append(y)
-
-    if not years:
-        # As a backup, try scanning the first page's value list (in case ordering differs)
-        if isinstance(first, dict) and isinstance(first.get("value"), list):
-            for row in first["value"]:
-                y = _parse_year(row.get("TIME_PERIOD") if isinstance(row, dict) else None)
-                if y is not None:
-                    years.append(y)
-
-    _FIW_YEAR_CACHE = max(years) if years else fallback
-    return _FIW_YEAR_CACHE
 
 
 # ---------------------------- WIKIDATA ----------------------------
@@ -359,62 +240,66 @@ def get_political_system_labels(country_qid: str) -> List[str]:
             out.append(lab)
     return out
 
-def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
+def get_current_officeholder(country_qid: str, prop: str) -> Dict[str, Optional[str]]:
     """
-    - Head of State (P35) + party (P102)
-    - Head of Government (P6) + party (P102)
-    - Legislature bodies (P194)
+    prop: 'P35' (head of state) or 'P6' (head of government)
+    Pulls the statement with no end date (pq:P582), prefers latest start date (pq:P580).
     """
     q = f"""
-    SELECT
-      ?hosLabel ?hosPartyLabel
-      ?hogLabel ?hogPartyLabel
-      ?legLabel
-    WHERE {{
-      OPTIONAL {{
-        wd:{country_qid} wdt:P35 ?hos .
-        OPTIONAL {{ ?hos wdt:P102 ?hosParty . }}
-      }}
-      OPTIONAL {{
-        wd:{country_qid} wdt:P6 ?hog .
-        OPTIONAL {{ ?hog wdt:P102 ?hogParty . }}
-      }}
-      OPTIONAL {{
-        wd:{country_qid} wdt:P194 ?leg .
-      }}
+    SELECT ?personLabel ?partyLabel ?start WHERE {{
+      wd:{country_qid} p:{prop} ?stmt .
+      ?stmt ps:{prop} ?person .
+      FILTER NOT EXISTS {{ ?stmt pq:P582 ?end . }}
+      OPTIONAL {{ ?stmt pq:P580 ?start . }}
+      OPTIONAL {{ ?person wdt:P102 ?party . }}
       SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }}
     }}
-    LIMIT 200
+    ORDER BY DESC(?start)
+    LIMIT 1
     """
     data = wikidata_sparql(q)
     bindings = safe_get(data, "results", "bindings", default=[])
+    if not bindings:
+        return {"name": None, "party": None}
+    b = bindings[0]
+    return {
+        "name": _wd_val(b, "personLabel"),
+        "party": _wd_val(b, "partyLabel"),
+    }
 
-    hos_name = None
-    hos_party = None
-    hog_name = None
-    hog_party = None
-    legislatures = set()
-
+def get_legislature_bodies(country_qid: str) -> List[str]:
+    """
+    P194 is broad; filter to items that are (subclasses of) 'legislature' to avoid junk.
+    Legislature item: wd:Q11204
+    """
+    q = f"""
+    SELECT ?legLabel WHERE {{
+      wd:{country_qid} wdt:P194 ?leg .
+      ?leg wdt:P31/wdt:P279* wd:Q11204 .
+      SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }}
+    }}
+    """
+    data = wikidata_sparql(q)
+    bindings = safe_get(data, "results", "bindings", default=[])
+    out: List[str] = []
     for b in bindings:
-        if not hos_name:
-            hos_name = _wd_val(b, "hosLabel")
-        if not hos_party:
-            hos_party = _wd_val(b, "hosPartyLabel")
-        if not hog_name:
-            hog_name = _wd_val(b, "hogLabel")
-        if not hog_party:
-            hog_party = _wd_val(b, "hogPartyLabel")
-        leg = _wd_val(b, "legLabel")
-        if leg:
-            legislatures.add(leg)
+        lab = _wd_val(b, "legLabel")
+        if lab and lab not in out:
+            out.append(lab)
+    return out
+
+def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
+    hos = get_current_officeholder(country_qid, "P35")
+    hog = get_current_officeholder(country_qid, "P6")
+    legislatures = get_legislature_bodies(country_qid)
 
     return {
-        "headOfState": {"name": hos_name, "party": hos_party},
-        "headOfGovernment": {"name": hog_name, "party": hog_party},
-        "legislatureBodies": sorted(legislatures),
+        "headOfState": hos,
+        "headOfGovernment": hog,
+        "legislatureBodies": legislatures,
         "executiveController": {
-            "leader": hog_name or hos_name,
-            "partyOrGroup": hog_party or hos_party or "unknown",
+            "leader": (hog.get("name") or hos.get("name")),
+            "partyOrGroup": (hog.get("party") or hos.get("party") or "unknown"),
             "method": "hog_party_else_hos_party",
         },
     }
@@ -428,19 +313,19 @@ def _today_yyyymmdd() -> str:
 def get_next_election_upcoming(country_qid: str, kind: str) -> Dict[str, Any]:
     """
     kind = "executive" or "legislative"
-    Uses Wikidata election items with:
-    - jurisdiction (P1001)
-    - point in time (P585)
-    - instance of (P31) filters (best-effort)
+
+    Tightened types:
+      - executive: presidential election (Q159821) + general election (Q152203)
+      - legislative: parliamentary election (Q1079032) + legislative election (Q104203) + general election (Q152203)
+
+    We deliberately avoid the generic "election" (Q40231) because it causes false positives.
     """
     today = _today_yyyymmdd()
 
     if kind == "executive":
-        # presidential election, general election, election
-        type_values = "wd:Q159821 wd:Q152203 wd:Q40231"
+        type_values = "wd:Q159821 wd:Q152203"
     else:
-        # parliamentary election, legislative election, general election, election
-        type_values = "wd:Q1079032 wd:Q104203 wd:Q152203 wd:Q40231"
+        type_values = "wd:Q1079032 wd:Q104203 wd:Q152203"
 
     q = f"""
     SELECT ?eLabel ?date ?typeLabel WHERE {{
@@ -482,6 +367,7 @@ def get_last_legislative_election_winner(country_qid: str) -> Dict[str, Any]:
     Approximate 'who controls parliament' using winner (P1346) of the most recent
     national legislative/parliamentary/general election.
     This can be wrong for coalitions / seat majorities.
+    Many election items do NOT have P1346, so unknown is common.
     """
     today = _today_yyyymmdd()
     q = f"""
@@ -524,18 +410,9 @@ def get_last_legislative_election_winner(country_qid: str) -> Dict[str, Any]:
     }
 
 
-# ---------------------------- FREEDOM HOUSE (site, year = latest detected) ----------------------------
+# ---------------------------- FREEDOM HOUSE (multi-year retry + parsing + sticky) ----------------------------
 
 STATUS_RE = r"(Free|Partly Free|Not Free)"
-
-def freedom_house_year() -> int:
-    # NEW: detect latest available year from Data360 FH_FIW dataset
-    return detect_latest_fiw_year()
-
-def freedom_house_url(country_name: str) -> str:
-    y = freedom_house_year()
-    slug = fh_slug(country_name)
-    return f"{FREEDOM_HOUSE_BASE}/{slug}/freedom-world/{y}"
 
 def looks_like_challenge(html: str) -> bool:
     h = html.lower()
@@ -545,6 +422,8 @@ def looks_like_challenge(html: str) -> bool:
         or "attention required" in h
         or "verify you are human" in h
         or "captcha" in h
+        or "access denied" in h
+        or "blocked" in h
     )
 
 def parse_fh_score_and_status(html: str) -> Tuple[Optional[int], Optional[str]]:
@@ -581,61 +460,89 @@ def parse_fh_score_and_status(html: str) -> Tuple[Optional[int], Optional[str]]:
 
     return None, None
 
-def fetch_freedom_house(country_name: str) -> Dict[str, Any]:
+def candidate_fh_years(preferred: Optional[int] = None) -> List[int]:
     """
-    Returns:
-      {
-        score, status, year, source, notes,
-        ok: bool (True if we fetched + parsed successfully),
-        blocked: bool (True if it looks like a bot/challenge page)
-      }
+    Try a small descending window of likely valid FIW years.
+    Freedom House FIW is commonly (current year - 1) but can lag.
+    We also sanity-clamp so we never "detect" something like 2014 as "latest".
     """
-    url = freedom_house_url(country_name)
-    html = req_text(url)
+    this_year = date.today().year
+    base = preferred or (this_year - 1)
+    if base < this_year - 3 or base > this_year:
+        base = this_year - 1
+    return [base, base - 1, base - 2, base - 3]
 
-    if not html:
-        return {
-            "score": None,
-            "status": "unknown",
-            "year": freedom_house_year(),
-            "source": url,
-            "notes": "Failed to fetch Freedom House page.",
-            "ok": False,
-            "blocked": False,
-        }
+def freedom_house_url_for_year(country_name: str, y: int) -> str:
+    slug = fh_slug(country_name)
+    return f"{FREEDOM_HOUSE_BASE}/{slug}/freedom-world/{y}"
 
-    if looks_like_challenge(html):
-        return {
-            "score": None,
-            "status": "unknown",
-            "year": freedom_house_year(),
-            "source": url,
-            "notes": "Blocked by anti-bot / challenge page (Cloudflare-like).",
-            "ok": False,
-            "blocked": True,
-        }
-
-    score, status = parse_fh_score_and_status(html)
-    if score is None or status is None:
-        return {
-            "score": None,
-            "status": "unknown",
-            "year": freedom_house_year(),
-            "source": url,
-            "notes": "Fetched page but could not parse score/status (site layout may have changed).",
-            "ok": False,
-            "blocked": False,
-        }
-
-    return {
-        "score": score,
-        "status": status,
-        "year": freedom_house_year(),
-        "source": url,
-        "notes": None,
-        "ok": True,
+def fetch_freedom_house(country_name: str, preferred_year: Optional[int] = None) -> Dict[str, Any]:
+    """
+    Try multiple years until we successfully fetch + parse.
+    Returns internal flags ok/blocked for sticky merging.
+    """
+    last: Dict[str, Any] = {
+        "score": None,
+        "status": "unknown",
+        "year": candidate_fh_years(preferred_year)[0],
+        "source": freedom_house_url_for_year(country_name, candidate_fh_years(preferred_year)[0]),
+        "notes": "Failed to fetch Freedom House page.",
+        "ok": False,
         "blocked": False,
     }
+
+    for y in candidate_fh_years(preferred_year):
+        url = freedom_house_url_for_year(country_name, y)
+        html = req_text(url)
+
+        if not html:
+            last = {
+                "score": None,
+                "status": "unknown",
+                "year": y,
+                "source": url,
+                "notes": "Failed to fetch Freedom House page.",
+                "ok": False,
+                "blocked": False,
+            }
+            continue
+
+        if looks_like_challenge(html):
+            last = {
+                "score": None,
+                "status": "unknown",
+                "year": y,
+                "source": url,
+                "notes": "Blocked by anti-bot / challenge page (Cloudflare-like).",
+                "ok": False,
+                "blocked": True,
+            }
+            continue
+
+        score, status = parse_fh_score_and_status(html)
+        if score is None or status is None:
+            last = {
+                "score": None,
+                "status": "unknown",
+                "year": y,
+                "source": url,
+                "notes": "Fetched page but could not parse score/status (site layout may have changed).",
+                "ok": False,
+                "blocked": False,
+            }
+            continue
+
+        return {
+            "score": score,
+            "status": status,
+            "year": y,
+            "source": url,
+            "notes": None,
+            "ok": True,
+            "blocked": False,
+        }
+
+    return last
 
 def merge_freedom_house_sticky(new_fh: Dict[str, Any], prev_country_obj: Optional[Dict[str, Any]]) -> Dict[str, Any]:
     """
@@ -656,9 +563,7 @@ def merge_freedom_house_sticky(new_fh: Dict[str, Any], prev_country_obj: Optiona
             "status": prev_fh.get("status"),
             "year": prev_fh.get("year"),
             "source": prev_fh.get("source"),
-            "notes": (
-                f"Kept previous Freedom House rating because latest fetch/parse failed: {new_fh.get('notes')}"
-            ),
+            "notes": f"Kept previous Freedom House rating because latest fetch/parse failed: {new_fh.get('notes')}",
         }
         return kept
 
@@ -686,7 +591,6 @@ def build_country(country_name: str, iso2: str, prev_by_iso2: Dict[str, Any]) ->
     if qid:
         political_systems = get_political_system_labels(qid) or ["unknown"]
         gov = get_government_snapshot(qid)
-
         elections_exec = get_next_election_upcoming(qid, "executive")
         elections_leg = get_next_election_upcoming(qid, "legislative")
         leg_control = get_last_legislative_election_winner(qid)
@@ -707,7 +611,8 @@ def build_country(country_name: str, iso2: str, prev_by_iso2: Dict[str, Any]) ->
             "controlBasis": leg_control.get("basis"),
         })
 
-    new_fh = fetch_freedom_house(country_name)
+    # Freedom House (sticky) with multi-year retry
+    new_fh = fetch_freedom_house(country_name, preferred_year=None)
     prev_obj = prev_by_iso2.get(iso2)
     fh = merge_freedom_house_sticky(new_fh, prev_obj)
 
@@ -722,12 +627,12 @@ def build_country(country_name: str, iso2: str, prev_by_iso2: Dict[str, Any]) ->
             "headOfState": {
                 "name": gov["headOfState"].get("name"),
                 "partyOrGroup": gov["headOfState"].get("party") or "unknown",
-                "source": "wikidata:P35 (+party P102)",
+                "source": "wikidata:P35 (current statement; +party P102)",
             },
             "headOfGovernment": {
                 "name": gov["headOfGovernment"].get("name"),
                 "partyOrGroup": gov["headOfGovernment"].get("party") or "unknown",
-                "source": "wikidata:P6 (+party P102)",
+                "source": "wikidata:P6 (current statement; +party P102)",
             },
             "executiveInPower": {
                 "leader": gov["executiveController"].get("leader"),
@@ -737,7 +642,7 @@ def build_country(country_name: str, iso2: str, prev_by_iso2: Dict[str, Any]) ->
         },
         "legislature": {
             "bodies": legislature,
-            "source": "wikidata:P194 (+control best-effort via elections winner P1346)",
+            "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346",
         },
         "freedomHouse": fh,
         "elections": {
@@ -747,7 +652,7 @@ def build_country(country_name: str, iso2: str, prev_by_iso2: Dict[str, Any]) ->
                 "electionType": elections_leg["electionType"],
                 "method": elections_leg["method"],
                 "notes": elections_leg["notes"],
-                "source": "wikidata:P1001,P585,P31",
+                "source": "wikidata:P1001,P585,P31 (tightened types)",
             },
             "executive": {
                 "exists": elections_exec["exists"],
@@ -755,7 +660,7 @@ def build_country(country_name: str, iso2: str, prev_by_iso2: Dict[str, Any]) ->
                 "electionType": elections_exec["electionType"],
                 "method": elections_exec["method"],
                 "notes": elections_exec["notes"],
-                "source": "wikidata:P1001,P585,P31",
+                "source": "wikidata:P1001,P585,P31 (tightened types)",
             },
         },
     }
@@ -764,19 +669,13 @@ def main() -> None:
     out_path = Path("public") / "countries_snapshot.json"
     prev_by_iso2 = load_previous_snapshot(out_path)
 
-    # Compute once so we can record it + avoid repeated API calls
-    detected_year = detect_latest_fiw_year()
-
     out = {
         "generatedAt": iso_z(now_utc()),
-        "freedomHouseYearRule": "data360_FH_FIW_latest_TIME_PERIOD",
-        "freedomHouseDetectedYear": detected_year,
+        "freedomHouseYearRule": "try_current_minus_1_then_backfill_3_years",
         "countries": [],
         "sources": {
             "wikidata_sparql": WIKIDATA_SPARQL,
             "freedom_house_base": FREEDOM_HOUSE_BASE,
-            "data360_api_root": DATA360_API_ROOT,
-            "data360_dataset": DATA360_FIW_DATASET_ID,
         },
     }
 
@@ -785,7 +684,7 @@ def main() -> None:
         iso2 = c["iso2"]
         print(f"▶ Building {name} ({iso2}) ...")
         out["countries"].append(build_country(name, iso2, prev_by_iso2))
-        time.sleep(0.2)
+        time.sleep(0.25)  # gentle rate limiting (helps Wikidata + FH)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -793,5 +692,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
-
