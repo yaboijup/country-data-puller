@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-02-12T08:04:14.495048Z",
+  "generatedAt": "2026-02-13T08:04:51.876986Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "countries": [
     {
@@ -1297,7 +1297,7 @@
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
       "worldBankGovernance": {
-        "overallPercentile": 89.66,
+        "overallPercentile": 90.52,
         "band": "High",
         "year": 2023,
         "components": {
@@ -1328,9 +1328,8 @@
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
-            "percentile": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 94.8113174438477,
+            "year": 2023
           }
         },
         "sources": {
@@ -1920,8 +1919,8 @@
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
       "worldBankGovernance": {
-        "overallPercentile": 31.93,
-        "band": "Low",
+        "overallPercentile": 35.57,
+        "band": "Medium",
         "year": 2023,
         "components": {
           "voiceAccountability": {
@@ -1931,8 +1930,9 @@
           },
           "politicalStability": {
             "indicator": "PV.PER.RNK",
-            "percentile": 13.7440757751465,
-            "year": 2023
+            "percentile": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           },
           "governmentEffectiveness": {
             "indicator": "GE.PER.RNK",
@@ -3075,7 +3075,7 @@
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
       "worldBankGovernance": {
-        "overallPercentile": 2.15,
+        "overallPercentile": 2.58,
         "band": "Low",
         "year": 2023,
         "components": {
@@ -3101,8 +3101,9 @@
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
-            "percentile": 0.0,
-            "year": 2023
+            "percentile": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
@@ -3671,8 +3672,8 @@
           "source": "wikidata:P35 (current statement; +party P102)"
         },
         "headOfGovernment": {
-          "name": "Gabriel Boric",
-          "partyOrGroup": "Broad Front",
+          "name": null,
+          "partyOrGroup": "unknown",
           "source": "wikidata:P6 (current statement; +party P102)"
         },
         "executiveInPower": {
