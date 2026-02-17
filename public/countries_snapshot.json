@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-02-16T08:06:41.211442Z",
+  "generatedAt": "2026-02-17T08:06:20.608695Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "countries": [
     {
@@ -1815,7 +1815,7 @@
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
       "worldBankGovernance": {
-        "overallPercentile": 79.01,
+        "overallPercentile": 79.99,
         "band": "High",
         "year": 2023,
         "components": {
@@ -1841,9 +1841,8 @@
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
-            "percentile": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 84.9056625366211,
+            "year": 2023
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
@@ -1920,7 +1919,7 @@
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
       "worldBankGovernance": {
-        "overallPercentile": 31.33,
+        "overallPercentile": 31.93,
         "band": "Low",
         "year": 2023,
         "components": {
@@ -1951,9 +1950,8 @@
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
-            "percentile": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 34.9056587219238,
+            "year": 2023
           }
         },
         "sources": {
@@ -2025,7 +2023,7 @@
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
       "worldBankGovernance": {
-        "overallPercentile": 5.35,
+        "overallPercentile": 4.77,
         "band": "Low",
         "year": 2023,
         "components": {
@@ -2046,9 +2044,8 @@
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
-            "percentile": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 1.88679242134094,
+            "year": 2023
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
@@ -2766,7 +2763,7 @@
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
       "worldBankGovernance": {
-        "overallPercentile": 45.3,
+        "overallPercentile": 45.06,
         "band": "Medium",
         "year": 2023,
         "components": {
@@ -2782,9 +2779,8 @@
           },
           "governmentEffectiveness": {
             "indicator": "GE.PER.RNK",
-            "percentile": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 43.8679237365723,
+            "year": 2023
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
