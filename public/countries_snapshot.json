@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-02-19T08:04:19.119784Z",
+  "generatedAt": "2026-02-20T08:02:10.625460Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "countries": [
     {
@@ -3768,18 +3768,18 @@
       },
       "executive": {
         "headOfState": {
-          "name": "José Jerí",
-          "partyOrGroup": "Alliance for Progress",
+          "name": "José María Balcázar",
+          "partyOrGroup": "Free Peru",
           "source": "wikidata:P35 (current statement; +party P102)"
         },
         "headOfGovernment": {
-          "name": "José Jerí",
-          "partyOrGroup": "Alliance for Progress",
+          "name": "José María Balcázar",
+          "partyOrGroup": "Free Peru",
           "source": "wikidata:P6 (current statement; +party P102)"
         },
         "executiveInPower": {
-          "leader": "José Jerí",
-          "partyOrGroup": "Alliance for Progress",
+          "leader": "José María Balcázar",
+          "partyOrGroup": "Free Peru",
           "method": "hog_party_else_hos_party"
         }
       },
