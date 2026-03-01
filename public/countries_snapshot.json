@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-02-28T07:38:25.293090Z",
+  "generatedAt": "2026-03-01T07:03:50.718605Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "countries": [
     {
@@ -1087,7 +1087,7 @@
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
       "worldBankGovernance": {
-        "overallPercentile": 32.67,
+        "overallPercentile": 30.53,
         "band": "Low",
         "year": 2023,
         "components": {
@@ -1103,8 +1103,9 @@
           },
           "governmentEffectiveness": {
             "indicator": "GE.PER.RNK",
-            "percentile": 43.3962249755859,
-            "year": 2023
+            "percentile": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
@@ -1581,8 +1582,8 @@
       },
       "executive": {
         "headOfState": {
-          "name": "Ali Khamenei",
-          "partyOrGroup": "Islamic Republican Party",
+          "name": null,
+          "partyOrGroup": "unknown",
           "source": "wikidata:P35 (current statement; +party P102)"
         },
         "headOfGovernment": {
