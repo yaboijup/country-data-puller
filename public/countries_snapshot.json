@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-01T07:03:50.718605Z",
+  "generatedAt": "2026-03-02T07:15:55.829817Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "countries": [
     {
@@ -1087,7 +1087,7 @@
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
       "worldBankGovernance": {
-        "overallPercentile": 30.53,
+        "overallPercentile": 32.67,
         "band": "Low",
         "year": 2023,
         "components": {
@@ -1103,9 +1103,8 @@
           },
           "governmentEffectiveness": {
             "indicator": "GE.PER.RNK",
-            "percentile": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 43.3962249755859,
+            "year": 2023
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
@@ -1582,7 +1581,7 @@
       },
       "executive": {
         "headOfState": {
-          "name": null,
+          "name": "Alireza Arafi",
           "partyOrGroup": "unknown",
           "source": "wikidata:P35 (current statement; +party P102)"
         },
