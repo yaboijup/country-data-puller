@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-08T07:00:17.008155Z",
+  "generatedAt": "2026-03-09T07:16:55.305832Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "countries": [
     {
@@ -145,7 +145,7 @@
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
       "worldBankGovernance": {
-        "overallPercentile": 48.8,
+        "overallPercentile": 47.59,
         "band": "Medium",
         "year": 2023,
         "components": {
@@ -176,9 +176,8 @@
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
-            "percentile": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 41.5094337463379,
+            "year": 2023
           }
         },
         "sources": {
@@ -1920,7 +1919,7 @@
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
       "worldBankGovernance": {
-        "overallPercentile": 29.54,
+        "overallPercentile": 31.93,
         "band": "Low",
         "year": 2023,
         "components": {
@@ -1941,9 +1940,8 @@
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
-            "percentile": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 43.8679237365723,
+            "year": 2023
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
@@ -2345,7 +2343,7 @@
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
       "worldBankGovernance": {
-        "overallPercentile": 79.58,
+        "overallPercentile": 79.39,
         "band": "High",
         "year": 2023,
         "components": {
@@ -2366,14 +2364,14 @@
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
-            "percentile": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 84.9056625366211,
+            "year": 2023
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
-            "percentile": 85.8490600585938,
-            "year": 2023
+            "percentile": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
@@ -2455,7 +2453,7 @@
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
       "worldBankGovernance": {
-        "overallPercentile": 8.61,
+        "overallPercentile": 7.57,
         "band": "Low",
         "year": 2023,
         "components": {
@@ -2486,9 +2484,8 @@
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
-            "percentile": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 2.35849046707153,
+            "year": 2023
           }
         },
         "sources": {
@@ -3904,15 +3901,14 @@
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
       "worldBankGovernance": {
-        "overallPercentile": 36.85,
+        "overallPercentile": 33.16,
         "band": "Medium",
         "year": 2023,
         "components": {
           "voiceAccountability": {
             "indicator": "VA.PER.RNK",
-            "percentile": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 14.7058820724487,
+            "year": 2023
           },
           "politicalStability": {
             "indicator": "PV.PER.RNK",
@@ -4319,15 +4315,14 @@
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
       "worldBankGovernance": {
-        "overallPercentile": 94.6,
+        "overallPercentile": 95.26,
         "band": "High",
         "year": 2023,
         "components": {
           "voiceAccountability": {
             "indicator": "VA.PER.RNK",
-            "percentile": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 98.529411315918,
+            "year": 2023
           },
           "politicalStability": {
             "indicator": "PV.PER.RNK",
