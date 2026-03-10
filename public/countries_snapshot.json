@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-09T07:16:55.305832Z",
+  "generatedAt": "2026-03-10T07:07:35.233983Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "countries": [
     {
@@ -1581,8 +1581,8 @@
       },
       "executive": {
         "headOfState": {
-          "name": "Alireza Arafi",
-          "partyOrGroup": "Islamic Republican Party",
+          "name": "Mojtaba Khamenei",
+          "partyOrGroup": "Front of Islamic Revolution Stability",
           "source": "wikidata:P35 (current statement; +party P102)"
         },
         "headOfGovernment": {
@@ -2343,7 +2343,7 @@
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
       "worldBankGovernance": {
-        "overallPercentile": 79.39,
+        "overallPercentile": 80.47,
         "band": "High",
         "year": 2023,
         "components": {
@@ -2369,9 +2369,8 @@
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
-            "percentile": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 85.8490600585938,
+            "year": 2023
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
@@ -3592,7 +3591,7 @@
         "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346"
       },
       "worldBankGovernance": {
-        "overallPercentile": 42.73,
+        "overallPercentile": 42.88,
         "band": "Medium",
         "year": 2023,
         "components": {
@@ -3623,8 +3622,9 @@
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
-            "percentile": 41.9811325073242,
-            "year": 2023
+            "percentile": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           }
         },
         "sources": {
