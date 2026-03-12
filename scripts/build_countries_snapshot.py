@@ -502,26 +502,38 @@ def _load_ipu_cache() -> Dict[str, List[Dict[str, Any]]]:
         _ipu_chamber_cache = cache
         return cache
 
-    # Determine response shape and extract records list.
-    # IPU may return JSON:API {"data": [{"attributes": {...}}]} or a flat list.
-    if isinstance(data, list):
-        records = data
-    elif isinstance(data, dict):
-        records = data.get("data") or data.get("results") or data.get("items") or []
-    else:
-        records = []
+    # IPU response shape is unpredictable — handle all known variants:
+    #   {"data": [...]}              JSON:API list
+    #   {"data": {"0": {...}, ...}}  JSON:API dict keyed by integer strings
+    #   [...]                        flat list
+    #   {"results": [...]}           alternate key
+    records: List[Dict] = []
 
-    # Debug: print first record shape so CI logs can diagnose future breakage
+    if isinstance(data, list):
+        records = [r for r in data if isinstance(r, dict)]
+    elif isinstance(data, dict):
+        raw = (
+            data.get("data")
+            or data.get("results")
+            or data.get("items")
+        )
+        if isinstance(raw, list):
+            records = [r for r in raw if isinstance(r, dict)]
+        elif isinstance(raw, dict):
+            # Keyed by integer strings like {"0": {...}, "1": {...}}
+            records = [v for v in raw.values() if isinstance(v, dict)]
+        elif raw is None:
+            # data itself might be keyed by int strings at top level
+            if all(str(k).isdigit() for k in list(data.keys())[:5]):
+                records = [v for v in data.values() if isinstance(v, dict)]
+
+    # Debug: print first record so CI logs can diagnose future breakage
     if records:
-        first = records[0]
-        print(f"  [IPU] First record type={type(first).__name__}, sample={str(first)[:300]}")
+        print(f"  [IPU] Parsed {len(records)} records. First sample: {str(records[0])[:300]}")
     else:
-        top_keys = list(data.keys()) if isinstance(data, dict) else type(data).__name__
-        print(f"  [IPU] WARNING: No records found. Top-level keys: {top_keys}")
+        print(f"  [IPU] WARNING: Could not parse records. Raw type={type(data).__name__}, keys={list(data.keys())[:10] if isinstance(data, dict) else 'N/A'}")
 
     for record in records:
-        if not isinstance(record, dict):
-            continue
         raw_attrs = record.get("attributes")
         attrs = raw_attrs if isinstance(raw_attrs, dict) else record
         iso2 = (attrs.get("country_code") or "").upper().strip()
