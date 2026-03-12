@@ -35,6 +35,7 @@ WIKIDATA_SPARQL     = "https://query.wikidata.org/sparql"
 WORLD_BANK_BASE     = "https://api.worldbank.org/v2"
 IPU_API_BASE        = "https://api.data.ipu.org/v1"
 REST_COUNTRIES_BASE = "https://restcountries.com/v3.1"
+WIKIPEDIA_API       = "https://en.wikipedia.org/w/api.php"
 
 WGI_PERCENTILE_INDICATORS: Dict[str, str] = {
     "voiceAccountability":      "VA.PER.RNK",
@@ -115,47 +116,130 @@ IPU_ISO2_OVERRIDES: Dict[str, Optional[str]] = {
     "TW": None,
 }
 
+# ── WIKIPEDIA COUNTRY NAME MAP ────────────────────────────────────────────────
+# Maps ISO2 → exact country name as it appears in the Wikipedia HOS/HOG list.
+# Only needed for countries whose name differs from our display name.
+WIKIPEDIA_COUNTRY_NAME_MAP: Dict[str, str] = {
+    "RU": "Russia",
+    "IN": "India",
+    "PK": "Pakistan",
+    "CN": "China",
+    "GB": "United Kingdom",
+    "DE": "Germany",
+    "AE": "United Arab Emirates",
+    "SA": "Saudi Arabia",
+    "IL": "Israel",
+    "PS": "Palestine",
+    "MX": "Mexico",
+    "BR": "Brazil",
+    "CA": "Canada",
+    "NG": "Nigeria",
+    "JP": "Japan",
+    "IR": "Iran",
+    "SY": "Syria",
+    "FR": "France",
+    "TR": "Turkey",
+    "VE": "Venezuela",
+    "VN": "Vietnam",
+    "TW": "Taiwan",  # Not in list but kept for fallback
+    "KR": "South Korea",
+    "KP": "North Korea",
+    "ID": "Indonesia",
+    "MM": "Myanmar",
+    "AM": "Armenia",
+    "AZ": "Azerbaijan",
+    "MA": "Morocco",
+    "SO": "Somalia",
+    "YE": "Yemen",
+    "LY": "Libya",
+    "EG": "Egypt",
+    "DZ": "Algeria",
+    "AR": "Argentina",
+    "CL": "Chile",
+    "PE": "Peru",
+    "CU": "Cuba",
+    "CO": "Colombia",
+    "PA": "Panama",
+    "SV": "El Salvador",
+    "DK": "Denmark",
+    "SD": "Sudan",
+    "UA": "Ukraine",
+}
+
 # ── STATIC EXECUTIVE OVERRIDES ────────────────────────────────────────────────
-# Applied AFTER Wikidata fetch. Only override the fields listed.
-# Keys are ISO2 codes.
+# Applied AFTER Wikipedia fetch. Use for:
+#   - Party/group affiliations (Wikipedia list rarely includes these)
+#   - Countries not in the Wikipedia list (Taiwan, disputed states)
+#   - Force-correct known Wikipedia parsing failures
+# Keys are ISO2 codes. Only listed fields are overridden; others come from Wikipedia.
 
 STATIC_EXECUTIVE_OVERRIDES: Dict[str, Dict[str, Optional[str]]] = {
-    # Putin – Wikidata P102 missing United Russia party
+    # ── Party overrides (Wikipedia names but not parties) ──
     "RU": {"hosParty": "United Russia", "hogParty": "United Russia"},
-    # Tinubu – Wikidata still shows old "Action Congress of Nigeria" pre-merger party
+    "CN": {"hosParty": "Chinese Communist Party", "hogParty": "Chinese Communist Party"},
+    "VN": {"hosParty": "Communist Party of Vietnam", "hogParty": "Communist Party of Vietnam"},
+    "KP": {"hosParty": "Korean Workers' Party", "hogParty": "Korean Workers' Party"},
+    "CU": {"hosParty": "Communist Party of Cuba", "hogParty": "Communist Party of Cuba"},
     "NG": {"hosParty": "All Progressives Congress", "hogParty": "All Progressives Congress"},
-    # Macron/Lecornu – Wikidata shows stale Socialist Party / UMP memberships
     "FR": {"hosParty": "Renaissance", "hogParty": "Renaissance"},
-    # Syria – transitional govt post-Assad (Dec 2024); Wikidata not yet updated
+    "TR": {"hosParty": "Justice and Development Party", "hogParty": "Justice and Development Party"},
+    "IN": {"hosParty": "Bharatiya Janata Party", "hogParty": "Bharatiya Janata Party"},
+    "MX": {"hosParty": "Morena", "hogParty": "Morena"},
+    "AR": {"hosParty": "La Libertad Avanza", "hogParty": "La Libertad Avanza"},
+    "BR": {"hosParty": "Workers' Party", "hogParty": "Workers' Party"},
+    "SA": {"hosParty": "House of Saud (monarchy)", "hogParty": "House of Saud (monarchy)"},
+    "AE": {"hosParty": "Al Nahyan family (monarchy)", "hogParty": "Al Nahyan family (monarchy)"},
+    "EG": {"hosParty": "No party (military)", "hogParty": "No party (military)"},
+    "DZ": {"hosParty": "National Liberation Front", "hogParty": "National Liberation Front"},
+    "PS": {"hogParty": "Fatah"},
+    "UA": {"hosParty": "Servant of the People", "hogParty": "Servant of the People"},
+    "DE": {"hosParty": "Social Democratic Party", "hogParty": "Christian Democratic Union"},
+    "GB": {"hosParty": "Monarchy (non-partisan)", "hogParty": "Labour Party"},
+    "CA": {"hosParty": "Monarchy (non-partisan)", "hogParty": "Liberal Party"},
+    "DK": {"hosParty": "Monarchy (non-partisan)", "hogParty": "Social Democrats"},
+    "JP": {"hosParty": "Imperial House (non-partisan)", "hogParty": "Liberal Democratic Party"},
+    # ── Name + party overrides for complex/disputed situations ──
+    # Venezuela: Maduro fled Jan 2025; Delcy Rodríguez acting president Jan 3 2026
+    "VE": {
+        "hosName":  "Delcy Rodríguez (acting)",
+        "hosParty": "United Socialist Party of Venezuela",
+        "hogName":  "Delcy Rodríguez (acting)",
+        "hogParty": "United Socialist Party of Venezuela",
+    },
+    # Syria: transitional govt post-Assad (Dec 2024)
     "SY": {
         "hosName":  "Ahmad al-Sharaa",
         "hosParty": "Hayat Tahrir al-Sham (transitional)",
         "hogName":  "Mohammad al-Bashir",
         "hogParty": "Hayat Tahrir al-Sham (transitional)",
     },
-    # Venezuela – Wikidata P35 incorrectly resolves to Delcy Rodriguez
-    "VE": {
-        "hosName":  "Nicolás Maduro",
-        "hosParty": "United Socialist Party of Venezuela",
-        "hogName":  "Nicolás Maduro",
-        "hogParty": "United Socialist Party of Venezuela",
-    },
-    # South Korea – Yoon impeached; Wikidata incorrectly picks up Lee Jae-myung
-    "KR": {
-        "hosName":  "Han Duck-soo (acting)",
-        "hosParty": "People Power Party",
-        "hogName":  "Han Duck-soo (acting)",
-        "hogParty": "People Power Party",
-    },
-    # Iran – Wikidata P35 resolves to Mojtaba Khamenei (son); correct is Ali Khamenei
+    # Iran: Ali Khamenei killed ~Feb 28 2026; interim leadership council in place
     "IR": {
-        "hosName":  "Ali Khamenei",
-        "hosParty": "Association of Combatant Clergy",
+        "hosName":  "Interim Leadership Council",
+        "hosParty": "Islamic Republic (transitional)",
+        "hogName":  "Masoud Pezeshkian",
+        "hogParty": "Reformist",
     },
-    # Palestine – Wikidata still shows Shtayyeh (resigned Feb 2024); correct PM is Mustafa
-    "PS": {
-        "hogName":  "Mohammad Mustafa",
-        "hogParty": "Fatah",
+    # South Korea: Lee Jae-myung won June 2025 election after Yoon impeachment
+    "KR": {
+        "hosName":  "Lee Jae-myung",
+        "hosParty": "Democratic Party of Korea",
+        "hogName":  "Lee Jae-myung",
+        "hogParty": "Democratic Party of Korea",
+    },
+    # Taiwan: not in Wikipedia list (disputed sovereignty)
+    "TW": {
+        "hosName":  "Lai Ching-te",
+        "hosParty": "Democratic Progressive Party",
+        "hogName":  "Cho Jung-tai",
+        "hogParty": "Democratic Progressive Party",
+    },
+    # Myanmar: military junta post-2021 coup
+    "MM": {
+        "hosName":  "Min Aung Hlaing",
+        "hosParty": "Tatmadaw (military junta)",
+        "hogName":  "Min Aung Hlaing",
+        "hogParty": "Tatmadaw (military junta)",
     },
 }
 
@@ -317,24 +401,188 @@ def get_political_systems(qid: str) -> List[str]:
             out.append(lbl)
     return out
 
-def get_officeholder(qid: str, prop: str) -> Dict[str, Optional[str]]:
-    data = wikidata_sparql(f"""
-    SELECT ?personLabel ?partyLabel ?start WHERE {{
-      wd:{qid} p:{prop} ?stmt .
-      ?stmt ps:{prop} ?person .
-      FILTER NOT EXISTS {{ ?stmt pq:P582 ?end . }}
-      OPTIONAL {{ ?stmt pq:P580 ?start . }}
-      OPTIONAL {{ ?person wdt:P102 ?party . }}
-      SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }}
-    }}
-    ORDER BY DESC(?start)
-    LIMIT 1
-    """)
-    bindings = safe_get(data, "results", "bindings", default=[])
-    if not bindings:
-        return {"name": None, "party": None}
-    b = bindings[0]
-    return {"name": _wd(b, "personLabel"), "party": _wd(b, "partyLabel")}
+# ── WIKIPEDIA EXECUTIVE LOOKUP ────────────────────────────────────────────────
+
+_wiki_exec_cache: Optional[Dict[str, Dict[str, Optional[str]]]] = None
+
+def _load_wiki_exec_cache() -> Dict[str, Dict[str, Optional[str]]]:
+    """
+    Fetch Wikipedia's 'List of current heads of state and government' via the
+    MediaWiki parse API, parse the HTML table, and return a dict keyed by
+    country name → {hosName, hogName}.
+
+    The Wikipedia table has columns: Country | Head of State | Head of Government
+    Some rows have the same person for both (presidential systems).
+    """
+    global _wiki_exec_cache
+    if _wiki_exec_cache is not None:
+        return _wiki_exec_cache
+
+    print("  [WIKI] Fetching Wikipedia heads of state/government list...")
+
+    try:
+        from html.parser import HTMLParser
+    except ImportError:
+        print("  [WIKI] html.parser not available")
+        _wiki_exec_cache = {}
+        return _wiki_exec_cache
+
+    params = {
+        "action": "parse",
+        "page": "List of current heads of state and government",
+        "prop": "text",
+        "format": "json",
+        "formatversion": "2",
+        "disableeditsection": "1",
+    }
+    data = req_json(WIKIPEDIA_API, params=params, label="Wikipedia HOS/HOG list")
+    if not data:
+        print("  [WIKI] Failed to fetch Wikipedia list")
+        _wiki_exec_cache = {}
+        return _wiki_exec_cache
+
+    html_text = safe_get(data, "parse", "text", default="")
+    if not html_text:
+        print("  [WIKI] Empty HTML from Wikipedia API")
+        _wiki_exec_cache = {}
+        return _wiki_exec_cache
+
+    # Parse with stdlib html.parser — no BeautifulSoup dependency needed
+    result: Dict[str, Dict[str, Optional[str]]] = {}
+
+    class TableParser(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.in_table = False
+            self.in_cell = False
+            self.current_row: List[str] = []
+            self.current_cell_parts: List[str] = []
+            self.depth = 0
+            self.skip_depth = 0  # for nested elements we want to skip
+            self.rows: List[List[str]] = []
+
+        def _cell_text(self) -> str:
+            raw = " ".join(self.current_cell_parts).strip()
+            # Collapse whitespace, strip footnote markers like [1], [2]
+            raw = re.sub(r"\[\d+\]", "", raw)
+            raw = re.sub(r"\s+", " ", raw).strip()
+            return raw
+
+        def handle_starttag(self, tag, attrs):
+            attrs_dict = dict(attrs)
+            if tag == "table":
+                cls = attrs_dict.get("class", "")
+                if "wikitable" in cls:
+                    self.in_table = True
+                    self.depth = 0
+            if not self.in_table:
+                return
+            if tag == "tr":
+                self.current_row = []
+            if tag in ("td", "th"):
+                self.in_cell = True
+                self.current_cell_parts = []
+            if tag == "br":
+                self.current_cell_parts.append(" | ")
+
+        def handle_endtag(self, tag):
+            if not self.in_table:
+                return
+            if tag in ("td", "th") and self.in_cell:
+                self.current_row.append(self._cell_text())
+                self.in_cell = False
+                self.current_cell_parts = []
+            if tag == "tr" and self.current_row:
+                self.rows.append(self.current_row)
+                self.current_row = []
+            if tag == "table":
+                self.in_table = False
+
+        def handle_data(self, data):
+            if self.in_cell:
+                self.current_cell_parts.append(data)
+
+        def handle_entityref(self, name):
+            if self.in_cell:
+                entities = {"amp": "&", "lt": "<", "gt": ">", "nbsp": " ",
+                            "ndash": "–", "mdash": "—"}
+                self.current_cell_parts.append(entities.get(name, ""))
+
+        def handle_charref(self, name):
+            if self.in_cell:
+                try:
+                    c = chr(int(name[1:], 16) if name.startswith("x") else int(name))
+                    self.current_cell_parts.append(c)
+                except Exception:
+                    pass
+
+    parser = TableParser()
+    parser.feed(html_text)
+
+    for row in parser.rows:
+        if len(row) < 2:
+            continue
+        # Row format: [Country, Head of State, Head of Government] or [Country, Same person]
+        country_raw = row[0].strip()
+        if not country_raw or country_raw.lower() in ("country", "state", ""):
+            continue
+
+        hos_raw = row[1].strip() if len(row) > 1 else ""
+        hog_raw = row[2].strip() if len(row) > 2 else hos_raw
+
+        # Clean up: take first name if cell has multiple (e.g. "Name1 | Name2")
+        def _first_name(s: str) -> Optional[str]:
+            if not s:
+                return None
+            # Split on pipe separator we inserted at <br>
+            parts = [p.strip() for p in s.split("|") if p.strip()]
+            name = parts[0] if parts else s
+            # Remove trailing role descriptions in parentheses if very long
+            name = re.sub(r"\s*\((?:acting|interim|transitional|designate)[^)]*\)", 
+                          lambda m: m.group(0), name, flags=re.IGNORECASE)
+            return name.strip() or None
+
+        result[country_raw] = {
+            "hosName": _first_name(hos_raw),
+            "hogName": _first_name(hog_raw),
+        }
+
+    print(f"  [WIKI] Parsed {len(result)} countries from Wikipedia executive list")
+    if result:
+        # Print a few samples for diagnostics
+        samples = list(result.items())[:5]
+        for k, v in samples:
+            print(f"  [WIKI]   {k}: HOS={v['hosName']}, HOG={v['hogName']}")
+
+    _wiki_exec_cache = result
+    return result
+
+
+def get_wiki_executive(iso2: str) -> Dict[str, Optional[str]]:
+    """
+    Look up head of state and head of government from the Wikipedia list.
+    Returns dict with hosName and hogName (or None if not found).
+    Falls back gracefully — the static overrides layer handles the rest.
+    """
+    cache = _load_wiki_exec_cache()
+    wiki_name = WIKIPEDIA_COUNTRY_NAME_MAP.get(iso2, "")
+    if not wiki_name:
+        return {"hosName": None, "hogName": None}
+
+    # Direct match
+    entry = cache.get(wiki_name)
+    if entry:
+        return entry
+
+    # Case-insensitive fuzzy match as fallback
+    wiki_lower = wiki_name.lower()
+    for key, val in cache.items():
+        if key.lower() == wiki_lower or wiki_lower in key.lower():
+            print(f"  [WIKI] Fuzzy match '{wiki_name}' → '{key}'")
+            return val
+
+    print(f"  [WIKI] No match for '{wiki_name}' (iso2={iso2})")
+    return {"hosName": None, "hogName": None}
 
 def get_legislature_bodies(qid: str) -> List[str]:
     data = wikidata_sparql(f"""
@@ -680,8 +928,6 @@ def build_country(name: str, iso2: str, prev_by_iso2: Dict[str, Any]) -> Dict[st
     print(f"  [{iso2}] QID={qid}")
 
     pol_sys    = ["unknown"]
-    hos        = {"name": None, "party": None}
-    hog        = {"name": None, "party": None}
     leg_bodies: List[str] = []
     leg_winner = {"winner": "unknown", "method": "wikidata_last_leg_election_winner",
                   "notes": "QID not found"}
@@ -690,24 +936,32 @@ def build_country(name: str, iso2: str, prev_by_iso2: Dict[str, Any]) -> Dict[st
 
     if qid:
         pol_sys    = get_political_systems(qid) or ["unknown"]
-        hos        = get_officeholder(qid, "P35")
-        hog        = get_officeholder(qid, "P6")
         leg_bodies = get_legislature_bodies(qid)
         leg_winner = get_last_leg_winner(qid)
         exec_elec  = get_next_election_wikidata(qid, "executive")
+
+    # ── Wikipedia executive lookup (primary source for names) ────────────────
+    print(f"  [{iso2}] Wikipedia executive lookup...")
+    wiki_exec = get_wiki_executive(iso2)
+    print(f"  [{iso2}] Wikipedia: HOS={wiki_exec.get('hosName')}, HOG={wiki_exec.get('hogName')}")
 
     # ── Apply static overrides ────────────────────────────────────────────────
     ov = STATIC_EXECUTIVE_OVERRIDES.get(iso2, {})
     if ov:
         print(f"  [{iso2}] Applying static override: {list(ov.keys())}")
 
-    hos_name  = ov.get("hosName")  or hos.get("name")
-    hos_party = ov.get("hosParty") or hos.get("party") or "unknown"
-    hog_name  = ov.get("hogName")  or hog.get("name")
-    hog_party = ov.get("hogParty") or hog.get("party") or "unknown"
+    # Wikipedia provides names; static overrides provide parties (and name fixes)
+    hos_name  = ov.get("hosName")  or wiki_exec.get("hosName")
+    hos_party = ov.get("hosParty") or "unknown"
+    hog_name  = ov.get("hogName")  or wiki_exec.get("hogName")
+    hog_party = ov.get("hogParty") or "unknown"
     exec_leader = hog_name or hos_name
     exec_party  = hog_party if hog_party != "unknown" else hos_party
-    exec_src    = "static_override" if ov else "wikidata"
+    exec_src    = "wikipedia_hos_hog_list"
+    if ov.get("hosName") or ov.get("hogName"):
+        exec_src = "static_override"
+    elif ov:
+        exec_src = "wikipedia_hos_hog_list+party_override"
 
     # ── IPU legislative elections ─────────────────────────────────────────────
     print(f"  [{iso2}] IPU fetch...")
@@ -812,14 +1066,18 @@ def build_country(name: str, iso2: str, prev_by_iso2: Dict[str, Any]) -> Dict[st
             "headOfState": {
                 "name":         hos_name,
                 "partyOrGroup": hos_party,
-                "source": ("wikidata:P35 + static_override"
-                           if ov else "wikidata:P35 (current statement; +party P102)"),
+                "source": ("static_override"
+                           if ov.get("hosName") else
+                           "wikipedia:List_of_current_heads_of_state_and_government"
+                           + (" + party_static_override" if ov.get("hosParty") else "")),
             },
             "headOfGovernment": {
                 "name":         hog_name,
                 "partyOrGroup": hog_party,
-                "source": ("wikidata:P6 + static_override"
-                           if ov else "wikidata:P6 (current statement; +party P102)"),
+                "source": ("static_override"
+                           if ov.get("hogName") else
+                           "wikipedia:List_of_current_heads_of_state_and_government"
+                           + (" + party_static_override" if ov.get("hogParty") else "")),
             },
             "executiveInPower": {
                 "leader":       exec_leader,
@@ -855,12 +1113,14 @@ def main() -> None:
     print(f"=== Starting build. Previous snapshot: {len(prev)} countries cached ===")
 
     _load_ipu_cache()
+    _load_wiki_exec_cache()
 
     out = {
         "generatedAt":        iso_z(now_utc()),
         "worldBankYearRule":  "latest_non_null_per_indicator",
         "countries":          [],
         "sources": {
+            "wikipedia_executives": WIKIPEDIA_API,
             "wikidata_sparql": WIKIDATA_SPARQL,
             "world_bank_base": WORLD_BANK_BASE,
             "ipu_parline":     IPU_API_BASE,
