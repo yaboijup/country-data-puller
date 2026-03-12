@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-12T16:34:13.197859Z",
+  "generatedAt": "2026-03-12T17:21:45.553870Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "countries": [
     {
@@ -31,12 +31,12 @@
         "headOfState": {
           "name": "Vladimir Putin",
           "partyOrGroup": "United Russia",
-          "source": "wikidata:P35 + static_override:True"
+          "source": "wikidata:P35 + static_override"
         },
         "headOfGovernment": {
           "name": "Mikhail Mishustin",
           "partyOrGroup": "United Russia",
-          "source": "wikidata:P6 + static_override:True"
+          "source": "wikidata:P6 + static_override"
         },
         "executiveInPower": {
           "leader": "Mikhail Mishustin",
@@ -50,7 +50,7 @@
             "name": "Federal Assembly of the Russian Federation",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2025 Tatar head election",
               "electionDate": "2025-09-14T00:00:00Z"
@@ -120,8 +120,8 @@
           "nextDate": "2026-09-20T00:00:00Z",
           "electionType": "public election",
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for RU.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for RU.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": true,
@@ -129,7 +129,7 @@
           "electionType": "public election",
           "method": "wikidata_upcoming",
           "notes": "From Wikidata upcoming election items (P1001/P17 UNION + future date).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -184,7 +184,7 @@
             "name": "Parliament of India",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2025 Thiruvananthapuram Municipal Corporation election",
               "electionDate": "2025-12-09T00:00:00Z"
@@ -254,8 +254,8 @@
           "nextDate": "2026-05-01T00:00:00Z",
           "electionType": "public election",
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for IN.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for IN.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": true,
@@ -263,7 +263,7 @@
           "electionType": "public election",
           "method": "wikidata_upcoming",
           "notes": "From Wikidata upcoming election items (P1001/P17 UNION + future date).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -317,7 +317,7 @@
             "name": "Parliament of Pakistan",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "next Gilgit Baltistan Assembly election",
               "electionDate": "2026-01-24T00:00:00Z"
@@ -380,7 +380,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'PK'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'PK'."
       },
       "elections": {
         "legislative": {
@@ -389,16 +389,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for PK.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for PK.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -456,7 +456,7 @@
             "name": "National People's Congress",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2023 Hong Kong local elections",
               "electionDate": "2023-12-10T00:00:00Z"
@@ -519,7 +519,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'CN'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'CN'."
       },
       "elections": {
         "legislative": {
@@ -528,16 +528,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for CN.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for CN.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -589,7 +589,7 @@
             "name": "Parliament of the United Kingdom",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2026 University of St Andrews Chancellor election",
               "electionDate": "2026-02-22T00:00:00Z"
@@ -652,7 +652,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'GB'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'GB'."
       },
       "elections": {
         "legislative": {
@@ -661,16 +661,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for GB.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for GB.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -725,7 +725,7 @@
             "name": "German Bundestag",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "Q137439819",
               "electionDate": "2025-09-14T00:00:00Z"
@@ -788,7 +788,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'DE'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'DE'."
       },
       "elections": {
         "legislative": {
@@ -797,16 +797,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for DE.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for DE.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -860,7 +860,7 @@
             "name": "Legislature",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "No prior legislative election item found in Wikidata.",
+            "controlNotes": "No prior legislative election found in Wikidata (P1001/P17 UNION).",
             "controlBasis": null
           }
         ],
@@ -920,7 +920,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'AE'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'AE'."
       },
       "elections": {
         "legislative": {
@@ -929,16 +929,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for AE.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for AE.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -992,7 +992,7 @@
             "name": "Legislature",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "No prior legislative election item found in Wikidata.",
+            "controlNotes": "No prior legislative election found in Wikidata (P1001/P17 UNION).",
             "controlBasis": null
           }
         ],
@@ -1052,7 +1052,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'SA'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'SA'."
       },
       "elections": {
         "legislative": {
@@ -1061,16 +1061,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for SA.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for SA.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -1124,7 +1124,7 @@
             "name": "The Knesset",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2024 Israeli chief rabbi elections",
               "electionDate": "2024-09-29T00:00:00Z"
@@ -1187,7 +1187,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'IL'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'IL'."
       },
       "elections": {
         "legislative": {
@@ -1196,16 +1196,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for IL.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for IL.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -1240,17 +1240,17 @@
         "headOfState": {
           "name": "Mahmoud Abbas",
           "partyOrGroup": "Fatah",
-          "source": "wikidata:P35 (current statement; +party P102)"
+          "source": "wikidata:P35 + static_override"
         },
         "headOfGovernment": {
-          "name": "Mohammad Shtayyeh",
+          "name": "Mohammad Mustafa",
           "partyOrGroup": "Fatah",
-          "source": "wikidata:P6 (current statement; +party P102)"
+          "source": "wikidata:P6 + static_override"
         },
         "executiveInPower": {
-          "leader": "Mohammad Shtayyeh",
+          "leader": "Mohammad Mustafa",
           "partyOrGroup": "Fatah",
-          "method": "wikidata"
+          "method": "static_override"
         }
       },
       "legislature": {
@@ -1259,7 +1259,7 @@
             "name": "Palestinian Legislative Council",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2021-2022 Palestinian local elections",
               "electionDate": "2021-12-11T00:00:00Z"
@@ -1322,8 +1322,8 @@
         "notes": null
       },
       "dataAvailability": {
-        "worldBankGovernance": "World Bank data for Palestine (West Bank and Gaza) is limited and may be incomplete due to the territory's political status.",
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'PS'."
+        "worldBankGovernance": "World Bank data for Palestine is limited due to its political status.",
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'PS'."
       },
       "elections": {
         "legislative": {
@@ -1332,16 +1332,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for PS.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for PS.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -1393,7 +1393,7 @@
             "name": "Congress of the Union",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "Q136479231",
               "electionDate": "2025-01-01T00:00:00Z"
@@ -1456,7 +1456,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'MX'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'MX'."
       },
       "elections": {
         "legislative": {
@@ -1465,16 +1465,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for MX.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for MX.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -1528,7 +1528,7 @@
             "name": "National Congress of Brazil",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2025 President of the Chamber of Deputies of Brazil election",
               "electionDate": "2025-02-01T00:00:00Z"
@@ -1591,7 +1591,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'BR'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'BR'."
       },
       "elections": {
         "legislative": {
@@ -1600,16 +1600,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for BR.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for BR.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -1664,7 +1664,7 @@
             "name": "Parliament of Canada",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2025 Québec solidaire co-spokesperson election",
               "electionDate": "2025-11-08T00:00:00Z"
@@ -1734,8 +1734,8 @@
           "nextDate": "2026-10-26T00:00:00Z",
           "electionType": "public election",
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for CA.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for CA.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": true,
@@ -1743,7 +1743,7 @@
           "electionType": "public election",
           "method": "wikidata_upcoming",
           "notes": "From Wikidata upcoming election items (P1001/P17 UNION + future date).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -1776,12 +1776,12 @@
         "headOfState": {
           "name": "Bola Ahmed Tinubu",
           "partyOrGroup": "All Progressives Congress",
-          "source": "wikidata:P35 + static_override:True"
+          "source": "wikidata:P35 + static_override"
         },
         "headOfGovernment": {
           "name": "Bola Ahmed Tinubu",
           "partyOrGroup": "All Progressives Congress",
-          "source": "wikidata:P6 + static_override:True"
+          "source": "wikidata:P6 + static_override"
         },
         "executiveInPower": {
           "leader": "Bola Ahmed Tinubu",
@@ -1795,7 +1795,7 @@
             "name": "National Assembly of Nigeria",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2023 Abia State elections",
               "electionDate": "2023-04-28T00:00:00Z"
@@ -1858,7 +1858,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'NG'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'NG'."
       },
       "elections": {
         "legislative": {
@@ -1867,16 +1867,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for NG.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for NG.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -1928,7 +1928,7 @@
             "name": "National Diet",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2025 Tokyo prefectural election",
               "electionDate": "2025-06-22T00:00:00Z"
@@ -1991,7 +1991,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'JP'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'JP'."
       },
       "elections": {
         "legislative": {
@@ -2000,16 +2000,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for JP.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for JP.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -2045,12 +2045,12 @@
         "headOfState": {
           "name": "Ali Khamenei",
           "partyOrGroup": "Association of Combatant Clergy",
-          "source": "wikidata:P35 + static_override:True"
+          "source": "wikidata:P35 + static_override"
         },
         "headOfGovernment": {
           "name": "Masoud Pezeshkian",
           "partyOrGroup": "independent politician",
-          "source": "wikidata:P6 + static_override:True"
+          "source": "wikidata:P6 + static_override"
         },
         "executiveInPower": {
           "leader": "Masoud Pezeshkian",
@@ -2064,7 +2064,7 @@
             "name": "Islamic Consultative Assembly",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2026 Iranian Supreme Leader election",
               "electionDate": "2026-03-08T00:00:00Z"
@@ -2127,7 +2127,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'IR'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'IR'."
       },
       "elections": {
         "legislative": {
@@ -2136,16 +2136,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for IR.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for IR.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -2178,12 +2178,12 @@
         "headOfState": {
           "name": "Ahmad al-Sharaa",
           "partyOrGroup": "Hayat Tahrir al-Sham (transitional)",
-          "source": "wikidata:P35 + static_override:True"
+          "source": "wikidata:P35 + static_override"
         },
         "headOfGovernment": {
           "name": "Mohammad al-Bashir",
           "partyOrGroup": "Hayat Tahrir al-Sham (transitional)",
-          "source": "wikidata:P6 + static_override:True"
+          "source": "wikidata:P6 + static_override"
         },
         "executiveInPower": {
           "leader": "Mohammad al-Bashir",
@@ -2197,7 +2197,7 @@
             "name": "People's Assembly of Syria",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2025 Syrian parliamentary election",
               "electionDate": "2025-10-05T00:00:00Z"
@@ -2260,8 +2260,8 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Syria's transitional government formed after Assad's fall in December 2024 is not yet fully reflected in Wikidata. Executive data is from static overrides.",
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'SY'."
+        "executive": "Syria's transitional government (post-Assad, Dec 2024) is not yet in Wikidata. Executive data is from static overrides.",
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'SY'."
       },
       "elections": {
         "legislative": {
@@ -2270,16 +2270,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for SY.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for SY.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -2312,12 +2312,12 @@
         "headOfState": {
           "name": "Emmanuel Macron",
           "partyOrGroup": "Renaissance",
-          "source": "wikidata:P35 + static_override:True"
+          "source": "wikidata:P35 + static_override"
         },
         "headOfGovernment": {
           "name": "Sébastien Lecornu",
           "partyOrGroup": "Renaissance",
-          "source": "wikidata:P6 + static_override:True"
+          "source": "wikidata:P6 + static_override"
         },
         "executiveInPower": {
           "leader": "Sébastien Lecornu",
@@ -2331,7 +2331,7 @@
             "name": "French Parliament",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "Q135673676",
               "electionDate": "2026-03-01T00:00:00Z"
@@ -2394,7 +2394,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'FR'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'FR'."
       },
       "elections": {
         "legislative": {
@@ -2403,16 +2403,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for FR.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for FR.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -2465,7 +2465,7 @@
             "name": "Grand National Assembly of Turkey",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "Q134510244",
               "electionDate": "2025-09-01T00:00:00Z"
@@ -2528,7 +2528,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'TR'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'TR'."
       },
       "elections": {
         "legislative": {
@@ -2537,16 +2537,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for TR.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for TR.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -2580,12 +2580,12 @@
         "headOfState": {
           "name": "Nicolás Maduro",
           "partyOrGroup": "United Socialist Party of Venezuela",
-          "source": "wikidata:P35 + static_override:True"
+          "source": "wikidata:P35 + static_override"
         },
         "headOfGovernment": {
           "name": "Nicolás Maduro",
           "partyOrGroup": "United Socialist Party of Venezuela",
-          "source": "wikidata:P6 + static_override:True"
+          "source": "wikidata:P6 + static_override"
         },
         "executiveInPower": {
           "leader": "Nicolás Maduro",
@@ -2599,7 +2599,7 @@
             "name": "National Assembly",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2021 Venezuelan municipal elections",
               "electionDate": "2021-11-21T00:00:00Z"
@@ -2662,7 +2662,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'VE'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'VE'."
       },
       "elections": {
         "legislative": {
@@ -2671,16 +2671,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for VE.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for VE.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -2734,7 +2734,7 @@
             "name": "National Assembly of Vietnam",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "Q109023031",
               "electionDate": "2021-05-23T00:00:00Z"
@@ -2797,7 +2797,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'VN'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'VN'."
       },
       "elections": {
         "legislative": {
@@ -2806,16 +2806,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for VN.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for VN.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -2869,7 +2869,7 @@
             "name": "Legislative Yuan",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "11th Legislative Yuan presidential election",
               "electionDate": "2024-02-01T00:00:00Z"
@@ -2935,11 +2935,11 @@
           "ruleOfLaw": "https://api.worldbank.org/v2/country/tw/indicator/RL.PER.RNK",
           "controlOfCorruption": "https://api.worldbank.org/v2/country/tw/indicator/CC.PER.RNK"
         },
-        "notes": "No WGI percentile values available (WB may not have this entity / code)."
+        "notes": "No WGI percentile values available."
       },
       "dataAvailability": {
-        "worldBankGovernance": "Taiwan is not a UN member state and is not recognized by the World Bank as a sovereign country. The WB API does not include Taiwan in its governance indicators.",
-        "elections.legislative": "Taiwan is not a member of the Inter-Parliamentary Union (IPU) and is therefore absent from the Parline parliamentary database."
+        "worldBankGovernance": "Taiwan is not a UN member state and is not recognised by the World Bank. WGI data is unavailable.",
+        "elections.legislative": "Taiwan is not a member of the IPU and is absent from the Parline database."
       },
       "elections": {
         "legislative": {
@@ -2948,16 +2948,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (Country (TW) not represented in IPU Parline.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (TW not represented in IPU Parline.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -2991,12 +2991,12 @@
         "headOfState": {
           "name": "Han Duck-soo (acting)",
           "partyOrGroup": "People Power Party",
-          "source": "wikidata:P35 + static_override:True"
+          "source": "wikidata:P35 + static_override"
         },
         "headOfGovernment": {
           "name": "Han Duck-soo (acting)",
           "partyOrGroup": "People Power Party",
-          "source": "wikidata:P6 + static_override:True"
+          "source": "wikidata:P6 + static_override"
         },
         "executiveInPower": {
           "leader": "Han Duck-soo (acting)",
@@ -3010,7 +3010,7 @@
             "name": "National Assembly",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2020 South Korean legislative election records",
               "electionDate": "2020-04-15T00:00:00Z"
@@ -3073,7 +3073,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'KR'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'KR'."
       },
       "elections": {
         "legislative": {
@@ -3082,16 +3082,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for KR.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for KR.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -3149,7 +3149,7 @@
             "name": "Supreme People's Assembly",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "No prior legislative election item found in Wikidata.",
+            "controlNotes": "No prior legislative election found in Wikidata (P1001/P17 UNION).",
             "controlBasis": null
           }
         ],
@@ -3209,8 +3209,8 @@
         "notes": null
       },
       "dataAvailability": {
-        "worldBankGovernance": "North Korea data in World Bank governance indicators is based on limited external assessments due to restricted access.",
-        "elections.legislative": "North Korea holds nominal elections with a single-party slate; IPU Parline may not track these as competitive legislative elections."
+        "worldBankGovernance": "North Korea governance data is based on limited external assessments.",
+        "elections.legislative": "North Korea holds nominal single-party elections; IPU may not track these."
       },
       "elections": {
         "legislative": {
@@ -3219,16 +3219,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for KP.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for KP.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -3281,7 +3281,7 @@
             "name": "People's Consultative Assembly",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2024 Indonesian local elections",
               "electionDate": "2024-11-27T00:00:00Z"
@@ -3344,7 +3344,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'ID'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'ID'."
       },
       "elections": {
         "legislative": {
@@ -3353,16 +3353,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for ID.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for ID.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -3414,7 +3414,7 @@
             "name": "Assembly of the Union",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2020 Myanmar regional elections",
               "electionDate": "2020-11-08T00:00:00Z"
@@ -3477,7 +3477,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'MM'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'MM'."
       },
       "elections": {
         "legislative": {
@@ -3486,16 +3486,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for MM.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for MM.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -3549,7 +3549,7 @@
             "name": "National Assembly of Armenia",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2017 Yerevan City Council election",
               "electionDate": "2017-05-14T00:00:00Z"
@@ -3612,7 +3612,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'AM'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'AM'."
       },
       "elections": {
         "legislative": {
@@ -3621,16 +3621,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for AM.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for AM.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -3684,7 +3684,7 @@
             "name": "National Assembly of Azerbaijan",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2025 Azerbaijan municipal elections",
               "electionDate": "2025-01-29T00:00:00Z"
@@ -3747,7 +3747,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'AZ'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'AZ'."
       },
       "elections": {
         "legislative": {
@@ -3756,16 +3756,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for AZ.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for AZ.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -3818,7 +3818,7 @@
             "name": "Parliament of Morocco",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "Q109023159",
               "electionDate": "2021-09-08T00:00:00Z"
@@ -3881,7 +3881,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'MA'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'MA'."
       },
       "elections": {
         "legislative": {
@@ -3890,16 +3890,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for MA.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for MA.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -3952,7 +3952,7 @@
             "name": "Federal Parliament of Somalia",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2000 Somali presidential election",
               "electionDate": "2000-01-01T00:00:00Z"
@@ -4015,8 +4015,8 @@
         "notes": null
       },
       "dataAvailability": {
-        "worldBankGovernance": "Somalia's governance data is based on limited external assessments due to ongoing conflict and restricted institutional access.",
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'SO'."
+        "worldBankGovernance": "Somalia governance data is based on limited external assessments.",
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'SO'."
       },
       "elections": {
         "legislative": {
@@ -4025,16 +4025,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for SO.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for SO.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -4087,7 +4087,7 @@
             "name": "Parliament of Yemen",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "No prior legislative election item found in Wikidata.",
+            "controlNotes": "No prior legislative election found in Wikidata (P1001/P17 UNION).",
             "controlBasis": null
           }
         ],
@@ -4147,8 +4147,8 @@
         "notes": null
       },
       "dataAvailability": {
-        "worldBankGovernance": "Yemen's governance data reflects the pre-conflict institutional baseline; current effective governance is severely disrupted by civil war.",
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'YE'."
+        "worldBankGovernance": "Yemen governance data reflects the pre-conflict baseline; current effective governance is severely disrupted by civil war.",
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'YE'."
       },
       "elections": {
         "legislative": {
@@ -4157,16 +4157,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for YE.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for YE.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -4218,7 +4218,7 @@
             "name": "House of Representatives",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2012 Libyan local elections",
               "electionDate": "2012-08-25T00:00:00Z"
@@ -4281,8 +4281,8 @@
         "notes": null
       },
       "dataAvailability": {
-        "worldBankGovernance": "Libya has parallel governing authorities; governance data reflects the internationally recognized government's institutional capacity.",
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'LY'."
+        "worldBankGovernance": "Libya has parallel governing authorities; data reflects the internationally recognised government's institutional capacity.",
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'LY'."
       },
       "elections": {
         "legislative": {
@@ -4291,16 +4291,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for LY.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for LY.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -4352,7 +4352,7 @@
             "name": "Parliament of Egypt",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2008 Egyptian municipal elections",
               "electionDate": "2008-04-08T00:00:00Z"
@@ -4415,7 +4415,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'EG'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'EG'."
       },
       "elections": {
         "legislative": {
@@ -4424,16 +4424,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for EG.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for EG.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -4485,7 +4485,7 @@
             "name": "Parliament of Algeria",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2025 Algerian Council of the Nation election",
               "electionDate": "2025-03-09T00:00:00Z"
@@ -4548,7 +4548,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'DZ'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'DZ'."
       },
       "elections": {
         "legislative": {
@@ -4557,16 +4557,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for DZ.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for DZ.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -4619,7 +4619,7 @@
             "name": "Argentine National Congress",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2023 Argentine provincial elections",
               "electionDate": "2023-12-22T00:00:00Z"
@@ -4689,8 +4689,8 @@
           "nextDate": "2027-10-24T00:00:00Z",
           "electionType": "public election",
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for AR.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for AR.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": true,
@@ -4698,7 +4698,7 @@
           "electionType": "public election",
           "method": "wikidata_upcoming",
           "notes": "From Wikidata upcoming election items (P1001/P17 UNION + future date).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -4750,7 +4750,7 @@
             "name": "National Congress of Chile",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2024 Chilean regional elections",
               "electionDate": "2024-10-27T00:00:00Z"
@@ -4813,7 +4813,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'CL'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'CL'."
       },
       "elections": {
         "legislative": {
@@ -4822,16 +4822,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for CL.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for CL.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -4885,7 +4885,7 @@
             "name": "Congress of the Republic of Peru",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2021 Peruvian parliamentary election",
               "electionDate": "2021-04-11T00:00:00Z"
@@ -4948,7 +4948,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'PE'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'PE'."
       },
       "elections": {
         "legislative": {
@@ -4957,16 +4957,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for PE.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for PE.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -5019,7 +5019,7 @@
             "name": "National Assembly of People's Power",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2017 local electios in Cuba",
               "electionDate": "2017-01-01T00:00:00Z"
@@ -5082,7 +5082,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'CU'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'CU'."
       },
       "elections": {
         "legislative": {
@@ -5091,16 +5091,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for CU.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for CU.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -5152,7 +5152,7 @@
             "name": "Congress of Colombia",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "Q138509018",
               "electionDate": "2019-10-29T00:00:00Z"
@@ -5222,8 +5222,8 @@
           "nextDate": "2027-01-01T00:00:00Z",
           "electionType": "public election",
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for CO.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for CO.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": true,
@@ -5231,7 +5231,7 @@
           "electionType": "public election",
           "method": "wikidata_upcoming",
           "notes": "From Wikidata upcoming election items (P1001/P17 UNION + future date).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -5284,7 +5284,7 @@
             "name": "National Assembly of Panama",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "Q125643958",
               "electionDate": "2024-05-05T00:00:00Z"
@@ -5347,7 +5347,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'PA'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'PA'."
       },
       "elections": {
         "legislative": {
@@ -5356,16 +5356,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for PA.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for PA.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -5419,7 +5419,7 @@
             "name": "Legislative Assembly of El Salvador",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "2024 San Salvador municipal elections",
               "electionDate": "2024-03-03T00:00:00Z"
@@ -5489,8 +5489,8 @@
           "nextDate": "2027-01-01T00:00:00Z",
           "electionType": "public election",
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for SV.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for SV.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": true,
@@ -5498,7 +5498,7 @@
           "electionType": "public election",
           "method": "wikidata_upcoming",
           "notes": "From Wikidata upcoming election items (P1001/P17 UNION + future date).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -5550,7 +5550,7 @@
             "name": "Folketing",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "1951 Greenlandic Provincial Council election",
               "electionDate": "1951-01-01T00:00:00Z"
@@ -5613,7 +5613,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'DK'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'DK'."
       },
       "elections": {
         "legislative": {
@@ -5622,16 +5622,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for DK.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for DK.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -5684,7 +5684,7 @@
             "name": "National Legislature",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "1981–82 Sudanese parliamentary election",
               "electionDate": "1981-11-13T00:00:00Z"
@@ -5747,7 +5747,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'SD'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'SD'."
       },
       "elections": {
         "legislative": {
@@ -5756,16 +5756,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for SD.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for SD.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     },
@@ -5817,7 +5817,7 @@
             "name": "Verkhovna Rada",
             "inControl": "unknown",
             "controlMethod": "wikidata_last_leg_election_winner",
-            "controlNotes": "Approximate: last national legislative election winner (Wikidata P1346). Coalitions/seat majorities may differ.",
+            "controlNotes": "Last national legislative election winner via Wikidata P1346 (best-effort).",
             "controlBasis": {
               "electionName": "Elections of the mayor of Kharkiv 2021",
               "electionDate": "2021-10-31T00:00:00Z"
@@ -5880,7 +5880,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "elections.legislative": "No legislative election data found in IPU Parline or Wikidata for 'UA'."
+        "elections.legislative": "No legislative election data in IPU or Wikidata for 'UA'."
       },
       "elections": {
         "legislative": {
@@ -5889,16 +5889,16 @@
           "nextDate": null,
           "electionType": null,
           "method": "ipu_parline+wikidata_fallback",
-          "notes": "IPU Parline had no next date (No IPU chamber data found for UA.); next date from Wikidata fallback.",
-          "source": "IPU Parline (last date) + Wikidata (next date fallback)"
+          "notes": "IPU had no nextDate (No IPU chamber data found for UA.); nextDate from Wikidata fallback.",
+          "source": "IPU Parline (lastDate) + Wikidata (nextDate fallback)"
         },
         "executive": {
           "exists": "unknown",
           "nextDate": null,
           "electionType": null,
           "method": "wikidata_upcoming",
-          "notes": "No upcoming election item found in Wikidata (common gap).",
-          "source": "wikidata:P1001+P17 UNION, P585, P31 (tightened types)"
+          "notes": "No upcoming election found in Wikidata (P1001/P17 UNION).",
+          "source": "wikidata: P1001/P17 UNION, P585, P31"
         }
       }
     }
