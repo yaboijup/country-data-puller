@@ -467,86 +467,70 @@ _ipu_chamber_cache: Optional[Dict[str, List[Dict[str, Any]]]] = None
 
 def _load_ipu_cache() -> Dict[str, List[Dict[str, Any]]]:
     """
-    Fetch all chambers from IPU Parline explorer in one bulk call and index by ISO2.
+    Fetch chamber data from IPU Parline using the confirmed per-chamber endpoint:
+      GET /v1/chambers/{ISO2}
 
-    Fields requested:
-      country_code, country_name, election_code, election_title,
-      expect_date_next_election, last_election_date, struct_parl_status
+    Called once per country (lazily cached). The per-chamber endpoint is
+    documented at api.data.ipu.org/v1/documentation and confirmed to work
+    by the example: https://api.data.ipu.org/v1/chambers/ES
 
-    The explorer endpoint returns one row per chamber. Countries with both
-    upper and lower chambers will have multiple rows.
+    We pre-fetch all 44 countries in sequence here to keep the one-time
+    cache warm, so individual country builds don't each trigger a fetch.
     """
     global _ipu_chamber_cache
     if _ipu_chamber_cache is not None:
         return _ipu_chamber_cache
 
-    print("  [IPU] Loading all chambers from Parline explorer (one-time)...")
-    url = f"{IPU_API_BASE}/explorer"
-    params = {
-        "fields": (
-            "country_code,country_name,election_code,election_title,"
-            "expect_date_next_election,last_election_date,struct_parl_status,"
-            "is_suspended_chamber"
-        ),
-        "language": "en",
-        "sort": "country_name.en",
-        "page[size]": 1000,
-        "page[number]": 1,
-    }
-
-    data = req_json(url, params=params)
+    print("  [IPU] Pre-fetching chamber data for all countries (one-time)...")
     cache: Dict[str, List[Dict[str, Any]]] = {}
 
-    if not data:
-        print("  [IPU] WARNING: Failed to load Parline explorer data.")
-        _ipu_chamber_cache = cache
-        return cache
+    all_iso2 = [c["iso2"] for c in COUNTRIES]
 
-    # IPU response shape is unpredictable — handle all known variants:
-    #   {"data": [...]}              JSON:API list
-    #   {"data": {"0": {...}, ...}}  JSON:API dict keyed by integer strings
-    #   [...]                        flat list
-    #   {"results": [...]}           alternate key
-    records: List[Dict] = []
-
-    if isinstance(data, list):
-        records = [r for r in data if isinstance(r, dict)]
-    elif isinstance(data, dict):
-        raw = (
-            data.get("data")
-            or data.get("results")
-            or data.get("items")
-        )
-        if isinstance(raw, list):
-            records = [r for r in raw if isinstance(r, dict)]
-        elif isinstance(raw, dict):
-            # Keyed by integer strings like {"0": {...}, "1": {...}}
-            records = [v for v in raw.values() if isinstance(v, dict)]
-        elif raw is None:
-            # data itself might be keyed by int strings at top level
-            if all(str(k).isdigit() for k in list(data.keys())[:5]):
-                records = [v for v in data.values() if isinstance(v, dict)]
-
-    # Debug: print first record so CI logs can diagnose future breakage
-    if records:
-        print(f"  [IPU] Parsed {len(records)} records. First sample: {str(records[0])[:300]}")
-    else:
-        print(f"  [IPU] WARNING: Could not parse records. Raw type={type(data).__name__}, keys={list(data.keys())[:10] if isinstance(data, dict) else 'N/A'}")
-
-    for record in records:
-        raw_attrs = record.get("attributes")
-        attrs = raw_attrs if isinstance(raw_attrs, dict) else record
-        iso2 = (attrs.get("country_code") or "").upper().strip()
-        if not iso2:
+    for iso2 in all_iso2:
+        # Skip countries with explicit IPU overrides (e.g. Taiwan)
+        if iso2 in IPU_ISO2_OVERRIDES and IPU_ISO2_OVERRIDES[iso2] is None:
             continue
-        if iso2 not in cache:
-            cache[iso2] = []
-        cache[iso2].append(attrs)
 
-    print(f"  [IPU] Loaded {sum(len(v) for v in cache.values())} chamber rows for {len(cache)} countries.")
+        url = f"{IPU_API_BASE}/chambers/{iso2.upper()}"
+        data = req_json(url)
+
+        if not data:
+            continue
+
+        # The /chambers/{iso2} endpoint returns either:
+        #   JSON:API single: {"data": {"attributes": {...}}}
+        #   JSON:API list:   {"data": [{"attributes": {...}}, ...]}
+        #   Flat dict:       {"country_code": "...", ...}
+        #   Flat list:       [{...}, ...]
+        chambers: List[Dict] = []
+
+        if isinstance(data, list):
+            chambers = [r for r in data if isinstance(r, dict)]
+        elif isinstance(data, dict):
+            raw = data.get("data")
+            if isinstance(raw, list):
+                chambers = [r for r in raw if isinstance(r, dict)]
+            elif isinstance(raw, dict):
+                chambers = [raw]
+            elif raw is None:
+                # Flat dict — the response itself is the chamber
+                if "country_code" in data or "last_election_date" in data:
+                    chambers = [data]
+
+        # Unwrap JSON:API attributes if present
+        unwrapped: List[Dict] = []
+        for ch in chambers:
+            raw_attrs = ch.get("attributes")
+            unwrapped.append(raw_attrs if isinstance(raw_attrs, dict) else ch)
+
+        if unwrapped:
+            cache[iso2.upper()] = unwrapped
+
+        time.sleep(0.1)  # be polite to IPU
+
+    print(f"  [IPU] Cached chamber data for {len(cache)} countries.")
     _ipu_chamber_cache = cache
     return cache
-
 
 def _parse_ipu_date(raw: Any) -> Optional[str]:
     """
