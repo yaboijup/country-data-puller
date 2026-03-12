@@ -1,76 +1,126 @@
-name: Build countries_snapshot.json
+name: Build Countries Snapshot
+
 on:
+  # Run on a schedule — daily at 02:00 UTC
   schedule:
-    - cron: "15 6 * * *"   # daily at 06:15 UTC
+    - cron: "0 2 * * *"
+  # Allow manual trigger from the Actions tab
   workflow_dispatch:
+  # Also run on pushes to main that touch the script or workflow
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/build_countries_snapshot.py"
+      - ".github/workflows/build_countries_snapshot.yml"
+
 permissions:
-  contents: write
+  contents: write   # needed to commit the generated JSON back to the repo
+  pages: write      # needed for GitHub Pages deployment
+  id-token: write   # needed for OIDC-based Pages deployment
+
 concurrency:
-  group: countries-snapshot
-  cancel-in-progress: true
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
+
     steps:
-      - name: Check out repo
+      # ── 1. Checkout ──────────────────────────────────────────────────────────
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}   # ← fixes "could not read Username" error
-      - name: Mark repo as safe (fix exit 128 "dubious ownership")
-        run: |
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
-      - name: Reset branch to origin (clean state)
-        run: |
-          set -euo pipefail
-          BRANCH="${GITHUB_REF_NAME:-main}"
-          git fetch origin "$BRANCH"
-          git checkout "$BRANCH" || git checkout -b "$BRANCH"
-          git reset --hard "origin/$BRANCH"
-      - name: Set up Python
+          # Fetch full history so we can read the previous snapshot for sticky WB data
+          fetch-depth: 1
+
+      # ── 2. Python setup ──────────────────────────────────────────────────────
+      - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: "pip"
-      - name: Install dependencies
+
+      # ── 3. Install dependencies ───────────────────────────────────────────────
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install requests
+
+      # ── 4. Ensure output directory exists ────────────────────────────────────
+      - name: Create public/ directory
+        run: mkdir -p public
+
+      # ── 5. Run the snapshot builder ──────────────────────────────────────────
       - name: Build countries_snapshot.json
         run: |
           python scripts/build_countries_snapshot.py
-      - name: Publish to docs for GitHub Pages
-        run: |
-          mkdir -p docs
-          cp public/countries_snapshot.json docs/countries_snapshot.json
-          touch docs/.nojekyll
-          cat > docs/index.html << 'EOF'
-          <!doctype html>
-          <html>
-            <head><meta charset="utf-8"><title>countries snapshot</title></head>
-            <body style="font-family: system-ui; padding: 24px;">
-              <h2>countries_snapshot.json</h2>
-              <ul>
-                <li><a href="./countries_snapshot.json">countries_snapshot.json</a></li>
-              </ul>
-            </body>
-          </html>
-          EOF
-      - name: Commit and push if changed
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # No secrets required — all APIs are public
+          PYTHONUNBUFFERED: "1"
+
+      # ── 6. Verify output ──────────────────────────────────────────────────────
+      - name: Verify output file
         run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          BRANCH="${GITHUB_REF_NAME:-main}"
-          # Ensure authenticated pushes
-          git remote set-url origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          git add public/countries_snapshot.json docs/countries_snapshot.json docs/.nojekyll docs/index.html
-          if git diff --cached --quiet; then
-            echo "No changes to commit."
-            exit 0
+          if [ ! -f public/countries_snapshot.json ]; then
+            echo "ERROR: public/countries_snapshot.json was not created"
+            exit 1
           fi
-          git commit -m "Update countries_snapshot.json"
-          git push origin "HEAD:$BRANCH"
+          SIZE=$(wc -c < public/countries_snapshot.json)
+          echo "Output file size: ${SIZE} bytes"
+          if [ "$SIZE" -lt 10000 ]; then
+            echo "ERROR: Output file suspiciously small (${SIZE} bytes) — possible build failure"
+            exit 1
+          fi
+          # Pretty-print first country as a sanity check
+          python -c "
+          import json, sys
+          with open('public/countries_snapshot.json') as f:
+              data = json.load(f)
+          countries = data.get('countries', [])
+          print(f'Country count: {len(countries)}')
+          if countries:
+              first = countries[0]
+              print(f'First country: {first[\"country\"]} ({first[\"iso2\"]})')
+              print(f'  metadata.capital: {first.get(\"metadata\", {}).get(\"capital\")}')
+              print(f'  executive.headOfState.name: {first.get(\"executive\", {}).get(\"headOfState\", {}).get(\"name\")}')
+              print(f'  elections.legislative.nextDate: {first.get(\"elections\", {}).get(\"legislative\", {}).get(\"nextDate\")}')
+          "
+
+      # ── 7. Commit snapshot back to main (optional — keeps history) ────────────
+      # Comment this step out if you only want GitHub Pages deployment, not a
+      # committed JSON. Keeping it means the previous snapshot is always available
+      # for the sticky World Bank fallback on the next run.
+      - name: Commit updated snapshot to repository
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/countries_snapshot.json
+          # Only commit if the file actually changed
+          if git diff --cached --quiet; then
+            echo "No changes to commit — snapshot unchanged."
+          else
+            TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+            git commit -m "chore: auto-update countries_snapshot.json [${TIMESTAMP}]"
+            git push
+          fi
+
+      # ── 8. Upload artifact for GitHub Pages ───────────────────────────────────
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public/
+
+  # ── 9. Deploy to GitHub Pages ─────────────────────────────────────────────────
+  deploy:
+    needs: build-and-deploy
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
