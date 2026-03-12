@@ -180,6 +180,109 @@ IPU_ISO2_OVERRIDES: Dict[str, Optional[str]] = {
     "TW": None,   # Taiwan not in IPU — skip gracefully
 }
 
+# ---------------------------------------------------------------------------
+# STATIC EXECUTIVE OVERRIDES
+# Used when Wikidata data is known to be wrong or stale.
+# Keys are ISO2. Each entry can override: hosName, hosParty, hogName, hogParty
+# ---------------------------------------------------------------------------
+STATIC_EXECUTIVE_OVERRIDES: Dict[str, Dict[str, Optional[str]]] = {
+    # Putin's United Russia party is not on his Wikidata P102 statement
+    "RU": {"hosParty": "United Russia", "hogParty": "United Russia"},
+    # Tinubu: Wikidata still shows old "Action Congress of Nigeria" pre-merger party
+    "NG": {"hosParty": "All Progressives Congress", "hogParty": "All Progressives Congress"},
+    # Macron: Wikidata P102 shows old "Socialist Party" membership; correct party is Renaissance
+    # Lecornu: Wikidata shows "Union for a Popular Movement" (old); correct is Renaissance/Les Républicains
+    "FR": {"hosParty": "Renaissance", "hogParty": "Renaissance"},
+    # Syria: transitional government — Ahmad al-Sharaa (Abu Mohammad al-Jolani) leads HTS-backed administration
+    # Wikidata hasn't caught up since Assad fell in Dec 2024
+    "SY": {
+        "hosName": "Ahmad al-Sharaa",
+        "hosParty": "Hayat Tahrir al-Sham (transitional)",
+        "hogName": "Mohammad al-Bashir",
+        "hogParty": "Hayat Tahrir al-Sham (transitional)",
+    },
+    # Venezuela: Maduro is actual HoS/HoG; Wikidata P35 currently resolves to Delcy Rodriguez
+    "VE": {
+        "hosName": "Nicolás Maduro",
+        "hosParty": "United Socialist Party of Venezuela",
+        "hogName": "Nicolás Maduro",
+        "hogParty": "United Socialist Party of Venezuela",
+    },
+    # South Korea: constitutional crisis — Yoon impeached, Han Duck-soo acting president
+    # Wikidata is picking up Lee Jae-myung (opposition leader) incorrectly
+    "KR": {
+        "hosName": "Han Duck-soo (acting)",
+        "hosParty": "People Power Party",
+        "hogName": "Han Duck-soo (acting)",
+        "hogParty": "People Power Party",
+    },
+    # Iran: Wikidata P35 is resolving to Mojtaba Khamenei (son); correct HoS is Ali Khamenei (Supreme Leader)
+    "IR": {
+        "hosName": "Ali Khamenei",
+        "hosParty": "Association of Combatant Clergy",
+    },
+}
+
+
+
+# ---------------------------------------------------------------------------
+# DATA AVAILABILITY NOTES
+# Explains why specific data sources return null for certain countries.
+# Shown in the JSON output under each country's "dataAvailability" block.
+# Keys are ISO2. Each entry maps source name -> explanation string.
+# ---------------------------------------------------------------------------
+DATA_AVAILABILITY_NOTES: Dict[str, Dict[str, str]] = {
+    "TW": {
+        "worldBankGovernance": (
+            "Taiwan is not a UN member state and is not recognized by the World Bank as a "
+            "sovereign country. The WB API does not include Taiwan in its governance indicators."
+        ),
+        "elections.legislative": (
+            "Taiwan is not a member of the Inter-Parliamentary Union (IPU) and is therefore "
+            "absent from the Parline parliamentary database."
+        ),
+    },
+    "PS": {
+        "worldBankGovernance": (
+            "World Bank data for Palestine (West Bank and Gaza) is limited and may be "
+            "incomplete due to the territory's political status."
+        ),
+    },
+    "KP": {
+        "worldBankGovernance": (
+            "North Korea data in World Bank governance indicators is based on limited "
+            "external assessments due to restricted access."
+        ),
+        "elections.legislative": (
+            "North Korea holds nominal elections with a single-party slate; "
+            "IPU Parline may not track these as competitive legislative elections."
+        ),
+    },
+    "SY": {
+        "executive": (
+            "Syria's transitional government formed after Assad's fall in December 2024 "
+            "is not yet fully reflected in Wikidata. Executive data is from static overrides."
+        ),
+    },
+    "SO": {
+        "worldBankGovernance": (
+            "Somalia's governance data is based on limited external assessments "
+            "due to ongoing conflict and restricted institutional access."
+        ),
+    },
+    "YE": {
+        "worldBankGovernance": (
+            "Yemen's governance data reflects the pre-conflict institutional baseline; "
+            "current effective governance is severely disrupted by civil war."
+        ),
+    },
+    "LY": {
+        "worldBankGovernance": (
+            "Libya has parallel governing authorities; governance data reflects "
+            "the internationally recognized government's institutional capacity."
+        ),
+    },
+}
 
 # ---------------------------- HELPERS ----------------------------
 
@@ -659,15 +762,17 @@ def fetch_rest_countries_metadata(iso2: str) -> Dict[str, Any]:
       notes         : str | None
     """
     url = f"{REST_COUNTRIES_BASE}/alpha/{iso2.lower()}"
-    params = {
-        "fields": "name,capital,population,region,subregion,flag,flags,currencies,languages"
-    }
+    # Do NOT pass a fields param — when fields is specified, REST Countries v3.1
+    # returns a plain dict instead of a list, which breaks the list-unwrap below.
+    # The full response is small (~3KB) so fetching everything is fine.
+    data = req_json(url)
 
-    data = req_json(url, params=params)
-
-    # REST Countries returns a list with one item per country code
+    # REST Countries /alpha/{code} returns a list with one item
     if isinstance(data, list):
         data = data[0] if data else None
+    # Some versions return a plain dict directly
+    elif not isinstance(data, dict):
+        data = None
 
     if not data:
         return {
@@ -916,10 +1021,63 @@ def build_country(country_name: str, iso2: str, prev_by_iso2: Dict[str, Any]) ->
     # --- REST Countries: metadata ---
     metadata = fetch_rest_countries_metadata(iso2)
 
+    # --- Build dataAvailability block ---
+    # Combines: static known-gap notes + runtime null-detection notes
+    static_notes = DATA_AVAILABILITY_NOTES.get(iso2, {})
+    availability: Dict[str, Any] = {}
+
+    # Wikidata executive
+    if not qid:
+        availability["executive"] = (
+            static_notes.get("executive") or
+            f"No Wikidata QID found for ISO2 '{iso2}'. "
+            "Executive data (head of state/government, political system) could not be fetched."
+        )
+    elif static_notes.get("executive"):
+        availability["executive"] = static_notes["executive"]
+
+    # World Bank governance
+    if wb_gov.get("overallPercentile") is None:
+        availability["worldBankGovernance"] = (
+            static_notes.get("worldBankGovernance") or
+            f"World Bank WGI data unavailable for '{iso2}'. "
+            "This country may not be tracked by the World Bank API."
+        )
+    elif static_notes.get("worldBankGovernance"):
+        availability["worldBankGovernance"] = static_notes["worldBankGovernance"]
+
+    # Legislative elections (IPU)
+    if elections_leg.get("nextDate") is None and elections_leg.get("lastDate") is None:
+        availability["elections.legislative"] = (
+            static_notes.get("elections.legislative") or
+            f"No legislative election data found in IPU Parline or Wikidata for '{iso2}'. "
+            "This may indicate a non-multiparty system, an unrecognized territory, or a data gap."
+        )
+    elif static_notes.get("elections.legislative"):
+        availability["elections.legislative"] = static_notes["elections.legislative"]
+
+    # REST Countries metadata
+    if metadata.get("capital") is None and metadata.get("population") is None:
+        availability["metadata"] = (
+            static_notes.get("metadata") or
+            f"REST Countries API returned no data for '{iso2}'. "
+            "This may indicate an unrecognized territory or non-standard ISO code."
+        )
+
+    # --- Apply static executive overrides for known bad Wikidata entries ---
+    ov = STATIC_EXECUTIVE_OVERRIDES.get(iso2, {})
+    hos_name  = ov.get("hosName")  or gov["headOfState"].get("name")
+    hos_party = ov.get("hosParty") or gov["headOfState"].get("party") or "unknown"
+    hog_name  = ov.get("hogName")  or gov["headOfGovernment"].get("name")
+    hog_party = ov.get("hogParty") or gov["headOfGovernment"].get("party") or "unknown"
+    exec_leader = hog_name or hos_name
+    exec_party  = hog_party if hog_party != "unknown" else hos_party
+    exec_source = "static_override" if ov else "wikidata"
+
     return {
         "country": country_name,
         "iso2": iso2,
-        # --- Metadata block (new) ---
+        # --- Metadata block ---
         "metadata": {
             "officialName": metadata["officialName"],
             "capital": metadata["capital"],
@@ -938,19 +1096,19 @@ def build_country(country_name: str, iso2: str, prev_by_iso2: Dict[str, Any]) ->
         },
         "executive": {
             "headOfState": {
-                "name": gov["headOfState"].get("name"),
-                "partyOrGroup": gov["headOfState"].get("party") or "unknown",
-                "source": "wikidata:P35 (current statement; +party P102)",
+                "name": hos_name,
+                "partyOrGroup": hos_party,
+                "source": f"wikidata:P35 + static_override:{bool(ov)}" if ov else "wikidata:P35 (current statement; +party P102)",
             },
             "headOfGovernment": {
-                "name": gov["headOfGovernment"].get("name"),
-                "partyOrGroup": gov["headOfGovernment"].get("party") or "unknown",
-                "source": "wikidata:P6 (current statement; +party P102)",
+                "name": hog_name,
+                "partyOrGroup": hog_party,
+                "source": f"wikidata:P6 + static_override:{bool(ov)}" if ov else "wikidata:P6 (current statement; +party P102)",
             },
             "executiveInPower": {
-                "leader": gov["executiveController"].get("leader"),
-                "partyOrGroup": gov["executiveController"].get("partyOrGroup") or "unknown",
-                "method": gov["executiveController"].get("method"),
+                "leader": exec_leader,
+                "partyOrGroup": exec_party,
+                "method": exec_source,
             },
         },
         "legislature": {
@@ -958,6 +1116,7 @@ def build_country(country_name: str, iso2: str, prev_by_iso2: Dict[str, Any]) ->
             "source": "wikidata:P194 (filtered to legislature items) + control best-effort via elections winner P1346",
         },
         "worldBankGovernance": wb_gov,
+        "dataAvailability": availability if availability else None,
         "elections": {
             "legislative": elections_leg,
             "executive": {
