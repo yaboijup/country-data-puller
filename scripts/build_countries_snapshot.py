@@ -12,6 +12,7 @@ Fields returned per country:
 - World Bank governance snapshot (WGI percentile ranks; overall + components)
   - Pulls latest non-null values
   - Sticky behavior: if fetch fails and prior exists, keep prior values
+  - Qualitative 5-tier labels alongside raw percentiles
 - Political system type (Wikidata P122 labels)
 - Next legislative election (date + type + exists?)
 - Next executive election (date + type + exists?)
@@ -54,12 +55,66 @@ WORLD_BANK_BASE = "https://api.worldbank.org/v2"
 
 # WGI percentile rank indicators (0..100)
 WGI_PERCENTILE_INDICATORS: Dict[str, str] = {
-    "voiceAccountability": "VA.PER.RNK",      # Voice and Accountability: Percentile Rank
-    "politicalStability": "PV.PER.RNK",       # Political Stability and Absence of Violence/Terrorism: Percentile Rank
-    "governmentEffectiveness": "GE.PER.RNK",  # Government Effectiveness: Percentile Rank
-    "regulatoryQuality": "RQ.PER.RNK",        # Regulatory Quality: Percentile Rank
-    "ruleOfLaw": "RL.PER.RNK",                # Rule of Law: Percentile Rank
-    "controlOfCorruption": "CC.PER.RNK",      # Control of Corruption: Percentile Rank
+    "voiceAccountability": "VA.PER.RNK",
+    "politicalStability": "PV.PER.RNK",
+    "governmentEffectiveness": "GE.PER.RNK",
+    "regulatoryQuality": "RQ.PER.RNK",
+    "ruleOfLaw": "RL.PER.RNK",
+    "controlOfCorruption": "CC.PER.RNK",
+}
+
+# Human-readable label templates per dimension (used to build qualitative descriptors)
+WGI_LABEL_TEMPLATES: Dict[str, Dict[str, str]] = {
+    "voiceAccountability": {
+        "Very Low":  "Very low voice & accountability",
+        "Low":       "Low voice & accountability",
+        "Medium":    "Moderate voice & accountability",
+        "High":      "High voice & accountability",
+        "Very High": "Very high voice & accountability",
+    },
+    "politicalStability": {
+        "Very Low":  "Very low political stability",
+        "Low":       "Low political stability",
+        "Medium":    "Moderate political stability",
+        "High":      "High political stability",
+        "Very High": "Very high political stability",
+    },
+    "governmentEffectiveness": {
+        "Very Low":  "Very low government effectiveness",
+        "Low":       "Low government effectiveness",
+        "Medium":    "Moderate government effectiveness",
+        "High":      "High government effectiveness",
+        "Very High": "Very high government effectiveness",
+    },
+    "regulatoryQuality": {
+        "Very Low":  "Very low regulatory quality",
+        "Low":       "Low regulatory quality",
+        "Medium":    "Moderate regulatory quality",
+        "High":      "High regulatory quality",
+        "Very High": "Very high regulatory quality",
+    },
+    "ruleOfLaw": {
+        "Very Low":  "Very low rule of law",
+        "Low":       "Low rule of law",
+        "Medium":    "Moderate rule of law",
+        "High":      "High rule of law",
+        "Very High": "Very high rule of law",
+    },
+    "controlOfCorruption": {
+        "Very Low":  "Very low control of corruption",
+        "Low":       "Low control of corruption",
+        "Medium":    "Moderate control of corruption",
+        "High":      "High control of corruption",
+        "Very High": "Very high control of corruption",
+    },
+}
+
+WGI_OVERALL_LABELS: Dict[str, str] = {
+    "Very Low":  "Very low governance overall",
+    "Low":       "Low governance overall",
+    "Medium":    "Moderate governance overall",
+    "High":      "High governance overall",
+    "Very High": "Very high governance overall",
 }
 
 
@@ -132,7 +187,6 @@ def req_json(url: str, params: Optional[dict] = None, headers: Optional[dict] = 
             r = requests.get(url, params=params, headers=h, timeout=TIMEOUT)
             if r.status_code == 200:
                 return r.json()
-            # If WB returns 404/400 etc, don't hammer it
             if r.status_code in (400, 404):
                 return None
         except requests.RequestException:
@@ -149,10 +203,6 @@ def safe_get(d: Any, *keys: str, default=None):
     return cur
 
 def load_previous_snapshot(path: Path) -> Dict[str, Any]:
-    """
-    Load previous public/countries_snapshot.json (if present) so we can keep WB governance
-    scores when new runs fail.
-    """
     if not path.exists():
         return {}
     try:
@@ -166,6 +216,38 @@ def load_previous_snapshot(path: Path) -> Dict[str, Any]:
         return by_iso2
     except Exception:
         return {}
+
+
+# ---------------------------- QUALITATIVE LABELS ----------------------------
+
+def percentile_to_tier(percentile: Optional[float]) -> Optional[str]:
+    """Map a 0-100 WB percentile to a 5-tier label."""
+    if percentile is None:
+        return None
+    if percentile < 20:
+        return "Very Low"
+    if percentile < 40:
+        return "Low"
+    if percentile < 60:
+        return "Medium"
+    if percentile < 80:
+        return "High"
+    return "Very High"
+
+def percentile_to_label(percentile: Optional[float], dimension: str) -> Optional[str]:
+    """Return a human-readable descriptor for a given WGI dimension and percentile."""
+    tier = percentile_to_tier(percentile)
+    if tier is None:
+        return None
+    templates = WGI_LABEL_TEMPLATES.get(dimension, {})
+    return templates.get(tier, tier)
+
+def overall_percentile_to_label(percentile: Optional[float]) -> Optional[str]:
+    """Return a human-readable descriptor for the overall WB governance score."""
+    tier = percentile_to_tier(percentile)
+    if tier is None:
+        return None
+    return WGI_OVERALL_LABELS.get(tier, tier)
 
 
 # ---------------------------- WIKIDATA ----------------------------
@@ -196,7 +278,7 @@ def get_wikidata_country_qid_by_iso2(iso2: str) -> Optional[str]:
     uri = _wd_val(bindings[0], "country")
     if not uri:
         return None
-    return uri.rsplit("/", 1)[-1]  # Qxxx
+    return uri.rsplit("/", 1)[-1]
 
 def get_political_system_labels(country_qid: str) -> List[str]:
     q = f"""
@@ -216,10 +298,6 @@ def get_political_system_labels(country_qid: str) -> List[str]:
     return out
 
 def get_current_officeholder(country_qid: str, prop: str) -> Dict[str, Optional[str]]:
-    """
-    prop: 'P35' (head of state) or 'P6' (head of government)
-    Pulls the statement with no end date (pq:P582), prefers latest start date (pq:P580).
-    """
     q = f"""
     SELECT ?personLabel ?partyLabel ?start WHERE {{
       wd:{country_qid} p:{prop} ?stmt .
@@ -243,10 +321,6 @@ def get_current_officeholder(country_qid: str, prop: str) -> Dict[str, Optional[
     }
 
 def get_legislature_bodies(country_qid: str) -> List[str]:
-    """
-    P194 is broad; filter to items that are (subclasses of) 'legislature' to avoid junk.
-    Legislature item: wd:Q11204
-    """
     q = f"""
     SELECT ?legLabel WHERE {{
       wd:{country_qid} wdt:P194 ?leg .
@@ -280,19 +354,12 @@ def get_government_snapshot(country_qid: str) -> Dict[str, Any]:
     }
 
 
-# ---------------------------- ELECTIONS (Wikidata best-effort) ----------------------------
+# ---------------------------- ELECTIONS ----------------------------
 
 def _today_yyyymmdd() -> str:
     return now_utc().strftime("%Y-%m-%dT00:00:00Z")
 
 def get_next_election_upcoming(country_qid: str, kind: str) -> Dict[str, Any]:
-    """
-    kind = "executive" or "legislative"
-
-    Tightened types:
-      - executive: presidential election (Q159821) + general election (Q152203)
-      - legislative: parliamentary election (Q1079032) + legislative election (Q104203) + general election (Q152203)
-    """
     today = _today_yyyymmdd()
 
     if kind == "executive":
@@ -336,10 +403,6 @@ def get_next_election_upcoming(country_qid: str, kind: str) -> Dict[str, Any]:
     }
 
 def get_last_legislative_election_winner(country_qid: str) -> Dict[str, Any]:
-    """
-    Approximate 'who controls parliament' using winner (P1346) of the most recent
-    national legislative/parliamentary/general election.
-    """
     today = _today_yyyymmdd()
     q = f"""
     SELECT ?eLabel ?date ?winnerLabel WHERE {{
@@ -349,9 +412,9 @@ def get_last_legislative_election_winner(country_qid: str) -> Dict[str, Any]:
 
       ?e wdt:P31 ?type .
       VALUES ?type {{
-        wd:Q152203       # general election
-        wd:Q1079032      # parliamentary election
-        wd:Q104203       # legislative election
+        wd:Q152203
+        wd:Q1079032
+        wd:Q104203
       }}
 
       OPTIONAL {{ ?e wdt:P1346 ?winner . }}
@@ -388,12 +451,6 @@ def _wb_indicator_url(iso2: str, indicator: str) -> str:
     return f"{WORLD_BANK_BASE}/country/{iso2_l}/indicator/{indicator}"
 
 def _parse_wb_series_latest(payload: Any) -> Tuple[Optional[float], Optional[int], Optional[str]]:
-    """
-    WB JSON responses look like:
-      [ {metadata...}, [ {date: "2023", value: X, ...}, {date:"2022", value:...}, ... ] ]
-
-    Returns (value, year_int, notes)
-    """
     if not isinstance(payload, list) or len(payload) < 2 or not isinstance(payload[1], list):
         return None, None, "Unexpected WB response shape."
 
@@ -429,21 +486,10 @@ def fetch_wb_indicator_latest(iso2: str, indicator: str) -> Dict[str, Any]:
 
     return {"ok": True, "value": value, "year": year, "source": url, "notes": None}
 
-def _band_from_percentile(p: float) -> str:
-    # Simple, predictable buckets for UI
-    if p >= 66.0:
-        return "High"
-    if p >= 33.0:
-        return "Medium"
-    return "Low"
-
 def fetch_wb_wgi_percentiles(iso2: str) -> Dict[str, Any]:
     """
     Pulls latest non-null percentile ranks for all WGI dimensions.
-    Produces:
-      - components: {dimension: {indicator, value, year}}
-      - overallPercentile: average of available components (0..100)
-      - year: max year among available (usually same across)
+    Adds qualitative label alongside each raw percentile.
     """
     components: Dict[str, Any] = {}
     years: List[int] = []
@@ -456,17 +502,29 @@ def fetch_wb_wgi_percentiles(iso2: str) -> Dict[str, Any]:
         if res.get("ok") is True and res.get("value") is not None and res.get("year") is not None:
             v = float(res["value"])
             y = int(res["year"])
-            components[dim] = {"indicator": code, "percentile": v, "year": y}
+            components[dim] = {
+                "indicator": code,
+                "percentile": v,
+                "label": percentile_to_label(v, dim),  # qualitative descriptor
+                "year": y,
+            }
             years.append(y)
             values.append(v)
         else:
-            components[dim] = {"indicator": code, "percentile": None, "year": None, "notes": res.get("notes")}
+            components[dim] = {
+                "indicator": code,
+                "percentile": None,
+                "label": None,
+                "year": None,
+                "notes": res.get("notes"),
+            }
 
     if not values:
         return {
             "ok": False,
             "overallPercentile": None,
             "band": "unknown",
+            "bandLabel": None,
             "year": None,
             "components": components,
             "sources": sources,
@@ -478,7 +536,8 @@ def fetch_wb_wgi_percentiles(iso2: str) -> Dict[str, Any]:
     return {
         "ok": True,
         "overallPercentile": round(overall, 2),
-        "band": _band_from_percentile(overall),
+        "band": percentile_to_tier(overall),           # e.g. "Very Low", "High"
+        "bandLabel": overall_percentile_to_label(overall),  # e.g. "Very high governance overall"
         "year": yr,
         "components": components,
         "sources": sources,
@@ -486,17 +545,10 @@ def fetch_wb_wgi_percentiles(iso2: str) -> Dict[str, Any]:
     }
 
 def merge_wb_sticky(new_wb: Dict[str, Any], prev_country_obj: Optional[Dict[str, Any]]) -> Dict[str, Any]:
-    """
-    Sticky rule:
-      - If new fetch is OK -> use it.
-      - If new fails AND previous has overallPercentile -> keep previous.
-      - Otherwise keep new (so missingness is visible).
-    """
     prev_wb = (prev_country_obj or {}).get("worldBankGovernance") if isinstance(prev_country_obj, dict) else None
     prev_overall = prev_wb.get("overallPercentile") if isinstance(prev_wb, dict) else None
 
     if new_wb.get("ok") is True:
-        # Don't keep "ok" field in the final object (optional)
         out = dict(new_wb)
         out.pop("ok", None)
         return out
@@ -551,7 +603,6 @@ def build_country(country_name: str, iso2: str, prev_by_iso2: Dict[str, Any]) ->
             "controlBasis": leg_control.get("basis"),
         })
 
-    # World Bank WGI governance (sticky)
     new_wb = fetch_wb_wgi_percentiles(iso2)
     prev_obj = prev_by_iso2.get(iso2)
     wb_gov = merge_wb_sticky(new_wb, prev_obj)
@@ -625,7 +676,7 @@ def main() -> None:
         iso2 = c["iso2"]
         print(f"▶ Building {name} ({iso2}) ...")
         out["countries"].append(build_country(name, iso2, prev_by_iso2))
-        time.sleep(0.25)  # gentle rate limiting (helps Wikidata + WB)
+        time.sleep(0.25)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
