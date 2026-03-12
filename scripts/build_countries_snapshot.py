@@ -502,15 +502,28 @@ def _load_ipu_cache() -> Dict[str, List[Dict[str, Any]]]:
         _ipu_chamber_cache = cache
         return cache
 
-    # JSON:API format: top-level "data" is a list of resource objects.
-    # Each object has "attributes" with the requested fields.
-    records = data.get("data", [])
-    if not records:
-        # Some endpoints return a flat list directly — handle both shapes.
-        records = data if isinstance(data, list) else []
+    # Determine response shape and extract records list.
+    # IPU may return JSON:API {"data": [{"attributes": {...}}]} or a flat list.
+    if isinstance(data, list):
+        records = data
+    elif isinstance(data, dict):
+        records = data.get("data") or data.get("results") or data.get("items") or []
+    else:
+        records = []
+
+    # Debug: print first record shape so CI logs can diagnose future breakage
+    if records:
+        first = records[0]
+        print(f"  [IPU] First record type={type(first).__name__}, sample={str(first)[:300]}")
+    else:
+        top_keys = list(data.keys()) if isinstance(data, dict) else type(data).__name__
+        print(f"  [IPU] WARNING: No records found. Top-level keys: {top_keys}")
 
     for record in records:
-        attrs = record.get("attributes", record)  # flat or nested
+        if not isinstance(record, dict):
+            continue
+        raw_attrs = record.get("attributes")
+        attrs = raw_attrs if isinstance(raw_attrs, dict) else record
         iso2 = (attrs.get("country_code") or "").upper().strip()
         if not iso2:
             continue
