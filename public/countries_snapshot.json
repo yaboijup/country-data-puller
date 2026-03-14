@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-13T14:32:20.266431Z",
+  "generatedAt": "2026-03-14T05:33:33.985236Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "countries": [
     {
@@ -5845,7 +5845,7 @@
         "source": "static_ground_truth"
       },
       "worldBankGovernance": {
-        "overallPercentile": 30.07,
+        "overallPercentile": 28.54,
         "band": "Low",
         "bandLabel": "Low governance overall",
         "year": 2023,
@@ -5864,9 +5864,10 @@
           },
           "governmentEffectiveness": {
             "indicator": "GE.PER.RNK",
-            "percentile": 37.7358474731445,
-            "label": "Low government effectiveness",
-            "year": 2023
+            "percentile": null,
+            "label": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
