@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-17T05:47:05.067524Z",
+  "generatedAt": "2026-03-18T05:50:27.642729Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "countries": [
     {
@@ -203,7 +203,7 @@
         "source": "static_ground_truth"
       },
       "worldBankGovernance": {
-        "overallPercentile": 47.59,
+        "overallPercentile": 48.8,
         "band": "Medium",
         "bandLabel": "Moderate governance overall",
         "year": 2023,
@@ -240,9 +240,10 @@
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
-            "percentile": 41.5094337463379,
-            "label": "Moderate control of corruption",
-            "year": 2023
+            "percentile": null,
+            "label": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           }
         },
         "sources": {
@@ -1689,7 +1690,7 @@
         "source": "static_ground_truth"
       },
       "worldBankGovernance": {
-        "overallPercentile": 90.52,
+        "overallPercentile": 90.6,
         "band": "Very High",
         "bandLabel": "Very high governance overall",
         "year": 2023,
@@ -1720,9 +1721,10 @@
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
-            "percentile": 90.0943374633789,
-            "label": "Very high rule of law",
-            "year": 2023
+            "percentile": null,
+            "label": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
