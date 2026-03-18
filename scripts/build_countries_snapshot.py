@@ -1413,10 +1413,10 @@ def build_country(name: str, iso2: str, prev_by_iso2: Dict[str, Any]) -> Dict[st
     leg_next = ipu.get("nextDate") or static_leg.get("nextDate")
     leg_source = "IPU Parline" if ipu.get("lastDate") else "static_ground_truth"
 
-  if not ipu.get("lastDate") and static_leg.get("lastDate"):
-    print(f"   [{iso2}] WARNING: IPU returned no lastDate - using stale static: {static_leg.get('lastDate')}")
-  if not ipu.get("nextDate") and static_leg.get ("nextDate"):
-    print(f"   [{iso2}] WARNING: IPU returned no nextDate - using stale static: {static_leg.get('nextDate')}")
+    if not ipu.get("lastDate") and static_leg.get("lastDate"):
+        print(f"  [{iso2}] WARNING: IPU returned no lastDate - using stale static: {static_leg.get('lastDate')}")
+    if not ipu.get("nextDate") and static_leg.get ("nextDate"):
+        print(f"  [{iso2}] WARNING: IPU returned no nextDate - using stale static: {static_leg.get('nextDate')}")
 
     leg_elec = {
         "exists":       True if (leg_last or leg_next) else False,
