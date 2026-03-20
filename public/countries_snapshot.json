@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-19T05:46:16.192629Z",
+  "generatedAt": "2026-03-20T05:39:45.150053Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "countries": [
     {
@@ -745,7 +745,7 @@
         "source": "static_ground_truth"
       },
       "worldBankGovernance": {
-        "overallPercentile": 91.85,
+        "overallPercentile": 87.6,
         "band": "Very High",
         "bandLabel": "Very high governance overall",
         "year": 2023,
@@ -758,10 +758,9 @@
           },
           "politicalStability": {
             "indicator": "PV.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 66.3507080078125,
+            "label": "High political stability",
+            "year": 2023
           },
           "governmentEffectiveness": {
             "indicator": "GE.PER.RNK",
@@ -5190,7 +5189,7 @@
         "source": "static_ground_truth"
       },
       "worldBankGovernance": {
-        "overallPercentile": 42.51,
+        "overallPercentile": 42.89,
         "band": "Medium",
         "bandLabel": "Moderate governance overall",
         "year": 2023,
@@ -5227,10 +5226,9 @@
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 44.8113212585449,
+            "label": "Moderate control of corruption",
+            "year": 2023
           }
         },
         "sources": {
@@ -5714,7 +5712,7 @@
         "source": "static_ground_truth"
       },
       "worldBankGovernance": {
-        "overallPercentile": 3.82,
+        "overallPercentile": 3.89,
         "band": "Very Low",
         "bandLabel": "Very low governance overall",
         "year": 2023,
@@ -5751,10 +5749,9 @@
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 4.24528312683105,
+            "label": "Very low control of corruption",
+            "year": 2023
           }
         },
         "sources": {
