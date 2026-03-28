@@ -1,6 +1,6 @@
 """
 Build a Base44-friendly JSON snapshot for multiple countries.
-Output: public/countries_snapshot.json
+Output: docs/countries_snapshot.json
 
 Run:  python scripts/build_countries_snapshot.py
 Deps: pip install requests beautifulsoup4 lxml
@@ -2140,7 +2140,7 @@ def build_country(name: str, iso2: str, prev_by_iso2: Dict[str, Any]) -> Dict[st
 # ── MAIN ──────────────────────────────────────────────────────────────────────
 
 def main() -> None:
-    out_path = Path("public") / "countries_snapshot.json"
+    out_path = Path("docs") / "countries_snapshot.json"
     prev = load_previous_snapshot(out_path)
     print(f"=== Starting build. Previous snapshot: {len(prev)} countries cached ===")
 
