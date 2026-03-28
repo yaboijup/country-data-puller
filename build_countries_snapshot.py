@@ -932,10 +932,10 @@ STATIC_COUNTRY_DATA: Dict[str, Dict] = {
         ],
         "elections": {
             "legislative": {
-                "lastElection": {"date": "2023-10-22", "type": "Congressional (midterm + presidential)",
-                    "notes": "Half of Chamber renewed. Milei's LLA made strong gains; Peronists retained largest bloc."},
-                "nextElection": {"date": "2025-10", "type": "Congressional midterm",
-                    "notes": "Half of Chamber of Deputies renewed in October 2025."},
+                "lastElection": {"date": "2025-10-26", "type": "Congressional midterm",
+                    "notes": "Half of Chamber renewed. Milei's LLA won ~38% and gained ~30 seats, strengthening his minority position."},
+                "nextElection": {"date": "2027-10", "type": "Congressional midterm",
+                    "notes": "Next midterm due October 2027. October 2025 midterm already held; Milei's LLA gained seats, improving his legislative position."},
             },
             "executive": {
                 "lastElection": {"date": "2023-11-19", "type": "Presidential (runoff)",
@@ -2039,7 +2039,12 @@ def build_country(name: str, iso2: str, prev_by_iso2: Dict[str, Any]) -> Dict[st
     )
 
     def _clean_wiki(s):
-        return _TITLE_RE.sub("", s).strip() if s else None
+        if not s:
+            return None
+        s = _TITLE_RE.sub("", s)
+        # Strip Wikipedia footnote brackets like "[ II ]", "[3]", "[ 2 ]"
+        s = re.sub(r"\s*\[\s*[^\]]*\]\s*", " ", s).strip()
+        return s or None
 
     print(f"  [{iso2}] Wikipedia executive lookup...")
     wiki = _load_wiki_exec_cache().get(iso2, {})
