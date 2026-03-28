@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-28T05:44:32.522386Z",
+  "generatedAt": "2026-03-28T17:40:54.160180Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "countries": [
     {
@@ -50,16 +50,12 @@
           {
             "name": "State Duma",
             "inControl": "United Russia",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           },
           {
             "name": "Federation Council",
             "inControl": "United Russia",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -119,22 +115,32 @@
       },
       "dataAvailability": null,
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2021-09-19",
-          "nextDate": "2026-09",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for RU.",
+          "lastElection": {
+            "date": "2021-09-19",
+            "type": "Parliamentary (State Duma)",
+            "notes": "United Russia won 324/450 seats."
+          },
+          "nextElection": {
+            "date": "2026-09",
+            "type": "Parliamentary (State Duma)",
+            "notes": "Scheduled September 2026."
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2024-03-17",
-          "nextDate": "2030",
-          "electionType": "presidential election",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2024-03-17",
+            "type": "Presidential",
+            "notes": "Putin re-elected with reported 87% of vote."
+          },
+          "nextElection": {
+            "date": "2030",
+            "type": "Presidential",
+            "notes": null
+          },
           "source": "static_ground_truth"
         }
       }
@@ -188,16 +194,12 @@
           {
             "name": "Lok Sabha (lower house)",
             "inControl": "BJP-led National Democratic Alliance",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           },
           {
             "name": "Rajya Sabha (upper house)",
             "inControl": "BJP-led National Democratic Alliance",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -257,22 +259,32 @@
       },
       "dataAvailability": null,
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2024-04-19",
-          "nextDate": "2029",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for IN.",
+          "lastElection": {
+            "date": "2024-04-19",
+            "type": "General election (Lok Sabha)",
+            "notes": "BJP-led NDA won majority; Modi began third term as PM."
+          },
+          "nextElection": {
+            "date": "2029",
+            "type": "General election (Lok Sabha)",
+            "notes": null
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2024-07",
-          "nextDate": "2029",
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2024-07",
+            "type": "Presidential (indirect, parliament)",
+            "notes": "Droupadi Murmu re-confirmed via parliamentary vote."
+          },
+          "nextElection": {
+            "date": "2029",
+            "type": "Presidential (indirect)",
+            "notes": null
+          },
           "source": "static_ground_truth"
         }
       }
@@ -325,16 +337,12 @@
           {
             "name": "National Assembly",
             "inControl": "PML-N-led coalition",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           },
           {
             "name": "Senate",
             "inControl": "Coalition government",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -394,22 +402,32 @@
       },
       "dataAvailability": null,
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2024-02-08",
-          "nextDate": "2029",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for PK.",
+          "lastElection": {
+            "date": "2024-02-08",
+            "type": "General election",
+            "notes": "PTI-backed independents won most seats; PML-N formed coalition government."
+          },
+          "nextElection": {
+            "date": "2029",
+            "type": "General election",
+            "notes": null
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2024-03",
-          "nextDate": "2029",
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2024-03",
+            "type": "Presidential (indirect)",
+            "notes": "Asif Ali Zardari elected president by parliament."
+          },
+          "nextElection": {
+            "date": "2029",
+            "type": "Presidential (indirect)",
+            "notes": null
+          },
           "source": "static_ground_truth"
         }
       }
@@ -461,9 +479,7 @@
           {
             "name": "National People's Congress",
             "inControl": "Chinese Communist Party",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -522,25 +538,35 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Xi Jinping holds supreme authority as General Secretary of the CCP and CMC Chairman; Li Qiang is Premier (head of government)."
+        "executive": "Xi Jinping holds supreme authority as General Secretary of the CCP and CMC Chairman. Li Qiang is Premier (head of government)."
       },
       "elections": {
+        "competitiveElections": false,
+        "nonCompetitiveReason": "One-party state. The Chinese Communist Party holds a monopoly on political power. National People's Congress 'elections' are uncontested single-party votes.",
         "legislative": {
-          "exists": true,
-          "lastDate": "2023-03",
-          "nextDate": "2028",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for CN.",
+          "lastElection": {
+            "date": "2023-03",
+            "type": "NPC delegate selection (non-competitive)",
+            "notes": "NPC delegates selected through party-controlled process. Not a competitive election."
+          },
+          "nextElection": {
+            "date": "2028",
+            "type": "NPC delegate selection (non-competitive)",
+            "notes": null
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2023-03",
-          "nextDate": "2028",
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2023-03",
+            "type": "NPC presidential confirmation (non-competitive)",
+            "notes": "Xi Jinping confirmed for third term by NPC; no opposition candidates permitted."
+          },
+          "nextElection": {
+            "date": "2028",
+            "type": "NPC confirmation (non-competitive)",
+            "notes": null
+          },
           "source": "static_ground_truth"
         }
       }
@@ -594,16 +620,12 @@
           {
             "name": "House of Commons",
             "inControl": "Labour Party",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           },
           {
             "name": "House of Lords",
             "inControl": "Cross-bench (appointed, non-elected)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -663,22 +685,32 @@
       },
       "dataAvailability": null,
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2024-07-04",
-          "nextDate": "2029",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for GB.",
+          "lastElection": {
+            "date": "2024-07-04",
+            "type": "General election",
+            "notes": "Labour won a landslide majority (412/650 seats). Keir Starmer became PM."
+          },
+          "nextElection": {
+            "date": "2029",
+            "type": "General election",
+            "notes": "Due by January 2029 under the Dissolution and Calling of Parliament Act 2022."
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2024-07-04",
-          "nextDate": "2029",
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2024-07-04",
+            "type": "General election (parliamentary selection of PM)",
+            "notes": "PM is appointed after winning a parliamentary majority."
+          },
+          "nextElection": {
+            "date": "2029",
+            "type": "General election",
+            "notes": null
+          },
           "source": "static_ground_truth"
         }
       }
@@ -730,16 +762,12 @@
           {
             "name": "Bundestag",
             "inControl": "CDU/CSU-led coalition",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           },
           {
             "name": "Bundesrat",
             "inControl": "State governments (non-partisan body)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -798,25 +826,35 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "CDU/CSU won the Feb 2025 election; Merz became Chancellor in April 2025."
+        "executive": "CDU/CSU won the February 2025 snap election; Merz became Chancellor in April 2025 after coalition negotiations."
       },
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2025-02-23",
-          "nextDate": "2029",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for DE.",
+          "lastElection": {
+            "date": "2025-02-23",
+            "type": "Federal election (Bundestag)",
+            "notes": "CDU/CSU won 28.5%; SPD 16.4%. AfD came second with 20.8%. Merz formed CDU/CSU-SPD grand coalition."
+          },
+          "nextElection": {
+            "date": "2029",
+            "type": "Federal election (Bundestag)",
+            "notes": null
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2025-02-23",
-          "nextDate": "2029",
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2025-02-23",
+            "type": "Federal election (Chancellor selected by Bundestag)",
+            "notes": "Chancellor is elected by the Bundestag following federal elections."
+          },
+          "nextElection": {
+            "date": "2029",
+            "type": "Federal election",
+            "notes": null
+          },
           "source": "static_ground_truth"
         }
       }
@@ -869,9 +907,7 @@
           {
             "name": "Federal National Council",
             "inControl": "Non-partisan (advisory body; half appointed, half indirectly elected)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -930,25 +966,27 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "UAE is a federal monarchy; no elections for executive positions."
+        "executive": "UAE is a federal monarchy; executive positions are hereditary. No public elections for president or PM."
       },
       "elections": {
+        "competitiveElections": false,
+        "nonCompetitiveReason": "Federal constitutional monarchy. Executive positions are hereditary. The Federal National Council is half-appointed, half indirectly elected via a limited electorate.",
         "legislative": {
-          "exists": true,
-          "lastDate": "2023-10-07",
-          "nextDate": "2027",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for AE.",
+          "lastElection": {
+            "date": "2023-10-07",
+            "type": "Federal National Council (limited indirect election)",
+            "notes": "Only half of the 40-seat FNC is indirectly elected by an appointed electorate of ~300,000. The body is advisory only."
+          },
+          "nextElection": {
+            "date": "2027",
+            "type": "Federal National Council (limited indirect)",
+            "notes": null
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": false,
-          "lastDate": null,
-          "nextDate": null,
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": "No executive election scheduled or date unknown.",
+          "lastElection": null,
+          "nextElection": null,
           "source": "static_ground_truth"
         }
       }
@@ -1001,9 +1039,7 @@
           {
             "name": "Consultative Assembly (Majlis al-Shura)",
             "inControl": "Royal appointments (no elections)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -1062,26 +1098,19 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "King Salman is head of state; his son Crown Prince Mohammed bin Salman (MBS) serves as Prime Minister and is de facto ruler since 2022.",
-        "elections.legislative": "No legislative election data available for 'SA'."
+        "executive": "King Salman is head of state; Crown Prince Mohammed bin Salman (MBS) serves as Prime Minister and is de facto ruler."
       },
       "elections": {
+        "competitiveElections": false,
+        "nonCompetitiveReason": "Absolute monarchy with no national elections for executive or legislative positions. The Consultative Assembly (Majlis al-Shura) is fully appointed by royal decree.",
         "legislative": {
-          "exists": false,
-          "lastDate": null,
-          "nextDate": null,
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for SA.",
+          "lastElection": null,
+          "nextElection": null,
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": false,
-          "lastDate": null,
-          "nextDate": null,
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": "No executive election scheduled or date unknown.",
+          "lastElection": null,
+          "nextElection": null,
           "source": "static_ground_truth"
         }
       }
@@ -1135,9 +1164,7 @@
           {
             "name": "Knesset",
             "inControl": "Likud-led right-wing coalition",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -1197,22 +1224,32 @@
       },
       "dataAvailability": null,
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2022-11-01",
-          "nextDate": "2026-10-27",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for IL.",
+          "lastElection": {
+            "date": "2022-11-01",
+            "type": "Parliamentary (Knesset)",
+            "notes": "Netanyahu's Likud-led bloc won 64/120 seats."
+          },
+          "nextElection": {
+            "date": "2026-10-27",
+            "type": "Parliamentary (Knesset)",
+            "notes": "Legal deadline. Netanyahu may call snap elections earlier (as early as mid-2026)."
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2022-11-01",
-          "nextDate": "2026-10-27",
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2022-11-01",
+            "type": "Parliamentary (PM selected by Knesset majority)",
+            "notes": "PM emerges from parliamentary coalition formation after elections."
+          },
+          "nextElection": {
+            "date": "2026-10-27",
+            "type": "Parliamentary",
+            "notes": null
+          },
           "source": "static_ground_truth"
         }
       }
@@ -1247,17 +1284,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – Mahmoud Abbas",
+          "name": "Mahmoud Abbas",
           "partyOrGroup": "Fatah",
-          "source": "wikipedia:List_of_current_heads_of_state_and_government"
+          "source": "static_ground_truth"
         },
         "headOfGovernment": {
-          "name": "Prime Minister – Mohammad Mustafa",
+          "name": "Mohammad Mustafa",
           "partyOrGroup": "Fatah",
-          "source": "wikipedia:List_of_current_heads_of_state_and_government"
+          "source": "static_ground_truth"
         },
         "executiveInPower": {
-          "leader": "Prime Minister – Mohammad Mustafa",
+          "leader": "Mohammad Mustafa",
           "partyOrGroup": "Fatah",
           "method": "head_of_government"
         }
@@ -1267,9 +1304,7 @@
           {
             "name": "Palestinian Legislative Council",
             "inControl": "Suspended (no elections since 2006)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -1328,26 +1363,29 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Mahmoud Abbas has ruled by decree since Palestinian elections were last held in 2006. PM Mohammad Mustafa appointed March 2024.",
-        "worldBankGovernance": "World Bank data for Palestine is limited due to its political status."
+        "executive": "Mahmoud Abbas rules by decree since elections were last held in 2006 (legislative) and 2005 (presidential). PM Mohammad Mustafa was appointed March 2024.",
+        "worldBankGovernance": "World Bank data for Palestine is limited due to its political status.",
+        "elections": "No elections since 2006 (legislative) and 2005 (presidential). Mahmoud Abbas rules by decree."
       },
       "elections": {
+        "competitiveElections": false,
+        "nonCompetitiveReason": "No elections held since 2006 (legislative) and 2005 (presidential). Mahmoud Abbas rules by decree; Hamas controls Gaza. Elections indefinitely postponed.",
         "legislative": {
-          "exists": true,
-          "lastDate": "2006-01-25",
-          "nextDate": null,
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for PS.",
+          "lastElection": {
+            "date": "2006-01-25",
+            "type": "Legislative Council",
+            "notes": "Hamas won 74/132 seats. No elections held since; council suspended."
+          },
+          "nextElection": null,
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": "unknown",
-          "lastDate": "2005-01-09",
-          "nextDate": null,
-          "electionType": "presidential election",
-          "method": "static_ground_truth",
-          "notes": "No executive election scheduled or date unknown.",
+          "lastElection": {
+            "date": "2005-01-09",
+            "type": "Presidential",
+            "notes": "Mahmoud Abbas elected. No subsequent presidential election held."
+          },
+          "nextElection": null,
           "source": "static_ground_truth"
         }
       }
@@ -1399,16 +1437,12 @@
           {
             "name": "Chamber of Deputies",
             "inControl": "Morena-led coalition (supermajority)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           },
           {
             "name": "Senate",
             "inControl": "Morena-led coalition",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -1467,25 +1501,35 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Mexico has a presidential system; Sheinbaum is both head of state and head of government. First elected female president of Mexico."
+        "executive": "Mexico has a presidential system. Sheinbaum became Mexico's first elected female president in October 2024."
       },
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2024-06-02",
-          "nextDate": "2027",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for MX.",
+          "lastElection": {
+            "date": "2024-06-02",
+            "type": "Congressional (Chamber of Deputies)",
+            "notes": "Morena coalition won supermajority (364/500 seats in Chamber)."
+          },
+          "nextElection": {
+            "date": "2027",
+            "type": "Midterm (Chamber of Deputies)",
+            "notes": null
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2024-06-02",
-          "nextDate": "2030",
-          "electionType": "presidential election",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2024-06-02",
+            "type": "Presidential",
+            "notes": "Claudia Sheinbaum won with ~59% of vote."
+          },
+          "nextElection": {
+            "date": "2030",
+            "type": "Presidential",
+            "notes": "Mexico has a single 6-year term (sexenio) with no re-election."
+          },
           "source": "static_ground_truth"
         }
       }
@@ -1537,16 +1581,12 @@
           {
             "name": "Chamber of Deputies",
             "inControl": "Centre-right coalition (PL largest party)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           },
           {
             "name": "Federal Senate",
             "inControl": "Coalition government (PSD largest bloc)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -1606,22 +1646,32 @@
       },
       "dataAvailability": null,
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2022-10-02",
-          "nextDate": "2026-10",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for BR.",
+          "lastElection": {
+            "date": "2022-10-02",
+            "type": "Congressional",
+            "notes": "PL (Bolsonaro's party) won most Chamber seats despite Lula winning presidency."
+          },
+          "nextElection": {
+            "date": "2026-10",
+            "type": "Congressional + Presidential",
+            "notes": "Both congressional and presidential elections held simultaneously in October 2026."
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2022-10-30",
-          "nextDate": "2026-10",
-          "electionType": "presidential election",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2022-10-30",
+            "type": "Presidential (runoff)",
+            "notes": "Lula defeated Bolsonaro 50.9% to 49.1% in a runoff."
+          },
+          "nextElection": {
+            "date": "2026-10",
+            "type": "Presidential",
+            "notes": "Lula eligible for re-election. October 2026."
+          },
           "source": "static_ground_truth"
         }
       }
@@ -1674,16 +1724,12 @@
           {
             "name": "House of Commons",
             "inControl": "Liberal Party (minority government, 169/343 seats)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           },
           {
             "name": "Senate",
             "inControl": "Non-partisan (Independent Senators Group largest bloc)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -1742,25 +1788,35 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Mark Carney became PM on 14 March 2025 after Trudeau's resignation. Liberals won the 28 April 2025 election with 169 seats — a minority government, 3 seats short of majority. Several opposition MPs have since crossed the floor."
+        "executive": "Mark Carney became PM on 14 March 2025 after Trudeau's resignation. Liberals won the 28 April 2025 election with a minority (169 seats)."
       },
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2025-04-28",
-          "nextDate": "2029",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for CA.",
+          "lastElection": {
+            "date": "2025-04-28",
+            "type": "Federal election",
+            "notes": "Liberals won 169/343 seats (minority). Carney's Liberals won amid Trump tariff tensions."
+          },
+          "nextElection": {
+            "date": "2029",
+            "type": "Federal election",
+            "notes": "Due by October 2029 at latest; minority government makes earlier election possible."
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2025-04-28",
-          "nextDate": "2029",
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2025-04-28",
+            "type": "Federal election (PM selected by House majority)",
+            "notes": "PM is appointed following federal election result."
+          },
+          "nextElection": {
+            "date": "2029",
+            "type": "Federal election",
+            "notes": null
+          },
           "source": "static_ground_truth"
         }
       }
@@ -1812,16 +1868,12 @@
           {
             "name": "House of Representatives",
             "inControl": "All Progressives Congress",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           },
           {
             "name": "Senate",
             "inControl": "All Progressives Congress",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -1881,22 +1933,32 @@
       },
       "dataAvailability": null,
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2023-02-25",
-          "nextDate": "2027",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for NG.",
+          "lastElection": {
+            "date": "2023-02-25",
+            "type": "General election",
+            "notes": "APC retained majorities in both chambers."
+          },
+          "nextElection": {
+            "date": "2027",
+            "type": "General election",
+            "notes": null
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2023-02-25",
-          "nextDate": "2027",
-          "electionType": "presidential election",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2023-02-25",
+            "type": "Presidential",
+            "notes": "Tinubu won with 36.6% in a fractured three-way race."
+          },
+          "nextElection": {
+            "date": "2027",
+            "type": "Presidential",
+            "notes": null
+          },
           "source": "static_ground_truth"
         }
       }
@@ -1929,17 +1991,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "Emperor – Naruhito [ VIII ]",
+          "name": "Emperor Naruhito",
           "partyOrGroup": "Non-partisan (imperial household)",
-          "source": "wikipedia:List_of_current_heads_of_state_and_government"
+          "source": "static_ground_truth"
         },
         "headOfGovernment": {
-          "name": "Prime Minister – Sanae Takaichi",
+          "name": "Sanae Takaichi",
           "partyOrGroup": "Liberal Democratic Party",
-          "source": "wikipedia:List_of_current_heads_of_state_and_government"
+          "source": "static_ground_truth"
         },
         "executiveInPower": {
-          "leader": "Prime Minister – Sanae Takaichi",
+          "leader": "Sanae Takaichi",
           "partyOrGroup": "Liberal Democratic Party",
           "method": "head_of_government"
         }
@@ -1949,16 +2011,12 @@
           {
             "name": "House of Representatives (Shugiin)",
             "inControl": "LDP (supermajority — 316/465 seats, Feb 2026)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           },
           {
             "name": "House of Councillors (Sangiin)",
             "inControl": "LDP-led coalition",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -2017,25 +2075,35 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Sanae Takaichi became Japan's first female PM in October 2025. She called a snap election on 8 February 2026, winning a historic LDP supermajority (316/465 seats in the lower house)."
+        "executive": "Sanae Takaichi became Japan's first female PM in October 2025 after winning the LDP leadership race. She called a snap election on 8 February 2026, winning a historic LDP supermajority."
       },
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2026-02-08",
-          "nextDate": "2030",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for JP.",
+          "lastElection": {
+            "date": "2026-02-08",
+            "type": "Snap election (House of Representatives)",
+            "notes": "LDP won historic supermajority of 316/465 seats. First snap election called by Takaichi as PM."
+          },
+          "nextElection": {
+            "date": "2030",
+            "type": "General election (House of Representatives)",
+            "notes": null
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2026-02-08",
-          "nextDate": "2030",
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2026-02-08",
+            "type": "Snap election (PM selected by supermajority)",
+            "notes": "PM emerges from the parliamentary majority. Takaichi confirmed."
+          },
+          "nextElection": {
+            "date": "2030",
+            "type": "General election",
+            "notes": null
+          },
           "source": "static_ground_truth"
         }
       }
@@ -2088,9 +2156,7 @@
           {
             "name": "Islamic Consultative Assembly (Majlis)",
             "inControl": "Conservative/Principlist majority",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -2149,25 +2215,35 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Ali Khamenei was killed on 28 Feb 2026 in US/Israeli strikes. A three-member interim council (President, Chief Justice, Guardian Council rep) is overseeing transition to elect a new Supreme Leader. Masoud Pezeshkian remains President."
+        "executive": "Ali Khamenei was killed on 28 February 2026 in US/Israeli strikes. A three-member interim council (President, Chief Justice, Guardian Council rep) is managing the transition. A new Supreme Leader election by the Assembly of Experts is expected within 90 days."
       },
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2024-03-01",
-          "nextDate": "2028",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for IR.",
+          "lastElection": {
+            "date": "2024-03-01",
+            "type": "Parliamentary (Majlis, round 1)",
+            "notes": "Conservatives/Principlists won majority in low-turnout election (~41%). Second round April 2024."
+          },
+          "nextElection": {
+            "date": "2028",
+            "type": "Parliamentary (Majlis)",
+            "notes": null
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2024-07-05",
-          "nextDate": "2028",
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2024-07-05",
+            "type": "Presidential",
+            "notes": "Masoud Pezeshkian (reformist) won snap election after Raisi's death in helicopter crash."
+          },
+          "nextElection": {
+            "date": "2028",
+            "type": "Presidential",
+            "notes": "Assembly of Experts will also elect a new Supreme Leader — timeline uncertain."
+          },
           "source": "static_ground_truth"
         }
       }
@@ -2219,9 +2295,7 @@
           {
             "name": "No functioning legislature",
             "inControl": "Transitional authority",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -2281,25 +2355,23 @@
       },
       "dataAvailability": {
         "executive": "Assad fled in December 2024. Ahmad al-Sharaa (formerly Abu Mohammad al-Jolani) leads the transitional government. No functioning legislature.",
-        "elections.legislative": "No legislative election data available for 'SY'."
+        "elections": "No elections scheduled. Transitional authority governing."
       },
       "elections": {
+        "competitiveElections": false,
+        "nonCompetitiveReason": "Transitional authority following Assad's fall (December 2024). No elections scheduled; country is governed by interim administration (Hayat Tahrir al-Sham).",
         "legislative": {
-          "exists": false,
-          "lastDate": null,
-          "nextDate": null,
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for SY.",
+          "lastElection": {
+            "date": "2024-07-15",
+            "type": "Assad-era parliamentary election (discredited)",
+            "notes": "Final Assad-era election, held during civil war. Not recognised as legitimate."
+          },
+          "nextElection": null,
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": false,
-          "lastDate": null,
-          "nextDate": null,
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": "No executive election scheduled or date unknown.",
+          "lastElection": null,
+          "nextElection": null,
           "source": "static_ground_truth"
         }
       }
@@ -2351,16 +2423,12 @@
           {
             "name": "National Assembly",
             "inControl": "No single majority (hung parliament; left-wing NFP largest bloc)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           },
           {
             "name": "Senate",
             "inControl": "Centre-right (Les Républicains largest group)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -2419,25 +2487,35 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "François Bayrou became PM in January 2025 after Michel Barnier's government fell in December 2024."
+        "executive": "François Bayrou became PM in January 2025 after Michel Barnier's government fell on a no-confidence vote in December 2024."
       },
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2024-07-07",
-          "nextDate": "2029",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for FR.",
+          "lastElection": {
+            "date": "2024-07-07",
+            "type": "Snap legislative election (round 2)",
+            "notes": "Left-wing NFP won most seats but no majority. Macron's Ensemble third. Hung parliament."
+          },
+          "nextElection": {
+            "date": "2029",
+            "type": "Legislative",
+            "notes": "Next statutory election due 2029. Snap election possible if government falls again."
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2022-04-24",
-          "nextDate": "2027-04",
-          "electionType": "presidential election",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2022-04-24",
+            "type": "Presidential (runoff)",
+            "notes": "Macron defeated Le Pen 58.5% to 41.5%."
+          },
+          "nextElection": {
+            "date": "2027-04",
+            "type": "Presidential",
+            "notes": "Macron is term-limited; cannot run again."
+          },
           "source": "static_ground_truth"
         }
       }
@@ -2490,9 +2568,7 @@
           {
             "name": "Grand National Assembly",
             "inControl": "AKP-led People's Alliance",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -2551,25 +2627,35 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Turkey has a presidential system; Erdoğan is both head of state and government."
+        "executive": "Turkey has a presidential system since 2018; Erdoğan is both head of state and government."
       },
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2023-05-14",
-          "nextDate": "2028",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for TR.",
+          "lastElection": {
+            "date": "2023-05-14",
+            "type": "Parliamentary + Presidential (simultaneous)",
+            "notes": "AKP and allies retained parliamentary majority."
+          },
+          "nextElection": {
+            "date": "2028",
+            "type": "Parliamentary + Presidential",
+            "notes": null
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2023-05-28",
-          "nextDate": "2028",
-          "electionType": "presidential election",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2023-05-28",
+            "type": "Presidential (runoff)",
+            "notes": "Erdoğan defeated Kılıçdaroğlu 52% to 48% in runoff."
+          },
+          "nextElection": {
+            "date": "2028",
+            "type": "Presidential",
+            "notes": "Constitutional two-term limit — Erdoğan may seek a third term via snap election reset."
+          },
           "source": "static_ground_truth"
         }
       }
@@ -2621,9 +2707,7 @@
           {
             "name": "National Assembly",
             "inControl": "PSUV (government-aligned majority)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -2682,25 +2766,31 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Nicolás Maduro fled Venezuela in late 2025; Vice President Delcy Rodríguez became acting president on 3 January 2026. Edmundo González is internationally recognised by some states as legitimate president-elect."
+        "executive": "Nicolás Maduro fled Venezuela in late 2025; VP Delcy Rodríguez became acting president on 3 January 2026. Edmundo González is internationally recognised by some states as legitimate president-elect (July 2024 election disputed)."
       },
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2020-12-06",
-          "nextDate": null,
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for VE.",
+          "lastElection": {
+            "date": "2020-12-06",
+            "type": "Parliamentary",
+            "notes": "Opposition boycotted. PSUV won 253/277 seats in discredited election."
+          },
+          "nextElection": null,
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2024-07-28",
-          "nextDate": "2030",
-          "electionType": "presidential election",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2024-07-28",
+            "type": "Presidential",
+            "notes": "Maduro declared winner; results internationally disputed. Opposition's González widely recognised as actual winner."
+          },
+          "nextElection": {
+            "date": "2030",
+            "type": "Presidential",
+            "notes": "If current government holds power; legitimacy deeply contested."
+          },
           "source": "static_ground_truth"
         }
       }
@@ -2752,9 +2842,7 @@
           {
             "name": "National Assembly",
             "inControl": "Communist Party of Vietnam",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -2813,25 +2901,35 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Lương Cường became President in October 2024. The General Secretary (Tô Lâm) holds supreme authority as party leader."
+        "executive": "Lương Cường became President in October 2024. General Secretary Tô Lâm holds supreme authority as party leader."
       },
       "elections": {
+        "competitiveElections": false,
+        "nonCompetitiveReason": "One-party socialist republic. The Communist Party of Vietnam controls all state institutions. National Assembly candidates are vetted by the party.",
         "legislative": {
-          "exists": true,
-          "lastDate": "2021-05-23",
-          "nextDate": "2026-05",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for VN.",
+          "lastElection": {
+            "date": "2021-05-23",
+            "type": "National Assembly (non-competitive)",
+            "notes": "All candidates vetted by Vietnam Fatherland Front (CPV body). 99.6% voter turnout reported."
+          },
+          "nextElection": {
+            "date": "2026-05",
+            "type": "National Assembly (non-competitive)",
+            "notes": "Scheduled May 2026."
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2021-07",
-          "nextDate": "2026",
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2021-07",
+            "type": "Presidential (indirect, National Assembly)",
+            "notes": "President elected by National Assembly on CPV nomination."
+          },
+          "nextElection": {
+            "date": "2026",
+            "type": "Presidential (indirect)",
+            "notes": null
+          },
           "source": "static_ground_truth"
         }
       }
@@ -2882,10 +2980,8 @@
         "bodies": [
           {
             "name": "Legislative Yuan",
-            "inControl": "Kuomintang (KMT) and Taiwan People's Party (TPP) hold combined majority",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "inControl": "KMT and Taiwan People's Party (TPP) hold combined majority",
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -2950,27 +3046,37 @@
         "notes": "No WGI percentile values available."
       },
       "dataAvailability": {
-        "executive": "Taiwan is not a UN member state; its sovereignty is disputed. Lai Ching-te (William Lai) became president in May 2024.",
-        "worldBankGovernance": "Taiwan is not a UN member state and is not recognised by the World Bank. WGI data is unavailable.",
-        "elections.legislative": "Taiwan is not a member of the IPU and is absent from the Parline database."
+        "executive": "Taiwan is not a UN member state; sovereignty disputed by China. Lai Ching-te (William Lai) became president in May 2024.",
+        "worldBankGovernance": "Taiwan is not a UN member and is not recognised by the World Bank. WGI data unavailable.",
+        "elections": "Taiwan is not an IPU member (non-UN member state). Election data from static records."
       },
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2024-01-13",
-          "nextDate": "2028",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "TW not in IPU Parline.",
+          "lastElection": {
+            "date": "2024-01-13",
+            "type": "Legislative Yuan",
+            "notes": "DPP lost its majority. KMT won most seats; TPP holds balance of power."
+          },
+          "nextElection": {
+            "date": "2028",
+            "type": "Legislative Yuan",
+            "notes": null
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2024-01-13",
-          "nextDate": "2028",
-          "electionType": "presidential election",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2024-01-13",
+            "type": "Presidential",
+            "notes": "Lai Ching-te won with 40.1% in three-way race."
+          },
+          "nextElection": {
+            "date": "2028",
+            "type": "Presidential",
+            "notes": null
+          },
           "source": "static_ground_truth"
         }
       }
@@ -3023,9 +3129,7 @@
           {
             "name": "National Assembly",
             "inControl": "Democratic Party of Korea (supermajority)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -3084,25 +3188,35 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Lee Jae-myung won the June 2025 snap presidential election following Yoon Suk-yeol's impeachment and removal for his December 2024 martial law attempt."
+        "executive": "Lee Jae-myung won the June 2025 snap presidential election after Yoon Suk-yeol's impeachment and removal for his December 2024 martial law attempt."
       },
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2024-04-10",
-          "nextDate": "2028",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for KR.",
+          "lastElection": {
+            "date": "2024-04-10",
+            "type": "Parliamentary",
+            "notes": "Democratic Party won 175/300 seats (majority). Strong rebuke of Yoon government."
+          },
+          "nextElection": {
+            "date": "2028",
+            "type": "Parliamentary",
+            "notes": null
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2025-06-03",
-          "nextDate": "2030",
-          "electionType": "presidential election",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2025-06-03",
+            "type": "Snap presidential election",
+            "notes": "Lee Jae-myung won after Yoon Suk-yeol's impeachment for declaring martial law in December 2024."
+          },
+          "nextElection": {
+            "date": "2030",
+            "type": "Presidential",
+            "notes": "South Korea has a single 5-year presidential term with no re-election."
+          },
           "source": "static_ground_truth"
         }
       }
@@ -3155,9 +3269,7 @@
           {
             "name": "Supreme People's Assembly",
             "inControl": "Korean Workers' Party (single-party)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -3216,27 +3328,29 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Kim Jong-un holds supreme authority as General Secretary of the KWP, President of State Affairs, and Supreme Commander.",
+        "executive": "Kim Jong-un holds supreme authority as General Secretary of the KWP, President of State Affairs, and Supreme Commander of the armed forces.",
         "worldBankGovernance": "North Korea governance data is based on limited external assessments.",
-        "elections.legislative": "North Korea holds nominal single-party elections; meaningful data unavailable."
+        "elections": "North Korea holds nominal single-party elections not tracked by IPU as competitive."
       },
       "elections": {
+        "competitiveElections": false,
+        "nonCompetitiveReason": "Totalitarian single-party state. Supreme People's Assembly elections feature a single Korean Workers' Party-approved candidate per seat with near-100% reported turnout.",
         "legislative": {
-          "exists": true,
-          "lastDate": "2024-01-07",
-          "nextDate": "2029",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "KP not in IPU Parline.",
+          "lastElection": {
+            "date": "2024-01-07",
+            "type": "SPA election (non-competitive)",
+            "notes": "Single-party slate with a single candidate per constituency. 99.9% turnout reported. Not a competitive election."
+          },
+          "nextElection": {
+            "date": "2029",
+            "type": "SPA election (non-competitive)",
+            "notes": null
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": false,
-          "lastDate": null,
-          "nextDate": null,
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": "No executive election scheduled or date unknown.",
+          "lastElection": null,
+          "nextElection": null,
           "source": "static_ground_truth"
         }
       }
@@ -3289,16 +3403,12 @@
           {
             "name": "People's Representative Council (DPR)",
             "inControl": "Prabowo-allied coalition (majority)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           },
           {
             "name": "Regional Representative Council (DPD)",
             "inControl": "Non-partisan (regional representatives)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -3357,25 +3467,35 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Prabowo Subianto became president in October 2024, succeeding Joko Widodo."
+        "executive": "Prabowo Subianto became president in October 2024, succeeding Joko Widodo (Jokowi)."
       },
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2024-02-14",
-          "nextDate": "2029",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for ID.",
+          "lastElection": {
+            "date": "2024-02-14",
+            "type": "General election (DPR + Presidential simultaneous)",
+            "notes": "Golkar, Gerindra and PDI-P led in DPR seats. Simultaneous with presidential vote."
+          },
+          "nextElection": {
+            "date": "2029",
+            "type": "General election",
+            "notes": null
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2024-02-14",
-          "nextDate": "2029",
-          "electionType": "presidential election",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2024-02-14",
+            "type": "Presidential",
+            "notes": "Prabowo won 58.6% in a three-candidate race."
+          },
+          "nextElection": {
+            "date": "2029",
+            "type": "Presidential",
+            "notes": "Indonesia has a two-term limit; Prabowo eligible for one more term."
+          },
           "source": "static_ground_truth"
         }
       }
@@ -3426,10 +3546,8 @@
         "bodies": [
           {
             "name": "Pyidaungsu Hluttaw (suspended)",
-            "inControl": "Dissolved by military coup (Feb 2021)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "inControl": "Dissolved by military coup February 2021",
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -3488,25 +3606,28 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Myanmar has been under military junta (SAC) rule since the February 2021 coup. The elected NLD government operates in exile as the National Unity Government."
+        "executive": "Myanmar has been under military junta (State Administration Council) rule since the February 2021 coup. The elected NLD government operates in exile as the National Unity Government.",
+        "elections": "No elections scheduled. Military junta (SAC) suspended parliament after February 2021 coup."
       },
       "elections": {
+        "competitiveElections": false,
+        "nonCompetitiveReason": "Military junta (State Administration Council) since the February 2021 coup. The elected NLD government operates in exile as the National Unity Government.",
         "legislative": {
-          "exists": true,
-          "lastDate": "2020-11-08",
-          "nextDate": null,
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for MM.",
+          "lastElection": {
+            "date": "2020-11-08",
+            "type": "General election (pre-coup)",
+            "notes": "NLD won landslide (396/476 seats). Military nullified results and staged coup on 1 Feb 2021."
+          },
+          "nextElection": null,
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": "unknown",
-          "lastDate": "2020-11-08",
-          "nextDate": null,
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": "No executive election scheduled or date unknown.",
+          "lastElection": {
+            "date": "2020-11-08",
+            "type": "General election (pre-coup)",
+            "notes": "Last legitimate election before coup."
+          },
+          "nextElection": null,
           "source": "static_ground_truth"
         }
       }
@@ -3559,9 +3680,7 @@
           {
             "name": "National Assembly",
             "inControl": "Civil Contract (majority)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -3621,22 +3740,32 @@
       },
       "dataAvailability": null,
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2021-06-20",
-          "nextDate": "2026",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for AM.",
+          "lastElection": {
+            "date": "2021-06-20",
+            "type": "Snap parliamentary election",
+            "notes": "Civil Contract won 54% and majority. Called after post-war protests."
+          },
+          "nextElection": {
+            "date": "2026",
+            "type": "Parliamentary",
+            "notes": "Due by 2026. Pashinyan may call snap election following Armenia-Azerbaijan peace deal controversy."
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2022-03-03",
-          "nextDate": "2027",
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2022-03-03",
+            "type": "Presidential (indirect, National Assembly)",
+            "notes": "Vahagn Khachaturyan elected by National Assembly. Ceremonial role."
+          },
+          "nextElection": {
+            "date": "2027",
+            "type": "Presidential (indirect)",
+            "notes": null
+          },
           "source": "static_ground_truth"
         }
       }
@@ -3688,9 +3817,7 @@
           {
             "name": "National Assembly (Milli Majlis)",
             "inControl": "New Azerbaijan Party",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -3750,22 +3877,32 @@
       },
       "dataAvailability": null,
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2024-09-01",
-          "nextDate": "2029",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for AZ.",
+          "lastElection": {
+            "date": "2024-09-01",
+            "type": "Snap parliamentary election",
+            "notes": "New Azerbaijan Party won 68/100 seats. OSCE reported significant irregularities."
+          },
+          "nextElection": {
+            "date": "2029",
+            "type": "Parliamentary",
+            "notes": null
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2024-02-07",
-          "nextDate": "2031",
-          "electionType": "presidential election",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2024-02-07",
+            "type": "Snap presidential election",
+            "notes": "Aliyev won 92.1%. No meaningful opposition permitted."
+          },
+          "nextElection": {
+            "date": "2031",
+            "type": "Presidential",
+            "notes": null
+          },
           "source": "static_ground_truth"
         }
       }
@@ -3819,16 +3956,12 @@
           {
             "name": "House of Representatives",
             "inControl": "RNI-led coalition",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           },
           {
             "name": "House of Councillors",
             "inControl": "RNI-led coalition",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -3888,22 +4021,24 @@
       },
       "dataAvailability": null,
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2021-09-08",
-          "nextDate": "2026",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for MA.",
+          "lastElection": {
+            "date": "2021-09-08",
+            "type": "Parliamentary",
+            "notes": "RNI won 102/395 seats and formed a coalition government."
+          },
+          "nextElection": {
+            "date": "2026",
+            "type": "Parliamentary",
+            "notes": "Due September 2026."
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": false,
-          "lastDate": null,
-          "nextDate": null,
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": "No executive election scheduled or date unknown.",
+          "lastElection": null,
+          "nextElection": null,
           "source": "static_ground_truth"
         }
       }
@@ -3956,16 +4091,12 @@
           {
             "name": "People's Assembly (Lower House)",
             "inControl": "Union for Peace and Development (plurality)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           },
           {
             "name": "Upper House (Senate)",
             "inControl": "Coalition",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -4024,26 +4155,36 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Somalia has a fragile federal government; direct elections are limited. Hassan Sheikh Mohamud was re-elected by parliament in May 2022.",
-        "worldBankGovernance": "Somalia governance data is based on limited external assessments."
+        "executive": "Somalia has a fragile federal government with indirect elections via clan delegates. Hassan Sheikh Mohamud was re-elected by parliament in May 2022.",
+        "worldBankGovernance": "Somalia governance data based on limited external assessments due to conflict."
       },
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2021-10",
-          "nextDate": "2025-2026",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for SO.",
+          "lastElection": {
+            "date": "2021-10",
+            "type": "Indirect parliamentary election",
+            "notes": "Indirect clan-delegate system. No universal suffrage. Process completed late 2021 / early 2022."
+          },
+          "nextElection": {
+            "date": "2026",
+            "type": "Indirect parliamentary election",
+            "notes": "Expected 2025–2026. A move towards direct universal suffrage elections has been discussed but not implemented."
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2022-05-15",
-          "nextDate": "2026",
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2022-05-15",
+            "type": "Presidential (indirect, parliament)",
+            "notes": "Hassan Sheikh Mohamud elected by parliament, 214/328 votes."
+          },
+          "nextElection": {
+            "date": "2026",
+            "type": "Presidential (indirect)",
+            "notes": null
+          },
           "source": "static_ground_truth"
         }
       }
@@ -4095,9 +4236,7 @@
           {
             "name": "House of Representatives (suspended)",
             "inControl": "Divided (parallel governments)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -4156,26 +4295,29 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Yemen is split between the Houthi-controlled north (Ansar Allah) and the internationally recognised government in the south. The Presidential Leadership Council (est. 2022) chairs the recognised government.",
-        "worldBankGovernance": "Yemen governance data reflects the internationally recognised government baseline; current effective governance is severely disrupted by civil war."
+        "executive": "Yemen is split between Houthi-controlled north and the internationally recognised government. The Presidential Leadership Council (est. 2022) chairs the recognised government.",
+        "worldBankGovernance": "Yemen governance data from internationally recognised government baseline; actual governance severely disrupted by civil war.",
+        "elections": "No elections possible. Country divided between Houthi and internationally recognised government."
       },
       "elections": {
+        "competitiveElections": false,
+        "nonCompetitiveReason": "Civil war. Two parallel governments (Houthi/Ansar Allah in the north; Presidential Leadership Council in the south). No elections possible.",
         "legislative": {
-          "exists": true,
-          "lastDate": "2003-04-27",
-          "nextDate": null,
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for YE.",
+          "lastElection": {
+            "date": "2003-04-27",
+            "type": "Parliamentary",
+            "notes": "Last parliamentary election before civil war. Parliament technically still in session but non-functional."
+          },
+          "nextElection": null,
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": "unknown",
-          "lastDate": "2012-02-21",
-          "nextDate": null,
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": "No executive election scheduled or date unknown.",
+          "lastElection": {
+            "date": "2012-02-21",
+            "type": "Presidential (single-candidate transition)",
+            "notes": "Abd Rabbuh Mansur Hadi won uncontested election during Arab Spring transition. Replaced by Presidential Leadership Council in 2022."
+          },
+          "nextElection": null,
           "source": "static_ground_truth"
         }
       }
@@ -4227,16 +4369,12 @@
           {
             "name": "House of Representatives (HoR)",
             "inControl": "Eastern-based rival government",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           },
           {
             "name": "Government of National Unity (Tripoli)",
             "inControl": "UN-recognised",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -4296,25 +4434,24 @@
       },
       "dataAvailability": {
         "executive": "Libya has two rival governments: the UN-recognised Government of National Unity (GNU) in Tripoli, and the rival government backed by the House of Representatives in Benghazi/Tobruk.",
-        "worldBankGovernance": "Libya has parallel governing authorities; data reflects the internationally recognised Government of National Unity's institutional capacity."
+        "worldBankGovernance": "Libya has parallel governing authorities; data reflects the internationally recognised GNU.",
+        "elections": "No elections held since 2014. Planned 2021 elections cancelled."
       },
       "elections": {
+        "competitiveElections": false,
+        "nonCompetitiveReason": "Divided state with two rival governments. Elections scheduled for 2021 were never held. No current electoral process.",
         "legislative": {
-          "exists": true,
-          "lastDate": "2014-06-25",
-          "nextDate": null,
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for LY.",
+          "lastElection": {
+            "date": "2014-06-25",
+            "type": "Parliamentary",
+            "notes": "Low turnout (18%). Led to political split and parallel governments."
+          },
+          "nextElection": null,
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": false,
-          "lastDate": null,
-          "nextDate": null,
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": "No executive election scheduled or date unknown.",
+          "lastElection": null,
+          "nextElection": null,
           "source": "static_ground_truth"
         }
       }
@@ -4366,16 +4503,12 @@
           {
             "name": "House of Representatives",
             "inControl": "Pro-Sisi independents and Nation's Future Party",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           },
           {
             "name": "Senate",
             "inControl": "Pro-Sisi majority",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -4435,22 +4568,32 @@
       },
       "dataAvailability": null,
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2020-10-24",
-          "nextDate": "2025",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for EG.",
+          "lastElection": {
+            "date": "2020-10-24",
+            "type": "Parliamentary",
+            "notes": "Nation's Future Party and pro-Sisi independents won overwhelmingly. Opposition largely excluded."
+          },
+          "nextElection": {
+            "date": "2025",
+            "type": "Parliamentary",
+            "notes": "Due 2025. Exact date not yet confirmed."
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2023-12-10",
-          "nextDate": "2030",
-          "electionType": "presidential election",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2023-12-10",
+            "type": "Presidential",
+            "notes": "Sisi won 89.6% in a tightly controlled election. No meaningful opposition."
+          },
+          "nextElection": {
+            "date": "2030",
+            "type": "Presidential",
+            "notes": null
+          },
           "source": "static_ground_truth"
         }
       }
@@ -4502,16 +4645,12 @@
           {
             "name": "People's National Assembly",
             "inControl": "FLN-led coalition",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           },
           {
             "name": "Council of the Nation",
             "inControl": "FLN-led coalition",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -4571,22 +4710,32 @@
       },
       "dataAvailability": null,
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2021-06-12",
-          "nextDate": "2027",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for DZ.",
+          "lastElection": {
+            "date": "2021-06-12",
+            "type": "Parliamentary",
+            "notes": "FLN and allies won majority in low-turnout election (~23%)."
+          },
+          "nextElection": {
+            "date": "2027",
+            "type": "Parliamentary",
+            "notes": null
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2024-09-07",
-          "nextDate": "2029",
-          "electionType": "presidential election",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2024-09-07",
+            "type": "Presidential",
+            "notes": "Tebboune re-elected with 94.7% in a low-turnout election."
+          },
+          "nextElection": {
+            "date": "2029",
+            "type": "Presidential",
+            "notes": null
+          },
           "source": "static_ground_truth"
         }
       }
@@ -4638,17 +4787,13 @@
         "bodies": [
           {
             "name": "Chamber of Deputies",
-            "inControl": "No single majority (Milei is minority; Peronist blocs largest)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "inControl": "No single majority (Peronist blocs largest; Milei minority)",
+            "controlMethod": "static_ground_truth"
           },
           {
             "name": "Senate",
             "inControl": "No single majority",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -4708,22 +4853,32 @@
       },
       "dataAvailability": null,
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2023-10-22",
-          "nextDate": "2025-10",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for AR.",
+          "lastElection": {
+            "date": "2023-10-22",
+            "type": "Congressional (midterm + presidential)",
+            "notes": "Half of Chamber renewed. Milei's LLA made strong gains; Peronists retained largest bloc."
+          },
+          "nextElection": {
+            "date": "2025-10",
+            "type": "Congressional midterm",
+            "notes": "Half of Chamber of Deputies renewed in October 2025."
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2023-11-19",
-          "nextDate": "2027",
-          "electionType": "presidential election",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2023-11-19",
+            "type": "Presidential (runoff)",
+            "notes": "Milei defeated Massa (Peronist) 55.7% to 44.3%."
+          },
+          "nextElection": {
+            "date": "2027",
+            "type": "Presidential",
+            "notes": "Argentina has a 4-year term with one re-election permitted."
+          },
           "source": "static_ground_truth"
         }
       }
@@ -4775,16 +4930,12 @@
           {
             "name": "Chamber of Deputies",
             "inControl": "Right-wing Chile Vamos coalition (largest bloc)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           },
           {
             "name": "Senate",
             "inControl": "Right-wing coalition (majority)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -4844,22 +4995,32 @@
       },
       "dataAvailability": null,
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2021-11-21",
-          "nextDate": "2025-11",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for CL.",
+          "lastElection": {
+            "date": "2021-11-21",
+            "type": "Parliamentary + Presidential (simultaneous)",
+            "notes": "Right-wing Chile Vamos won most seats; Boric's coalition controls government despite congress opposition."
+          },
+          "nextElection": {
+            "date": "2025-11",
+            "type": "Parliamentary + Presidential (simultaneous)",
+            "notes": "Boric is term-limited; cannot stand for re-election."
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2021-12-19",
-          "nextDate": "2025-11",
-          "electionType": "presidential election",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2021-12-19",
+            "type": "Presidential (runoff)",
+            "notes": "Gabriel Boric defeated José Antonio Kast 55.9% to 44.1%."
+          },
+          "nextElection": {
+            "date": "2025-11",
+            "type": "Presidential",
+            "notes": "Boric cannot run again (single 4-year term). Election November 2025."
+          },
           "source": "static_ground_truth"
         }
       }
@@ -4894,7 +5055,7 @@
       "executive": {
         "headOfState": {
           "name": "President – José María Balcázar",
-          "partyOrGroup": "Free Peru (Perú Libre) – estranged",
+          "partyOrGroup": "No active party affiliation",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
@@ -4913,9 +5074,7 @@
           {
             "name": "Congress",
             "inControl": "Right-wing and centre-right coalition (Alliance for Progress largest bloc)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -4974,25 +5133,35 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Dina Boluarte became president in December 2022 after Pedro Castillo's impeachment. She has governed without a stable congressional majority."
+        "executive": "Dina Boluarte became president in December 2022 after Pedro Castillo's failed self-coup and impeachment. She was previously VP."
       },
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2021-04-11",
-          "nextDate": "2026-04",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for PE.",
+          "lastElection": {
+            "date": "2021-04-11",
+            "type": "Parliamentary + Presidential (simultaneous)",
+            "notes": "Highly fragmented result. No party won more than 15% of seats."
+          },
+          "nextElection": {
+            "date": "2026-04",
+            "type": "Parliamentary + Presidential (simultaneous)",
+            "notes": "April 2026. Boluarte is serving out Castillo's term."
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2021-06-06",
-          "nextDate": "2026-04",
-          "electionType": "presidential election",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2021-06-06",
+            "type": "Presidential (runoff)",
+            "notes": "Castillo defeated Fujimori 50.1% to 49.9%. Castillo impeached Dec 2022; Boluarte assumed presidency."
+          },
+          "nextElection": {
+            "date": "2026-04",
+            "type": "Presidential",
+            "notes": "April 2026. Boluarte cannot run (completing prior term, not her own)."
+          },
           "source": "static_ground_truth"
         }
       }
@@ -5045,9 +5214,7 @@
           {
             "name": "National Assembly of People's Power",
             "inControl": "Communist Party of Cuba",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -5107,22 +5274,32 @@
       },
       "dataAvailability": null,
       "elections": {
+        "competitiveElections": false,
+        "nonCompetitiveReason": "One-party socialist republic. The Communist Party of Cuba is the only legal party. National Assembly candidates are pre-approved.",
         "legislative": {
-          "exists": true,
-          "lastDate": "2023-03-26",
-          "nextDate": "2028",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for CU.",
+          "lastElection": {
+            "date": "2023-03-26",
+            "type": "National Assembly (non-competitive)",
+            "notes": "Single-slate election. All 470 candidates pre-approved by Communist Party."
+          },
+          "nextElection": {
+            "date": "2028",
+            "type": "National Assembly (non-competitive)",
+            "notes": null
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2023-04",
-          "nextDate": "2028",
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2023-04",
+            "type": "Presidential (indirect, National Assembly, non-competitive)",
+            "notes": "Díaz-Canel re-confirmed by National Assembly."
+          },
+          "nextElection": {
+            "date": "2028",
+            "type": "Presidential (indirect, non-competitive)",
+            "notes": null
+          },
           "source": "static_ground_truth"
         }
       }
@@ -5174,16 +5351,12 @@
           {
             "name": "House of Representatives",
             "inControl": "Fragmented (Pacto Histórico minority; no clear majority)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           },
           {
             "name": "Senate",
             "inControl": "Fragmented coalition",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -5243,22 +5416,32 @@
       },
       "dataAvailability": null,
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2022-03-13",
-          "nextDate": "2026-03",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for CO.",
+          "lastElection": {
+            "date": "2022-03-13",
+            "type": "Congressional",
+            "notes": "Pacto Histórico won most seats but not a majority."
+          },
+          "nextElection": {
+            "date": "2026-03",
+            "type": "Congressional",
+            "notes": "March 2026 — congressional election precedes presidential."
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2022-06-19",
-          "nextDate": "2026-05",
-          "electionType": "presidential election",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2022-06-19",
+            "type": "Presidential (runoff)",
+            "notes": "Petro defeated Hernández 50.4% to 47.3%. First left-wing president in Colombia's history."
+          },
+          "nextElection": {
+            "date": "2026-05",
+            "type": "Presidential",
+            "notes": "Petro is term-limited (single 4-year term). May 2026."
+          },
           "source": "static_ground_truth"
         }
       }
@@ -5311,9 +5494,7 @@
           {
             "name": "National Assembly",
             "inControl": "Fragmented (no single majority; Realizing Goals is largest party)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -5373,22 +5554,32 @@
       },
       "dataAvailability": null,
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2024-05-05",
-          "nextDate": "2029",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for PA.",
+          "lastElection": {
+            "date": "2024-05-05",
+            "type": "General election",
+            "notes": "Fragmented result. Mulino's party won plurality in Assembly."
+          },
+          "nextElection": {
+            "date": "2029",
+            "type": "General election",
+            "notes": null
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2024-05-05",
-          "nextDate": "2029",
-          "electionType": "presidential election",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2024-05-05",
+            "type": "Presidential",
+            "notes": "Mulino won with 34.3% in a six-candidate race. Contested but upheld."
+          },
+          "nextElection": {
+            "date": "2029",
+            "type": "Presidential",
+            "notes": "Panama has a single 5-year term with no re-election."
+          },
           "source": "static_ground_truth"
         }
       }
@@ -5440,9 +5631,7 @@
           {
             "name": "Legislative Assembly",
             "inControl": "New Ideas (supermajority)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -5501,25 +5690,35 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Nayib Bukele was re-elected in February 2024 despite constitutional single-term limits; the Supreme Court approved his candidacy."
+        "executive": "Nayib Bukele was re-elected in February 2024 despite constitutional single-term limits; the Supreme Court approved his candidacy in a controversial ruling."
       },
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2024-02-04",
-          "nextDate": "2027",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for SV.",
+          "lastElection": {
+            "date": "2024-02-04",
+            "type": "Presidential + Legislative (simultaneous)",
+            "notes": "New Ideas won 54/60 seats (supermajority). Bukele re-elected with ~85%."
+          },
+          "nextElection": {
+            "date": "2027",
+            "type": "Legislative midterm",
+            "notes": null
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2024-02-04",
-          "nextDate": "2030",
-          "electionType": "presidential election",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2024-02-04",
+            "type": "Presidential",
+            "notes": "Bukele won ~85% in a non-competitive race after sidelining opposition."
+          },
+          "nextElection": {
+            "date": "2030",
+            "type": "Presidential",
+            "notes": "Constitutional status of future terms uncertain given court rulings on term limits."
+          },
           "source": "static_ground_truth"
         }
       }
@@ -5571,10 +5770,8 @@
         "bodies": [
           {
             "name": "Folketing",
-            "inControl": "Social Democrat-led centre-left coalition (election 24 Mar 2026 pending)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "inControl": "Result pending — snap election 24 March 2026",
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -5636,22 +5833,32 @@
         "executive": "King Frederik X succeeded Queen Margrethe II on 14 January 2024. PM Frederiksen called a snap election for 24 March 2026, capitalising on popularity from her stance against Trump's Greenland threats."
       },
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2022-11-01",
-          "nextDate": "2026-03-24",
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for DK.",
+          "lastElection": {
+            "date": "2022-11-01",
+            "type": "Snap parliamentary election",
+            "notes": "Left-wing bloc won narrow majority. Frederiksen formed minority government."
+          },
+          "nextElection": {
+            "date": "2026-03-24",
+            "type": "Snap parliamentary election",
+            "notes": "Called by Frederiksen 4 weeks early amid strong polling on Greenland sovereignty issue."
+          },
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": true,
-          "lastDate": "2022-11-01",
-          "nextDate": "2026-03-24",
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": null,
+          "lastElection": {
+            "date": "2022-11-01",
+            "type": "Parliamentary (PM selected by Folketing majority)",
+            "notes": "PM emerges from parliamentary majority formation."
+          },
+          "nextElection": {
+            "date": "2026-03-24",
+            "type": "Parliamentary",
+            "notes": null
+          },
           "source": "static_ground_truth"
         }
       }
@@ -5704,9 +5911,7 @@
           {
             "name": "No functioning legislature",
             "inControl": "Dissolved; civil war ongoing",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -5765,27 +5970,21 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Sudan has been in civil war since April 2023 between the SAF (al-Burhan) and RSF (Hemeti). The civilian transitional framework has collapsed.",
-        "worldBankGovernance": "Sudan is in active civil war (SAF vs RSF since April 2023); governance data is from pre-war assessments and does not reflect current conditions.",
-        "elections.legislative": "No legislative election data available for 'SD'."
+        "executive": "Sudan has been in civil war since April 2023 between the SAF (al-Burhan) and the Rapid Support Forces (RSF/Hemeti). The civilian transitional framework has collapsed.",
+        "worldBankGovernance": "Sudan is in active civil war since April 2023; governance data from pre-war assessments.",
+        "elections": "No elections. Military junta controls territory contested with RSF."
       },
       "elections": {
+        "competitiveElections": false,
+        "nonCompetitiveReason": "Military junta. Sudan is under Sudanese Armed Forces (SAF) control amid civil war with the RSF. No elections scheduled or possible under current conditions.",
         "legislative": {
-          "exists": false,
-          "lastDate": null,
-          "nextDate": null,
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for SD.",
+          "lastElection": null,
+          "nextElection": null,
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": false,
-          "lastDate": null,
-          "nextDate": null,
-          "electionType": "indirect/parliamentary selection",
-          "method": "static_ground_truth",
-          "notes": "No executive election scheduled or date unknown.",
+          "lastElection": null,
+          "nextElection": null,
           "source": "static_ground_truth"
         }
       }
@@ -5837,9 +6036,7 @@
           {
             "name": "Verkhovna Rada",
             "inControl": "Servant of the People (majority; elections suspended)",
-            "controlMethod": "static_ground_truth",
-            "controlNotes": null,
-            "controlBasis": null
+            "controlMethod": "static_ground_truth"
           }
         ],
         "source": "static_ground_truth"
@@ -5898,26 +6095,28 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Elections are suspended under martial law due to the ongoing Russian invasion. Zelensky's term was extended per wartime provisions.",
-        "elections.legislative": "Elections suspended under martial law due to Russian invasion (since Feb 2022)."
+        "executive": "Elections are suspended under martial law due to the ongoing Russian invasion. Zelensky's presidential term was extended per wartime provisions; his term legally expired May 2024.",
+        "elections": "Elections suspended under martial law (Russian invasion ongoing since February 2022)."
       },
       "elections": {
+        "competitiveElections": true,
+        "nonCompetitiveReason": null,
         "legislative": {
-          "exists": true,
-          "lastDate": "2019-07-21",
-          "nextDate": null,
-          "electionType": "general election",
-          "method": "static_ground_truth",
-          "notes": "No IPU data for UA.",
+          "lastElection": {
+            "date": "2019-07-21",
+            "type": "Parliamentary",
+            "notes": "Servant of the People won supermajority (254/450 seats). Elections suspended under martial law since 2022."
+          },
+          "nextElection": null,
           "source": "static_ground_truth"
         },
         "executive": {
-          "exists": "unknown",
-          "lastDate": "2019-04-21",
-          "nextDate": null,
-          "electionType": "presidential election",
-          "method": "static_ground_truth",
-          "notes": "No executive election scheduled or date unknown.",
+          "lastElection": {
+            "date": "2019-04-21",
+            "type": "Presidential (runoff)",
+            "notes": "Zelensky defeated Poroshenko 73% to 25%. Elections suspended under martial law; term extended by parliament."
+          },
+          "nextElection": null,
           "source": "static_ground_truth"
         }
       }
@@ -5926,10 +6125,11 @@
   "sources": {
     "executives": "static_ground_truth (Wikipedia-verified, March 2026)",
     "legislature": "static_ground_truth (March 2026)",
-    "elections": "static_ground_truth + IPU Parline adaptive enrichment",
+    "elections": "static_ground_truth + IPU Parline + ElectionGuide (adaptive enrichment)",
     "wikipedia_adaptive": "https://en.wikipedia.org/w/api.php",
     "world_bank_base": "https://api.worldbank.org/v2",
-    "ipu_parline": "https://api.data.ipu.org/v1",
+    "ipu_parline": "https://data.ipu.org/api",
+    "electionguide": "https://electionguide.org",
     "rest_countries": "https://restcountries.com/v3.1"
   },
   "worldBankIndicatorsUsed": {
@@ -5939,5 +6139,8 @@
     "regulatoryQuality": "RQ.PER.RNK",
     "ruleOfLaw": "RL.PER.RNK",
     "controlOfCorruption": "CC.PER.RNK"
+  },
+  "electionDataModel": {
+    "description": "Each country's elections block contains competitiveElections (bool), nonCompetitiveReason (str|null for one-party/non-democratic states), and legislative/executive sub-blocks each with lastElection and nextElection. Election objects contain: date (ISO string or year), type (string description), notes (context string)."
   }
 }
