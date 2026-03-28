@@ -389,6 +389,8 @@ STATIC_COUNTRY_DATA: Dict[str, Dict] = {
             {"name": "Palestinian Legislative Council", "inControl": "Suspended (no elections since 2006)"},
         ],
         "elections": {
+            "electionsSuspended": True,
+            "suspensionReason": "Suspended indefinitely. No elections since 2006 (legislative) and 2005 (presidential). Hamas control of Gaza and Israel's military campaign since Oct 2023 have made a unified election impossible. Abbas rules by decree.",
             "legislative": {
                 "lastElection": {"date": "2006-01-25", "type": "Legislative Council",
                     "notes": "Hamas won 74/132 seats. No elections held since; council suspended."},
@@ -436,14 +438,14 @@ STATIC_COUNTRY_DATA: Dict[str, Dict] = {
             "legislative": {
                 "lastElection": {"date": "2022-10-02", "type": "Congressional",
                     "notes": "PL (Bolsonaro's party) won most Chamber seats despite Lula winning presidency."},
-                "nextElection": {"date": "2026-10", "type": "Congressional + Presidential",
-                    "notes": "Both congressional and presidential elections held simultaneously in October 2026."},
+                "nextElection": {"date": "2026-10-04", "type": "Congressional + Presidential",
+                    "notes": "October 4, 2026 first round (congressional + presidential). Presidential runoff October 25 if needed."},
             },
             "executive": {
                 "lastElection": {"date": "2022-10-30", "type": "Presidential (runoff)",
                     "notes": "Lula defeated Bolsonaro 50.9% to 49.1% in a runoff."},
-                "nextElection": {"date": "2026-10", "type": "Presidential",
-                    "notes": "Lula eligible for re-election. October 2026."},
+                "nextElection": {"date": "2026-10-04", "type": "Presidential",
+                    "notes": "October 4 first round; runoff October 25 if needed. Lula eligible for re-election."},
             },
         },
     },
@@ -544,6 +546,8 @@ STATIC_COUNTRY_DATA: Dict[str, Dict] = {
             {"name": "No functioning legislature", "inControl": "Transitional authority"},
         ],
         "elections": {
+            "electionsSuspended": True,
+            "suspensionReason": "Suspended under transitional authority. Following Assad's fall (Dec 2024), the HTS-led transitional government rules by decree with no electoral framework or timeline for elections.",
             "legislative": {
                 "lastElection": {"date": "2024-07-15", "type": "Assad-era parliamentary election (discredited)",
                     "notes": "Final Assad-era election, held during civil war. Not recognised as legitimate."},
@@ -740,6 +744,8 @@ STATIC_COUNTRY_DATA: Dict[str, Dict] = {
             {"name": "Pyidaungsu Hluttaw (suspended)", "inControl": "Dissolved by military coup February 2021"},
         ],
         "elections": {
+            "electionsSuspended": True,
+            "suspensionReason": "Suspended by military junta. The SAC coup (Feb 2021) dissolved parliament and suspended democratic institutions. The junta has repeatedly delayed a promised election, most recently pushing it beyond 2025.",
             "legislative": {
                 "lastElection": {"date": "2020-11-08", "type": "General election (pre-coup)",
                     "notes": "NLD won landslide (396/476 seats). Military nullified results and staged coup on 1 Feb 2021."},
@@ -846,6 +852,8 @@ STATIC_COUNTRY_DATA: Dict[str, Dict] = {
             {"name": "House of Representatives (suspended)", "inControl": "Divided (parallel governments)"},
         ],
         "elections": {
+            "electionsSuspended": True,
+            "suspensionReason": "Impossible due to civil war. The country is divided between Houthi-controlled north and the Presidential Leadership Council's south. No unified electoral authority exists.",
             "legislative": {
                 "lastElection": {"date": "2003-04-27", "type": "Parliamentary",
                     "notes": "Last parliamentary election before civil war. Parliament technically still in session but non-functional."},
@@ -868,6 +876,8 @@ STATIC_COUNTRY_DATA: Dict[str, Dict] = {
             {"name": "Government of National Unity (Tripoli)", "inControl": "UN-recognised"},
         ],
         "elections": {
+            "electionsSuspended": True,
+            "suspensionReason": "Suspended due to political deadlock. Planned 2021 elections were never held after rival factions rejected the electoral law. Two parallel governments have been unable to agree on a framework.",
             "legislative": {
                 "lastElection": {"date": "2014-06-25", "type": "Parliamentary",
                     "notes": "Low turnout (18%). Led to political split and parallel governments."},
@@ -891,8 +901,8 @@ STATIC_COUNTRY_DATA: Dict[str, Dict] = {
             "legislative": {
                 "lastElection": {"date": "2020-10-24", "type": "Parliamentary",
                     "notes": "Nation's Future Party and pro-Sisi independents won overwhelmingly. Opposition largely excluded."},
-                "nextElection": {"date": "2025", "type": "Parliamentary",
-                    "notes": "Due 2025. Exact date not yet confirmed."},
+                "nextElection": {"date": "2026", "type": "Parliamentary",
+                    "notes": "Due 2025-2026. Sisi extended parliament's term; election timing uncertain."},
             },
             "executive": {
                 "lastElection": {"date": "2023-12-10", "type": "Presidential",
@@ -948,6 +958,7 @@ STATIC_COUNTRY_DATA: Dict[str, Dict] = {
     "CL": {
         "hosName":  "Gabriel Boric",  "hosParty": "Apruebo Dignidad (Broad Front / PC coalition)",
         "hogName":  "Gabriel Boric",  "hogParty": "Apruebo Dignidad",
+        "executiveNote": "Gabriel Boric was term-limited; election held Nov-Dec 2025. New president took office March 2026. Static data pending update with confirmed winner.",
         "politicalSystem": ["unitary presidential republic"],
         "legislature": [
             {"name": "Chamber of Deputies", "inControl": "Right-wing Chile Vamos coalition (largest bloc)"},
@@ -955,16 +966,16 @@ STATIC_COUNTRY_DATA: Dict[str, Dict] = {
         ],
         "elections": {
             "legislative": {
-                "lastElection": {"date": "2021-11-21", "type": "Parliamentary + Presidential (simultaneous)",
-                    "notes": "Right-wing Chile Vamos won most seats; Boric's coalition controls government despite congress opposition."},
-                "nextElection": {"date": "2025-11", "type": "Parliamentary + Presidential (simultaneous)",
-                    "notes": "Boric is term-limited; cannot stand for re-election."},
+                "lastElection": {"date": "2025-11-16", "type": "Parliamentary + Presidential (simultaneous)",
+                    "notes": "First round held 16 Nov 2025. Boric term-limited; right-wing Chile Vamos led in congressional seats."},
+                "nextElection": {"date": "2029-11", "type": "Parliamentary + Presidential (simultaneous)",
+                    "notes": None},
             },
             "executive": {
-                "lastElection": {"date": "2021-12-19", "type": "Presidential (runoff)",
-                    "notes": "Gabriel Boric defeated José Antonio Kast 55.9% to 44.1%."},
-                "nextElection": {"date": "2025-11", "type": "Presidential",
-                    "notes": "Boric cannot run again (single 4-year term). Election November 2025."},
+                "lastElection": {"date": "2025-12-07", "type": "Presidential (runoff)",
+                    "notes": "Runoff held Dec 2025. Boric was term-limited; new president took office March 2026."},
+                "nextElection": {"date": "2029-11", "type": "Presidential",
+                    "notes": None},
             },
         },
     },
@@ -980,14 +991,14 @@ STATIC_COUNTRY_DATA: Dict[str, Dict] = {
             "legislative": {
                 "lastElection": {"date": "2021-04-11", "type": "Parliamentary + Presidential (simultaneous)",
                     "notes": "Highly fragmented result. No party won more than 15% of seats."},
-                "nextElection": {"date": "2026-04", "type": "Parliamentary + Presidential (simultaneous)",
-                    "notes": "April 2026. Boluarte is serving out Castillo's term."},
+                "nextElection": {"date": "2026-04-12", "type": "Parliamentary + Presidential (simultaneous)",
+                    "notes": "April 12, 2026. Presidential runoff June 7 if no majority. Boluarte term ended; José María Balcázar serving as interim president."},
             },
             "executive": {
                 "lastElection": {"date": "2021-06-06", "type": "Presidential (runoff)",
                     "notes": "Castillo defeated Fujimori 50.1% to 49.9%. Castillo impeached Dec 2022; Boluarte assumed presidency."},
-                "nextElection": {"date": "2026-04", "type": "Presidential",
-                    "notes": "April 2026. Boluarte cannot run (completing prior term, not her own)."},
+                "nextElection": {"date": "2026-04-12", "type": "Presidential",
+                    "notes": "April 12 first round; runoff June 7 if needed. Boluarte cannot run (completing prior term, not her own)."},
             },
         },
     },
@@ -1021,16 +1032,16 @@ STATIC_COUNTRY_DATA: Dict[str, Dict] = {
         ],
         "elections": {
             "legislative": {
-                "lastElection": {"date": "2022-03-13", "type": "Congressional",
-                    "notes": "Pacto Histórico won most seats but not a majority."},
-                "nextElection": {"date": "2026-03", "type": "Congressional",
-                    "notes": "March 2026 — congressional election precedes presidential."},
+                "lastElection": {"date": "2026-03-08", "type": "Congressional",
+                    "notes": "March 8, 2026. Fragmented result; Paloma Valencia's center-right coalition performed strongly. Petro's Historic Pact suffered losses."},
+                "nextElection": {"date": "2026-05-31", "type": "Presidential",
+                    "notes": "Presidential first round May 31, 2026; runoff June 21 if needed. Congressional election already held March 8, 2026."},
             },
             "executive": {
                 "lastElection": {"date": "2022-06-19", "type": "Presidential (runoff)",
                     "notes": "Petro defeated Hernández 50.4% to 47.3%. First left-wing president in Colombia's history."},
-                "nextElection": {"date": "2026-05", "type": "Presidential",
-                    "notes": "Petro is term-limited (single 4-year term). May 2026."},
+                "nextElection": {"date": "2026-05-31", "type": "Presidential",
+                    "notes": "May 31 first round; runoff June 21 if needed. Petro term-limited; cannot run again."},
             },
         },
     },
@@ -1089,13 +1100,14 @@ STATIC_COUNTRY_DATA: Dict[str, Dict] = {
             "legislative": {
                 "lastElection": {"date": "2022-11-01", "type": "Snap parliamentary election",
                     "notes": "Left-wing bloc won narrow majority. Frederiksen formed minority government."},
-                "nextElection": {"date": "2026-03-24", "type": "Snap parliamentary election",
-                    "notes": "Called by Frederiksen 4 weeks early amid strong polling on Greenland sovereignty issue."},
+                "lastElection": {"date": "2026-03-24", "type": "Snap parliamentary election",
+                    "notes": "Held 24 March 2026. Frederiksen called snap election on Greenland sovereignty platform. Results still being tallied as of March 28 2026."},
+                "nextElection": {"date": "2030", "type": "Parliamentary", "notes": None},
             },
             "executive": {
                 "lastElection": {"date": "2022-11-01", "type": "Parliamentary (PM selected by Folketing majority)",
                     "notes": "PM emerges from parliamentary majority formation."},
-                "nextElection": {"date": "2026-03-24", "type": "Parliamentary", "notes": None},
+                "nextElection": {"date": "2030", "type": "Parliamentary", "notes": None},
             },
         },
     },
@@ -1108,6 +1120,8 @@ STATIC_COUNTRY_DATA: Dict[str, Dict] = {
             {"name": "No functioning legislature", "inControl": "Dissolved; civil war ongoing"},
         ],
         "elections": {
+            "electionsSuspended": True,
+            "suspensionReason": "Impossible due to active civil war. Sudan has been in conflict between the SAF and RSF since April 2023. No functioning government capable of organising elections; large portions of the country are contested or destroyed.",
             "legislative": {
                 "lastElection": None,
                 "nextElection": None,
@@ -1127,6 +1141,8 @@ STATIC_COUNTRY_DATA: Dict[str, Dict] = {
             {"name": "Verkhovna Rada", "inControl": "Servant of the People (majority; elections suspended)"},
         ],
         "elections": {
+            "electionsSuspended": True,
+            "suspensionReason": "Suspended under martial law. Russia's invasion (Feb 2022) triggered martial law which prohibits elections under Article 83 of the Ukrainian Constitution. Zelenskyy's term expired May 2024 but was extended by parliament under wartime provisions. Elections cannot be held until martial law is lifted.",
             "legislative": {
                 "lastElection": {"date": "2019-07-21", "type": "Parliamentary",
                     "notes": "Servant of the People won supermajority (254/450 seats). Elections suspended under martial law since 2022."},
@@ -1952,30 +1968,61 @@ def build_elections_block(iso2: str, static: Dict,
     static_exec_last = static_exec.get("lastElection")
     static_exec_next = static_exec.get("nextElection")
 
-    # For legislative next date: use static as truth, fill from IPU/EG only if static has no next
+    # For legislative next date: static is authoritative for type/notes, but if the
+    # static date is imprecise (year-only or year-month), let IPU/EG refine it to
+    # a full YYYY-MM-DD while preserving the static type and notes.
     leg_next = static_leg_next
     leg_next_source = "static_ground_truth"
 
-    if leg_next is None and not is_non_competitive:
-        # Try IPU enrichment
-        ipu_next = ipu.get("nextDate")
-        if ipu_next:
-            leg_next = _election_obj(
-                date=ipu_next,
-                etype="Parliamentary (IPU Parline)",
-                notes=ipu.get("notes"),
-            )
-            leg_next_source = "ipu_parline"
-        else:
-            # Try ElectionGuide
-            eg_next = eg.get("nextDate")
-            if eg_next:
+    def _is_imprecise(election_obj: Optional[Dict]) -> bool:
+        """True if the date is year-only (YYYY) or year-month (YYYY-MM)."""
+        if not election_obj:
+            return False
+        d = election_obj.get("date", "")
+        return bool(d) and len(str(d)) <= 7  # YYYY or YYYY-MM
+
+    if not is_non_competitive:
+        if leg_next is None:
+            # No static date at all — fill entirely from IPU/EG
+            ipu_next = ipu.get("nextDate")
+            if ipu_next:
                 leg_next = _election_obj(
-                    date=eg_next,
-                    etype="Parliamentary (ElectionGuide)",
-                    notes="Date sourced from ElectionGuide. Verify type.",
+                    date=ipu_next,
+                    etype="Parliamentary (IPU Parline)",
+                    notes=ipu.get("notes"),
                 )
-                leg_next_source = "electionguide"
+                leg_next_source = "ipu_parline"
+            else:
+                eg_next = eg.get("nextDate")
+                if eg_next:
+                    leg_next = _election_obj(
+                        date=eg_next,
+                        etype="Parliamentary (ElectionGuide)",
+                        notes="Date sourced from ElectionGuide. Verify type.",
+                    )
+                    leg_next_source = "electionguide"
+        elif _is_imprecise(leg_next):
+            # Static has a vague date — try to refine to exact day from IPU/EG
+            # Keep static type and notes; only update the date field if more precise
+            ipu_next = ipu.get("nextDate")
+            eg_next  = eg.get("nextDate")
+            refine_date = None
+            refine_src  = None
+
+            if ipu_next and len(ipu_next) == 10:  # full YYYY-MM-DD
+                refine_date = ipu_next
+                refine_src  = "ipu_parline"
+            elif eg_next and len(eg_next) == 10:
+                refine_date = eg_next
+                refine_src  = "electionguide"
+
+            if refine_date:
+                # Sanity-check: refined date should be in same year as static
+                static_year = str(leg_next.get("date", ""))[:4]
+                if refine_date.startswith(static_year):
+                    leg_next = dict(leg_next)  # copy to avoid mutating static dict
+                    leg_next["date"] = refine_date
+                    leg_next_source = f"static_ground_truth + {refine_src} date refinement"
 
     # Determine election source description
     if ipu.get("source") == "ipu_parline":
@@ -2000,6 +2047,8 @@ def build_elections_block(iso2: str, static: Dict,
     return {
         "competitiveElections": not is_non_competitive,
         "nonCompetitiveReason": non_competitive_reason,
+        "electionsSuspended": static.get("electionsSuspended", False),
+        "suspensionReason": static.get("suspensionReason", None),
         "legislative": legislative,
         "executive": executive,
     }
