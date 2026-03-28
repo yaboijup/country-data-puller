@@ -439,13 +439,15 @@ STATIC_COUNTRY_DATA: Dict[str, Dict] = {
                 "lastElection": {"date": "2022-10-02", "type": "Congressional",
                     "notes": "PL (Bolsonaro's party) won most Chamber seats despite Lula winning presidency."},
                 "nextElection": {"date": "2026-10-04", "type": "Congressional + Presidential",
-                    "notes": "October 4, 2026 first round (congressional + presidential). Presidential runoff October 25 if needed."},
+                    "notes": "October 4, 2026 first round. Congressional seats decided by proportional rep; presidential runoff October 25 if needed.",
+                    "runoffDate": "2026-10-25", "runoffCondition": "if no presidential candidate wins >50% of valid votes in round 1"},
             },
             "executive": {
                 "lastElection": {"date": "2022-10-30", "type": "Presidential (runoff)",
                     "notes": "Lula defeated Bolsonaro 50.9% to 49.1% in a runoff."},
                 "nextElection": {"date": "2026-10-04", "type": "Presidential",
-                    "notes": "October 4 first round; runoff October 25 if needed. Lula eligible for re-election."},
+                    "notes": "October 4 first round; Lula eligible for re-election.",
+                    "runoffDate": "2026-10-25", "runoffCondition": "if no candidate wins >50% of valid votes in round 1"},
             },
         },
     },
@@ -579,7 +581,8 @@ STATIC_COUNTRY_DATA: Dict[str, Dict] = {
                 "lastElection": {"date": "2022-04-24", "type": "Presidential (runoff)",
                     "notes": "Macron defeated Le Pen 58.5% to 41.5%."},
                 "nextElection": {"date": "2027-04", "type": "Presidential",
-                    "notes": "Macron is term-limited; cannot run again."},
+                    "notes": "Macron is term-limited; cannot run again. Exact April date TBD.",
+                    "runoffDate": "2027-05", "runoffCondition": "standard French two-round system; runoff between top 2 candidates ~2 weeks after round 1"},
             },
         },
     },
@@ -595,13 +598,14 @@ STATIC_COUNTRY_DATA: Dict[str, Dict] = {
             "legislative": {
                 "lastElection": {"date": "2023-05-14", "type": "Parliamentary + Presidential (simultaneous)",
                     "notes": "AKP and allies retained parliamentary majority."},
-                "nextElection": {"date": "2028", "type": "Parliamentary + Presidential", "notes": None},
+                "nextElection": {"date": "2028", "type": "Parliamentary + Presidential", "notes": None, "runoffDate": None, "runoffCondition": None},
             },
             "executive": {
                 "lastElection": {"date": "2023-05-28", "type": "Presidential (runoff)",
                     "notes": "Erdoğan defeated Kılıçdaroğlu 52% to 48% in runoff."},
                 "nextElection": {"date": "2028", "type": "Presidential",
-                    "notes": "Constitutional two-term limit — Erdoğan may seek a third term via snap election reset."},
+                    "notes": "Constitutional two-term limit — Erdoğan may seek a third term via snap election reset.",
+                    "runoffDate": None, "runoffCondition": "two-round system if no candidate wins majority in round 1"},
             },
         },
     },
@@ -951,7 +955,8 @@ STATIC_COUNTRY_DATA: Dict[str, Dict] = {
                 "lastElection": {"date": "2023-11-19", "type": "Presidential (runoff)",
                     "notes": "Milei defeated Massa (Peronist) 55.7% to 44.3%."},
                 "nextElection": {"date": "2027", "type": "Presidential",
-                    "notes": "Argentina has a 4-year term with one re-election permitted."},
+                    "notes": "Argentina has a 4-year term with one re-election permitted.",
+                    "runoffDate": None, "runoffCondition": "runoff required unless winner gets >45% or leads by 10+ points with >40%"},
             },
         },
     },
@@ -992,13 +997,15 @@ STATIC_COUNTRY_DATA: Dict[str, Dict] = {
                 "lastElection": {"date": "2021-04-11", "type": "Parliamentary + Presidential (simultaneous)",
                     "notes": "Highly fragmented result. No party won more than 15% of seats."},
                 "nextElection": {"date": "2026-04-12", "type": "Parliamentary + Presidential (simultaneous)",
-                    "notes": "April 12, 2026. Presidential runoff June 7 if no majority. Boluarte term ended; José María Balcázar serving as interim president."},
+                    "notes": "April 12, 2026. Boluarte term ended; José María Balcázar serving as interim president.",
+                    "runoffDate": "2026-06-07", "runoffCondition": "presidential runoff if no candidate wins >50% of valid votes in round 1"},
             },
             "executive": {
                 "lastElection": {"date": "2021-06-06", "type": "Presidential (runoff)",
                     "notes": "Castillo defeated Fujimori 50.1% to 49.9%. Castillo impeached Dec 2022; Boluarte assumed presidency."},
                 "nextElection": {"date": "2026-04-12", "type": "Presidential",
-                    "notes": "April 12 first round; runoff June 7 if needed. Boluarte cannot run (completing prior term, not her own)."},
+                    "notes": "April 12 first round. Boluarte cannot run (completing prior term, not her own).",
+                    "runoffDate": "2026-06-07", "runoffCondition": "if no candidate wins >50% of valid votes in round 1"},
             },
         },
     },
@@ -1041,7 +1048,8 @@ STATIC_COUNTRY_DATA: Dict[str, Dict] = {
                 "lastElection": {"date": "2022-06-19", "type": "Presidential (runoff)",
                     "notes": "Petro defeated Hernández 50.4% to 47.3%. First left-wing president in Colombia's history."},
                 "nextElection": {"date": "2026-05-31", "type": "Presidential",
-                    "notes": "May 31 first round; runoff June 21 if needed. Petro term-limited; cannot run again."},
+                    "notes": "May 31 first round. Petro term-limited; cannot run again.",
+                    "runoffDate": "2026-06-21", "runoffCondition": "if no candidate wins >50% of valid votes in round 1"},
             },
         },
     },
@@ -1597,6 +1605,41 @@ def _extract_ipu_election_date(rec: Dict) -> Optional[str]:
     return None
 
 
+def _classify_ipu_election(rec: Dict) -> str:
+    """
+    Derive a human-readable election type label from an IPU record.
+    Detects snap, runoff, extraordinary, by-election etc.
+    """
+    # Direct type fields
+    etype = (rec.get("electionType") or rec.get("election_type") or
+             rec.get("type") or rec.get("round") or "")
+    if isinstance(etype, dict):
+        etype = etype.get("label") or etype.get("value") or ""
+    etype = str(etype).lower()
+
+    is_snap    = rec.get("isSnap") or rec.get("is_snap") or "snap" in etype or "early" in etype
+    is_runoff  = (rec.get("isRunoff") or rec.get("round2") or rec.get("second_round")
+                  or "runoff" in etype or "second round" in etype or "2nd round" in etype
+                  or "(2)" in etype)
+    is_by      = "by-election" in etype or "by_election" in etype or "byelection" in etype
+    is_extra   = "extraordinary" in etype or "special" in etype
+
+    body = (rec.get("parliamentName") or rec.get("parliament_name") or
+            rec.get("chamberName") or rec.get("body") or "Parliamentary")
+    if isinstance(body, dict):
+        body = body.get("label") or body.get("value") or "Parliamentary"
+
+    if is_runoff:
+        return f"{body} (runoff)"
+    if is_snap:
+        return f"{body} (snap election)"
+    if is_by:
+        return f"{body} (by-election)"
+    if is_extra:
+        return f"{body} (extraordinary)"
+    return str(body)
+
+
 def fetch_ipu_elections(iso2: str) -> Dict[str, Any]:
     """
     Returns a dict:
@@ -1646,9 +1689,19 @@ def fetch_ipu_elections(iso2: str) -> Dict[str, Any]:
     last_date = max(past_dates) if past_dates else None
     next_date = min(future_dates) if future_dates else None
 
+    # Find the actual next election record to extract its type
+    next_record = None
+    if future_dates:
+        earliest_next = min(future_dates)
+        for rec in elections:
+            if _extract_ipu_election_date(rec) == earliest_next:
+                next_record = rec
+                break
+
     return {
         "lastDate": last_date,
         "nextDate": next_date,
+        "nextType": _classify_ipu_election(next_record) if next_record else None,
         "elections": elections[:5],  # keep a few for debugging
         "source": "ipu_parline",
         "notes": f"IPU Parline: {len(elections)} election record(s) found.",
@@ -1815,9 +1868,30 @@ def get_electionguide_dates(iso2: str) -> Dict[str, Optional[str]]:
         except ValueError:
             past.append(d)
 
+    # Also capture the body name for the next upcoming election (for type labeling)
+    next_record = None
+    if future:
+        earliest = min(future)
+        next_record = next((r for r in records if r.get("date") == earliest), None)
+
+    # Detect snap/runoff/extraordinary from body text
+    def _eg_classify(rec: Optional[Dict]) -> Optional[str]:
+        if not rec:
+            return None
+        body = rec.get("body", "")
+        b = body.lower()
+        if "runoff" in b or "2nd round" in b or "second round" in b or "(2)" in b:
+            return f"{body} (runoff)"
+        if "snap" in b or "early" in b or "extraordinary" in b or "special" in b:
+            return f"{body} (snap/extraordinary)"
+        if "by-election" in b or "by_election" in b:
+            return f"{body} (by-election)"
+        return body or None
+
     return {
         "lastDate": max(past) if past else None,
         "nextDate": min(future) if future else None,
+        "nextType": _eg_classify(next_record),
         "source": "electionguide",
     }
 
@@ -1940,11 +2014,16 @@ def merge_wb_sticky(new_wb: Dict, prev: Optional[Dict]) -> Dict:
 # ── BUILD ELECTION OBJECT ─────────────────────────────────────────────────────
 
 def _election_obj(date: Optional[str], etype: Optional[str],
-                  notes: Optional[str]) -> Optional[Dict]:
+                  notes: Optional[str],
+                  runoff_date: Optional[str] = None,
+                  runoff_condition: Optional[str] = None) -> Optional[Dict]:
     """Create a structured election object, or None if no date."""
     if date is None and etype is None:
         return None
-    return {"date": date, "type": etype, "notes": notes}
+    obj: Dict = {"date": date, "type": etype, "notes": notes,
+                 "runoffDate": runoff_date,
+                 "runoffCondition": runoff_condition if runoff_date else None}
+    return obj
 
 
 def build_elections_block(iso2: str, static: Dict,
@@ -1968,6 +2047,20 @@ def build_elections_block(iso2: str, static: Dict,
     static_exec_last = static_exec.get("lastElection")
     static_exec_next = static_exec.get("nextElection")
 
+    def _normalize_election(obj: Optional[Dict]) -> Optional[Dict]:
+        """Ensure all election objects have runoffDate and runoffCondition fields."""
+        if obj is None:
+            return None
+        obj = dict(obj)
+        obj.setdefault("runoffDate", None)
+        obj.setdefault("runoffCondition", None)
+        return obj
+
+    static_leg_last  = _normalize_election(static_leg_last)
+    static_leg_next  = _normalize_election(static_leg_next)
+    static_exec_last = _normalize_election(static_exec_last)
+    static_exec_next = _normalize_election(static_exec_next)
+
     # For legislative next date: static is authoritative for type/notes, but if the
     # static date is imprecise (year-only or year-month), let IPU/EG refine it to
     # a full YYYY-MM-DD while preserving the static type and notes.
@@ -1986,19 +2079,21 @@ def build_elections_block(iso2: str, static: Dict,
             # No static date at all — fill entirely from IPU/EG
             ipu_next = ipu.get("nextDate")
             if ipu_next:
+                ipu_type = ipu.get("nextType") or "Parliamentary (IPU Parline)"
                 leg_next = _election_obj(
                     date=ipu_next,
-                    etype="Parliamentary (IPU Parline)",
+                    etype=ipu_type,
                     notes=ipu.get("notes"),
                 )
                 leg_next_source = "ipu_parline"
             else:
                 eg_next = eg.get("nextDate")
                 if eg_next:
+                    eg_type = eg.get("nextType") or "Parliamentary (ElectionGuide)"
                     leg_next = _election_obj(
                         date=eg_next,
-                        etype="Parliamentary (ElectionGuide)",
-                        notes="Date sourced from ElectionGuide. Verify type.",
+                        etype=eg_type,
+                        notes="Date sourced from ElectionGuide.",
                     )
                     leg_next_source = "electionguide"
         elif _is_imprecise(leg_next):
@@ -2044,11 +2139,38 @@ def build_elections_block(iso2: str, static: Dict,
         "source": "static_ground_truth",
     }
 
+    # ── Today detection ──────────────────────────────────────────────────────
+    today_str = datetime.now(timezone.utc).date().isoformat()
+
+    def _is_today(election_obj: Optional[Dict]) -> bool:
+        if not election_obj:
+            return False
+        d = str(election_obj.get("date", ""))
+        return d == today_str
+
+    def _flag_today(election_obj: Optional[Dict]) -> Optional[Dict]:
+        """If the election date is today, add a note to the object."""
+        if not election_obj or not _is_today(election_obj):
+            return election_obj
+        obj = dict(election_obj)
+        obj["electionDay"] = True
+        existing_notes = obj.get("notes") or ""
+        obj["notes"] = (f"⚡ ELECTION DAY ({today_str}). " + existing_notes).strip()
+        return obj
+
+    exec_next   = _flag_today(exec_next)
+    leg_next    = _flag_today(leg_next)
+    exec_last   = static_exec_last  # last elections don't need today flagging
+    leg_last    = static_leg_last
+
+    election_today = _is_today(leg_next) or _is_today(exec_next)
+
     return {
         "competitiveElections": not is_non_competitive,
         "nonCompetitiveReason": non_competitive_reason,
         "electionsSuspended": static.get("electionsSuspended", False),
         "suspensionReason": static.get("suspensionReason", None),
+        "electionToday": election_today,
         "legislative": legislative,
         "executive": executive,
     }
