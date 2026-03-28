@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-28T18:15:13.322355Z",
+  "generatedAt": "2026-03-28T18:21:51.667966Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "countries": [
     {
@@ -30,17 +30,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – Vladimir Putin",
+          "name": "Vladimir Putin",
           "partyOrGroup": "United Russia",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "Prime Minister – Mikhail Mishustin",
+          "name": "Mikhail Mishustin",
           "partyOrGroup": "United Russia",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "Prime Minister – Mikhail Mishustin",
+          "leader": "Mikhail Mishustin",
           "partyOrGroup": "United Russia",
           "method": "head_of_government"
         }
@@ -174,17 +174,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – Droupadi Murmu",
+          "name": "Droupadi Murmu",
           "partyOrGroup": "Bharatiya Janata Party",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "Prime Minister – Narendra Modi",
+          "name": "Narendra Modi",
           "partyOrGroup": "Bharatiya Janata Party",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "Prime Minister – Narendra Modi",
+          "leader": "Narendra Modi",
           "partyOrGroup": "Bharatiya Janata Party",
           "method": "head_of_government"
         }
@@ -317,17 +317,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – Asif Ali Zardari",
+          "name": "Asif Ali Zardari",
           "partyOrGroup": "Pakistan Peoples Party",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "Prime Minister – Shehbaz Sharif",
+          "name": "Shehbaz Sharif",
           "partyOrGroup": "Pakistan Muslim League (N)",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "Prime Minister – Shehbaz Sharif",
+          "leader": "Shehbaz Sharif",
           "partyOrGroup": "Pakistan Muslim League (N)",
           "method": "head_of_government"
         }
@@ -459,17 +459,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "People's Republic of China",
+          "name": "Xi Jinping",
           "partyOrGroup": "Chinese Communist Party",
-          "source": "wikipedia:List_of_current_heads_of_state_and_government"
+          "source": "static_ground_truth"
         },
         "headOfGovernment": {
-          "name": "President – Lai Ching-te",
+          "name": "Li Qiang",
           "partyOrGroup": "Chinese Communist Party",
-          "source": "wikipedia:List_of_current_heads_of_state_and_government"
+          "source": "static_ground_truth"
         },
         "executiveInPower": {
-          "leader": "President – Lai Ching-te",
+          "leader": "Li Qiang",
           "partyOrGroup": "Chinese Communist Party",
           "method": "head_of_government"
         }
@@ -600,17 +600,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "King – Charles III [ II ]",
+          "name": "Charles III [ II ]",
           "partyOrGroup": "Non-partisan (monarchy)",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "Prime Minister – Keir Starmer",
+          "name": "Keir Starmer",
           "partyOrGroup": "Labour Party",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "Prime Minister – Keir Starmer",
+          "leader": "Keir Starmer",
           "partyOrGroup": "Labour Party",
           "method": "head_of_government"
         }
@@ -742,17 +742,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – Frank-Walter Steinmeier",
+          "name": "Frank-Walter Steinmeier",
           "partyOrGroup": "Social Democratic Party",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "Chancellor – Friedrich Merz",
+          "name": "Friedrich Merz",
           "partyOrGroup": "Christian Democratic Union",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "Chancellor – Friedrich Merz",
+          "leader": "Friedrich Merz",
           "partyOrGroup": "Christian Democratic Union",
           "method": "head_of_government"
         }
@@ -887,17 +887,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – Sheikh Mohamed bin Zayed Al Nahyan",
+          "name": "Sheikh Mohamed bin Zayed Al Nahyan",
           "partyOrGroup": "Non-partisan (monarchy)",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "Prime Minister – Sheikh Mohammed bin Rashid Al Maktoum",
+          "name": "Sheikh Mohammed bin Rashid Al Maktoum",
           "partyOrGroup": "Non-partisan (monarchy)",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "Prime Minister – Sheikh Mohammed bin Rashid Al Maktoum",
+          "leader": "Sheikh Mohammed bin Rashid Al Maktoum",
           "partyOrGroup": "Non-partisan (monarchy)",
           "method": "head_of_government"
         }
@@ -1019,17 +1019,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "King – Salman",
+          "name": "Salman",
           "partyOrGroup": "Non-partisan (monarchy)",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "Prime Minister – Mohammed bin Salman",
+          "name": "Mohammed bin Salman",
           "partyOrGroup": "Non-partisan (monarchy)",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "Prime Minister – Mohammed bin Salman",
+          "leader": "Mohammed bin Salman",
           "partyOrGroup": "Non-partisan (monarchy)",
           "method": "head_of_government"
         }
@@ -1144,17 +1144,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – Isaac Herzog",
+          "name": "Isaac Herzog",
           "partyOrGroup": "Non-partisan (ceremonial president)",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "Prime Minister – Benjamin Netanyahu",
+          "name": "Benjamin Netanyahu",
           "partyOrGroup": "Likud",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "Prime Minister – Benjamin Netanyahu",
+          "leader": "Benjamin Netanyahu",
           "partyOrGroup": "Likud",
           "method": "head_of_government"
         }
@@ -1417,17 +1417,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – Claudia Sheinbaum",
+          "name": "Claudia Sheinbaum",
           "partyOrGroup": "Morena",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "President – Claudia Sheinbaum",
+          "name": "Claudia Sheinbaum",
           "partyOrGroup": "Morena",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "President – Claudia Sheinbaum",
+          "leader": "Claudia Sheinbaum",
           "partyOrGroup": "Morena",
           "method": "head_of_government"
         }
@@ -1561,17 +1561,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – Luiz Inácio Lula da Silva",
+          "name": "Luiz Inácio Lula da Silva",
           "partyOrGroup": "Workers' Party (PT)",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "President – Luiz Inácio Lula da Silva",
+          "name": "Luiz Inácio Lula da Silva",
           "partyOrGroup": "Workers' Party (PT)",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "President – Luiz Inácio Lula da Silva",
+          "leader": "Luiz Inácio Lula da Silva",
           "partyOrGroup": "Workers' Party (PT)",
           "method": "head_of_government"
         }
@@ -1704,17 +1704,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "King – Charles III [ II ]",
+          "name": "Charles III [ II ]",
           "partyOrGroup": "Non-partisan (monarchy)",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "Prime Minister – Mark Carney",
+          "name": "Mark Carney",
           "partyOrGroup": "Liberal Party",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "Prime Minister – Mark Carney",
+          "leader": "Mark Carney",
           "partyOrGroup": "Liberal Party",
           "method": "head_of_government"
         }
@@ -1848,17 +1848,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – Bola Tinubu",
+          "name": "Bola Tinubu",
           "partyOrGroup": "All Progressives Congress",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "President – Bola Tinubu",
+          "name": "Bola Tinubu",
           "partyOrGroup": "All Progressives Congress",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "President – Bola Tinubu",
+          "leader": "Bola Tinubu",
           "partyOrGroup": "All Progressives Congress",
           "method": "head_of_government"
         }
@@ -2403,17 +2403,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – Emmanuel Macron [ I ]",
+          "name": "Emmanuel Macron",
           "partyOrGroup": "Renaissance",
-          "source": "wikipedia:List_of_current_heads_of_state_and_government"
+          "source": "static_ground_truth"
         },
         "headOfGovernment": {
-          "name": "Prime Minister [ 3 ] – Sébastien Lecornu",
+          "name": "François Bayrou",
           "partyOrGroup": "Democratic Movement (MoDem)",
-          "source": "wikipedia:List_of_current_heads_of_state_and_government"
+          "source": "static_ground_truth"
         },
         "executiveInPower": {
-          "leader": "Prime Minister [ 3 ] – Sébastien Lecornu",
+          "leader": "François Bayrou",
           "partyOrGroup": "Democratic Movement (MoDem)",
           "method": "head_of_government"
         }
@@ -2548,17 +2548,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – Recep Tayyip Erdoğan",
+          "name": "Recep Tayyip Erdoğan",
           "partyOrGroup": "Justice and Development Party (AKP)",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "President – Recep Tayyip Erdoğan",
+          "name": "Recep Tayyip Erdoğan",
           "partyOrGroup": "Justice and Development Party (AKP)",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "President – Recep Tayyip Erdoğan",
+          "leader": "Recep Tayyip Erdoğan",
           "partyOrGroup": "Justice and Development Party (AKP)",
           "method": "head_of_government"
         }
@@ -2822,17 +2822,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "General Secretary of the Communist Party – Tô Lâm",
+          "name": "Lương Cường",
           "partyOrGroup": "Communist Party of Vietnam",
-          "source": "wikipedia:List_of_current_heads_of_state_and_government"
+          "source": "static_ground_truth"
         },
         "headOfGovernment": {
-          "name": "General Secretary of the Communist Party – Tô Lâm",
+          "name": "Phạm Minh Chính",
           "partyOrGroup": "Communist Party of Vietnam",
-          "source": "wikipedia:List_of_current_heads_of_state_and_government"
+          "source": "static_ground_truth"
         },
         "executiveInPower": {
-          "leader": "General Secretary of the Communist Party – Tô Lâm",
+          "leader": "Phạm Minh Chính",
           "partyOrGroup": "Communist Party of Vietnam",
           "method": "head_of_government"
         }
@@ -3383,17 +3383,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – Prabowo Subianto",
+          "name": "Prabowo Subianto",
           "partyOrGroup": "Gerindra Party",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "President – Prabowo Subianto",
+          "name": "Prabowo Subianto",
           "partyOrGroup": "Gerindra Party",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "President – Prabowo Subianto",
+          "leader": "Prabowo Subianto",
           "partyOrGroup": "Gerindra Party",
           "method": "head_of_government"
         }
@@ -3660,17 +3660,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – Vahagn Khachaturyan",
+          "name": "Vahagn Khachaturyan",
           "partyOrGroup": "Non-partisan (ceremonial)",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "Prime Minister – Nikol Pashinyan",
+          "name": "Nikol Pashinyan",
           "partyOrGroup": "Civil Contract",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "Prime Minister – Nikol Pashinyan",
+          "leader": "Nikol Pashinyan",
           "partyOrGroup": "Civil Contract",
           "method": "head_of_government"
         }
@@ -3797,17 +3797,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – Ilham Aliyev",
+          "name": "Ilham Aliyev",
           "partyOrGroup": "New Azerbaijan Party",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "Prime Minister – Ali Asadov",
+          "name": "Ali Asadov",
           "partyOrGroup": "New Azerbaijan Party",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "Prime Minister – Ali Asadov",
+          "leader": "Ali Asadov",
           "partyOrGroup": "New Azerbaijan Party",
           "method": "head_of_government"
         }
@@ -3936,17 +3936,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "King – Mohammed VI",
+          "name": "Mohammed VI",
           "partyOrGroup": "Non-partisan (monarchy)",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "Prime Minister – Aziz Akhannouch",
+          "name": "Aziz Akhannouch",
           "partyOrGroup": "National Rally of Independents (RNI)",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "Prime Minister – Aziz Akhannouch",
+          "leader": "Aziz Akhannouch",
           "partyOrGroup": "National Rally of Independents (RNI)",
           "method": "head_of_government"
         }
@@ -4071,17 +4071,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – Hassan Sheikh Mohamud",
+          "name": "Hassan Sheikh Mohamud",
           "partyOrGroup": "Union for Peace and Development",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "Prime Minister – Hamza Abdi Barre",
+          "name": "Hamza Abdi Barre",
           "partyOrGroup": "Union for Peace and Development",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "Prime Minister – Hamza Abdi Barre",
+          "leader": "Hamza Abdi Barre",
           "partyOrGroup": "Union for Peace and Development",
           "method": "head_of_government"
         }
@@ -4483,17 +4483,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – Abdel Fattah el-Sisi",
+          "name": "Abdel Fattah el-Sisi",
           "partyOrGroup": "No party (military-backed)",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "Prime Minister – Mostafa Madbouly",
+          "name": "Mostafa Madbouly",
           "partyOrGroup": "No party (technocratic)",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "Prime Minister – Mostafa Madbouly",
+          "leader": "Mostafa Madbouly",
           "partyOrGroup": "No party (technocratic)",
           "method": "head_of_government"
         }
@@ -4625,17 +4625,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – Abdelmadjid Tebboune",
+          "name": "Abdelmadjid Tebboune",
           "partyOrGroup": "National Liberation Front (FLN) aligned",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "Prime Minister – Sifi Ghrieb",
+          "name": "Sifi Ghrieb",
           "partyOrGroup": "National Liberation Front (FLN) aligned",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "Prime Minister – Sifi Ghrieb",
+          "leader": "Sifi Ghrieb",
           "partyOrGroup": "National Liberation Front (FLN) aligned",
           "method": "head_of_government"
         }
@@ -4768,17 +4768,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – Javier Milei",
+          "name": "Javier Milei",
           "partyOrGroup": "La Libertad Avanza",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "President – Javier Milei",
+          "name": "Javier Milei",
           "partyOrGroup": "La Libertad Avanza",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "President – Javier Milei",
+          "leader": "Javier Milei",
           "partyOrGroup": "La Libertad Avanza",
           "method": "head_of_government"
         }
@@ -4910,17 +4910,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – José Antonio Kast",
+          "name": "Gabriel Boric",
           "partyOrGroup": "Apruebo Dignidad (Broad Front / PC coalition)",
-          "source": "wikipedia:List_of_current_heads_of_state_and_government"
+          "source": "static_ground_truth"
         },
         "headOfGovernment": {
-          "name": "President – José Antonio Kast",
+          "name": "Gabriel Boric",
           "partyOrGroup": "Apruebo Dignidad",
-          "source": "wikipedia:List_of_current_heads_of_state_and_government"
+          "source": "static_ground_truth"
         },
         "executiveInPower": {
-          "leader": "President – José Antonio Kast",
+          "leader": "Gabriel Boric",
           "partyOrGroup": "Apruebo Dignidad",
           "method": "head_of_government"
         }
@@ -5054,17 +5054,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – José María Balcázar",
+          "name": "Dina Boluarte",
           "partyOrGroup": "No active party affiliation",
-          "source": "wikipedia:List_of_current_heads_of_state_and_government"
+          "source": "static_ground_truth"
         },
         "headOfGovernment": {
-          "name": "President – José María Balcázar",
+          "name": "Dina Boluarte",
           "partyOrGroup": "No active party affiliation",
-          "source": "wikipedia:List_of_current_heads_of_state_and_government"
+          "source": "static_ground_truth"
         },
         "executiveInPower": {
-          "leader": "President – José María Balcázar",
+          "leader": "Dina Boluarte",
           "partyOrGroup": "No active party affiliation",
           "method": "head_of_government"
         }
@@ -5194,17 +5194,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "First Secretary of the Communist Party – Miguel Díaz-Canel",
+          "name": "Miguel Díaz-Canel",
           "partyOrGroup": "Communist Party of Cuba",
-          "source": "wikipedia:List_of_current_heads_of_state_and_government"
+          "source": "static_ground_truth"
         },
         "headOfGovernment": {
-          "name": "First Secretary of the Communist Party – Miguel Díaz-Canel",
+          "name": "Manuel Marrero Cruz",
           "partyOrGroup": "Communist Party of Cuba",
-          "source": "wikipedia:List_of_current_heads_of_state_and_government"
+          "source": "static_ground_truth"
         },
         "executiveInPower": {
-          "leader": "First Secretary of the Communist Party – Miguel Díaz-Canel",
+          "leader": "Manuel Marrero Cruz",
           "partyOrGroup": "Communist Party of Cuba",
           "method": "head_of_government"
         }
@@ -5331,17 +5331,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – Gustavo Petro",
+          "name": "Gustavo Petro",
           "partyOrGroup": "Colombia Humana / Pacto Histórico",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "President – Gustavo Petro",
+          "name": "Gustavo Petro",
           "partyOrGroup": "Pacto Histórico",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "President – Gustavo Petro",
+          "leader": "Gustavo Petro",
           "partyOrGroup": "Pacto Histórico",
           "method": "head_of_government"
         }
@@ -5474,17 +5474,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – José Raúl Mulino",
+          "name": "José Raúl Mulino",
           "partyOrGroup": "Realizing Goals Party",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "President – José Raúl Mulino",
+          "name": "José Raúl Mulino",
           "partyOrGroup": "Realizing Goals Party",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "President – José Raúl Mulino",
+          "leader": "José Raúl Mulino",
           "partyOrGroup": "Realizing Goals Party",
           "method": "head_of_government"
         }
@@ -5611,17 +5611,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – Nayib Bukele",
+          "name": "Nayib Bukele",
           "partyOrGroup": "New Ideas",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "President – Nayib Bukele",
+          "name": "Nayib Bukele",
           "partyOrGroup": "New Ideas",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "President – Nayib Bukele",
+          "leader": "Nayib Bukele",
           "partyOrGroup": "New Ideas",
           "method": "head_of_government"
         }
@@ -5751,17 +5751,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "King – Frederik X",
+          "name": "Frederik X",
           "partyOrGroup": "Non-partisan (monarchy)",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "Prime Minister – Mette Frederiksen",
+          "name": "Mette Frederiksen",
           "partyOrGroup": "Social Democrats",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "Prime Minister – Mette Frederiksen",
+          "leader": "Mette Frederiksen",
           "partyOrGroup": "Social Democrats",
           "method": "head_of_government"
         }
@@ -6016,17 +6016,17 @@
       },
       "executive": {
         "headOfState": {
-          "name": "President – Volodymyr Zelenskyy",
+          "name": "Volodymyr Zelenskyy",
           "partyOrGroup": "Servant of the People",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "headOfGovernment": {
-          "name": "Prime Minister – Yulia Svyrydenko",
+          "name": "Yulia Svyrydenko",
           "partyOrGroup": "Servant of the People",
           "source": "wikipedia:List_of_current_heads_of_state_and_government"
         },
         "executiveInPower": {
-          "leader": "Prime Minister – Yulia Svyrydenko",
+          "leader": "Yulia Svyrydenko",
           "partyOrGroup": "Servant of the People",
           "method": "head_of_government"
         }
