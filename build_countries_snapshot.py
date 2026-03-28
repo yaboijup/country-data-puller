@@ -2012,8 +2012,34 @@ def build_country(name: str, iso2: str, prev_by_iso2: Dict[str, Any]) -> Dict[st
         print(f"  [{iso2}] WARNING: no static data — output will be sparse")
 
     # ── Executive ─────────────────────────────────────────────────────────────
-    # Static always wins for complex/transitional situations
-    STATIC_WINS = {"IR", "SY", "VE", "KR", "JP", "TW", "MM", "KP", "SD", "YE", "LY", "PS"}
+    # Countries where static data always wins over Wikipedia.
+    # Wikipedia's table has formatting noise, adjacent-row confusion, and lags
+    # on transitional/disputed governments. Expand this set whenever Wikipedia
+    # produces a wrong or garbled name.
+    STATIC_WINS = {
+        # Transitional / disputed / non-competitive
+        "IR", "SY", "VE", "KR", "JP", "TW", "MM", "KP", "SD", "YE", "LY", "PS",
+        # Wikipedia row-parsing errors observed in output
+        "CN",   # Confuses Taiwan president (adjacent row) with China HOG
+        "CL",   # Returns Kast with wrong party; Boric is ground truth
+        "PE",   # Returns Balcazar instead of Boluarte
+        "FR",   # Returns Lecornu with wrong party; Bayrou is ground truth
+        "VN",   # One-party; Wikipedia title format garbled
+        "CU",   # One-party; Wikipedia title format garbled
+    }
+
+    # Strip Wikipedia title prefixes like "President – " or "Prime Minister [3] – "
+    _TITLE_RE = re.compile(
+        r"^(?:President|Prime\s+Minister|King|Queen|Emperor|Chancellor|"
+        r"General\s+Secretary(?:\s+of\s+the\s+Communist\s+Party)?|"
+        r"First\s+Secretary(?:\s+of\s+the\s+Communist\s+Party)?|"
+        r"Premier|Governor[\s-]General|Grand\s+Duke)"
+        r"(?:\s*\[\s*\w+\s*\])*\s*[\u2013\u2014-]\s*",
+        re.IGNORECASE,
+    )
+
+    def _clean_wiki(s):
+        return _TITLE_RE.sub("", s).strip() if s else None
 
     print(f"  [{iso2}] Wikipedia executive lookup...")
     wiki = _load_wiki_exec_cache().get(iso2, {})
@@ -2023,8 +2049,8 @@ def build_country(name: str, iso2: str, prev_by_iso2: Dict[str, Any]) -> Dict[st
         hog_name = static.get("hogName")
         exec_source = "static_ground_truth"
     else:
-        hos_name = wiki.get("hosName") or static.get("hosName")
-        hog_name = wiki.get("hogName") or static.get("hogName")
+        hos_name = _clean_wiki(wiki.get("hosName")) or static.get("hosName")
+        hog_name = _clean_wiki(wiki.get("hogName")) or static.get("hogName")
         exec_source = "wikipedia:List_of_current_heads_of_state_and_government"
 
     hos_party  = static.get("hosParty", "unknown")
