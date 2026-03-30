@@ -1113,7 +1113,7 @@ import os
 
 ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages"
 CLAUDE_MODEL      = "claude-sonnet-4-20250514"
-CLAUDE_MAX_TOKENS = 1400
+CLAUDE_MAX_TOKENS = 4000  # higher limit needed for web search tool-use turns
 CLAUDE_FORCE_REFRESH = os.environ.get("CLAUDE_FORCE_REFRESH", "").strip() == "1"
 
 CLAUDE_SYSTEM = """\
@@ -1124,55 +1124,93 @@ leadership, legislature control, and election data. You will receive:
   - The previous snapshot for this country (may be months old)
   - Today's date
 
-Return ONLY a single valid JSON object — no markdown, no explanation — containing \
-the complete, current political block for this country with these exact top-level keys:
+Return ONLY a single valid JSON object — no markdown, no explanation — with these keys:
 
 {
-  "headOfState":        {"name": str, "partyOrGroup": str},
-  "headOfGovernment":   {"name": str, "partyOrGroup": str},
-  "politicalSystem":    [str, ...],
-  "legislature":        [{"name": str, "inControl": str}, ...],
+  "headOfState":          {"name": str, "partyOrGroup": str},
+  "headOfGovernment":     {"name": str, "partyOrGroup": str},
+  "politicalSystem":      [str, ...],
+  "legislature":          [{"name": str, "inControl": str}, ...],
   "competitiveElections": bool,
   "nonCompetitiveReason": str | null,
-  "electionsSuspended": bool,
-  "suspensionReason":   str | null,
+  "electionsSuspended":   bool,
+  "suspensionReason":     str | null,
   "legislative": {
-    "lastElection": {"date": str, "type": str, "notes": str, "runoffDate": str|null, "runoffCondition": str|null} | null,
-    "nextElection": {"date": str, "type": str, "notes": str, "runoffDate": str|null, "runoffCondition": str|null} | null
+    "lastElection": {"date": str, "type": str, "notes": str,
+                     "runoffDate": str|null, "runoffCondition": str|null} | null,
+    "nextElection": {"date": str, "type": str, "notes": str,
+                     "runoffDate": str|null, "runoffCondition": str|null} | null
   },
   "executive": {
-    "lastElection": {"date": str, "type": str, "notes": str, "runoffDate": str|null, "runoffCondition": str|null} | null,
-    "nextElection": {"date": str, "type": str, "notes": str, "runoffDate": str|null, "runoffCondition": str|null} | null
+    "lastElection": {"date": str, "type": str, "notes": str,
+                     "runoffDate": str|null, "runoffCondition": str|null} | null,
+    "nextElection": {"date": str, "type": str, "notes": str,
+                     "runoffDate": str|null, "runoffCondition": str|null} | null
   },
   "dataAvailabilityNotes": str | null
 }
 
-Rules:
-- Use the scraper data where available; use your knowledge to fill gaps
-- If an election date just passed (date < today), move it to lastElection and \
-  update notes with results if known
-- notes should be 1-2 sentences, factual, no editorializing
-- Preserve previous notes if still accurate rather than rewriting unnecessarily
-- Dates: YYYY-MM-DD preferred, YYYY-MM or YYYY if exact date unknown
-- For headOfState == headOfGovernment (presidential systems), repeat the same name
-- partyOrGroup: official English name of party, or "Non-partisan (monarchy)" etc.
-- runoffDate: only if a two-round system is used AND a runoff is scheduled
-- If the previous snapshot notes are still accurate, copy them verbatim
-- Return ONLY the JSON object, nothing else\
+CRITICAL RULES:
+
+1. NEVER put a future date in lastElection. lastElection must only contain elections
+   where the vote has already been cast (date < today). If an election is scheduled
+   but has not yet happened, it goes in nextElection only — never in lastElection.
+
+2. NEVER fabricate results. If you are uncertain whether an election has occurred,
+   treat it as upcoming. Do not invent winners, vote shares, seat counts, or
+   coalition outcomes for events that have not yet happened.
+
+3. POST-ELECTION COALITION TALKS ARE NOT A COMPLETED RESULT. If a parliament just
+   voted and coalition negotiations are ongoing, notes must say "Coalition talks
+   ongoing as of [date]" and the PM/government composition may not yet be final.
+   Do not state a PM has been confirmed until that is actually factual.
+
+4. For acting/interim leaders (e.g. Venezuela's Rodríguez, transitional govts),
+   use the person actually exercising power today — not someone claiming legitimacy
+   from exile, detention, or a disputed election.
+
+5. For one-party states and Vietnam specifically: the President (head of state) and
+   General Secretary (party chief, holds supreme power) may be DIFFERENT people.
+   headOfState = the formal president. Note supreme power-holder in dataAvailabilityNotes.
+
+6. dataAvailabilityNotes is mandatory for: disputed legitimacy, parallel/rival
+   governments, suspended elections, acting leaders, one-party context, or any
+   nuance a data consumer needs to interpret the data correctly. Never leave this
+   null when the political situation is complex or contested.
+
+7. notes on election objects: factual, 1-2 sentences. Past-tense for completed
+   events (include seat counts, vote %, key outcomes). Future-tense for scheduled
+   events (include what is known: date, who is eligible, term-limit context).
+
+8. legislature[].inControl: reflect post-election reality. If an election just
+   happened and results are in, update this. If coalition talks are ongoing, say
+   "Pending coalition formation (election [date])".
+
+9. runoffDate: only populate if (a) a two-round system exists AND (b) a specific
+   runoff date is scheduled or constitutionally guaranteed. If the runoff date
+   depends on round-1 results not yet known, use runoffCondition only.
+
+10. Return ONLY the JSON object — no markdown fences, no preamble, no explanation.\
 """
 
 
 def _call_claude(country_name: str, iso2: str,
                  wiki_names: Dict, ipu: Dict, eg: Dict,
                  prev: Optional[Dict], trigger_reason: str) -> Optional[Dict]:
-    """Call the Claude API and return the parsed JSON response, or None on failure."""
+    """
+    Call the Claude API with live web search enabled.
+    Claude will search for current leadership and election data before responding,
+    ensuring results reflect real-world events rather than training data alone.
+    Handles the multi-turn tool-use loop that web search requires.
+    """
     api_key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
     if not api_key:
         return None
 
     today = datetime.now(timezone.utc).date().isoformat()
 
-    # Build a compact context payload
+    # Build context — scraper data gives Claude a starting point and
+    # hints at what to search for; it will verify and expand via web search
     context = {
         "country": country_name,
         "iso2": iso2,
@@ -1195,44 +1233,123 @@ def _call_claude(country_name: str, iso2: str,
             },
         },
         "previousSnapshot": {
-            "executive":      prev.get("executive")      if prev else None,
-            "politicalSystem":prev.get("politicalSystem") if prev else None,
-            "legislature":    prev.get("legislature")     if prev else None,
-            "elections":      prev.get("elections")       if prev else None,
+            "executive":        prev.get("executive")       if prev else None,
+            "politicalSystem":  prev.get("politicalSystem") if prev else None,
+            "legislature":      prev.get("legislature")     if prev else None,
+            "elections":        prev.get("elections")       if prev else None,
             "lastClaudeUpdate": prev.get("lastClaudeUpdate") if prev else None,
         } if prev else None,
     }
 
+    # Web search tool — Anthropic hosts the search infrastructure,
+    # no separate API key needed beyond ANTHROPIC_API_KEY
+    WEB_SEARCH_TOOL = {
+        "type": "web_search_20250305",
+        "name": "web_search",
+    }
+
+    headers = {
+        "x-api-key":         api_key,
+        "anthropic-version": "2023-06-01",
+        "content-type":      "application/json",
+    }
+
+    # Messages accumulate across tool-use turns
+    messages = [{"role": "user", "content": json.dumps(context, ensure_ascii=False)}]
+
     try:
-        resp = requests.post(
-            ANTHROPIC_API_URL,
-            headers={
-                "x-api-key":         api_key,
-                "anthropic-version": "2023-06-01",
-                "content-type":      "application/json",
-            },
-            json={
-                "model":      CLAUDE_MODEL,
-                "max_tokens": CLAUDE_MAX_TOKENS,
-                "system":     CLAUDE_SYSTEM,
-                "messages":   [{"role": "user", "content": json.dumps(context, ensure_ascii=False)}],
-            },
-            timeout=60,
-        )
-        resp.raise_for_status()
-        raw = ""
-        for block in resp.json().get("content", []):
-            if block.get("type") == "text":
-                raw += block.get("text", "")
-        raw = raw.strip()
+        # Tool-use loop: Claude may call web_search multiple times before
+        # returning its final text response. We keep sending results back
+        # until we get a stop_reason of "end_turn".
+        max_turns = 8  # safety cap — Claude typically uses 2-4 searches per country
+        final_text = ""
+
+        for turn in range(max_turns):
+            resp = requests.post(
+                ANTHROPIC_API_URL,
+                headers=headers,
+                json={
+                    "model":      CLAUDE_MODEL,
+                    "max_tokens": CLAUDE_MAX_TOKENS,
+                    "system":     CLAUDE_SYSTEM,
+                    "tools":      [WEB_SEARCH_TOOL],
+                    "messages":   messages,
+                },
+                timeout=90,  # longer timeout to allow search round-trips
+            )
+            resp.raise_for_status()
+            data = resp.json()
+
+            stop_reason = data.get("stop_reason")
+            content_blocks = data.get("content", [])
+
+            # Collect any text from this turn
+            for block in content_blocks:
+                if block.get("type") == "text":
+                    final_text += block.get("text", "")
+
+            # If Claude is done, break out of the loop
+            if stop_reason == "end_turn":
+                break
+
+            # If Claude wants to use a tool, process the tool calls and
+            # return results so it can continue
+            if stop_reason == "tool_use":
+                # Add Claude's response (containing tool_use blocks) to messages
+                messages.append({"role": "assistant", "content": content_blocks})
+
+                # Build tool results for all tool_use blocks in this turn
+                tool_results = []
+                for block in content_blocks:
+                    if block.get("type") == "tool_use":
+                        tool_id    = block.get("id", "")
+                        tool_name  = block.get("name", "")
+                        tool_input = block.get("input", {})
+
+                        if tool_name == "web_search":
+                            query = tool_input.get("query", "")
+                            print(f"  [{iso2}] 🔍 Web search: {query!r}")
+
+                        # The search result is returned by Anthropic's infrastructure
+                        # as part of the next API response — we send back a
+                        # tool_result block with the content from the block itself
+                        # (Anthropic's web_search tool populates content server-side)
+                        tool_results.append({
+                            "type":        "tool_result",
+                            "tool_use_id": tool_id,
+                            "content":     block.get("content", ""),
+                        })
+
+                messages.append({"role": "user", "content": tool_results})
+                continue
+
+            # Any other stop reason (max_tokens, etc.) — break and use what we have
+            print(f"  [{iso2}] ⚠️  Unexpected stop_reason: {stop_reason}")
+            break
+
+        if not final_text.strip():
+            print(f"  [{iso2}] ⚠️  Claude returned no text after {turn + 1} turn(s)")
+            return None
+
+        # Parse the JSON response
+        raw = final_text.strip()
         raw = re.sub(r"^```(?:json)?\s*", "", raw)
         raw = re.sub(r"\s*```$", "", raw)
+
+        # Claude sometimes wraps the JSON in extra text when using tools;
+        # extract just the JSON object
+        brace_start = raw.find("{")
+        brace_end   = raw.rfind("}") + 1
+        if brace_start != -1 and brace_end > brace_start:
+            raw = raw[brace_start:brace_end]
+
         result = json.loads(raw)
         if not isinstance(result, dict):
             raise ValueError(f"Expected dict, got {type(result)}")
         return result
+
     except json.JSONDecodeError as e:
-        print(f"  [{iso2}] ⚠️  Claude JSON parse error: {e}")
+        print(f"  [{iso2}] ⚠️  Claude JSON parse error: {e}. Raw: {final_text[:300]}")
     except requests.HTTPError as e:
         print(f"  [{iso2}] ⚠️  Claude HTTP error: {e}")
     except Exception as e:
