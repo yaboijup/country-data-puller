@@ -6,14 +6,13 @@ Run:  python scripts/build_countries_snapshot.py
 Deps: pip install requests beautifulsoup4 lxml
 
 Data strategy (March 2026):
-  - Executive names/parties:    STATIC_COUNTRY_DATA (Wikipedia-verified ground truth)
-  - Legislature bodies/control: STATIC_COUNTRY_DATA (ground truth)
-  - Elections:                  STATIC_COUNTRY_DATA enriched by:
-                                  1. IPU Parline API (/v1/parliaments + /v1/elections)
-                                  2. ElectionGuide HTML scrape (fallback)
-  - Political system:           STATIC_COUNTRY_DATA (cleaned)
-  - Metadata:                   REST Countries API (adaptive)
-  - Governance:                 World Bank WGI API (adaptive)
+  - Executive names/parties:    Wikipedia (free) → Claude API (fills gaps, verifies)
+  - Legislature bodies/control: Claude API (smart diff, 7-day refresh ceiling)
+  - Elections:                  IPU Parline + ElectionGuide (dates) → Claude API (context, notes)
+                                Daily refresh triggered when election within 7 days
+  - Political system:           Claude API
+  - Metadata:                   REST Countries API (live)
+  - Governance:                 World Bank WGI API (live)
 
 Election data model per country:
   elections:
@@ -181,1037 +180,6 @@ IPU_NOT_APPLICABLE: Dict[str, str] = {
     "PS": "No elections. Legislative Council suspended.",
 }
 
-# ── STATIC GROUND-TRUTH COUNTRY DATA ─────────────────────────────────────────
-# Verified as of March 2026. Wikipedia-confirmed.
-# IPU and ElectionGuide enrich election dates at runtime.
-#
-# elections fields:
-#   legislative / executive, each with:
-#     lastElection: { date, type, notes }
-#     nextElection: { date, type, notes }   — null if unknown/not applicable
-
-STATIC_COUNTRY_DATA: Dict[str, Dict] = {
-    "RU": {
-        "hosName":  "Vladimir Putin",   "hosParty": "United Russia",
-        "hogName":  "Mikhail Mishustin","hogParty": "United Russia",
-        "politicalSystem": ["presidential republic", "federal state"],
-        "legislature": [
-            {"name": "State Duma",        "inControl": "United Russia"},
-            {"name": "Federation Council","inControl": "United Russia"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2021-09-19", "type": "Parliamentary (State Duma)",
-                    "notes": "United Russia won 324/450 seats."},
-                "nextElection": {"date": "2026-09", "type": "Parliamentary (State Duma)",
-                    "notes": "Scheduled September 2026."},
-            },
-            "executive": {
-                "lastElection": {"date": "2024-03-17", "type": "Presidential",
-                    "notes": "Putin re-elected with reported 87% of vote."},
-                "nextElection": {"date": "2030", "type": "Presidential", "notes": None},
-            },
-        },
-    },
-    "IN": {
-        "hosName":  "Droupadi Murmu",  "hosParty": "Bharatiya Janata Party",
-        "hogName":  "Narendra Modi",   "hogParty": "Bharatiya Janata Party",
-        "politicalSystem": ["federal parliamentary democratic republic"],
-        "legislature": [
-            {"name": "Lok Sabha (lower house)",  "inControl": "BJP-led National Democratic Alliance"},
-            {"name": "Rajya Sabha (upper house)", "inControl": "BJP-led National Democratic Alliance"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2024-04-19", "type": "General election (Lok Sabha)",
-                    "notes": "BJP-led NDA won majority; Modi began third term as PM."},
-                "nextElection": {"date": "2029", "type": "General election (Lok Sabha)", "notes": None},
-            },
-            "executive": {
-                "lastElection": {"date": "2024-07", "type": "Presidential (indirect, parliament)",
-                    "notes": "Droupadi Murmu re-confirmed via parliamentary vote."},
-                "nextElection": {"date": "2029", "type": "Presidential (indirect)", "notes": None},
-            },
-        },
-    },
-    "PK": {
-        "hosName":  "Asif Ali Zardari",  "hosParty": "Pakistan Peoples Party",
-        "hogName":  "Shehbaz Sharif",    "hogParty": "Pakistan Muslim League (N)",
-        "politicalSystem": ["federal parliamentary constitutional republic"],
-        "legislature": [
-            {"name": "National Assembly", "inControl": "PML-N-led coalition"},
-            {"name": "Senate",            "inControl": "Coalition government"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2024-02-08", "type": "General election",
-                    "notes": "PTI-backed independents won most seats; PML-N formed coalition government."},
-                "nextElection": {"date": "2029", "type": "General election", "notes": None},
-            },
-            "executive": {
-                "lastElection": {"date": "2024-03", "type": "Presidential (indirect)",
-                    "notes": "Asif Ali Zardari elected president by parliament."},
-                "nextElection": {"date": "2029", "type": "Presidential (indirect)", "notes": None},
-            },
-        },
-    },
-    "CN": {
-        "hosName":  "Xi Jinping", "hosParty": "Chinese Communist Party",
-        "hogName":  "Li Qiang",   "hogParty": "Chinese Communist Party",
-        "executiveNote": "Xi Jinping holds supreme authority as General Secretary of the CCP and CMC Chairman. Li Qiang is Premier (head of government).",
-        "politicalSystem": ["one-party socialist state"],
-        "legislature": [
-            {"name": "National People's Congress", "inControl": "Chinese Communist Party"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2023-03", "type": "NPC delegate selection (non-competitive)",
-                    "notes": "NPC delegates selected through party-controlled process. Not a competitive election."},
-                "nextElection": {"date": "2028", "type": "NPC delegate selection (non-competitive)", "notes": None},
-            },
-            "executive": {
-                "lastElection": {"date": "2023-03", "type": "NPC presidential confirmation (non-competitive)",
-                    "notes": "Xi Jinping confirmed for third term by NPC; no opposition candidates permitted."},
-                "nextElection": {"date": "2028", "type": "NPC confirmation (non-competitive)", "notes": None},
-            },
-        },
-    },
-    "GB": {
-        "hosName":  "King Charles III",  "hosParty": "Non-partisan (monarchy)",
-        "hogName":  "Keir Starmer",      "hogParty": "Labour Party",
-        "politicalSystem": ["constitutional monarchy", "parliamentary democracy", "unitary state"],
-        "legislature": [
-            {"name": "House of Commons",  "inControl": "Labour Party"},
-            {"name": "House of Lords",    "inControl": "Cross-bench (appointed, non-elected)"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2024-07-04", "type": "General election",
-                    "notes": "Labour won a landslide majority (412/650 seats). Keir Starmer became PM."},
-                "nextElection": {"date": "2029", "type": "General election",
-                    "notes": "Due by January 2029 under the Dissolution and Calling of Parliament Act 2022."},
-            },
-            "executive": {
-                "lastElection": {"date": "2024-07-04", "type": "General election (parliamentary selection of PM)",
-                    "notes": "PM is appointed after winning a parliamentary majority."},
-                "nextElection": {"date": "2029", "type": "General election", "notes": None},
-            },
-        },
-    },
-    "DE": {
-        "hosName":  "Frank-Walter Steinmeier", "hosParty": "Social Democratic Party",
-        "hogName":  "Friedrich Merz",          "hogParty": "Christian Democratic Union",
-        "executiveNote": "CDU/CSU won the February 2025 snap election; Merz became Chancellor in April 2025 after coalition negotiations.",
-        "politicalSystem": ["federal parliamentary republic"],
-        "legislature": [
-            {"name": "Bundestag",  "inControl": "CDU/CSU-led coalition"},
-            {"name": "Bundesrat",  "inControl": "State governments (non-partisan body)"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2025-02-23", "type": "Federal election (Bundestag)",
-                    "notes": "CDU/CSU won 28.5%; SPD 16.4%. AfD came second with 20.8%. Merz formed CDU/CSU-SPD grand coalition."},
-                "nextElection": {"date": "2029", "type": "Federal election (Bundestag)", "notes": None},
-            },
-            "executive": {
-                "lastElection": {"date": "2025-02-23", "type": "Federal election (Chancellor selected by Bundestag)",
-                    "notes": "Chancellor is elected by the Bundestag following federal elections."},
-                "nextElection": {"date": "2029", "type": "Federal election", "notes": None},
-            },
-        },
-    },
-    "AE": {
-        "hosName":  "Mohamed bin Zayed Al Nahyan", "hosParty": "Non-partisan (monarchy)",
-        "hogName":  "Mohammed bin Rashid Al Maktoum","hogParty": "Non-partisan (monarchy)",
-        "executiveNote": "UAE is a federal monarchy; executive positions are hereditary. No public elections for president or PM.",
-        "politicalSystem": ["federal constitutional monarchy", "absolute monarchy"],
-        "legislature": [
-            {"name": "Federal National Council", "inControl": "Non-partisan (advisory body; half appointed, half indirectly elected)"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2023-10-07", "type": "Federal National Council (limited indirect election)",
-                    "notes": "Only half of the 40-seat FNC is indirectly elected by an appointed electorate of ~300,000. The body is advisory only."},
-                "nextElection": {"date": "2027", "type": "Federal National Council (limited indirect)", "notes": None},
-            },
-            "executive": {
-                "lastElection": None,
-                "nextElection": None,
-            },
-        },
-    },
-    "SA": {
-        "hosName":  "King Salman bin Abdulaziz Al Saud", "hosParty": "Non-partisan (monarchy)",
-        "hogName":  "Mohammed bin Salman",               "hogParty": "Non-partisan (monarchy)",
-        "executiveNote": "King Salman is head of state; Crown Prince Mohammed bin Salman (MBS) serves as Prime Minister and is de facto ruler.",
-        "politicalSystem": ["absolute monarchy", "theocratic state"],
-        "legislature": [
-            {"name": "Consultative Assembly (Majlis al-Shura)", "inControl": "Royal appointments (no elections)"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": None,
-                "nextElection": None,
-            },
-            "executive": {
-                "lastElection": None,
-                "nextElection": None,
-            },
-        },
-    },
-    "IL": {
-        "hosName":  "Isaac Herzog",      "hosParty": "Non-partisan (ceremonial president)",
-        "hogName":  "Benjamin Netanyahu","hogParty": "Likud",
-        "politicalSystem": ["parliamentary democracy", "unitary republic"],
-        "legislature": [
-            {"name": "Knesset", "inControl": "Likud-led right-wing coalition"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2022-11-01", "type": "Parliamentary (Knesset)",
-                    "notes": "Netanyahu's Likud-led bloc won 64/120 seats."},
-                "nextElection": {"date": "2026-10-27", "type": "Parliamentary (Knesset)",
-                    "notes": "Legal deadline. Netanyahu may call snap elections earlier (as early as mid-2026)."},
-            },
-            "executive": {
-                "lastElection": {"date": "2022-11-01", "type": "Parliamentary (PM selected by Knesset majority)",
-                    "notes": "PM emerges from parliamentary coalition formation after elections."},
-                "nextElection": {"date": "2026-10-27", "type": "Parliamentary", "notes": None},
-            },
-        },
-    },
-    "PS": {
-        "hosName":  "Mahmoud Abbas",    "hosParty": "Fatah",
-        "hogName":  "Mohammad Mustafa", "hogParty": "Fatah",
-        "executiveNote": "Mahmoud Abbas rules by decree since elections were last held in 2006 (legislative) and 2005 (presidential). PM Mohammad Mustafa was appointed March 2024.",
-        "politicalSystem": ["semi-presidential republic", "disputed/occupied territory"],
-        "legislature": [
-            {"name": "Palestinian Legislative Council", "inControl": "Suspended (no elections since 2006)"},
-        ],
-        "elections": {
-            "electionsSuspended": True,
-            "suspensionReason": "Suspended indefinitely. No elections since 2006 (legislative) and 2005 (presidential). Hamas control of Gaza and Israel's military campaign since Oct 2023 have made a unified election impossible. Abbas rules by decree.",
-            "legislative": {
-                "lastElection": {"date": "2006-01-25", "type": "Legislative Council",
-                    "notes": "Hamas won 74/132 seats. No elections held since; council suspended."},
-                "nextElection": None,
-            },
-            "executive": {
-                "lastElection": {"date": "2005-01-09", "type": "Presidential",
-                    "notes": "Mahmoud Abbas elected. No subsequent presidential election held."},
-                "nextElection": None,
-            },
-        },
-    },
-    "MX": {
-        "hosName":  "Claudia Sheinbaum", "hosParty": "Morena",
-        "hogName":  "Claudia Sheinbaum", "hogParty": "Morena",
-        "executiveNote": "Mexico has a presidential system. Sheinbaum became Mexico's first elected female president in October 2024.",
-        "politicalSystem": ["federal presidential republic"],
-        "legislature": [
-            {"name": "Chamber of Deputies", "inControl": "Morena-led coalition (supermajority)"},
-            {"name": "Senate",              "inControl": "Morena-led coalition"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2024-06-02", "type": "Congressional (Chamber of Deputies)",
-                    "notes": "Morena coalition won supermajority (364/500 seats in Chamber)."},
-                "nextElection": {"date": "2027", "type": "Midterm (Chamber of Deputies)", "notes": None},
-            },
-            "executive": {
-                "lastElection": {"date": "2024-06-02", "type": "Presidential",
-                    "notes": "Claudia Sheinbaum won with ~59% of vote."},
-                "nextElection": {"date": "2030", "type": "Presidential",
-                    "notes": "Mexico has a single 6-year term (sexenio) with no re-election."},
-            },
-        },
-    },
-    "BR": {
-        "hosName":  "Luiz Inácio Lula da Silva", "hosParty": "Workers' Party (PT)",
-        "hogName":  "Luiz Inácio Lula da Silva", "hogParty": "Workers' Party (PT)",
-        "politicalSystem": ["federal presidential republic"],
-        "legislature": [
-            {"name": "Chamber of Deputies", "inControl": "Centre-right coalition (PL largest party)"},
-            {"name": "Federal Senate",       "inControl": "Coalition government (PSD largest bloc)"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2022-10-02", "type": "Congressional",
-                    "notes": "PL (Bolsonaro's party) won most Chamber seats despite Lula winning presidency."},
-                "nextElection": {"date": "2026-10-04", "type": "Congressional + Presidential",
-                    "notes": "October 4, 2026 first round. Congressional seats decided by proportional rep; presidential runoff October 25 if needed.",
-                    "runoffDate": "2026-10-25", "runoffCondition": "if no presidential candidate wins >50% of valid votes in round 1"},
-            },
-            "executive": {
-                "lastElection": {"date": "2022-10-30", "type": "Presidential (runoff)",
-                    "notes": "Lula defeated Bolsonaro 50.9% to 49.1% in a runoff."},
-                "nextElection": {"date": "2026-10-04", "type": "Presidential",
-                    "notes": "October 4 first round; Lula eligible for re-election.",
-                    "runoffDate": "2026-10-25", "runoffCondition": "if no candidate wins >50% of valid votes in round 1"},
-            },
-        },
-    },
-    "CA": {
-        "hosName":  "King Charles III (rep. Governor General Mary Simon)", "hosParty": "Non-partisan (monarchy)",
-        "hogName":  "Mark Carney",  "hogParty": "Liberal Party",
-        "executiveNote": "Mark Carney became PM on 14 March 2025 after Trudeau's resignation. Liberals won the 28 April 2025 election with a minority (169 seats).",
-        "politicalSystem": ["federal parliamentary constitutional monarchy"],
-        "legislature": [
-            {"name": "House of Commons", "inControl": "Liberal Party (minority government, 169/343 seats)"},
-            {"name": "Senate",           "inControl": "Non-partisan (Independent Senators Group largest bloc)"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2025-04-28", "type": "Federal election",
-                    "notes": "Liberals won 169/343 seats (minority). Carney's Liberals won amid Trump tariff tensions."},
-                "nextElection": {"date": "2029", "type": "Federal election",
-                    "notes": "Due by October 2029 at latest; minority government makes earlier election possible."},
-            },
-            "executive": {
-                "lastElection": {"date": "2025-04-28", "type": "Federal election (PM selected by House majority)",
-                    "notes": "PM is appointed following federal election result."},
-                "nextElection": {"date": "2029", "type": "Federal election", "notes": None},
-            },
-        },
-    },
-    "NG": {
-        "hosName":  "Bola Tinubu", "hosParty": "All Progressives Congress",
-        "hogName":  "Bola Tinubu", "hogParty": "All Progressives Congress",
-        "politicalSystem": ["federal presidential republic"],
-        "legislature": [
-            {"name": "House of Representatives", "inControl": "All Progressives Congress"},
-            {"name": "Senate",                   "inControl": "All Progressives Congress"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2023-02-25", "type": "General election",
-                    "notes": "APC retained majorities in both chambers."},
-                "nextElection": {"date": "2027", "type": "General election", "notes": None},
-            },
-            "executive": {
-                "lastElection": {"date": "2023-02-25", "type": "Presidential",
-                    "notes": "Tinubu won with 36.6% in a fractured three-way race."},
-                "nextElection": {"date": "2027", "type": "Presidential", "notes": None},
-            },
-        },
-    },
-    "JP": {
-        "hosName":  "Emperor Naruhito",  "hosParty": "Non-partisan (imperial household)",
-        "hogName":  "Sanae Takaichi",    "hogParty": "Liberal Democratic Party",
-        "executiveNote": "Sanae Takaichi became Japan's first female PM in October 2025 after winning the LDP leadership race. She called a snap election on 8 February 2026, winning a historic LDP supermajority.",
-        "politicalSystem": ["constitutional monarchy", "parliamentary democracy"],
-        "legislature": [
-            {"name": "House of Representatives (Shugiin)",   "inControl": "LDP (supermajority — 316/465 seats, Feb 2026)"},
-            {"name": "House of Councillors (Sangiin)",        "inControl": "LDP-led coalition"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2026-02-08", "type": "Snap election (House of Representatives)",
-                    "notes": "LDP won historic supermajority of 316/465 seats. First snap election called by Takaichi as PM."},
-                "nextElection": {"date": "2030", "type": "General election (House of Representatives)", "notes": None},
-            },
-            "executive": {
-                "lastElection": {"date": "2026-02-08", "type": "Snap election (PM selected by supermajority)",
-                    "notes": "PM emerges from the parliamentary majority. Takaichi confirmed."},
-                "nextElection": {"date": "2030", "type": "General election", "notes": None},
-            },
-        },
-    },
-    "IR": {
-        "hosName":  "Interim Leadership Council", "hosParty": "Islamic Republic (transitional)",
-        "hogName":  "Masoud Pezeshkian",          "hogParty": "Reformist front",
-        "executiveNote": "Ali Khamenei was killed on 28 February 2026 in US/Israeli strikes. A three-member interim council (President, Chief Justice, Guardian Council rep) is managing the transition. A new Supreme Leader election by the Assembly of Experts is expected within 90 days.",
-        "politicalSystem": ["theocratic republic", "Islamic republic (transitional)"],
-        "legislature": [
-            {"name": "Islamic Consultative Assembly (Majlis)", "inControl": "Conservative/Principlist majority"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2024-03-01", "type": "Parliamentary (Majlis, round 1)",
-                    "notes": "Conservatives/Principlists won majority in low-turnout election (~41%). Second round April 2024."},
-                "nextElection": {"date": "2028", "type": "Parliamentary (Majlis)", "notes": None},
-            },
-            "executive": {
-                "lastElection": {"date": "2024-07-05", "type": "Presidential",
-                    "notes": "Masoud Pezeshkian (reformist) won snap election after Raisi's death in helicopter crash."},
-                "nextElection": {"date": "2028", "type": "Presidential",
-                    "notes": "Assembly of Experts will also elect a new Supreme Leader — timeline uncertain."},
-            },
-        },
-    },
-    "SY": {
-        "hosName":  "Ahmad al-Sharaa",  "hosParty": "Hayat Tahrir al-Sham (transitional authority)",
-        "hogName":  "Mohammad al-Bashir","hogParty": "Transitional government",
-        "executiveNote": "Assad fled in December 2024. Ahmad al-Sharaa (formerly Abu Mohammad al-Jolani) leads the transitional government. No functioning legislature.",
-        "politicalSystem": ["transitional government (post-civil war)"],
-        "legislature": [
-            {"name": "No functioning legislature", "inControl": "Transitional authority"},
-        ],
-        "elections": {
-            "electionsSuspended": True,
-            "suspensionReason": "Suspended under transitional authority. Following Assad's fall (Dec 2024), the HTS-led transitional government rules by decree with no electoral framework or timeline for elections.",
-            "legislative": {
-                "lastElection": {"date": "2024-07-15", "type": "Assad-era parliamentary election (discredited)",
-                    "notes": "Final Assad-era election, held during civil war. Not recognised as legitimate."},
-                "nextElection": None,
-            },
-            "executive": {
-                "lastElection": None,
-                "nextElection": None,
-            },
-        },
-    },
-    "FR": {
-        "hosName":  "Emmanuel Macron",  "hosParty": "Renaissance",
-        "hogName":  "François Bayrou",  "hogParty": "Democratic Movement (MoDem)",
-        "executiveNote": "François Bayrou became PM in January 2025 after Michel Barnier's government fell on a no-confidence vote in December 2024.",
-        "politicalSystem": ["unitary semi-presidential republic"],
-        "legislature": [
-            {"name": "National Assembly", "inControl": "No single majority (hung parliament; left-wing NFP largest bloc)"},
-            {"name": "Senate",            "inControl": "Centre-right (Les Républicains largest group)"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2024-07-07", "type": "Snap legislative election (round 2)",
-                    "notes": "Left-wing NFP won most seats but no majority. Macron's Ensemble third. Hung parliament."},
-                "nextElection": {"date": "2029", "type": "Legislative",
-                    "notes": "Next statutory election due 2029. Snap election possible if government falls again."},
-            },
-            "executive": {
-                "lastElection": {"date": "2022-04-24", "type": "Presidential (runoff)",
-                    "notes": "Macron defeated Le Pen 58.5% to 41.5%."},
-                "nextElection": {"date": "2027-04", "type": "Presidential",
-                    "notes": "Macron is term-limited; cannot run again. Exact April date TBD.",
-                    "runoffDate": "2027-05", "runoffCondition": "standard French two-round system; runoff between top 2 candidates ~2 weeks after round 1"},
-            },
-        },
-    },
-    "TR": {
-        "hosName":  "Recep Tayyip Erdoğan", "hosParty": "Justice and Development Party (AKP)",
-        "hogName":  "Recep Tayyip Erdoğan", "hogParty": "Justice and Development Party (AKP)",
-        "executiveNote": "Turkey has a presidential system since 2018; Erdoğan is both head of state and government.",
-        "politicalSystem": ["presidential republic", "unitary state"],
-        "legislature": [
-            {"name": "Grand National Assembly", "inControl": "AKP-led People's Alliance"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2023-05-14", "type": "Parliamentary + Presidential (simultaneous)",
-                    "notes": "AKP and allies retained parliamentary majority."},
-                "nextElection": {"date": "2028", "type": "Parliamentary + Presidential", "notes": None, "runoffDate": None, "runoffCondition": None},
-            },
-            "executive": {
-                "lastElection": {"date": "2023-05-28", "type": "Presidential (runoff)",
-                    "notes": "Erdoğan defeated Kılıçdaroğlu 52% to 48% in runoff."},
-                "nextElection": {"date": "2028", "type": "Presidential",
-                    "notes": "Constitutional two-term limit — Erdoğan may seek a third term via snap election reset.",
-                    "runoffDate": None, "runoffCondition": "two-round system if no candidate wins majority in round 1"},
-            },
-        },
-    },
-    "VE": {
-        "hosName":  "Delcy Rodríguez (acting)", "hosParty": "United Socialist Party of Venezuela (PSUV)",
-        "hogName":  "Delcy Rodríguez (acting)", "hogParty": "United Socialist Party of Venezuela (PSUV)",
-        "executiveNote": "Nicolás Maduro fled Venezuela in late 2025; VP Delcy Rodríguez became acting president on 3 January 2026. Edmundo González is internationally recognised by some states as legitimate president-elect (July 2024 election disputed).",
-        "politicalSystem": ["presidential republic (disputed/authoritarian)"],
-        "legislature": [
-            {"name": "National Assembly", "inControl": "PSUV (government-aligned majority)"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2020-12-06", "type": "Parliamentary",
-                    "notes": "Opposition boycotted. PSUV won 253/277 seats in discredited election."},
-                "nextElection": None,
-            },
-            "executive": {
-                "lastElection": {"date": "2024-07-28", "type": "Presidential",
-                    "notes": "Maduro declared winner; results internationally disputed. Opposition's González widely recognised as actual winner."},
-                "nextElection": {"date": "2030", "type": "Presidential",
-                    "notes": "If current government holds power; legitimacy deeply contested."},
-            },
-        },
-    },
-    "VN": {
-        "hosName":  "Lương Cường",      "hosParty": "Communist Party of Vietnam",
-        "hogName":  "Phạm Minh Chính",  "hogParty": "Communist Party of Vietnam",
-        "executiveNote": "Lương Cường became President in October 2024. General Secretary Tô Lâm holds supreme authority as party leader.",
-        "politicalSystem": ["one-party socialist republic"],
-        "legislature": [
-            {"name": "National Assembly", "inControl": "Communist Party of Vietnam"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2021-05-23", "type": "National Assembly (non-competitive)",
-                    "notes": "All candidates vetted by Vietnam Fatherland Front (CPV body). 99.6% voter turnout reported."},
-                "nextElection": {"date": "2026-05", "type": "National Assembly (non-competitive)",
-                    "notes": "Scheduled May 2026."},
-            },
-            "executive": {
-                "lastElection": {"date": "2021-07", "type": "Presidential (indirect, National Assembly)",
-                    "notes": "President elected by National Assembly on CPV nomination."},
-                "nextElection": {"date": "2026", "type": "Presidential (indirect)", "notes": None},
-            },
-        },
-    },
-    "TW": {
-        "hosName":  "Lai Ching-te",  "hosParty": "Democratic Progressive Party (DPP)",
-        "hogName":  "Cho Jung-tai",  "hogParty": "Democratic Progressive Party (DPP)",
-        "executiveNote": "Taiwan is not a UN member state; sovereignty disputed by China. Lai Ching-te (William Lai) became president in May 2024.",
-        "politicalSystem": ["semi-presidential republic (disputed sovereignty)"],
-        "legislature": [
-            {"name": "Legislative Yuan", "inControl": "KMT and Taiwan People's Party (TPP) hold combined majority"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2024-01-13", "type": "Legislative Yuan",
-                    "notes": "DPP lost its majority. KMT won most seats; TPP holds balance of power."},
-                "nextElection": {"date": "2028", "type": "Legislative Yuan", "notes": None},
-            },
-            "executive": {
-                "lastElection": {"date": "2024-01-13", "type": "Presidential",
-                    "notes": "Lai Ching-te won with 40.1% in three-way race."},
-                "nextElection": {"date": "2028", "type": "Presidential", "notes": None},
-            },
-        },
-    },
-    "KR": {
-        "hosName":  "Lee Jae-myung",  "hosParty": "Democratic Party of Korea",
-        "hogName":  "Lee Jae-myung",  "hogParty": "Democratic Party of Korea",
-        "executiveNote": "Lee Jae-myung won the June 2025 snap presidential election after Yoon Suk-yeol's impeachment and removal for his December 2024 martial law attempt.",
-        "politicalSystem": ["presidential republic", "unitary state"],
-        "legislature": [
-            {"name": "National Assembly", "inControl": "Democratic Party of Korea (supermajority)"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2024-04-10", "type": "Parliamentary",
-                    "notes": "Democratic Party won 175/300 seats (majority). Strong rebuke of Yoon government."},
-                "nextElection": {"date": "2028", "type": "Parliamentary", "notes": None},
-            },
-            "executive": {
-                "lastElection": {"date": "2025-06-03", "type": "Snap presidential election",
-                    "notes": "Lee Jae-myung won after Yoon Suk-yeol's impeachment for declaring martial law in December 2024."},
-                "nextElection": {"date": "2030", "type": "Presidential",
-                    "notes": "South Korea has a single 5-year presidential term with no re-election."},
-            },
-        },
-    },
-    "KP": {
-        "hosName":  "Kim Jong-un",   "hosParty": "Korean Workers' Party",
-        "hogName":  "Kim Jong-un",   "hogParty": "Korean Workers' Party",
-        "executiveNote": "Kim Jong-un holds supreme authority as General Secretary of the KWP, President of State Affairs, and Supreme Commander of the armed forces.",
-        "politicalSystem": ["one-party totalitarian state", "hereditary dictatorship"],
-        "legislature": [
-            {"name": "Supreme People's Assembly", "inControl": "Korean Workers' Party (single-party)"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2024-01-07", "type": "SPA election (non-competitive)",
-                    "notes": "Single-party slate with a single candidate per constituency. 99.9% turnout reported. Not a competitive election."},
-                "nextElection": {"date": "2029", "type": "SPA election (non-competitive)", "notes": None},
-            },
-            "executive": {
-                "lastElection": None,
-                "nextElection": None,
-            },
-        },
-    },
-    "ID": {
-        "hosName":  "Prabowo Subianto", "hosParty": "Gerindra Party",
-        "hogName":  "Prabowo Subianto", "hogParty": "Gerindra Party",
-        "executiveNote": "Prabowo Subianto became president in October 2024, succeeding Joko Widodo (Jokowi).",
-        "politicalSystem": ["presidential republic", "unitary state"],
-        "legislature": [
-            {"name": "People's Representative Council (DPR)", "inControl": "Prabowo-allied coalition (majority)"},
-            {"name": "Regional Representative Council (DPD)", "inControl": "Non-partisan (regional representatives)"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2024-02-14", "type": "General election (DPR + Presidential simultaneous)",
-                    "notes": "Golkar, Gerindra and PDI-P led in DPR seats. Simultaneous with presidential vote."},
-                "nextElection": {"date": "2029", "type": "General election", "notes": None},
-            },
-            "executive": {
-                "lastElection": {"date": "2024-02-14", "type": "Presidential",
-                    "notes": "Prabowo won 58.6% in a three-candidate race."},
-                "nextElection": {"date": "2029", "type": "Presidential",
-                    "notes": "Indonesia has a two-term limit; Prabowo eligible for one more term."},
-            },
-        },
-    },
-    "MM": {
-        "hosName":  "Min Aung Hlaing", "hosParty": "Tatmadaw (military)",
-        "hogName":  "Min Aung Hlaing", "hogParty": "Tatmadaw (military)",
-        "executiveNote": "Myanmar has been under military junta (State Administration Council) rule since the February 2021 coup. The elected NLD government operates in exile as the National Unity Government.",
-        "politicalSystem": ["military junta (State Administration Council)"],
-        "legislature": [
-            {"name": "Pyidaungsu Hluttaw (suspended)", "inControl": "Dissolved by military coup February 2021"},
-        ],
-        "elections": {
-            "electionsSuspended": True,
-            "suspensionReason": "Suspended by military junta. The SAC coup (Feb 2021) dissolved parliament and suspended democratic institutions. The junta has repeatedly delayed a promised election, most recently pushing it beyond 2025.",
-            "legislative": {
-                "lastElection": {"date": "2020-11-08", "type": "General election (pre-coup)",
-                    "notes": "NLD won landslide (396/476 seats). Military nullified results and staged coup on 1 Feb 2021."},
-                "nextElection": None,
-            },
-            "executive": {
-                "lastElection": {"date": "2020-11-08", "type": "General election (pre-coup)",
-                    "notes": "Last legitimate election before coup."},
-                "nextElection": None,
-            },
-        },
-    },
-    "AM": {
-        "hosName":  "Vahagn Khachaturyan", "hosParty": "Non-partisan (ceremonial)",
-        "hogName":  "Nikol Pashinyan",     "hogParty": "Civil Contract",
-        "politicalSystem": ["parliamentary republic", "unitary state"],
-        "legislature": [
-            {"name": "National Assembly", "inControl": "Civil Contract (majority)"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2021-06-20", "type": "Snap parliamentary election",
-                    "notes": "Civil Contract won 54% and majority. Called after post-war protests."},
-                "nextElection": {"date": "2026", "type": "Parliamentary",
-                    "notes": "Due by 2026. Pashinyan may call snap election following Armenia-Azerbaijan peace deal controversy."},
-            },
-            "executive": {
-                "lastElection": {"date": "2022-03-03", "type": "Presidential (indirect, National Assembly)",
-                    "notes": "Vahagn Khachaturyan elected by National Assembly. Ceremonial role."},
-                "nextElection": {"date": "2027", "type": "Presidential (indirect)", "notes": None},
-            },
-        },
-    },
-    "AZ": {
-        "hosName":  "Ilham Aliyev",  "hosParty": "New Azerbaijan Party",
-        "hogName":  "Ali Asadov",    "hogParty": "New Azerbaijan Party",
-        "politicalSystem": ["presidential republic (authoritarian)"],
-        "legislature": [
-            {"name": "National Assembly (Milli Majlis)", "inControl": "New Azerbaijan Party"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2024-09-01", "type": "Snap parliamentary election",
-                    "notes": "New Azerbaijan Party won 68/100 seats. OSCE reported significant irregularities."},
-                "nextElection": {"date": "2029", "type": "Parliamentary", "notes": None},
-            },
-            "executive": {
-                "lastElection": {"date": "2024-02-07", "type": "Snap presidential election",
-                    "notes": "Aliyev won 92.1%. No meaningful opposition permitted."},
-                "nextElection": {"date": "2031", "type": "Presidential", "notes": None},
-            },
-        },
-    },
-    "MA": {
-        "hosName":  "King Mohammed VI",   "hosParty": "Non-partisan (monarchy)",
-        "hogName":  "Aziz Akhannouch",    "hogParty": "National Rally of Independents (RNI)",
-        "politicalSystem": ["constitutional monarchy", "parliamentary democracy"],
-        "legislature": [
-            {"name": "House of Representatives", "inControl": "RNI-led coalition"},
-            {"name": "House of Councillors",      "inControl": "RNI-led coalition"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2021-09-08", "type": "Parliamentary",
-                    "notes": "RNI won 102/395 seats and formed a coalition government."},
-                "nextElection": {"date": "2026", "type": "Parliamentary",
-                    "notes": "Due September 2026."},
-            },
-            "executive": {
-                "lastElection": None,
-                "nextElection": None,
-            },
-        },
-    },
-    "SO": {
-        "hosName":  "Hassan Sheikh Mohamud", "hosParty": "Union for Peace and Development",
-        "hogName":  "Hamza Abdi Barre",      "hogParty": "Union for Peace and Development",
-        "executiveNote": "Somalia has a fragile federal government with indirect elections via clan delegates. Hassan Sheikh Mohamud was re-elected by parliament in May 2022.",
-        "politicalSystem": ["federal parliamentary republic (fragile state)"],
-        "legislature": [
-            {"name": "People's Assembly (Lower House)", "inControl": "Union for Peace and Development (plurality)"},
-            {"name": "Upper House (Senate)",            "inControl": "Coalition"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2021-10", "type": "Indirect parliamentary election",
-                    "notes": "Indirect clan-delegate system. No universal suffrage. Process completed late 2021 / early 2022."},
-                "nextElection": {"date": "2026", "type": "Indirect parliamentary election",
-                    "notes": "Expected 2025–2026. A move towards direct universal suffrage elections has been discussed but not implemented."},
-            },
-            "executive": {
-                "lastElection": {"date": "2022-05-15", "type": "Presidential (indirect, parliament)",
-                    "notes": "Hassan Sheikh Mohamud elected by parliament, 214/328 votes."},
-                "nextElection": {"date": "2026", "type": "Presidential (indirect)", "notes": None},
-            },
-        },
-    },
-    "YE": {
-        "hosName":  "Rashad al-Alimi (Presidential Leadership Council chair)", "hosParty": "Coalition (Presidential Leadership Council)",
-        "hogName":  "Ahmed Awad bin Mubarak", "hogParty": "Internationally recognised government",
-        "executiveNote": "Yemen is split between Houthi-controlled north and the internationally recognised government. The Presidential Leadership Council (est. 2022) chairs the recognised government.",
-        "politicalSystem": ["republic (de facto divided/civil war)"],
-        "legislature": [
-            {"name": "House of Representatives (suspended)", "inControl": "Divided (parallel governments)"},
-        ],
-        "elections": {
-            "electionsSuspended": True,
-            "suspensionReason": "Impossible due to civil war. The country is divided between Houthi-controlled north and the Presidential Leadership Council's south. No unified electoral authority exists.",
-            "legislative": {
-                "lastElection": {"date": "2003-04-27", "type": "Parliamentary",
-                    "notes": "Last parliamentary election before civil war. Parliament technically still in session but non-functional."},
-                "nextElection": None,
-            },
-            "executive": {
-                "lastElection": {"date": "2012-02-21", "type": "Presidential (single-candidate transition)",
-                    "notes": "Abd Rabbuh Mansur Hadi won uncontested election during Arab Spring transition. Replaced by Presidential Leadership Council in 2022."},
-                "nextElection": None,
-            },
-        },
-    },
-    "LY": {
-        "hosName":  "Mohamed al-Menfi (GNU Presidential Council)", "hosParty": "Non-partisan (UN-backed)",
-        "hogName":  "Abdul Hamid Dbeibeh (GNU)",                   "hogParty": "Non-partisan",
-        "executiveNote": "Libya has two rival governments: the UN-recognised Government of National Unity (GNU) in Tripoli, and the rival government backed by the House of Representatives in Benghazi/Tobruk.",
-        "politicalSystem": ["transitional republic (divided/rival governments)"],
-        "legislature": [
-            {"name": "House of Representatives (HoR)", "inControl": "Eastern-based rival government"},
-            {"name": "Government of National Unity (Tripoli)", "inControl": "UN-recognised"},
-        ],
-        "elections": {
-            "electionsSuspended": True,
-            "suspensionReason": "Suspended due to political deadlock. Planned 2021 elections were never held after rival factions rejected the electoral law. Two parallel governments have been unable to agree on a framework.",
-            "legislative": {
-                "lastElection": {"date": "2014-06-25", "type": "Parliamentary",
-                    "notes": "Low turnout (18%). Led to political split and parallel governments."},
-                "nextElection": None,
-            },
-            "executive": {
-                "lastElection": None,
-                "nextElection": None,
-            },
-        },
-    },
-    "EG": {
-        "hosName":  "Abdel Fattah el-Sisi", "hosParty": "No party (military-backed)",
-        "hogName":  "Mostafa Madbouly",     "hogParty": "No party (technocratic)",
-        "politicalSystem": ["presidential republic (authoritarian)"],
-        "legislature": [
-            {"name": "House of Representatives", "inControl": "Pro-Sisi independents and Nation's Future Party"},
-            {"name": "Senate",                   "inControl": "Pro-Sisi majority"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2020-10-24", "type": "Parliamentary",
-                    "notes": "Nation's Future Party and pro-Sisi independents won overwhelmingly. Opposition largely excluded."},
-                "nextElection": {"date": "2026", "type": "Parliamentary",
-                    "notes": "Due 2025-2026. Sisi extended parliament's term; election timing uncertain."},
-            },
-            "executive": {
-                "lastElection": {"date": "2023-12-10", "type": "Presidential",
-                    "notes": "Sisi won 89.6% in a tightly controlled election. No meaningful opposition."},
-                "nextElection": {"date": "2030", "type": "Presidential", "notes": None},
-            },
-        },
-    },
-    "DZ": {
-        "hosName":  "Abdelmadjid Tebboune", "hosParty": "National Liberation Front (FLN) aligned",
-        "hogName":  "Nadir Larbaoui",       "hogParty": "National Liberation Front (FLN) aligned",
-        "politicalSystem": ["presidential republic (dominant-party)"],
-        "legislature": [
-            {"name": "People's National Assembly", "inControl": "FLN-led coalition"},
-            {"name": "Council of the Nation",      "inControl": "FLN-led coalition"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2021-06-12", "type": "Parliamentary",
-                    "notes": "FLN and allies won majority in low-turnout election (~23%)."},
-                "nextElection": {"date": "2027", "type": "Parliamentary", "notes": None},
-            },
-            "executive": {
-                "lastElection": {"date": "2024-09-07", "type": "Presidential",
-                    "notes": "Tebboune re-elected with 94.7% in a low-turnout election."},
-                "nextElection": {"date": "2029", "type": "Presidential", "notes": None},
-            },
-        },
-    },
-    "AR": {
-        "hosName":  "Javier Milei", "hosParty": "La Libertad Avanza",
-        "hogName":  "Javier Milei", "hogParty": "La Libertad Avanza",
-        "politicalSystem": ["federal presidential republic"],
-        "legislature": [
-            {"name": "Chamber of Deputies", "inControl": "No single majority (Peronist blocs largest; Milei minority)"},
-            {"name": "Senate",              "inControl": "No single majority"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2025-10-26", "type": "Congressional midterm",
-                    "notes": "Half of Chamber renewed. Milei's LLA won ~38% and gained ~30 seats, strengthening his minority position."},
-                "nextElection": {"date": "2027-10", "type": "Congressional midterm",
-                    "notes": "Next midterm due October 2027. October 2025 midterm already held; Milei's LLA gained seats, improving his legislative position."},
-            },
-            "executive": {
-                "lastElection": {"date": "2023-11-19", "type": "Presidential (runoff)",
-                    "notes": "Milei defeated Massa (Peronist) 55.7% to 44.3%."},
-                "nextElection": {"date": "2027", "type": "Presidential",
-                    "notes": "Argentina has a 4-year term with one re-election permitted.",
-                    "runoffDate": None, "runoffCondition": "runoff required unless winner gets >45% or leads by 10+ points with >40%"},
-            },
-        },
-    },
-    "CL": {
-        "hosName":  "Gabriel Boric",  "hosParty": "Apruebo Dignidad (Broad Front / PC coalition)",
-        "hogName":  "Gabriel Boric",  "hogParty": "Apruebo Dignidad",
-        "executiveNote": "Gabriel Boric was term-limited; election held Nov-Dec 2025. New president took office March 2026. Static data pending update with confirmed winner.",
-        "politicalSystem": ["unitary presidential republic"],
-        "legislature": [
-            {"name": "Chamber of Deputies", "inControl": "Right-wing Chile Vamos coalition (largest bloc)"},
-            {"name": "Senate",              "inControl": "Right-wing coalition (majority)"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2025-11-16", "type": "Parliamentary + Presidential (simultaneous)",
-                    "notes": "First round held 16 Nov 2025. Boric term-limited; right-wing Chile Vamos led in congressional seats."},
-                "nextElection": {"date": "2029-11", "type": "Parliamentary + Presidential (simultaneous)",
-                    "notes": None},
-            },
-            "executive": {
-                "lastElection": {"date": "2025-12-07", "type": "Presidential (runoff)",
-                    "notes": "Runoff held Dec 2025. Boric was term-limited; new president took office March 2026."},
-                "nextElection": {"date": "2029-11", "type": "Presidential",
-                    "notes": None},
-            },
-        },
-    },
-    "PE": {
-        "hosName":  "Dina Boluarte", "hosParty": "No active party affiliation",
-        "hogName":  "Dina Boluarte", "hogParty": "No active party affiliation",
-        "executiveNote": "Dina Boluarte became president in December 2022 after Pedro Castillo's failed self-coup and impeachment. She was previously VP.",
-        "politicalSystem": ["unitary presidential republic"],
-        "legislature": [
-            {"name": "Congress", "inControl": "Right-wing and centre-right coalition (Alliance for Progress largest bloc)"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2021-04-11", "type": "Parliamentary + Presidential (simultaneous)",
-                    "notes": "Highly fragmented result. No party won more than 15% of seats."},
-                "nextElection": {"date": "2026-04-12", "type": "Parliamentary + Presidential (simultaneous)",
-                    "notes": "April 12, 2026. Boluarte term ended; José María Balcázar serving as interim president.",
-                    "runoffDate": "2026-06-07", "runoffCondition": "presidential runoff if no candidate wins >50% of valid votes in round 1"},
-            },
-            "executive": {
-                "lastElection": {"date": "2021-06-06", "type": "Presidential (runoff)",
-                    "notes": "Castillo defeated Fujimori 50.1% to 49.9%. Castillo impeached Dec 2022; Boluarte assumed presidency."},
-                "nextElection": {"date": "2026-04-12", "type": "Presidential",
-                    "notes": "April 12 first round. Boluarte cannot run (completing prior term, not her own).",
-                    "runoffDate": "2026-06-07", "runoffCondition": "if no candidate wins >50% of valid votes in round 1"},
-            },
-        },
-    },
-    "CU": {
-        "hosName":  "Miguel Díaz-Canel",    "hosParty": "Communist Party of Cuba",
-        "hogName":  "Manuel Marrero Cruz",  "hogParty": "Communist Party of Cuba",
-        "politicalSystem": ["one-party socialist republic"],
-        "legislature": [
-            {"name": "National Assembly of People's Power", "inControl": "Communist Party of Cuba"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2023-03-26", "type": "National Assembly (non-competitive)",
-                    "notes": "Single-slate election. All 470 candidates pre-approved by Communist Party."},
-                "nextElection": {"date": "2028", "type": "National Assembly (non-competitive)", "notes": None},
-            },
-            "executive": {
-                "lastElection": {"date": "2023-04", "type": "Presidential (indirect, National Assembly, non-competitive)",
-                    "notes": "Díaz-Canel re-confirmed by National Assembly."},
-                "nextElection": {"date": "2028", "type": "Presidential (indirect, non-competitive)", "notes": None},
-            },
-        },
-    },
-    "CO": {
-        "hosName":  "Gustavo Petro",  "hosParty": "Colombia Humana / Pacto Histórico",
-        "hogName":  "Gustavo Petro",  "hogParty": "Pacto Histórico",
-        "politicalSystem": ["unitary presidential republic"],
-        "legislature": [
-            {"name": "House of Representatives", "inControl": "Fragmented (Pacto Histórico minority; no clear majority)"},
-            {"name": "Senate",                   "inControl": "Fragmented coalition"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2026-03-08", "type": "Congressional",
-                    "notes": "March 8, 2026. Fragmented result; Paloma Valencia's center-right coalition performed strongly. Petro's Historic Pact suffered losses."},
-                "nextElection": {"date": "2026-05-31", "type": "Presidential",
-                    "notes": "Presidential first round May 31, 2026; runoff June 21 if needed. Congressional election already held March 8, 2026."},
-            },
-            "executive": {
-                "lastElection": {"date": "2022-06-19", "type": "Presidential (runoff)",
-                    "notes": "Petro defeated Hernández 50.4% to 47.3%. First left-wing president in Colombia's history."},
-                "nextElection": {"date": "2026-05-31", "type": "Presidential",
-                    "notes": "May 31 first round. Petro term-limited; cannot run again.",
-                    "runoffDate": "2026-06-21", "runoffCondition": "if no candidate wins >50% of valid votes in round 1"},
-            },
-        },
-    },
-    "PA": {
-        "hosName":  "José Raúl Mulino",  "hosParty": "Realizing Goals Party",
-        "hogName":  "José Raúl Mulino",  "hogParty": "Realizing Goals Party",
-        "politicalSystem": ["presidential republic"],
-        "legislature": [
-            {"name": "National Assembly", "inControl": "Fragmented (no single majority; Realizing Goals is largest party)"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2024-05-05", "type": "General election",
-                    "notes": "Fragmented result. Mulino's party won plurality in Assembly."},
-                "nextElection": {"date": "2029", "type": "General election", "notes": None},
-            },
-            "executive": {
-                "lastElection": {"date": "2024-05-05", "type": "Presidential",
-                    "notes": "Mulino won with 34.3% in a six-candidate race. Contested but upheld."},
-                "nextElection": {"date": "2029", "type": "Presidential",
-                    "notes": "Panama has a single 5-year term with no re-election."},
-            },
-        },
-    },
-    "SV": {
-        "hosName":  "Nayib Bukele",  "hosParty": "New Ideas",
-        "hogName":  "Nayib Bukele",  "hogParty": "New Ideas",
-        "executiveNote": "Nayib Bukele was re-elected in February 2024 despite constitutional single-term limits; the Supreme Court approved his candidacy in a controversial ruling.",
-        "politicalSystem": ["presidential republic"],
-        "legislature": [
-            {"name": "Legislative Assembly", "inControl": "New Ideas (supermajority)"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2024-02-04", "type": "Presidential + Legislative (simultaneous)",
-                    "notes": "New Ideas won 54/60 seats (supermajority). Bukele re-elected with ~85%."},
-                "nextElection": {"date": "2027", "type": "Legislative midterm", "notes": None},
-            },
-            "executive": {
-                "lastElection": {"date": "2024-02-04", "type": "Presidential",
-                    "notes": "Bukele won ~85% in a non-competitive race after sidelining opposition."},
-                "nextElection": {"date": "2030", "type": "Presidential",
-                    "notes": "Constitutional status of future terms uncertain given court rulings on term limits."},
-            },
-        },
-    },
-    "DK": {
-        "hosName":  "King Frederik X",     "hosParty": "Non-partisan (monarchy)",
-        "hogName":  "Mette Frederiksen",   "hogParty": "Social Democrats",
-        "executiveNote": "King Frederik X succeeded Queen Margrethe II on 14 January 2024. PM Frederiksen called a snap election for 24 March 2026, capitalising on popularity from her stance against Trump's Greenland threats.",
-        "politicalSystem": ["constitutional monarchy", "parliamentary democracy"],
-        "legislature": [
-            {"name": "Folketing", "inControl": "Result pending — snap election 24 March 2026"},
-        ],
-        "elections": {
-            "legislative": {
-                "lastElection": {"date": "2022-11-01", "type": "Snap parliamentary election",
-                    "notes": "Left-wing bloc won narrow majority. Frederiksen formed minority government."},
-                "lastElection": {"date": "2026-03-24", "type": "Snap parliamentary election",
-                    "notes": "Held 24 March 2026. Frederiksen called snap election on Greenland sovereignty platform. Results still being tallied as of March 28 2026."},
-                "nextElection": {"date": "2030", "type": "Parliamentary", "notes": None},
-            },
-            "executive": {
-                "lastElection": {"date": "2022-11-01", "type": "Parliamentary (PM selected by Folketing majority)",
-                    "notes": "PM emerges from parliamentary majority formation."},
-                "nextElection": {"date": "2030", "type": "Parliamentary", "notes": None},
-            },
-        },
-    },
-    "SD": {
-        "hosName":  "Abdel Fattah al-Burhan",  "hosParty": "Sudanese Armed Forces (SAF)",
-        "hogName":  "Abdel Fattah al-Burhan",  "hogParty": "Sudanese Armed Forces (SAF)",
-        "executiveNote": "Sudan has been in civil war since April 2023 between the SAF (al-Burhan) and the Rapid Support Forces (RSF/Hemeti). The civilian transitional framework has collapsed.",
-        "politicalSystem": ["military junta (transitional sovereignty council)"],
-        "legislature": [
-            {"name": "No functioning legislature", "inControl": "Dissolved; civil war ongoing"},
-        ],
-        "elections": {
-            "electionsSuspended": True,
-            "suspensionReason": "Impossible due to active civil war. Sudan has been in conflict between the SAF and RSF since April 2023. No functioning government capable of organising elections; large portions of the country are contested or destroyed.",
-            "legislative": {
-                "lastElection": None,
-                "nextElection": None,
-            },
-            "executive": {
-                "lastElection": None,
-                "nextElection": None,
-            },
-        },
-    },
-    "UA": {
-        "hosName":  "Volodymyr Zelensky",  "hosParty": "Servant of the People",
-        "hogName":  "Denys Shmyhal",       "hogParty": "Servant of the People",
-        "executiveNote": "Elections are suspended under martial law due to the ongoing Russian invasion. Zelensky's presidential term was extended per wartime provisions; his term legally expired May 2024.",
-        "politicalSystem": ["semi-presidential republic (martial law)"],
-        "legislature": [
-            {"name": "Verkhovna Rada", "inControl": "Servant of the People (majority; elections suspended)"},
-        ],
-        "elections": {
-            "electionsSuspended": True,
-            "suspensionReason": "Suspended under martial law. Russia's invasion (Feb 2022) triggered martial law which prohibits elections under Article 83 of the Ukrainian Constitution. Zelenskyy's term expired May 2024 but was extended by parliament under wartime provisions. Elections cannot be held until martial law is lifted.",
-            "legislative": {
-                "lastElection": {"date": "2019-07-21", "type": "Parliamentary",
-                    "notes": "Servant of the People won supermajority (254/450 seats). Elections suspended under martial law since 2022."},
-                "nextElection": None,
-            },
-            "executive": {
-                "lastElection": {"date": "2019-04-21", "type": "Presidential (runoff)",
-                    "notes": "Zelensky defeated Poroshenko 73% to 25%. Elections suspended under martial law; term extended by parliament."},
-                "nextElection": None,
-            },
-        },
-    },
-}
-
-# ── DATA AVAILABILITY NOTES ───────────────────────────────────────────────────
-
-DATA_AVAILABILITY_NOTES: Dict[str, Dict[str, str]] = {
-    "TW": {
-        "worldBankGovernance": "Taiwan is not a UN member and is not recognised by the World Bank. WGI data unavailable.",
-        "elections": "Taiwan is not an IPU member (non-UN member state). Election data from static records.",
-    },
-    "PS": {
-        "worldBankGovernance": "World Bank data for Palestine is limited due to its political status.",
-        "elections": "No elections since 2006 (legislative) and 2005 (presidential). Mahmoud Abbas rules by decree.",
-    },
-    "KP": {
-        "worldBankGovernance": "North Korea governance data is based on limited external assessments.",
-        "elections": "North Korea holds nominal single-party elections not tracked by IPU as competitive.",
-    },
-    "SY": {
-        "executive": "Syria's transitional government (post-Assad, December 2024) has no formal electoral basis.",
-        "elections": "No elections scheduled. Transitional authority governing.",
-    },
-    "SO": {
-        "worldBankGovernance": "Somalia governance data based on limited external assessments due to conflict.",
-    },
-    "YE": {
-        "worldBankGovernance": "Yemen governance data from internationally recognised government baseline; actual governance severely disrupted by civil war.",
-        "elections": "No elections possible. Country divided between Houthi and internationally recognised government.",
-    },
-    "LY": {
-        "worldBankGovernance": "Libya has parallel governing authorities; data reflects the internationally recognised GNU.",
-        "elections": "No elections held since 2014. Planned 2021 elections cancelled.",
-    },
-    "SD": {
-        "worldBankGovernance": "Sudan is in active civil war since April 2023; governance data from pre-war assessments.",
-        "elections": "No elections. Military junta controls territory contested with RSF.",
-    },
-    "UA": {
-        "elections": "Elections suspended under martial law (Russian invasion ongoing since February 2022).",
-    },
-    "IR": {
-        "executive": "Ali Khamenei killed 28 February 2026. Interim leadership council in place; new Supreme Leader election pending.",
-    },
-    "VE": {
-        "executive": "July 2024 presidential election disputed internationally. Maduro fled; Rodríguez acting president. González recognised by some states as legitimate president-elect.",
-    },
-    "MM": {
-        "elections": "No elections scheduled. Military junta (SAC) suspended parliament after February 2021 coup.",
-    },
-}
 
 # ── HELPERS ───────────────────────────────────────────────────────────────────
 
@@ -2013,193 +981,13 @@ def merge_wb_sticky(new_wb: Dict, prev: Optional[Dict]) -> Dict:
 
 # ── BUILD ELECTION OBJECT ─────────────────────────────────────────────────────
 
-def _election_obj(date: Optional[str], etype: Optional[str],
-                  notes: Optional[str],
-                  runoff_date: Optional[str] = None,
-                  runoff_condition: Optional[str] = None) -> Optional[Dict]:
-    """Create a structured election object, or None if no date."""
-    if date is None and etype is None:
-        return None
-    obj: Dict = {"date": date, "type": etype, "notes": notes,
-                 "runoffDate": runoff_date,
-                 "runoffCondition": runoff_condition if runoff_date else None}
-    return obj
-
-
-def build_elections_block(iso2: str, static: Dict,
-                           ipu: Dict, eg: Dict) -> Dict[str, Any]:
-    """
-    Merge static ground truth with IPU and ElectionGuide enrichment.
-    Priority: static dates (ground truth) > IPU > ElectionGuide.
-    IPU/EG are used to confirm or fill in gaps, never to override verified static data.
-
-    Returns the full elections block including competitiveElections flag.
-    """
-    is_non_competitive = iso2 in NON_COMPETITIVE
-    non_competitive_reason = NON_COMPETITIVE.get(iso2)
-
-    static_elec = static.get("elections") or {}
-    static_leg  = static_elec.get("legislative") or {}
-    static_exec = static_elec.get("executive") or {}
-
-    static_leg_last = static_leg.get("lastElection")
-    static_leg_next = static_leg.get("nextElection")
-    static_exec_last = static_exec.get("lastElection")
-    static_exec_next = static_exec.get("nextElection")
-
-    def _normalize_election(obj: Optional[Dict]) -> Optional[Dict]:
-        """Ensure all election objects have runoffDate and runoffCondition fields."""
-        if obj is None:
-            return None
-        obj = dict(obj)
-        obj.setdefault("runoffDate", None)
-        obj.setdefault("runoffCondition", None)
-        return obj
-
-    static_leg_last  = _normalize_election(static_leg_last)
-    static_leg_next  = _normalize_election(static_leg_next)
-    static_exec_last = _normalize_election(static_exec_last)
-    static_exec_next = _normalize_election(static_exec_next)
-
-    # For legislative next date: static is authoritative for type/notes, but if the
-    # static date is imprecise (year-only or year-month), let IPU/EG refine it to
-    # a full YYYY-MM-DD while preserving the static type and notes.
-    leg_next = static_leg_next
-    leg_next_source = "static_ground_truth"
-
-    def _is_imprecise(election_obj: Optional[Dict]) -> bool:
-        """True if the date is year-only (YYYY) or year-month (YYYY-MM)."""
-        if not election_obj:
-            return False
-        d = election_obj.get("date", "")
-        return bool(d) and len(str(d)) <= 7  # YYYY or YYYY-MM
-
-    if not is_non_competitive:
-        if leg_next is None:
-            # No static date at all — fill entirely from IPU/EG
-            ipu_next = ipu.get("nextDate")
-            if ipu_next:
-                ipu_type = ipu.get("nextType") or "Parliamentary (IPU Parline)"
-                leg_next = _election_obj(
-                    date=ipu_next,
-                    etype=ipu_type,
-                    notes=ipu.get("notes"),
-                )
-                leg_next_source = "ipu_parline"
-            else:
-                eg_next = eg.get("nextDate")
-                if eg_next:
-                    eg_type = eg.get("nextType") or "Parliamentary (ElectionGuide)"
-                    leg_next = _election_obj(
-                        date=eg_next,
-                        etype=eg_type,
-                        notes="Date sourced from ElectionGuide.",
-                    )
-                    leg_next_source = "electionguide"
-        elif _is_imprecise(leg_next):
-            # Static has a vague date — try to refine to exact day from IPU/EG
-            # Keep static type and notes; only update the date field if more precise
-            ipu_next = ipu.get("nextDate")
-            eg_next  = eg.get("nextDate")
-            refine_date = None
-            refine_src  = None
-
-            if ipu_next and len(ipu_next) == 10:  # full YYYY-MM-DD
-                refine_date = ipu_next
-                refine_src  = "ipu_parline"
-            elif eg_next and len(eg_next) == 10:
-                refine_date = eg_next
-                refine_src  = "electionguide"
-
-            if refine_date:
-                # Sanity-check: refined date should be in same year as static
-                static_year = str(leg_next.get("date", ""))[:4]
-                if refine_date.startswith(static_year):
-                    leg_next = dict(leg_next)  # copy to avoid mutating static dict
-                    leg_next["date"] = refine_date
-                    leg_next_source = f"static_ground_truth + {refine_src} date refinement"
-
-    # Determine election source description
-    if ipu.get("source") == "ipu_parline":
-        leg_source = "static_ground_truth + ipu_parline enrichment"
-    elif eg.get("source") == "electionguide":
-        leg_source = "static_ground_truth + electionguide enrichment"
-    else:
-        leg_source = "static_ground_truth"
-
-    legislative = {
-        "lastElection": static_leg_last,
-        "nextElection": leg_next,
-        "source": leg_source,
-    }
-
-    # ── Today detection ──────────────────────────────────────────────────────
-    today_str = datetime.now(timezone.utc).date().isoformat()
-
-    def _is_today(election_obj: Optional[Dict]) -> bool:
-        if not election_obj:
-            return False
-        d = str(election_obj.get("date", ""))
-        return d == today_str
-
-    def _flag_today(election_obj: Optional[Dict]) -> Optional[Dict]:
-        """If the election date is today, prepend a note to the object."""
-        if not election_obj or not _is_today(election_obj):
-            return election_obj
-        obj = dict(election_obj)
-        obj["electionDay"] = True
-        existing_notes = obj.get("notes") or ""
-        obj["notes"] = (f"⚡ ELECTION DAY ({today_str}). " + existing_notes).strip()
-        return obj
-
-    # Flag today BEFORE building the executive/legislative dicts so the
-    # flagged versions are what end up in the output.
-    static_exec_next = _flag_today(static_exec_next)
-    leg_next         = _flag_today(leg_next)
-
-    election_today = _is_today(leg_next) or _is_today(static_exec_next)
-
-    executive = {
-        "lastElection": static_exec_last,
-        "nextElection": static_exec_next,
-        "source": "static_ground_truth",
-    }
-
-    return {
-        "competitiveElections": not is_non_competitive,
-        "nonCompetitiveReason": non_competitive_reason,
-        "electionsSuspended": static.get("electionsSuspended", False),
-        "suspensionReason": static.get("suspensionReason", None),
-        "electionToday": election_today,
-        "legislative": legislative,
-        "executive": executive,
-    }
 
 # ── BUILD ONE COUNTRY ─────────────────────────────────────────────────────────
 
-def build_country(name: str, iso2: str, prev_by_iso2: Dict[str, Any]) -> Dict[str, Any]:
-    static = STATIC_COUNTRY_DATA.get(iso2, {})
-    if not static:
-        print(f"  [{iso2}] WARNING: no static data — output will be sparse")
-
-    # ── Executive ─────────────────────────────────────────────────────────────
-    # Countries where static data always wins over Wikipedia.
-    # Wikipedia's table has formatting noise, adjacent-row confusion, and lags
-    # on transitional/disputed governments. Expand this set whenever Wikipedia
-    # produces a wrong or garbled name.
-    STATIC_WINS = {
-        # Transitional / disputed / non-competitive
-        "IR", "SY", "VE", "KR", "JP", "TW", "MM", "KP", "SD", "YE", "LY", "PS",
-        # Wikipedia row-parsing errors observed in output
-        "CN",   # Confuses Taiwan president (adjacent row) with China HOG
-        "CL",   # Returns Kast with wrong party; Boric is ground truth
-        "PE",   # Returns Balcazar instead of Boluarte
-        "FR",   # Returns Lecornu with wrong party; Bayrou is ground truth
-        "VN",   # One-party; Wikipedia title format garbled
-        "CU",   # One-party; Wikipedia title format garbled
-    }
-
-    # Strip Wikipedia title prefixes like "President – " or "Prime Minister [3] – "
+def _clean_wiki(s: Optional[str]) -> Optional[str]:
+    """Strip Wikipedia title prefixes and footnote brackets from a name."""
+    if not s:
+        return None
     _TITLE_RE = re.compile(
         r"^(?:President|Prime\s+Minister|King|Queen|Emperor|Chancellor|"
         r"General\s+Secretary(?:\s+of\s+the\s+Communist\s+Party)?|"
@@ -2208,348 +996,212 @@ def build_country(name: str, iso2: str, prev_by_iso2: Dict[str, Any]) -> Dict[st
         r"(?:\s*\[\s*\w+\s*\])*\s*[\u2013\u2014-]\s*",
         re.IGNORECASE,
     )
-
-    def _clean_wiki(s):
-        if not s:
-            return None
-        s = _TITLE_RE.sub("", s)
-        # Strip Wikipedia footnote brackets like "[ II ]", "[3]", "[ 2 ]"
-        s = re.sub(r"\s*\[\s*[^\]]*\]\s*", " ", s).strip()
-        return s or None
-
-    print(f"  [{iso2}] Wikipedia executive lookup...")
-    wiki = _load_wiki_exec_cache().get(iso2, {})
-
-    if iso2 in STATIC_WINS or not wiki.get("hosName"):
-        hos_name = static.get("hosName")
-        hog_name = static.get("hogName")
-        exec_source = "static_ground_truth"
-    else:
-        hos_name = _clean_wiki(wiki.get("hosName")) or static.get("hosName")
-        hog_name = _clean_wiki(wiki.get("hogName")) or static.get("hogName")
-        exec_source = "wikipedia:List_of_current_heads_of_state_and_government"
-
-    hos_party  = static.get("hosParty", "unknown")
-    hog_party  = static.get("hogParty", "unknown")
-    exec_note  = static.get("executiveNote")
-    pol_sys    = static.get("politicalSystem", ["unknown"])
-
-    print(f"  [{iso2}] HOS={hos_name}, HOG={hog_name}")
-
-    # ── Legislature ───────────────────────────────────────────────────────────
-    leg_static = static.get("legislature", [{"name": "Legislature", "inControl": "unknown"}])
-    legislature = [
-        {
-            "name":          b["name"],
-            "inControl":     b.get("inControl", "unknown"),
-            "controlMethod": "static_ground_truth",
-        }
-        for b in leg_static
-    ]
-
-    # ── Elections enrichment (IPU + ElectionGuide) ────────────────────────────
-    print(f"  [{iso2}] IPU elections fetch...")
-    ipu = fetch_ipu_elections(iso2)
-    print(f"  [{iso2}] IPU: lastDate={ipu.get('lastDate')}, nextDate={ipu.get('nextDate')}, src={ipu.get('source')}")
-
-    print(f"  [{iso2}] ElectionGuide date lookup...")
-    eg = get_electionguide_dates(iso2)
-    print(f"  [{iso2}] EG: lastDate={eg.get('lastDate')}, nextDate={eg.get('nextDate')}")
-
-    elections = build_elections_block(iso2, static, ipu, eg)
-
-    # ── World Bank WGI ────────────────────────────────────────────────────────
-    print(f"  [{iso2}] WB WGI fetch...")
-    new_wb = fetch_wgi(iso2)
-    wb_gov = merge_wb_sticky(new_wb, prev_by_iso2.get(iso2))
-
-    # ── REST Countries metadata ───────────────────────────────────────────────
-    print(f"  [{iso2}] REST Countries fetch...")
-    meta = fetch_rest_countries(iso2)
-    print(f"  [{iso2}] meta: capital={meta.get('capital')}, pop={meta.get('population')}")
-
-    # ── dataAvailability block ────────────────────────────────────────────────
-    static_notes = DATA_AVAILABILITY_NOTES.get(iso2, {})
-    avail: Dict[str, str] = {}
-
-    if exec_note:
-        avail["executive"] = exec_note
-    elif static_notes.get("executive"):
-        avail["executive"] = static_notes["executive"]
-
-    if wb_gov.get("overallPercentile") is None:
-        avail["worldBankGovernance"] = (
-            static_notes.get("worldBankGovernance") or
-            f"World Bank WGI data unavailable for '{iso2}'.")
-    elif static_notes.get("worldBankGovernance"):
-        avail["worldBankGovernance"] = static_notes["worldBankGovernance"]
-
-    if static_notes.get("elections"):
-        avail["elections"] = static_notes["elections"]
-
-    if meta.get("capital") is None and meta.get("population") is None:
-        avail["metadata"] = f"REST Countries API returned no data for '{iso2}'."
-
-    # ── Assemble ──────────────────────────────────────────────────────────────
-    exec_leader = hog_name or hos_name
-    exec_party  = hog_party if hog_party not in (None, "unknown") else hos_party
-
-    return {
-        "country": name,
-        "iso2":    iso2,
-        "metadata": {
-            "officialName": meta["officialName"],
-            "capital":      meta["capital"],
-            "population":   meta["population"],
-            "region":       meta["region"],
-            "subregion":    meta["subregion"],
-            "flag":         meta["flag"],
-            "flagPng":      meta["flagPng"],
-            "currencies":   meta["currencies"],
-            "languages":    meta["languages"],
-            "source":       meta["source"],
-        },
-        "politicalSystem": {
-            "values": pol_sys,
-            "source": "static_ground_truth",
-        },
-        "executive": {
-            "headOfState": {
-                "name":         hos_name,
-                "partyOrGroup": hos_party,
-                "source":       exec_source,
-            },
-            "headOfGovernment": {
-                "name":         hog_name,
-                "partyOrGroup": hog_party,
-                "source":       exec_source,
-            },
-            "executiveInPower": {
-                "leader":       exec_leader,
-                "partyOrGroup": exec_party,
-                "method":       "head_of_government" if hog_name else "head_of_state",
-            },
-        },
-        "legislature": {
-            "bodies": legislature,
-            "source": "static_ground_truth",
-        },
-        "worldBankGovernance": wb_gov,
-        "dataAvailability": avail if avail else None,
-        "elections": elections,
-    }
+    s = _TITLE_RE.sub("", s)
+    s = re.sub(r"\s*\[\s*[^\]]*\]\s*", " ", s).strip()
+    return s or None
 
 
-# ── CLAUDE API ENRICHMENT (smart diff) ────────────────────────────────────────
-#
-# Strategy: after all free scrapers have run, compare the freshly-built country
-# block against the previous snapshot.  Only call Claude when a genuine signal
-# of staleness or change exists:
-#
-#   TRIGGER 1 — executive changed: Wikipedia returned a different name than prev
-#   TRIGGER 2 — election fired:    a nextElection date has passed since last run
-#   TRIGGER 3 — no previous data:  first run for this country
-#   TRIGGER 4 — forced refresh:    CLAUDE_FORCE_REFRESH env var set to "1"
-#
-# Claude is given only the current scraped data + previous snapshot for that
-# country — never the full 44-country payload.  Output is a structured JSON
-# patch that gets merged back into the country block.
-#
-# Notes are generated only for genuinely new/changed elections.
-# Previously-written notes are preserved unchanged to avoid token waste.
+def _election_window_active(prev: Optional[Dict], days: int = 7) -> bool:
+    """
+    Return True if any election date in the previous snapshot falls within
+    `days` days before OR after today. Used to trigger daily Claude refresh
+    around election periods so results get picked up quickly.
+    """
+    if not prev:
+        return False
+    today = datetime.now(timezone.utc).date()
+    elec = prev.get("elections") or {}
+    candidates = []
+    for block in (elec.get("legislative") or {}, elec.get("executive") or {}):
+        for key in ("lastElection", "nextElection"):
+            obj = block.get(key) if isinstance(block, dict) else None
+            if obj:
+                candidates.append(obj.get("date"))
+        # Also check runoffDate
+        for key in ("lastElection", "nextElection"):
+            obj = block.get(key) if isinstance(block, dict) else None
+            if obj:
+                candidates.append(obj.get("runoffDate"))
+
+    for d in candidates:
+        if not d:
+            continue
+        try:
+            s = str(d)
+            if len(s) == 10:
+                dt = datetime.strptime(s, "%Y-%m-%d").date()
+            elif len(s) == 7:
+                y, m = s.split("-")
+                dt = datetime(int(y), int(m), 15).date()
+            else:
+                continue
+            if abs((dt - today).days) <= days:
+                return True
+        except (ValueError, AttributeError):
+            continue
+    return False
+
+
+def _days_since_claude(prev: Optional[Dict]) -> int:
+    """Return days since Claude last updated this country. 999 if never."""
+    if not prev:
+        return 999
+    ts = prev.get("lastClaudeUpdate")
+    if not ts:
+        return 999
+    try:
+        last = datetime.fromisoformat(ts.replace("Z", "+00:00"))
+        return (datetime.now(timezone.utc) - last).days
+    except (ValueError, AttributeError):
+        return 999
+
+
+def _should_call_claude(iso2: str, wiki_names: Dict, ipu: Dict, eg: Dict,
+                        prev: Optional[Dict]) -> Tuple[bool, str]:
+    """
+    Decide whether to call Claude for this country.
+    Returns (should_call, reason).
+
+    Trigger rules (any one fires a call):
+      1. No previous snapshot for this country → first run
+      2. Wikipedia returned a different leader name than prev snapshot
+      3. IPU or EG returned a date not in prev snapshot
+      4. Any election date within 7 days of today (before or after) → daily refresh
+      5. Last Claude update was >7 days ago → weekly refresh ceiling
+      6. CLAUDE_FORCE_REFRESH env var set
+    """
+    if CLAUDE_FORCE_REFRESH:
+        return True, "forced_refresh"
+
+    if not prev:
+        return True, "first_run"
+
+    # Trigger 2: Wikipedia name changed
+    prev_hos = ((prev.get("executive") or {}).get("headOfState") or {}).get("name")
+    prev_hog = ((prev.get("executive") or {}).get("headOfGovernment") or {}).get("name")
+    wiki_hos = _clean_wiki(wiki_names.get("hosName"))
+    wiki_hog = _clean_wiki(wiki_names.get("hogName"))
+    if wiki_hos and wiki_hos != prev_hos:
+        return True, f"executive_name_changed ({prev_hos!r} → {wiki_hos!r})"
+    if wiki_hog and wiki_hog != prev_hog:
+        return True, f"executive_name_changed ({prev_hog!r} → {wiki_hog!r})"
+
+    # Trigger 3: IPU/EG has a date not in prev
+    prev_leg_next = ((prev.get("elections") or {}).get("legislative") or {}).get("nextElection") or {}
+    ipu_next = ipu.get("nextDate")
+    eg_next  = eg.get("nextDate")
+    if ipu_next and ipu_next != prev_leg_next.get("date"):
+        return True, f"ipu_date_changed ({ipu_next})"
+    if eg_next and eg_next != prev_leg_next.get("date"):
+        return True, f"eg_date_changed ({eg_next})"
+
+    # Trigger 4: election window active (within 7 days)
+    if _election_window_active(prev, days=7):
+        return True, "election_window_active"
+
+    # Trigger 5: >7 days since last Claude update
+    days_old = _days_since_claude(prev)
+    if days_old > 7:
+        return True, f"stale_{days_old}d"
+
+    return False, ""
+
+
+# ── CLAUDE API ─────────────────────────────────────────────────────────────────
 
 import os
 
 ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages"
 CLAUDE_MODEL      = "claude-sonnet-4-20250514"
-CLAUDE_MAX_TOKENS = 1200
-
-# Env var: set ANTHROPIC_API_KEY in GitHub Actions secrets
-# Env var: set CLAUDE_FORCE_REFRESH=1 to force a full refresh pass
+CLAUDE_MAX_TOKENS = 1400
 CLAUDE_FORCE_REFRESH = os.environ.get("CLAUDE_FORCE_REFRESH", "").strip() == "1"
 
-CLAUDE_SYSTEM_PROMPT = """You are a political data analyst updating a structured JSON dataset of country leadership and elections. You will be given:
-1. The current scraped data for one country (may be stale or incomplete)
-2. The previous snapshot for that country (for comparison)
+CLAUDE_SYSTEM = """\
+You are a political data analyst maintaining a structured JSON dataset of country \
+leadership, legislature control, and election data. You will receive:
+  - The country name and ISO2 code
+  - Whatever the free scrapers found (Wikipedia leader names, IPU/EG election dates)
+  - The previous snapshot for this country (may be months old)
+  - Today's date
 
-Your job is to return ONLY a JSON object with corrections/additions. Rules:
-- Only include fields that need changing — omit fields that are already correct
-- Be factual and conservative — if uncertain, preserve the existing value
-- Notes should be 1-2 sentences, factual, no editorializing
-- Dates must be ISO format: YYYY-MM-DD, YYYY-MM, or YYYY
-- partyOrGroup should be the official party name in English
-- For non-competitive/transitional states, be accurate about who actually holds power
-- If the executive data looks correct and current, return an empty object {}
+Return ONLY a single valid JSON object — no markdown, no explanation — containing \
+the complete, current political block for this country with these exact top-level keys:
 
-Return ONLY valid JSON, no explanation, no markdown fences."""
+{
+  "headOfState":        {"name": str, "partyOrGroup": str},
+  "headOfGovernment":   {"name": str, "partyOrGroup": str},
+  "politicalSystem":    [str, ...],
+  "legislature":        [{"name": str, "inControl": str}, ...],
+  "competitiveElections": bool,
+  "nonCompetitiveReason": str | null,
+  "electionsSuspended": bool,
+  "suspensionReason":   str | null,
+  "legislative": {
+    "lastElection": {"date": str, "type": str, "notes": str, "runoffDate": str|null, "runoffCondition": str|null} | null,
+    "nextElection": {"date": str, "type": str, "notes": str, "runoffDate": str|null, "runoffCondition": str|null} | null
+  },
+  "executive": {
+    "lastElection": {"date": str, "type": str, "notes": str, "runoffDate": str|null, "runoffCondition": str|null} | null,
+    "nextElection": {"date": str, "type": str, "notes": str, "runoffDate": str|null, "runoffCondition": str|null} | null
+  },
+  "dataAvailabilityNotes": str | null
+}
 
-def _should_trigger_claude(
-    iso2: str,
-    current: Dict[str, Any],
-    prev: Optional[Dict[str, Any]],
-) -> Tuple[bool, str]:
-    """
-    Decide whether to call Claude for this country.
-    Returns (should_call, reason_string).
-    """
-    if CLAUDE_FORCE_REFRESH:
-        return True, "forced_refresh"
-
-    if prev is None:
-        return True, "no_previous_snapshot"
-
-    # Trigger 1: executive name changed vs previous snapshot
-    prev_hos = (prev.get("executive") or {}).get("headOfState") or {}
-    prev_hog = (prev.get("executive") or {}).get("headOfGovernment") or {}
-    curr_hos = (current.get("executive") or {}).get("headOfState") or {}
-    curr_hog = (current.get("executive") or {}).get("headOfGovernment") or {}
-
-    if (curr_hos.get("name") != prev_hos.get("name") or
-            curr_hog.get("name") != prev_hog.get("name")):
-        return True, "executive_name_changed"
-
-    # Trigger 2: a nextElection date has now passed
-    today = datetime.now(timezone.utc).date()
-
-    def _date_passed(election_obj: Optional[Dict]) -> bool:
-        if not election_obj:
-            return False
-        d = str(election_obj.get("date", ""))
-        try:
-            if len(d) == 10:
-                return datetime.strptime(d, "%Y-%m-%d").date() < today
-            if len(d) == 7:
-                y, m = d.split("-")
-                return datetime(int(y), int(m), 28).date() < today
-            if len(d) == 4:
-                return int(d) < today.year
-        except (ValueError, AttributeError):
-            pass
-        return False
-
-    prev_elec = prev.get("elections") or {}
-    prev_leg_next  = (prev_elec.get("legislative") or {}).get("nextElection")
-    prev_exec_next = (prev_elec.get("executive")   or {}).get("nextElection")
-
-    if _date_passed(prev_leg_next) or _date_passed(prev_exec_next):
-        return True, "election_date_passed"
-
-    # Trigger 3: elections block has null notes on a competitive country
-    curr_elec = current.get("elections") or {}
-    if curr_elec.get("competitiveElections"):
-        leg_next  = (curr_elec.get("legislative") or {}).get("nextElection")
-        exec_next = (curr_elec.get("executive")   or {}).get("nextElection")
-        if (leg_next and not leg_next.get("notes")) or (exec_next and not exec_next.get("notes")):
-            return True, "missing_election_notes"
-
-    return False, ""
+Rules:
+- Use the scraper data where available; use your knowledge to fill gaps
+- If an election date just passed (date < today), move it to lastElection and \
+  update notes with results if known
+- notes should be 1-2 sentences, factual, no editorializing
+- Preserve previous notes if still accurate rather than rewriting unnecessarily
+- Dates: YYYY-MM-DD preferred, YYYY-MM or YYYY if exact date unknown
+- For headOfState == headOfGovernment (presidential systems), repeat the same name
+- partyOrGroup: official English name of party, or "Non-partisan (monarchy)" etc.
+- runoffDate: only if a two-round system is used AND a runoff is scheduled
+- If the previous snapshot notes are still accurate, copy them verbatim
+- Return ONLY the JSON object, nothing else\
+"""
 
 
-def _build_claude_prompt(
-    country_name: str,
-    iso2: str,
-    current: Dict[str, Any],
-    prev: Optional[Dict[str, Any]],
-    trigger_reason: str,
-) -> str:
-    """Build the user prompt for Claude."""
-    today = datetime.now(timezone.utc).date().isoformat()
-
-    prompt_parts = [
-        f"Country: {country_name} ({iso2})",
-        f"Today\'s date: {today}",
-        f"Trigger reason: {trigger_reason}",
-        "",
-        "=== CURRENT SCRAPED DATA ===",
-        json.dumps({
-            "executive": current.get("executive"),
-            "legislature": current.get("legislature"),
-            "elections": current.get("elections"),
-            "politicalSystem": current.get("politicalSystem"),
-        }, ensure_ascii=False, indent=2),
-    ]
-
-    if prev:
-        prompt_parts += [
-            "",
-            "=== PREVIOUS SNAPSHOT (for comparison) ===",
-            json.dumps({
-                "executive": prev.get("executive"),
-                "legislature": prev.get("legislature"),
-                "elections": prev.get("elections"),
-            }, ensure_ascii=False, indent=2),
-        ]
-
-    prompt_parts += [
-        "",
-        "Return a JSON patch object with ONLY the fields that need updating.",
-        "Preserve existing notes unless they are factually wrong.",
-        "If nothing needs changing, return {}",
-        "",
-        "Possible top-level keys you may return:",
-        "  executive.headOfState.name",
-        "  executive.headOfState.partyOrGroup",
-        "  executive.headOfGovernment.name",
-        "  executive.headOfGovernment.partyOrGroup",
-        "  legislature (full array if changed)",
-        "  elections.legislative.lastElection (full object)",
-        "  elections.legislative.nextElection (full object)",
-        "  elections.executive.lastElection (full object)",
-        "  elections.executive.nextElection (full object)",
-        "  dataAvailability.executive (string note if leadership changed)",
-    ]
-
-    return "\n".join(prompt_parts)
-
-
-def _apply_claude_patch(country: Dict[str, Any], patch: Dict[str, Any]) -> Dict[str, Any]:
-    """
-    Deep-merge a Claude patch into the country dict.
-    Supports dot-notation keys like \"executive.headOfState.name\".
-    """
-    if not patch:
-        return country
-
-    import copy
-    result = copy.deepcopy(country)
-
-    for key, value in patch.items():
-        parts = key.split(".")
-        obj = result
-        try:
-            for part in parts[:-1]:
-                if part not in obj or not isinstance(obj[part], dict):
-                    obj[part] = {}
-                obj = obj[part]
-            obj[parts[-1]] = value
-        except (KeyError, TypeError):
-            # If path doesn't exist, skip this patch key
-            pass
-
-    return result
-
-
-def claude_enrich(
-    country_name: str,
-    iso2: str,
-    current: Dict[str, Any],
-    prev: Optional[Dict[str, Any]],
-) -> Dict[str, Any]:
-    """
-    Main entry point. Returns the country dict, possibly enriched by Claude.
-    If no trigger fires or the API key is missing, returns current unchanged.
-    """
+def _call_claude(country_name: str, iso2: str,
+                 wiki_names: Dict, ipu: Dict, eg: Dict,
+                 prev: Optional[Dict], trigger_reason: str) -> Optional[Dict]:
+    """Call the Claude API and return the parsed JSON response, or None on failure."""
     api_key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
     if not api_key:
-        return current  # Silent no-op if key not configured
+        return None
 
-    should_call, reason = _should_trigger_claude(iso2, current, prev)
-    if not should_call:
-        return current
+    today = datetime.now(timezone.utc).date().isoformat()
 
-    print(f"  [{iso2}] 🤖 Claude enrichment triggered: {reason}")
-
-    prompt = _build_claude_prompt(country_name, iso2, current, prev, reason)
+    # Build a compact context payload
+    context = {
+        "country": country_name,
+        "iso2": iso2,
+        "today": today,
+        "triggerReason": trigger_reason,
+        "scraperData": {
+            "wikipedia": {
+                "hosName": _clean_wiki(wiki_names.get("hosName")),
+                "hogName": _clean_wiki(wiki_names.get("hogName")),
+            },
+            "ipu": {
+                "lastDate": ipu.get("lastDate"),
+                "nextDate": ipu.get("nextDate"),
+                "nextType": ipu.get("nextType"),
+            },
+            "electionGuide": {
+                "lastDate": eg.get("lastDate"),
+                "nextDate": eg.get("nextDate"),
+                "nextType": eg.get("nextType"),
+            },
+        },
+        "previousSnapshot": {
+            "executive":      prev.get("executive")      if prev else None,
+            "politicalSystem":prev.get("politicalSystem") if prev else None,
+            "legislature":    prev.get("legislature")     if prev else None,
+            "elections":      prev.get("elections")       if prev else None,
+            "lastClaudeUpdate": prev.get("lastClaudeUpdate") if prev else None,
+        } if prev else None,
+    }
 
     try:
         resp = requests.post(
@@ -2562,48 +1214,247 @@ def claude_enrich(
             json={
                 "model":      CLAUDE_MODEL,
                 "max_tokens": CLAUDE_MAX_TOKENS,
-                "system":     CLAUDE_SYSTEM_PROMPT,
-                "messages":   [{"role": "user", "content": prompt}],
+                "system":     CLAUDE_SYSTEM,
+                "messages":   [{"role": "user", "content": json.dumps(context, ensure_ascii=False)}],
             },
-            timeout=45,
+            timeout=60,
         )
         resp.raise_for_status()
-        data = resp.json()
-
         raw = ""
-        for block in data.get("content", []):
+        for block in resp.json().get("content", []):
             if block.get("type") == "text":
                 raw += block.get("text", "")
-
         raw = raw.strip()
-        # Strip markdown fences if model included them
         raw = re.sub(r"^```(?:json)?\s*", "", raw)
         raw = re.sub(r"\s*```$", "", raw)
-
-        patch = json.loads(raw)
-        if not isinstance(patch, dict):
-            raise ValueError(f"Claude returned non-dict: {type(patch)}")
-
-        if patch:
-            print(f"  [{iso2}] ✅ Claude patch applied: {list(patch.keys())}")
-            current = _apply_claude_patch(current, patch)
-            # Mark enriched fields so source is traceable
-            if current.get("executive"):
-                for role in ("headOfState", "headOfGovernment"):
-                    node = (current["executive"].get(role) or {})
-                    if node.get("name") and node.get("source", "").startswith("static"):
-                        node["source"] = f"claude_enriched ({reason})"
-        else:
-            print(f"  [{iso2}] ✅ Claude: no changes needed")
-
+        result = json.loads(raw)
+        if not isinstance(result, dict):
+            raise ValueError(f"Expected dict, got {type(result)}")
+        return result
     except json.JSONDecodeError as e:
-        print(f"  [{iso2}] ⚠️  Claude returned invalid JSON: {e}. Raw: {raw[:200]}")
+        print(f"  [{iso2}] ⚠️  Claude JSON parse error: {e}")
     except requests.HTTPError as e:
-        print(f"  [{iso2}] ⚠️  Claude API HTTP error: {e}")
+        print(f"  [{iso2}] ⚠️  Claude HTTP error: {e}")
     except Exception as e:
-        print(f"  [{iso2}] ⚠️  Claude enrichment failed: {e}")
+        print(f"  [{iso2}] ⚠️  Claude error: {e}")
+    return None
 
-    return current
+
+def _assemble_from_claude(iso2: str, cl: Dict, ipu: Dict, eg: Dict,
+                          trigger: str, today_str: str) -> Tuple[Dict, Dict, Dict]:
+    """
+    Turn Claude's response dict into (executive_block, legislature_block, elections_block).
+    """
+
+    def _norm_election(obj: Optional[Dict]) -> Optional[Dict]:
+        if not obj:
+            return None
+        return {
+            "date":           obj.get("date"),
+            "type":           obj.get("type"),
+            "notes":          obj.get("notes"),
+            "runoffDate":     obj.get("runoffDate"),
+            "runoffCondition":obj.get("runoffCondition"),
+            "electionDay":    str(obj.get("date", "")) == today_str,
+        }
+
+    def _flag_today(obj: Optional[Dict]) -> Optional[Dict]:
+        if not obj or str(obj.get("date", "")) != today_str:
+            return obj
+        obj = dict(obj)
+        obj["electionDay"] = True
+        existing = obj.get("notes") or ""
+        obj["notes"] = (f"⚡ ELECTION DAY ({today_str}). " + existing).strip()
+        return obj
+
+    hos = cl.get("headOfState") or {}
+    hog = cl.get("headOfGovernment") or {}
+    hos_name = hos.get("name")
+    hog_name = hog.get("name")
+    exec_leader = hog_name or hos_name
+    exec_party  = hog.get("partyOrGroup") or hos.get("partyOrGroup")
+
+    executive_block = {
+        "headOfState": {
+            "name":         hos_name,
+            "partyOrGroup": hos.get("partyOrGroup"),
+            "source":       f"claude ({trigger})",
+        },
+        "headOfGovernment": {
+            "name":         hog_name,
+            "partyOrGroup": hog.get("partyOrGroup"),
+            "source":       f"claude ({trigger})",
+        },
+        "executiveInPower": {
+            "leader":       exec_leader,
+            "partyOrGroup": exec_party,
+            "method":       "head_of_government" if hog_name and hog_name != hos_name
+                            else "head_of_state",
+        },
+    }
+
+    leg_bodies = cl.get("legislature") or []
+    legislature_block = {
+        "bodies": [
+            {
+                "name":          b.get("name", "Legislature"),
+                "inControl":     b.get("inControl", "unknown"),
+                "controlMethod": f"claude ({trigger})",
+            }
+            for b in leg_bodies
+        ],
+        "source": f"claude ({trigger})",
+    }
+
+    cl_leg  = cl.get("legislative") or {}
+    cl_exec = cl.get("executive")   or {}
+
+    leg_next  = _flag_today(_norm_election(cl_leg.get("nextElection")))
+    exec_next = _flag_today(_norm_election(cl_exec.get("nextElection")))
+
+    election_today = (str((cl_leg.get("nextElection") or {}).get("date", "")) == today_str or
+                      str((cl_exec.get("nextElection") or {}).get("date", "")) == today_str)
+
+    # Prefer IPU/EG date over Claude if more precise and same year
+    def _maybe_refine_date(election_obj: Optional[Dict], scraper_date: Optional[str]) -> Optional[Dict]:
+        if not election_obj or not scraper_date or len(scraper_date) != 10:
+            return election_obj
+        static_year = str((election_obj.get("date") or ""))[:4]
+        if scraper_date.startswith(static_year):
+            election_obj = dict(election_obj)
+            election_obj["date"] = scraper_date
+        return election_obj
+
+    leg_next = _maybe_refine_date(leg_next, ipu.get("nextDate") or eg.get("nextDate"))
+
+    elections_block = {
+        "competitiveElections": cl.get("competitiveElections", True),
+        "nonCompetitiveReason": cl.get("nonCompetitiveReason"),
+        "electionsSuspended":   cl.get("electionsSuspended", False),
+        "suspensionReason":     cl.get("suspensionReason"),
+        "electionToday":        election_today,
+        "legislative": {
+            "lastElection": _norm_election(cl_leg.get("lastElection")),
+            "nextElection": leg_next,
+            "source":       f"claude ({trigger})" + (
+                " + ipu_parline" if ipu.get("nextDate") else "") + (
+                " + electionguide" if eg.get("nextDate") else ""),
+        },
+        "executive": {
+            "lastElection": _norm_election(cl_exec.get("lastElection")),
+            "nextElection": exec_next,
+            "source":       f"claude ({trigger})",
+        },
+    }
+
+    return executive_block, legislature_block, elections_block
+
+
+def build_country(name: str, iso2: str, prev_by_iso2: Dict[str, Any]) -> Dict[str, Any]:
+    prev = prev_by_iso2.get(iso2)
+    today_str = datetime.now(timezone.utc).date().isoformat()
+
+    # ── Free scrapers ─────────────────────────────────────────────────────────
+    print(f"  [{iso2}] Wikipedia lookup...")
+    wiki = _load_wiki_exec_cache().get(iso2, {})
+    print(f"  [{iso2}] HOS={_clean_wiki(wiki.get('hosName'))}, HOG={_clean_wiki(wiki.get('hogName'))}")
+
+    print(f"  [{iso2}] IPU elections fetch...")
+    ipu = fetch_ipu_elections(iso2)
+    print(f"  [{iso2}] IPU: last={ipu.get('lastDate')} next={ipu.get('nextDate')} src={ipu.get('source')}")
+
+    print(f"  [{iso2}] ElectionGuide lookup...")
+    eg = get_electionguide_dates(iso2)
+    print(f"  [{iso2}] EG: last={eg.get('lastDate')} next={eg.get('nextDate')}")
+
+    print(f"  [{iso2}] World Bank WGI fetch...")
+    wb_gov = merge_wb_sticky(fetch_wgi(iso2), prev)
+
+    print(f"  [{iso2}] REST Countries fetch...")
+    meta = fetch_rest_countries(iso2)
+
+    # ── Claude trigger decision ───────────────────────────────────────────────
+    should_call, trigger_reason = _should_call_claude(iso2, wiki, ipu, eg, prev)
+
+    if should_call:
+        print(f"  [{iso2}] 🤖 Claude triggered: {trigger_reason}")
+        cl = _call_claude(name, iso2, wiki, ipu, eg, prev, trigger_reason)
+    else:
+        cl = None
+        print(f"  [{iso2}] ✓  Claude skipped (last updated {_days_since_claude(prev)}d ago)")
+
+    # ── Assemble output ───────────────────────────────────────────────────────
+    if cl:
+        executive_block, legislature_block, elections_block = \
+            _assemble_from_claude(iso2, cl, ipu, eg, trigger_reason, today_str)
+        pol_sys = {"values": cl.get("politicalSystem", ["unknown"]),
+                   "source": f"claude ({trigger_reason})"}
+        data_avail_note = cl.get("dataAvailabilityNotes")
+        last_claude_update = iso_z(now_utc())
+    elif prev:
+        # No Claude call — carry forward previous political data unchanged
+        print(f"  [{iso2}] ↩  Carrying forward previous political data")
+        executive_block  = prev.get("executive",      {})
+        legislature_block= prev.get("legislature",    {})
+        elections_block  = prev.get("elections",      {})
+        pol_sys          = prev.get("politicalSystem", {"values": ["unknown"], "source": "carried_forward"})
+        data_avail_note  = (prev.get("dataAvailability") or {}).get("executive")
+        last_claude_update = prev.get("lastClaudeUpdate")
+    else:
+        # No Claude, no previous data — bare skeleton
+        print(f"  [{iso2}] ⚠️  No Claude response and no previous data — output will be sparse")
+        wiki_hos = _clean_wiki(wiki.get("hosName"))
+        wiki_hog = _clean_wiki(wiki.get("hogName"))
+        executive_block = {
+            "headOfState":      {"name": wiki_hos, "partyOrGroup": None, "source": "wikipedia"},
+            "headOfGovernment": {"name": wiki_hog, "partyOrGroup": None, "source": "wikipedia"},
+            "executiveInPower": {"leader": wiki_hog or wiki_hos, "partyOrGroup": None,
+                                 "method": "head_of_government" if wiki_hog else "head_of_state"},
+        }
+        legislature_block = {"bodies": [], "source": "unknown"}
+        elections_block   = {
+            "competitiveElections": None, "nonCompetitiveReason": None,
+            "electionsSuspended": False, "suspensionReason": None,
+            "electionToday": False,
+            "legislative": {"lastElection": None, "nextElection": None, "source": "unknown"},
+            "executive":   {"lastElection": None, "nextElection": None, "source": "unknown"},
+        }
+        pol_sys = {"values": ["unknown"], "source": "unknown"}
+        data_avail_note = None
+        last_claude_update = None
+
+    # World Bank availability note
+    avail: Dict[str, str] = {}
+    if data_avail_note:
+        avail["executive"] = data_avail_note
+    if wb_gov.get("overallPercentile") is None:
+        avail["worldBankGovernance"] = f"World Bank WGI data unavailable for '{iso2}'."
+    if not meta.get("capital") and not meta.get("population"):
+        avail["metadata"] = f"REST Countries API returned no data for '{iso2}'."
+
+    return {
+        "country":  name,
+        "iso2":     iso2,
+        "metadata": {
+            "officialName": meta["officialName"],
+            "capital":      meta["capital"],
+            "population":   meta["population"],
+            "region":       meta["region"],
+            "subregion":    meta["subregion"],
+            "flag":         meta["flag"],
+            "flagPng":      meta["flagPng"],
+            "currencies":   meta["currencies"],
+            "languages":    meta["languages"],
+            "source":       meta["source"],
+        },
+        "politicalSystem":    pol_sys,
+        "executive":          executive_block,
+        "legislature":        legislature_block,
+        "worldBankGovernance":wb_gov,
+        "dataAvailability":   avail if avail else None,
+        "elections":          elections_block,
+        "lastClaudeUpdate":   last_claude_update,
+    }
 
 
 # ── MAIN ──────────────────────────────────────────────────────────────────────
@@ -2623,9 +1474,9 @@ def main() -> None:
         "worldBankYearRule":  "latest_non_null_per_indicator",
         "countries":          [],
         "sources": {
-            "executives":            "static_ground_truth + wikipedia_adaptive + claude_enriched (smart diff)",
-            "legislature":           "static_ground_truth + claude_enriched (smart diff)",
-            "elections":             "static_ground_truth + IPU Parline + ElectionGuide + claude_enriched (adaptive)",
+            "executives":            "wikipedia_adaptive + claude_api (smart diff, 7d ceiling)",
+            "legislature":           "claude_api (smart diff, 7d ceiling)",
+            "elections":             "ipu_parline + electionguide + claude_api (daily near elections)",
             "wikipedia_adaptive":    WIKIPEDIA_API,
             "world_bank_base":       WORLD_BANK_BASE,
             "ipu_parline":           f"{IPU_API_BASE}/api",
@@ -2647,8 +1498,6 @@ def main() -> None:
     for c in COUNTRIES:
         print(f"\n▶ {c['country']} ({c['iso2']})")
         country_data = build_country(c["country"], c["iso2"], prev)
-        # Smart diff: only call Claude if a trigger fires (name change, election passed, etc.)
-        country_data = claude_enrich(c["country"], c["iso2"], country_data, prev.get(c["iso2"]))
         out["countries"].append(country_data)
         time.sleep(0.25)
 
