@@ -1062,13 +1062,17 @@ def _should_call_claude(iso2: str, wiki_names: Dict, ipu: Dict, eg: Dict,
     Decide whether to call Claude for this country.
     Returns (should_call, reason).
 
-    Trigger rules (any one fires a call):
-      1. No previous snapshot for this country → first run
-      2. Wikipedia returned a different leader name than prev snapshot
-      3. IPU or EG returned a date not in prev snapshot
-      4. Any election date within 7 days of today (before or after) → daily refresh
-      5. Last Claude update was >7 days ago → weekly refresh ceiling
-      6. CLAUDE_FORCE_REFRESH env var set
+    Trigger rules (checked in priority order):
+      1. CLAUDE_FORCE_REFRESH env var → always refresh everything
+      2. No previous snapshot → first run
+      3. Election within 7 days of today (before OR after) → daily refresh
+         NOTE: This fires REGARDLESS of Wikipedia — Claude's live web search
+         is authoritative near elections, not Wikipedia scraping.
+      4. Wikipedia returned a different leader name → possible leadership change
+         (lower priority than election window — wiki can lag real events)
+      5. IPU or EG returned a new election date not in snapshot
+      6. Today is Tuesday AND last Claude update was ≥6 days ago → weekly refresh
+         (Tuesday ensures consistent weekly cadence for the full 44-country sweep)
     """
     if CLAUDE_FORCE_REFRESH:
         return True, "forced_refresh"
@@ -1076,7 +1080,14 @@ def _should_call_claude(iso2: str, wiki_names: Dict, ipu: Dict, eg: Dict,
     if not prev:
         return True, "first_run"
 
-    # Trigger 2: Wikipedia name changed
+    # Trigger 3: election window — fires regardless of Wikipedia state.
+    # Claude's live web search is the authoritative source near elections,
+    # so we skip the Wikipedia comparison and go straight to Claude.
+    if _election_window_active(prev, days=7):
+        return True, "election_window_active"
+
+    # Trigger 4: Wikipedia name changed (secondary signal — wiki can be stale
+    # or wrong; Claude will verify via web search and override if needed)
     prev_hos = ((prev.get("executive") or {}).get("headOfState") or {}).get("name")
     prev_hog = ((prev.get("executive") or {}).get("headOfGovernment") or {}).get("name")
     wiki_hos = _clean_wiki(wiki_names.get("hosName"))
@@ -1086,7 +1097,7 @@ def _should_call_claude(iso2: str, wiki_names: Dict, ipu: Dict, eg: Dict,
     if wiki_hog and wiki_hog != prev_hog:
         return True, f"executive_name_changed ({prev_hog!r} → {wiki_hog!r})"
 
-    # Trigger 3: IPU/EG has a date not in prev
+    # Trigger 5: IPU/EG has a date not in prev snapshot
     prev_leg_next = ((prev.get("elections") or {}).get("legislative") or {}).get("nextElection") or {}
     ipu_next = ipu.get("nextDate")
     eg_next  = eg.get("nextDate")
@@ -1095,14 +1106,14 @@ def _should_call_claude(iso2: str, wiki_names: Dict, ipu: Dict, eg: Dict,
     if eg_next and eg_next != prev_leg_next.get("date"):
         return True, f"eg_date_changed ({eg_next})"
 
-    # Trigger 4: election window active (within 7 days)
-    if _election_window_active(prev, days=7):
-        return True, "election_window_active"
-
-    # Trigger 5: >7 days since last Claude update
+    # Trigger 6: Weekly Tuesday refresh — fires if today is Tuesday AND the
+    # last Claude update was ≥6 days ago (allows a 1-day grace window so a
+    # Tuesday run never misses due to minor scheduling drift).
     days_old = _days_since_claude(prev)
-    if days_old > 7:
-        return True, f"stale_{days_old}d"
+    today_weekday = datetime.now(timezone.utc).weekday()  # 0=Monday … 6=Sunday
+    is_tuesday = (today_weekday == 1)
+    if is_tuesday and days_old >= 6:
+        return True, f"weekly_tuesday_refresh (last_update_{days_old}d_ago)"
 
     return False, ""
 
