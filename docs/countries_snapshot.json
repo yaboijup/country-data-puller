@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-30T22:31:02.005037Z",
+  "generatedAt": "2026-03-30T22:45:29.987947Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "countries": [
     {
@@ -571,7 +571,9 @@
         },
         "notes": null
       },
-      "dataAvailability": null,
+      "dataAvailability": {
+        "executive": "<cite index=\"1-1,2-12\">Xi Jinping serves as both President (head of state) and General Secretary of the Chinese Communist Party (CCP) and Chairman of the Central Military Commission since 2012-2013</cite>. <cite index=\"3-28\">The presidency is ceremonial with real power concentrated in the party leadership positions</cite>. <cite index=\"3-21,3-22\">Term limits were removed in 2018 allowing Xi to serve indefinitely</cite>. <cite index=\"11-15\">Li Qiang serves as Premier (head of government) and second-ranking member of the Politburo Standing Committee</cite>."
+      },
       "elections": {
         "competitiveElections": false,
         "nonCompetitiveReason": "One-party state. The Chinese Communist Party holds a monopoly on political power. National People's Congress 'elections' are uncontested single-party votes.",
@@ -582,7 +584,7 @@
           "lastElection": {
             "date": "2023-03",
             "type": "NPC delegate selection (non-competitive)",
-            "notes": "NPC delegates selected through party-controlled process. Not a competitive election.",
+            "notes": "NPC delegates selected through party-controlled process. No competitive election.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
@@ -590,7 +592,7 @@
           "nextElection": {
             "date": "2028",
             "type": "NPC delegate selection (non-competitive)",
-            "notes": null,
+            "notes": "Expected party-controlled delegate selection process for next NPC session.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
@@ -609,7 +611,7 @@
           "nextElection": {
             "date": "2028",
             "type": "NPC confirmation (non-competitive)",
-            "notes": null,
+            "notes": "Expected NPC confirmation process for next presidential term.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
@@ -617,7 +619,7 @@
           "source": "claude (executive_name_changed ('Xi Jinping' → \"People's Republic of China\"))"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T22:31:27.377559Z"
+      "lastClaudeUpdate": "2026-03-30T22:45:55.115707Z"
     },
     {
       "country": "United Kingdom",
@@ -2304,22 +2306,22 @@
           "theocratic republic",
           "Islamic republic"
         ],
-        "source": "claude (executive_name_changed ('Interim Leadership Council' → 'Supreme Leader – Mojtaba Khamenei'))"
+        "source": "claude (executive_name_changed ('Mojtaba Khamenei' → 'Supreme Leader – Mojtaba Khamenei'))"
       },
       "executive": {
         "headOfState": {
           "name": "Mojtaba Khamenei",
           "partyOrGroup": "Conservative/Principlist",
-          "source": "claude (executive_name_changed ('Interim Leadership Council' → 'Supreme Leader – Mojtaba Khamenei'))"
+          "source": "claude (executive_name_changed ('Mojtaba Khamenei' → 'Supreme Leader – Mojtaba Khamenei'))"
         },
         "headOfGovernment": {
           "name": "Masoud Pezeshkian",
-          "partyOrGroup": "Reformist front",
-          "source": "claude (executive_name_changed ('Interim Leadership Council' → 'Supreme Leader – Mojtaba Khamenei'))"
+          "partyOrGroup": "Reformist",
+          "source": "claude (executive_name_changed ('Mojtaba Khamenei' → 'Supreme Leader – Mojtaba Khamenei'))"
         },
         "executiveInPower": {
           "leader": "Masoud Pezeshkian",
-          "partyOrGroup": "Reformist front",
+          "partyOrGroup": "Reformist",
           "method": "head_of_government"
         }
       },
@@ -2328,10 +2330,10 @@
           {
             "name": "Islamic Consultative Assembly (Majlis)",
             "inControl": "Conservative/Principlist majority",
-            "controlMethod": "claude (executive_name_changed ('Interim Leadership Council' → 'Supreme Leader – Mojtaba Khamenei'))"
+            "controlMethod": "claude (executive_name_changed ('Mojtaba Khamenei' → 'Supreme Leader – Mojtaba Khamenei'))"
           }
         ],
-        "source": "claude (executive_name_changed ('Interim Leadership Council' → 'Supreme Leader – Mojtaba Khamenei'))"
+        "source": "claude (executive_name_changed ('Mojtaba Khamenei' → 'Supreme Leader – Mojtaba Khamenei'))"
       },
       "worldBankGovernance": {
         "overallPercentile": 10.12,
@@ -2386,7 +2388,9 @@
         },
         "notes": null
       },
-      "dataAvailability": null,
+      "dataAvailability": {
+        "executive": "Major political transition occurred in March 2026: <cite index=\"1-1,2-11\">Supreme Leader Ali Khamenei was assassinated on February 28, 2026, during U.S.-Israeli strikes, and his son Mojtaba Khamenei was elected by the Assembly of Experts as the new supreme leader on March 9</cite>. <cite index=\"13-3,15-1,15-3\">An interim leadership council consisting of President Pezeshkian, Chief Justice Mohseni-Ejei, and Guardian Council member Alireza Arafi temporarily governed during the succession process</cite>. <cite index=\"2-13,6-7\">The new supreme leader is considered more hardline than his father and represents continued conservative control</cite>. <cite index=\"4-2,11-1\">Iran is currently engaged in active warfare with the U.S. and Israel, which began with the February 28 strikes</cite>."
+      },
       "elections": {
         "competitiveElections": true,
         "nonCompetitiveReason": null,
@@ -2397,7 +2401,7 @@
           "lastElection": {
             "date": "2024-03-01",
             "type": "Parliamentary (Majlis, round 1)",
-            "notes": "Conservatives/Principlists won majority in low-turnout election (~41%). Second round April 2024.",
+            "notes": "Conservatives/Principlists won majority in low-turnout election (~41%). Second round held April 2024.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
@@ -2405,17 +2409,17 @@
           "nextElection": {
             "date": "2028",
             "type": "Parliamentary (Majlis)",
-            "notes": null,
+            "notes": "Regular four-year parliamentary elections scheduled.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (executive_name_changed ('Interim Leadership Council' → 'Supreme Leader – Mojtaba Khamenei'))"
+          "source": "claude (executive_name_changed ('Mojtaba Khamenei' → 'Supreme Leader – Mojtaba Khamenei'))"
         },
         "executive": {
           "lastElection": {
             "date": "2024-07-05",
-            "type": "Presidential",
+            "type": "Presidential (runoff)",
             "notes": "Masoud Pezeshkian (reformist) won snap election after Raisi's death in helicopter crash.",
             "runoffDate": null,
             "runoffCondition": null,
@@ -2424,15 +2428,15 @@
           "nextElection": {
             "date": "2028",
             "type": "Presidential",
-            "notes": "Mojtaba Khamenei selected as Supreme Leader by Assembly of Experts, ending transitional period.",
+            "notes": "Regular four-year presidential term scheduled.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (executive_name_changed ('Interim Leadership Council' → 'Supreme Leader – Mojtaba Khamenei'))"
+          "source": "claude (executive_name_changed ('Mojtaba Khamenei' → 'Supreme Leader – Mojtaba Khamenei'))"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T22:32:36.822237Z"
+      "lastClaudeUpdate": "2026-03-30T22:46:34.753971Z"
     },
     {
       "country": "Syria",
