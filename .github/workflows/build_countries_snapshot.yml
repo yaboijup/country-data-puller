@@ -131,8 +131,16 @@ jobs:
           else
             TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
             git commit -m "chore: auto-update countries_snapshot.json [${TIMESTAMP}]"
-            git pull --rebase origin main
-            git push
+            # Fetch remote and merge, preferring our freshly-generated JSON
+            # if there's a conflict (the newest run always wins).
+            git fetch origin main
+            git merge -X ours origin/main --no-edit || {
+              # If merge fails for any reason, reset and force-push our version
+              git merge --abort 2>/dev/null || true
+              git push --force-with-lease origin main
+              exit 0
+            }
+            git push origin main
           fi
 
       # ── 8. Upload artifact for GitHub Pages ───────────────────────────────────
