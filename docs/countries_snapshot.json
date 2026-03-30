@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-30T22:52:35.779428Z",
+  "generatedAt": "2026-03-30T23:00:48.613054Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "countries": [
     {
@@ -572,7 +572,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "One-party state context: Xi Jinping serves as President (head of state) and General Secretary of CCP (supreme power holder). Li Qiang serves as Premier (head of government). All elections are non-competitive within CCP framework."
+        "executive": "In China's one-party system, Xi Jinping serves as both President (head of state) and General Secretary of the Chinese Communist Party, with the latter being the supreme power position. Li Qiang serves as Premier (head of government) under Xi's leadership."
       },
       "elections": {
         "competitiveElections": false,
@@ -619,7 +619,7 @@
           "source": "claude (executive_name_changed ('Xi Jinping' → \"People's Republic of China\"))"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T22:53:01.920291Z"
+      "lastClaudeUpdate": "2026-03-30T23:01:13.080990Z"
     },
     {
       "country": "United Kingdom",
@@ -2389,7 +2389,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Major political disruption: Supreme Leader Ali Khamenei was assassinated in U.S.-Israeli strikes on February 28, 2026, during ongoing war. His son Mojtaba Khamenei was elected by Assembly of Experts on March 9, 2026, amid disputed circumstances and IRGC pressure. The new Supreme Leader holds ultimate authority above the elected president in Iran's theocratic system. Iran is currently at war with the U.S. and Israel as of March 2026."
+        "executive": "Mojtaba Khamenei was elected Supreme Leader by Assembly of Experts on March 8, 2026, following his father Ali Khamenei's assassination in U.S.-Israeli strikes on February 28, 2026. Iran is currently engaged in active warfare with U.S. and Israel. The new Supreme Leader holds ultimate authority over President Pezeshkian and all government institutions in Iran's theocratic system."
       },
       "elections": {
         "competitiveElections": true,
@@ -2436,7 +2436,7 @@
           "source": "claude (executive_name_changed ('Mojtaba Khamenei' → 'Supreme Leader – Mojtaba Khamenei'))"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T22:53:34.916437Z"
+      "lastClaudeUpdate": "2026-03-30T23:01:42.021179Z"
     },
     {
       "country": "Syria",
@@ -5791,18 +5791,18 @@
         "values": [
           "unitary presidential republic"
         ],
-        "source": "claude (stale_999d)"
+        "source": "claude (eg_date_changed (2026-05-31))"
       },
       "executive": {
         "headOfState": {
           "name": "Gustavo Petro",
           "partyOrGroup": "Colombia Humana / Pacto Histórico",
-          "source": "claude (stale_999d)"
+          "source": "claude (eg_date_changed (2026-05-31))"
         },
         "headOfGovernment": {
           "name": "Gustavo Petro",
           "partyOrGroup": "Colombia Humana / Pacto Histórico",
-          "source": "claude (stale_999d)"
+          "source": "claude (eg_date_changed (2026-05-31))"
         },
         "executiveInPower": {
           "leader": "Gustavo Petro",
@@ -5813,17 +5813,17 @@
       "legislature": {
         "bodies": [
           {
-            "name": "House of Representatives",
-            "inControl": "Fragmented (Pacto Histórico minority; no clear majority)",
-            "controlMethod": "claude (stale_999d)"
+            "name": "Senate",
+            "inControl": "Pacto Histórico plurality (25 seats of 103); fragmented, no majority",
+            "controlMethod": "claude (eg_date_changed (2026-05-31))"
           },
           {
-            "name": "Senate",
-            "inControl": "Fragmented coalition",
-            "controlMethod": "claude (stale_999d)"
+            "name": "House of Representatives",
+            "inControl": "Fragmented; Democratic Center leads with 32 of 183 seats, no clear majority",
+            "controlMethod": "claude (eg_date_changed (2026-05-31))"
           }
         ],
-        "source": "claude (stale_999d)"
+        "source": "claude (eg_date_changed (2026-05-31))"
       },
       "worldBankGovernance": {
         "overallPercentile": 42.89,
@@ -5878,7 +5878,9 @@
         },
         "notes": null
       },
-      "dataAvailability": null,
+      "dataAvailability": {
+        "executive": "Colombia faces significant security challenges with over 60 political leaders killed during the 2026 campaign period. Congressional results show continued fragmentation with no party achieving majority control in either chamber."
+      },
       "elections": {
         "competitiveElections": true,
         "nonCompetitiveReason": null,
@@ -5889,7 +5891,7 @@
           "lastElection": {
             "date": "2026-03-08",
             "type": "Congressional",
-            "notes": "March 8, 2026. Fragmented result; Paloma Valencia's center-right coalition performed strongly. Petro's Historic Pact suffered losses.",
+            "notes": "Pacto Histórico won plurality in Senate with 25 seats. Democratic Center took most House seats with 32. Results fragmented across both chambers with no party achieving majority. Over 60 political leaders killed during campaign.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
@@ -5902,29 +5904,29 @@
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (stale_999d) + electionguide"
+          "source": "claude (eg_date_changed (2026-05-31)) + electionguide"
         },
         "executive": {
           "lastElection": {
-            "date": "2026-06-21",
+            "date": "2022-06-19",
             "type": "Presidential (runoff)",
-            "notes": "Presidential election concluded June 21, 2026 runoff. Petro completed his term; new president inaugurated August 2026.",
+            "notes": "Gustavo Petro defeated Rodolfo Hernández in runoff with 50.4% of votes. Turnout 58.17%, highest since 1998. Petro became first leftist president in Colombian history.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
           "nextElection": {
-            "date": "2030-05",
+            "date": "2026-05-31",
             "type": "Presidential",
-            "notes": "Next presidential election scheduled for May 2030 first round, June runoff if needed.",
-            "runoffDate": "2030-06",
+            "notes": "First round scheduled for May 31, 2026. Leading candidates include Iván Cepeda (Pacto Histórico), Paloma Valencia (Democratic Center), and Abelardo de la Espriella (far-right). Petro constitutionally barred from reelection.",
+            "runoffDate": "2026-06-21",
             "runoffCondition": "if no candidate wins >50% of valid votes in round 1",
             "electionDay": false
           },
-          "source": "claude (stale_999d)"
+          "source": "claude (eg_date_changed (2026-05-31))"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T22:35:14.297467Z"
+      "lastClaudeUpdate": "2026-03-30T23:02:30.896725Z"
     },
     {
       "country": "Panama",
