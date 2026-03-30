@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-30T23:10:31.013280Z",
+  "generatedAt": "2026-03-30T23:52:34.212708Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "countries": [
     {
@@ -26,18 +26,18 @@
           "presidential republic",
           "federal state"
         ],
-        "source": "claude (eg_date_changed (2026-09-30))"
+        "source": "claude (forced_refresh)"
       },
       "executive": {
         "headOfState": {
           "name": "Vladimir Putin",
           "partyOrGroup": "United Russia",
-          "source": "claude (eg_date_changed (2026-09-30))"
+          "source": "claude (forced_refresh)"
         },
         "headOfGovernment": {
           "name": "Mikhail Mishustin",
           "partyOrGroup": "United Russia",
-          "source": "claude (eg_date_changed (2026-09-30))"
+          "source": "claude (forced_refresh)"
         },
         "executiveInPower": {
           "leader": "Mikhail Mishustin",
@@ -50,15 +50,15 @@
           {
             "name": "State Duma",
             "inControl": "United Russia",
-            "controlMethod": "claude (eg_date_changed (2026-09-30))"
+            "controlMethod": "claude (forced_refresh)"
           },
           {
             "name": "Federation Council",
             "inControl": "United Russia",
-            "controlMethod": "claude (eg_date_changed (2026-09-30))"
+            "controlMethod": "claude (forced_refresh)"
           }
         ],
-        "source": "claude (eg_date_changed (2026-09-30))"
+        "source": "claude (forced_refresh)"
       },
       "worldBankGovernance": {
         "overallPercentile": 15.58,
@@ -113,7 +113,9 @@
         },
         "notes": null
       },
-      "dataAvailability": null,
+      "dataAvailability": {
+        "executive": "<cite index=\"2-4,7-1,9-31\">Mikhail Mishustin has served as Prime Minister since January 2020 and was reconfirmed for his second term in May 2024</cite>. <cite index=\"13-11\">United Russia is expected to retain its constitutional majority in the 2026 elections</cite>, though <cite index=\"20-15\">recent polling shows the party's support has declined from 49.8% in 2021 to 34.1% according to VTsIOM</cite>. <cite index=\"16-23\">The Kremlin is intensifying pressure on systemic opposition, particularly targeting the Yabloko party</cite>."
+      },
       "elections": {
         "competitiveElections": false,
         "nonCompetitiveReason": "Systematic restrictions on opposition candidates and media access limit genuine competition",
@@ -132,12 +134,12 @@
           "nextElection": {
             "date": "2026-09-30",
             "type": "State Duma",
-            "notes": "Regular five-year parliamentary elections for all 450 seats.",
+            "notes": "Regular five-year parliamentary elections for all 450 seats. Elections will be held September 18-20, 2026.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (eg_date_changed (2026-09-30)) + electionguide"
+          "source": "claude (forced_refresh) + electionguide"
         },
         "executive": {
           "lastElection": {
@@ -156,10 +158,10 @@
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (eg_date_changed (2026-09-30))"
+          "source": "claude (forced_refresh)"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T22:31:10.025952Z"
+      "lastClaudeUpdate": "2026-03-30T23:52:55.402437Z"
     },
     {
       "country": "India",
@@ -1105,18 +1107,18 @@
           "absolute monarchy",
           "theocratic state"
         ],
-        "source": "claude (stale_999d)"
+        "source": "claude (forced_refresh)"
       },
       "executive": {
         "headOfState": {
           "name": "Salman",
           "partyOrGroup": "Non-partisan (monarchy)",
-          "source": "claude (stale_999d)"
+          "source": "claude (forced_refresh)"
         },
         "headOfGovernment": {
           "name": "Mohammed bin Salman",
           "partyOrGroup": "Non-partisan (monarchy)",
-          "source": "claude (stale_999d)"
+          "source": "claude (forced_refresh)"
         },
         "executiveInPower": {
           "leader": "Mohammed bin Salman",
@@ -1129,10 +1131,10 @@
           {
             "name": "Consultative Assembly (Majlis al-Shura)",
             "inControl": "Royal appointments (no elections)",
-            "controlMethod": "claude (stale_999d)"
+            "controlMethod": "claude (forced_refresh)"
           }
         ],
-        "source": "claude (stale_999d)"
+        "source": "claude (forced_refresh)"
       },
       "worldBankGovernance": {
         "overallPercentile": 54.25,
@@ -1187,7 +1189,9 @@
         },
         "notes": null
       },
-      "dataAvailability": null,
+      "dataAvailability": {
+        "executive": "<cite index=\"6-30,6-31,6-33\">King Salman has held the throne since January 23, 2015, and was Prime Minister from 2015 to 2022.</cite> <cite index=\"1-9,1-14,2-1\">Crown Prince Mohammed bin Salman serves as both Crown Prince (since 2017) and Prime Minister (since 2022)</cite>, making him <cite index=\"1-9,5-1\">the de facto ruler of Saudi Arabia</cite>. In this absolute monarchy system, the King remains head of state while the Crown Prince has assumed the role of head of government and exercises most executive power."
+      },
       "elections": {
         "competitiveElections": false,
         "nonCompetitiveReason": "Absolute monarchy with no national elections for executive or legislative positions. The Consultative Assembly (Majlis al-Shura) is fully appointed by royal decree.",
@@ -1197,15 +1201,15 @@
         "legislative": {
           "lastElection": null,
           "nextElection": null,
-          "source": "claude (stale_999d)"
+          "source": "claude (forced_refresh)"
         },
         "executive": {
           "lastElection": null,
           "nextElection": null,
-          "source": "claude (stale_999d)"
+          "source": "claude (forced_refresh)"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T22:31:49.522771Z"
+      "lastClaudeUpdate": "2026-03-30T23:53:20.867977Z"
     },
     {
       "country": "Israel",
@@ -3204,18 +3208,18 @@
         "values": [
           "semi-presidential republic (disputed sovereignty)"
         ],
-        "source": "claude (stale_999d)"
+        "source": "claude (forced_refresh)"
       },
       "executive": {
         "headOfState": {
           "name": "Lai Ching-te",
           "partyOrGroup": "Democratic Progressive Party (DPP)",
-          "source": "claude (stale_999d)"
+          "source": "claude (forced_refresh)"
         },
         "headOfGovernment": {
           "name": "Cho Jung-tai",
           "partyOrGroup": "Democratic Progressive Party (DPP)",
-          "source": "claude (stale_999d)"
+          "source": "claude (forced_refresh)"
         },
         "executiveInPower": {
           "leader": "Cho Jung-tai",
@@ -3227,11 +3231,11 @@
         "bodies": [
           {
             "name": "Legislative Yuan",
-            "inControl": "KMT and Taiwan People's Party (TPP) hold combined majority",
-            "controlMethod": "claude (stale_999d)"
+            "inControl": "KMT and Taiwan People's Party (TPP) coalition (60 seats)",
+            "controlMethod": "claude (forced_refresh)"
           }
         ],
-        "source": "claude (stale_999d)"
+        "source": "claude (forced_refresh)"
       },
       "worldBankGovernance": {
         "overallPercentile": null,
@@ -3293,6 +3297,7 @@
         "notes": "No WGI percentile values available."
       },
       "dataAvailability": {
+        "executive": "DPP-led recall campaign against KMT legislators failed in August 2025. KMT-TPP coalition uses combined 60 seats (52+8) to control Legislative Yuan, outnumbering DPP's 51 seats. 2026 local elections scheduled for November.",
         "worldBankGovernance": "World Bank WGI data unavailable for 'TW'."
       },
       "elections": {
@@ -3305,42 +3310,42 @@
           "lastElection": {
             "date": "2024-01-13",
             "type": "Legislative Yuan",
-            "notes": "DPP lost its majority. KMT won most seats; TPP holds balance of power.",
+            "notes": "KMT won 52 seats, DPP 51 seats, TPP 8 seats. First election since 2004 where no party won majority.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
           "nextElection": {
-            "date": "2028",
+            "date": "2028-01-13",
             "type": "Legislative Yuan",
-            "notes": null,
+            "notes": "Next scheduled legislative election.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (stale_999d)"
+          "source": "claude (forced_refresh)"
         },
         "executive": {
           "lastElection": {
             "date": "2024-01-13",
             "type": "Presidential",
-            "notes": "Lai Ching-te won with 40.1% in three-way race.",
+            "notes": "Lai Ching-te (DPP) won with 40.1% in three-way race against Hou Yu-ih (KMT) and Ko Wen-je (TPP).",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
           "nextElection": {
-            "date": "2028",
+            "date": "2028-01-13",
             "type": "Presidential",
-            "notes": null,
+            "notes": "Next scheduled presidential election.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (stale_999d)"
+          "source": "claude (forced_refresh)"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T22:33:15.632419Z"
+      "lastClaudeUpdate": "2026-03-30T23:54:05.230676Z"
     },
     {
       "country": "South Korea",
