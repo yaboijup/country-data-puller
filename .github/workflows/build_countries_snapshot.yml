@@ -2,11 +2,15 @@ name: Build Countries Snapshot
 
 on:
   schedule:
-    # Runs daily at 02:00 UTC.
-    # Election-window countries (election within 7 days) fire every day.
-    # Full 44-country weekly refresh fires on Tuesdays — logic is in Python,
-    # not here, so the daily schedule must stay to catch Tuesday runs.
-    - cron: "0 2 * * *"
+    # Runs daily at 03:00 UTC.
+    # The Python script handles all scheduling logic internally:
+    #   - Biweekly Tuesday full sweep (every other Tuesday, ≥13 days since last)
+    #   - Daily hard refresh for countries in election watch window (3 days before
+    #     through confirmed winner) — no change to cron needed here.
+    #   - Change-in-power sentinel runs on every daily execution.
+    # Keeping this as a daily cron ensures election-watch countries are always
+    # checked, even though the biweekly sweep only fires every other Tuesday.
+    - cron: "0 3 * * *"
   workflow_dispatch:
   push:
     branches:
@@ -31,13 +35,13 @@ jobs:
     timeout-minutes: 30
 
     steps:
-      # ── 1. Checkout ──────────────────────────────────────────────────────────
+      # ── 1. Checkout ───────────────────────────────────────────────────────────
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
 
-      # ── 2. Python setup ──────────────────────────────────────────────────────
+      # ── 2. Python setup ───────────────────────────────────────────────────────
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
@@ -50,19 +54,20 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests beautifulsoup4 lxml
 
-      # ── 4. Ensure output directory exists ────────────────────────────────────
+      # ── 4. Ensure output directory exists ─────────────────────────────────────
       - name: Create docs/ directory
         run: mkdir -p docs
 
-      # ── 5. Run the snapshot builder ──────────────────────────────────────────
+      # ── 5. Run the snapshot builder ───────────────────────────────────────────
       - name: Build countries_snapshot.json
         run: python build_countries_snapshot.py
         env:
           PYTHONUNBUFFERED: "1"
           OUTPUT_DIR: "docs"
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-          # Set CLAUDE_FORCE_REFRESH=1 to force Claude to re-verify all 44 countries
-          # Useful after major world events. Costs ~$0.12 for the full pass.
+          # Set CLAUDE_FORCE_REFRESH=1 in GitHub repo vars to force Claude to
+          # re-verify all 44 countries. Useful after major world events.
+          # Costs ~$0.12 for the full pass.
           CLAUDE_FORCE_REFRESH: ${{ vars.CLAUDE_FORCE_REFRESH || '' }}
 
       # ── 6. Verify output ──────────────────────────────────────────────────────
@@ -85,16 +90,21 @@ jobs:
               data = json.load(f)
 
           countries = data.get('countries', [])
-          print(f'Country count: {len(countries)}')
-          print(f'Generated at:  {data.get(\"generatedAt\")}')
+          print(f'Country count:         {len(countries)}')
+          print(f'Generated at:          {data.get(\"generatedAt\")}')
+          print(f'Last full sweep date:  {data.get(\"lastFullSweepDate\")}')
+          print(f'Sentinel seen IDs:     {len(data.get(\"sentinelSeenIds\", []))}')
 
           non_competitive_count = 0
-          missing_leg_next = []
+          election_watch_count  = 0
+          sentinel_alerts       = 0
+          missing_leg_next      = []
 
           for c in countries:
               iso2 = c.get('iso2', '?')
               name = c.get('country', '?')
               elec = c.get('elections', {})
+
               if elec.get('competitiveElections') is False:
                   non_competitive_count += 1
               else:
@@ -102,16 +112,28 @@ jobs:
                   if not leg.get('nextElection'):
                       missing_leg_next.append(f'{name} ({iso2})')
 
-          print(f'Non-competitive countries: {non_competitive_count}')
-          print(f'Competitive countries missing nextElection: {len(missing_leg_next)}')
+              if elec.get('electionWatchActive'):
+                  election_watch_count += 1
+                  print(f'  ⚡ ELECTION WATCH ACTIVE: {name} ({iso2}) — {elec.get(\"electionWatchReason\", \"\")}')
+
+              if c.get('changeInPowerAlert') and not c['changeInPowerAlert'].get('resolved'):
+                  sentinel_alerts += 1
+                  print(f'  ⚠️  SENTINEL ALERT: {name} ({iso2}) — {c[\"changeInPowerAlert\"][\"alert\"]}')
+
+          print(f'Non-competitive countries:     {non_competitive_count}')
+          print(f'Election watch active:         {election_watch_count}')
+          print(f'Unresolved sentinel alerts:    {sentinel_alerts}')
+          print(f'Competitive missing nextElec:  {len(missing_leg_next)}')
           for m in missing_leg_next:
               print(f'  - {m}')
 
+          # Spot-check first country
           first = countries[0]
           print()
           print(f'Spot-check: {first[\"country\"]} ({first[\"iso2\"]})')
           print(f'  headOfState: {first.get(\"executive\", {}).get(\"headOfState\", {}).get(\"name\")}')
           print(f'  competitiveElections: {first.get(\"elections\", {}).get(\"competitiveElections\")}')
+          print(f'  partyProfiles count: {len(first.get(\"partyProfiles\") or {})}')
           leg = first.get('elections', {}).get('legislative', {})
           last_e = leg.get('lastElection') or {}
           nxt_e  = leg.get('nextElection') or {}
@@ -120,7 +142,7 @@ jobs:
           print('Verification passed.')
           "
 
-      # ── 7. Commit snapshot back to main ───────────────────────────────────────
+      # ── 7. Commit snapshot back to main ──────────────────────────────────────
       - name: Commit updated snapshot to repository
         run: |
           git config user.name  "github-actions[bot]"
@@ -131,11 +153,8 @@ jobs:
           else
             TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
             git commit -m "chore: auto-update countries_snapshot.json [${TIMESTAMP}]"
-            # Fetch remote and merge, preferring our freshly-generated JSON
-            # if there's a conflict (the newest run always wins).
             git fetch origin main
             git merge -X ours origin/main --no-edit || {
-              # If merge fails for any reason, reset and force-push our version
               git merge --abort 2>/dev/null || true
               git push --force-with-lease origin main
               exit 0
@@ -143,7 +162,7 @@ jobs:
             git push origin main
           fi
 
-      # ── 8. Upload artifact for GitHub Pages ───────────────────────────────────
+      # ── 8. Upload artifact for GitHub Pages ──────────────────────────────────
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
