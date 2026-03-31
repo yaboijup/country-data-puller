@@ -28,18 +28,18 @@
           "presidential republic",
           "federal state"
         ],
-        "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
+        "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
       },
       "executive": {
         "headOfState": {
           "name": "Vladimir Putin",
           "partyOrGroup": "United Russia",
-          "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "headOfGovernment": {
           "name": "Mikhail Mishustin",
           "partyOrGroup": "United Russia",
-          "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "executiveInPower": {
           "leader": "Mikhail Mishustin",
@@ -52,15 +52,15 @@
           {
             "name": "State Duma",
             "inControl": "United Russia",
-            "controlMethod": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
+            "controlMethod": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
           },
           {
             "name": "Federation Council",
             "inControl": "United Russia",
-            "controlMethod": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
+            "controlMethod": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
           }
         ],
-        "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
+        "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
       },
       "partyProfiles": null,
       "worldBankGovernance": {
@@ -117,21 +117,24 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Putin continues serving his fifth term as President after winning the 2024 election with over 87% support. Mishustin was reappointed Prime Minister on May 10, 2024, following the constitutional requirement for government resignation after presidential inauguration. As of March 2026, Putin maintains high approval ratings around 84% according to polling data, though international observers continue to question the competitive nature of Russian elections due to restrictions on opposition candidates and independent media."
+        "executive": "Russia operates as a managed democracy where opposition parties exist but face systematic restrictions. Current opposition movements remain largely in exile or face criminal prosecution, with the Yabloko party experiencing intensified legal pressure ahead of the 2026 elections."
       },
       "elections": {
         "competitiveElections": false,
         "nonCompetitiveReason": "Systematic restrictions on opposition candidates and media access limit genuine competition",
         "electionsSuspended": false,
         "suspensionReason": null,
+        "lastCompetitivenessCheck": "2026-03-31",
+        "ipu_not_applicable": false,
+        "ipu_not_applicable_reason": null,
         "electionToday": false,
         "electionWatchActive": false,
-        "electionWatchReason": "No elections are imminent and leadership remains stable with Putin continuing his fifth term and Mishustin reappointed as Prime Minister in May 2024",
+        "electionWatchReason": "No elections are imminent and leadership remains stable with Putin continuing his fifth term and Mishustin reconfirmed as Prime Minister in May 2024",
         "legislative": {
           "lastElection": {
             "date": "2021-09-19",
             "type": "State Duma",
-            "notes": "United Russia retained majority control with approximately 324 of 450 seats.",
+            "notes": "United Russia retained majority control with 324 of 450 seats following multi-day voting.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
@@ -144,13 +147,13 @@
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability)) + electionguide"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing)) + electionguide"
         },
         "executive": {
           "lastElection": {
             "date": "2024-03-17",
             "type": "Presidential",
-            "notes": "Vladimir Putin re-elected for fifth presidential term with over 87% of vote.",
+            "notes": "Vladimir Putin re-elected for fifth presidential term with over 87% of the vote.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
@@ -163,10 +166,10 @@
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         }
       },
-      "lastClaudeUpdate": "2026-03-31T05:38:24.864095Z"
+      "lastClaudeUpdate": "2026-03-31T05:56:31.474953Z"
     },
     {
       "country": "India",
