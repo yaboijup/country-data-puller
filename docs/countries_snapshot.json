@@ -1,6 +1,8 @@
 {
-  "generatedAt": "2026-03-30T23:52:34.212708Z",
+  "generatedAt": "2026-03-31T05:15:08.096377Z",
+  "lastFullSweepDate": "2026-03-31T05:15:08.096403Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
+  "sentinelSeenIds": [],
   "countries": [
     {
       "country": "Russia",
@@ -60,6 +62,7 @@
         ],
         "source": "claude (forced_refresh)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 15.58,
         "band": "Very Low",
@@ -222,6 +225,7 @@
         ],
         "source": "claude (stale_999d)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 47.59,
         "band": "Medium",
@@ -367,6 +371,7 @@
         ],
         "source": "claude (stale_999d)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 20.04,
         "band": "Low",
@@ -520,6 +525,7 @@
         ],
         "source": "claude (executive_name_changed ('Xi Jinping' → \"People's Republic of China\"))"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 41.97,
         "band": "Medium",
@@ -574,7 +580,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "In China's one-party system, Xi Jinping serves as both President (head of state) and General Secretary of the Chinese Communist Party, with the latter being the supreme power position. Li Qiang serves as Premier (head of government) under Xi's leadership."
+        "executive": "Xi Jinping serves as President, General Secretary of the Chinese Communist Party, and Chairman of the Central Military Commission, concentrating all executive power. Li Qiang serves as Premier (head of government) under Xi's authority. The CCP maintains absolute control over all political processes in this one-party state system."
       },
       "elections": {
         "competitiveElections": false,
@@ -582,6 +588,8 @@
         "electionsSuspended": false,
         "suspensionReason": null,
         "electionToday": false,
+        "electionWatchActive": false,
+        "electionWatchReason": "No upcoming elections or power transitions expected",
         "legislative": {
           "lastElection": {
             "date": "2023-03",
@@ -621,7 +629,7 @@
           "source": "claude (executive_name_changed ('Xi Jinping' → \"People's Republic of China\"))"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T23:01:13.080990Z"
+      "lastClaudeUpdate": "2026-03-31T05:15:29.715821Z"
     },
     {
       "country": "United Kingdom",
@@ -682,6 +690,7 @@
         ],
         "source": "claude (eg_date_changed (2026-05-07))"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 84.89,
         "band": "Very High",
@@ -842,6 +851,7 @@
         ],
         "source": "claude (stale_999d)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 87.6,
         "band": "Very High",
@@ -996,6 +1006,7 @@
         ],
         "source": "claude (stale_999d)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 71.24,
         "band": "High",
@@ -1136,6 +1147,7 @@
         ],
         "source": "claude (forced_refresh)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 54.25,
         "band": "Medium",
@@ -1265,6 +1277,7 @@
         ],
         "source": "claude (stale_999d)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 67.19,
         "band": "High",
@@ -1421,6 +1434,7 @@
         ],
         "source": "claude (stale_999d)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 21.66,
         "band": "Low",
@@ -1565,6 +1579,7 @@
         ],
         "source": "claude (stale_999d)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 32.67,
         "band": "Low",
@@ -1723,6 +1738,7 @@
         ],
         "source": "claude (stale_999d)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 39.47,
         "band": "Low",
@@ -1882,6 +1898,7 @@
         ],
         "source": "claude (stale_999d)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 90.52,
         "band": "Very High",
@@ -2040,6 +2057,7 @@
         ],
         "source": "claude (stale_999d)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 19.08,
         "band": "Very Low",
@@ -2185,6 +2203,7 @@
         ],
         "source": "claude (executive_name_changed ('Emperor Naruhito' → 'Naruhito'))"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 89.75,
         "band": "Very High",
@@ -2339,6 +2358,7 @@
         ],
         "source": "claude (executive_name_changed ('Mojtaba Khamenei' → 'Supreme Leader – Mojtaba Khamenei'))"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 10.12,
         "band": "Very Low",
@@ -2494,6 +2514,7 @@
         ],
         "source": "claude (executive_name_changed ('Ahmad al-Sharaa' → 'Ahmed al-Sharaa'))"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 1.74,
         "band": "Very Low",
@@ -2631,6 +2652,7 @@
         ],
         "source": "claude (executive_name_changed ('François Bayrou' → 'Sébastien Lecornu'))"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 79.99,
         "band": "High",
@@ -2785,6 +2807,7 @@
         ],
         "source": "claude (stale_999d)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 31.93,
         "band": "Low",
@@ -2938,6 +2961,7 @@
         ],
         "source": "claude (executive_name_changed ('Delcy Rodríguez (acting)' → 'Nicolás Maduro'))"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 4.77,
         "band": "Very Low",
@@ -3084,6 +3108,7 @@
         ],
         "source": "claude (executive_name_changed ('Lương Cường' → 'Tô Lâm'))"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 40.62,
         "band": "Medium",
@@ -3237,6 +3262,7 @@
         ],
         "source": "claude (forced_refresh)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": null,
         "band": "unknown",
@@ -3400,6 +3426,7 @@
         ],
         "source": "claude (executive_name_changed ('Lee Jae-myung' → 'Lee Jae Myung'))"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 80.47,
         "band": "Very High",
@@ -3554,6 +3581,7 @@
         ],
         "source": "claude (executive_name_changed ('Kim Jong-un' → \"General Secretary of the Workers' Party – Kim Jong Un\"))"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 7.57,
         "band": "Very Low",
@@ -3699,6 +3727,7 @@
         ],
         "source": "claude (stale_999d)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 49.17,
         "band": "Medium",
@@ -3852,6 +3881,7 @@
         ],
         "source": "claude (executive_name_changed ('Min Aung Hlaing' → 'Acting President – Min Aung Hlaing'))"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 5.99,
         "band": "Very Low",
@@ -3992,6 +4022,7 @@
         ],
         "source": "claude (stale_999d)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 45.06,
         "band": "Medium",
@@ -4145,6 +4176,7 @@
         ],
         "source": "claude (stale_999d)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 28.06,
         "band": "Low",
@@ -4305,6 +4337,7 @@
         ],
         "source": "claude (stale_999d)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 41.12,
         "band": "Medium",
@@ -4450,6 +4483,7 @@
         ],
         "source": "claude (eg_date_changed (2026-12-31))"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 2.15,
         "band": "Very Low",
@@ -4605,6 +4639,7 @@
         ],
         "source": "claude (executive_name_changed ('Rashad al-Alimi (Presidential Leadership Council chair)' → 'Chairman of the Presidential Leadership Council – Rashad al-Alimi'))"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 2.48,
         "band": "Very Low",
@@ -4751,6 +4786,7 @@
         ],
         "source": "claude (executive_name_changed ('Mohamed al-Menfi (GNU Presidential Council)' → 'Chairman of the Presidential Council – Mohamed al-Menfi'))"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 4.62,
         "band": "Very Low",
@@ -4888,6 +4924,7 @@
         ],
         "source": "claude (stale_999d)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 27.52,
         "band": "Low",
@@ -5046,6 +5083,7 @@
         ],
         "source": "claude (eg_date_changed (2026-06-30))"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 24.21,
         "band": "Low",
@@ -5205,6 +5243,7 @@
         ],
         "source": "claude (stale_999d)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 42.73,
         "band": "Medium",
@@ -5363,6 +5402,7 @@
         ],
         "source": "claude (executive_name_changed ('Gabriel Boric' → 'José Antonio Kast'))"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 72.48,
         "band": "High",
@@ -5518,6 +5558,7 @@
         ],
         "source": "claude (executive_name_changed ('Dina Boluarte' → 'José María Balcázar'))"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 37.12,
         "band": "Low",
@@ -5672,6 +5713,7 @@
         ],
         "source": "claude (executive_name_changed ('Manuel Marrero Cruz' → 'Miguel Díaz-Canel'))"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 33.16,
         "band": "Low",
@@ -5830,6 +5872,7 @@
         ],
         "source": "claude (eg_date_changed (2026-05-31))"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 42.89,
         "band": "Medium",
@@ -5986,6 +6029,7 @@
         ],
         "source": "claude (stale_999d)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 47.3,
         "band": "Medium",
@@ -6139,6 +6183,7 @@
         ],
         "source": "claude (stale_999d)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 40.98,
         "band": "Medium",
@@ -6293,6 +6338,7 @@
         ],
         "source": "claude (election_window_active)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 95.26,
         "band": "Very High",
@@ -6447,6 +6493,7 @@
         ],
         "source": "claude (executive_name_changed ('Abdel Fattah al-Burhan' → 'Transitional Sovereignty Council'))"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 3.89,
         "band": "Very Low",
@@ -6574,6 +6621,7 @@
         ],
         "source": "claude (stale_999d)"
       },
+      "partyProfiles": null,
       "worldBankGovernance": {
         "overallPercentile": 30.07,
         "band": "Low",
@@ -6665,9 +6713,10 @@
     }
   ],
   "sources": {
-    "executives": "wikipedia_adaptive + claude_api (smart diff, 7d ceiling)",
-    "legislature": "claude_api (smart diff, 7d ceiling)",
+    "executives": "wikipedia_adaptive + claude_api (smart diff, biweekly ceiling)",
+    "legislature": "claude_api (smart diff, biweekly ceiling)",
     "elections": "ipu_parline + electionguide + claude_api (daily near elections)",
+    "changeInPowerSentinel": "https://stratagemdrive.github.io/change-in-power-checks/leadership-outputs.json",
     "wikipedia_adaptive": "https://en.wikipedia.org/w/api.php",
     "world_bank_base": "https://api.worldbank.org/v2",
     "ipu_parline": "https://data.ipu.org/api",
@@ -6683,6 +6732,6 @@
     "controlOfCorruption": "CC.PER.RNK"
   },
   "electionDataModel": {
-    "description": "Each country's elections block contains competitiveElections (bool), nonCompetitiveReason (str|null for one-party/non-democratic states), and legislative/executive sub-blocks each with lastElection and nextElection. Election objects contain: date (ISO string or year), type (string description), notes (context string)."
+    "description": "Each country's elections block contains competitiveElections (bool), nonCompetitiveReason (str|null), electionWatchActive (bool — true when an election is within 3 days or results are still pending), and legislative/executive sub-blocks each with lastElection and nextElection. Election objects contain: date, type, notes, runoffDate, runoffCondition. partyProfiles contains orientation, ideology tags, and key platforms for each party currently or recently in power."
   }
 }
