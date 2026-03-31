@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-31T05:15:08.096377Z",
+  "generatedAt": "2026-03-31T05:38:05.130555Z",
   "lastFullSweepDate": "2026-03-31T05:15:08.096403Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "sentinelSeenIds": [],
@@ -28,18 +28,18 @@
           "presidential republic",
           "federal state"
         ],
-        "source": "claude (forced_refresh)"
+        "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
       },
       "executive": {
         "headOfState": {
           "name": "Vladimir Putin",
           "partyOrGroup": "United Russia",
-          "source": "claude (forced_refresh)"
+          "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
         },
         "headOfGovernment": {
           "name": "Mikhail Mishustin",
           "partyOrGroup": "United Russia",
-          "source": "claude (forced_refresh)"
+          "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
         },
         "executiveInPower": {
           "leader": "Mikhail Mishustin",
@@ -52,15 +52,15 @@
           {
             "name": "State Duma",
             "inControl": "United Russia",
-            "controlMethod": "claude (forced_refresh)"
+            "controlMethod": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
           },
           {
             "name": "Federation Council",
             "inControl": "United Russia",
-            "controlMethod": "claude (forced_refresh)"
+            "controlMethod": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
           }
         ],
-        "source": "claude (forced_refresh)"
+        "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
       },
       "partyProfiles": null,
       "worldBankGovernance": {
@@ -117,7 +117,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "<cite index=\"2-4,7-1,9-31\">Mikhail Mishustin has served as Prime Minister since January 2020 and was reconfirmed for his second term in May 2024</cite>. <cite index=\"13-11\">United Russia is expected to retain its constitutional majority in the 2026 elections</cite>, though <cite index=\"20-15\">recent polling shows the party's support has declined from 49.8% in 2021 to 34.1% according to VTsIOM</cite>. <cite index=\"16-23\">The Kremlin is intensifying pressure on systemic opposition, particularly targeting the Yabloko party</cite>."
+        "executive": "Putin continues serving his fifth term as President after winning the 2024 election with over 87% support. Mishustin was reappointed Prime Minister on May 10, 2024, following the constitutional requirement for government resignation after presidential inauguration. As of March 2026, Putin maintains high approval ratings around 84% according to polling data, though international observers continue to question the competitive nature of Russian elections due to restrictions on opposition candidates and independent media."
       },
       "elections": {
         "competitiveElections": false,
@@ -125,6 +125,8 @@
         "electionsSuspended": false,
         "suspensionReason": null,
         "electionToday": false,
+        "electionWatchActive": false,
+        "electionWatchReason": "No elections are imminent and leadership remains stable with Putin continuing his fifth term and Mishustin reappointed as Prime Minister in May 2024",
         "legislative": {
           "lastElection": {
             "date": "2021-09-19",
@@ -137,18 +139,18 @@
           "nextElection": {
             "date": "2026-09-30",
             "type": "State Duma",
-            "notes": "Regular five-year parliamentary elections for all 450 seats. Elections will be held September 18-20, 2026.",
+            "notes": "Regular five-year parliamentary elections for all 450 seats scheduled for September 2026.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (forced_refresh) + electionguide"
+          "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability)) + electionguide"
         },
         "executive": {
           "lastElection": {
             "date": "2024-03-17",
             "type": "Presidential",
-            "notes": "Vladimir Putin re-elected for fourth presidential term with over 87% of vote.",
+            "notes": "Vladimir Putin re-elected for fifth presidential term with over 87% of vote.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
@@ -161,10 +163,10 @@
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (forced_refresh)"
+          "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T23:52:55.402437Z"
+      "lastClaudeUpdate": "2026-03-31T05:38:24.864095Z"
     },
     {
       "country": "India",
@@ -2023,18 +2025,18 @@
         "values": [
           "federal presidential republic"
         ],
-        "source": "claude (stale_999d)"
+        "source": "claude (snapshot_anomaly (null_lastElection_for_competitive_country))"
       },
       "executive": {
         "headOfState": {
           "name": "Bola Tinubu",
           "partyOrGroup": "All Progressives Congress",
-          "source": "claude (stale_999d)"
+          "source": "claude (snapshot_anomaly (null_lastElection_for_competitive_country))"
         },
         "headOfGovernment": {
           "name": "Bola Tinubu",
           "partyOrGroup": "All Progressives Congress",
-          "source": "claude (stale_999d)"
+          "source": "claude (snapshot_anomaly (null_lastElection_for_competitive_country))"
         },
         "executiveInPower": {
           "leader": "Bola Tinubu",
@@ -2047,15 +2049,15 @@
           {
             "name": "House of Representatives",
             "inControl": "All Progressives Congress",
-            "controlMethod": "claude (stale_999d)"
+            "controlMethod": "claude (snapshot_anomaly (null_lastElection_for_competitive_country))"
           },
           {
             "name": "Senate",
             "inControl": "All Progressives Congress",
-            "controlMethod": "claude (stale_999d)"
+            "controlMethod": "claude (snapshot_anomaly (null_lastElection_for_competitive_country))"
           }
         ],
-        "source": "claude (stale_999d)"
+        "source": "claude (snapshot_anomaly (null_lastElection_for_competitive_country))"
       },
       "partyProfiles": null,
       "worldBankGovernance": {
@@ -2111,39 +2113,57 @@
         },
         "notes": null
       },
-      "dataAvailability": null,
+      "dataAvailability": {
+        "executive": "Nigeria's 2023 elections were held on February 25, with Bola Tinubu sworn in as president on May 29, 2023. The election was disputed by opposition parties who alleged irregularities, but a presidential election tribunal upheld the results in September 2023. Nigeria operates on a four-year electoral cycle with the next elections scheduled for February 2027."
+      },
       "elections": {
         "competitiveElections": true,
         "nonCompetitiveReason": null,
         "electionsSuspended": false,
         "suspensionReason": null,
         "electionToday": false,
+        "electionWatchActive": false,
+        "electionWatchReason": null,
         "legislative": {
-          "lastElection": null,
-          "nextElection": {
-            "date": "2027",
+          "lastElection": {
+            "date": "2023-02-25",
             "type": "General election",
-            "notes": "Next general elections for National Assembly scheduled for 2027.",
+            "notes": "APC retained majority in both chambers of the National Assembly.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (stale_999d)"
+          "nextElection": {
+            "date": "2027-02",
+            "type": "General election",
+            "notes": "Next general elections for National Assembly scheduled for February 2027.",
+            "runoffDate": null,
+            "runoffCondition": null,
+            "electionDay": false
+          },
+          "source": "claude (snapshot_anomaly (null_lastElection_for_competitive_country))"
         },
         "executive": {
-          "lastElection": null,
-          "nextElection": {
-            "date": "2027",
+          "lastElection": {
+            "date": "2023-02-25",
             "type": "Presidential",
-            "notes": "Next presidential election scheduled for 2027.",
+            "notes": "Bola Tinubu won with 37% of the vote, defeating Atiku Abubakar and Peter Obi.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (stale_999d)"
+          "nextElection": {
+            "date": "2027-02",
+            "type": "Presidential",
+            "notes": "Next presidential election scheduled for February 2027.",
+            "runoffDate": null,
+            "runoffCondition": null,
+            "electionDay": false
+          },
+          "source": "claude (snapshot_anomaly (null_lastElection_for_competitive_country))"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T22:32:23.650617Z"
+      "lastClaudeUpdate": "2026-03-31T05:39:06.092471Z"
     },
     {
       "country": "Japan",
