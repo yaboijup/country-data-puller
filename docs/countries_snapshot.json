@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-03-31T05:15:08.096377Z",
+  "generatedAt": "2026-03-31T05:40:37.093812Z",
   "lastFullSweepDate": "2026-03-31T05:15:08.096403Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "sentinelSeenIds": [],
@@ -4453,18 +4453,18 @@
         "values": [
           "federal parliamentary republic (fragile state)"
         ],
-        "source": "claude (eg_date_changed (2026-12-31))"
+        "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
       },
       "executive": {
         "headOfState": {
           "name": "Hassan Sheikh Mohamud",
           "partyOrGroup": "Justice and Solidarity Party",
-          "source": "claude (eg_date_changed (2026-12-31))"
+          "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
         },
         "headOfGovernment": {
           "name": "Hamza Abdi Barre",
           "partyOrGroup": "Justice and Solidarity Party",
-          "source": "claude (eg_date_changed (2026-12-31))"
+          "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
         },
         "executiveInPower": {
           "leader": "Hamza Abdi Barre",
@@ -4476,16 +4476,16 @@
         "bodies": [
           {
             "name": "House of the People",
-            "inControl": "Coalition of parties supporting Hassan Sheikh Mohamud",
-            "controlMethod": "claude (eg_date_changed (2026-12-31))"
+            "inControl": "Pending constitutional dispute resolution",
+            "controlMethod": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
           },
           {
             "name": "Senate",
-            "inControl": "Coalition of parties supporting Hassan Sheikh Mohamud",
-            "controlMethod": "claude (eg_date_changed (2026-12-31))"
+            "inControl": "Pending constitutional dispute resolution",
+            "controlMethod": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
           }
         ],
-        "source": "claude (eg_date_changed (2026-12-31))"
+        "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
       },
       "partyProfiles": null,
       "worldBankGovernance": {
@@ -4542,7 +4542,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "<cite index=\"2-2,2-5,2-6\">President Hassan Sheikh Mohamud's constitutional mandate was originally set to end May 15, 2026</cite>, but <cite index=\"2-13,15-3\">constitutional amendments passed March 8, 2026 extended terms from four to five years</cite>. <cite index=\"2-14,2-17,2-18\">Several federal member states including Puntland, Jubaland, and Southwest have suspended cooperation with the federal government over these constitutional changes</cite>. <cite index=\"7-1\">Hassan Sheikh launched the Justice and Solidarity Party in May 2025 ahead of the 2026 elections</cite>. The political situation remains highly contested with <cite index=\"11-21\">opposition viewing constitutional changes as attempts to centralize power and extend time in office</cite>."
+        "executive": "Somalia faces a severe constitutional crisis as President Mohamud's term expires May 15, 2026 under the 2012 Provisional Constitution, but March 2026 amendments extending the mandate to five years are rejected by major opposition groups, Puntland, Jubaland, and Southwest states. Three federal member states have effectively withdrawn from the federal system amid disputes over the amendments, which critics view as consolidating executive power. Risk of parallel government formation if no agreement reached by constitutional deadline."
       },
       "elections": {
         "competitiveElections": true,
@@ -4550,24 +4550,26 @@
         "electionsSuspended": false,
         "suspensionReason": null,
         "electionToday": false,
+        "electionWatchActive": true,
+        "electionWatchReason": "Deep constitutional crisis with competing constitutional frameworks and mandate dates. President's term officially expires May 15, 2026 under 2012 constitution, but March 2026 constitutional amendments extending mandate to 5 years are rejected by major opposition groups and federal states.",
         "legislative": {
           "lastElection": {
             "date": "2021-11-01",
             "type": "Parliamentary (indirect)",
-            "notes": "Parliamentary elections held through indirect clan-based voting concluded March 2022, with 255 of 275 House seats and 54 Senate seats filled.",
+            "notes": "Parliamentary elections concluded March 2022 through indirect clan-based voting with 255 of 275 House seats and 54 Senate seats filled.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
           "nextElection": {
-            "date": "2026-12-31",
+            "date": "2027-05-15",
             "type": "Parliamentary",
-            "notes": "Parliamentary elections scheduled for May 2026, though constitutional amendments passed in March 2026 extended mandates to five years and shifted timeline to late 2026.",
+            "notes": "Constitutional amendments passed March 2026 extended legislative mandate to five years, moving elections to 2027. Opposition rejects this timeline and demands elections by May 2026.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (eg_date_changed (2026-12-31)) + electionguide"
+          "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability)) + electionguide"
         },
         "executive": {
           "lastElection": {
@@ -4579,17 +4581,17 @@
             "electionDay": false
           },
           "nextElection": {
-            "date": "2026-12-31",
-            "type": "Presidential (indirect)",
-            "notes": "Presidential election scheduled for late 2026 following constitutional amendments extending presidential term to five years. President would continue to be elected by parliament.",
+            "date": "2027-05-15",
+            "type": "Presidential",
+            "notes": "March 2026 constitutional amendments extended presidential term to five years. Opposition demands election by May 15, 2026 under original four-year mandate.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (eg_date_changed (2026-12-31))"
+          "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T22:54:22.219579Z"
+      "lastClaudeUpdate": "2026-03-31T05:41:33.529113Z"
     },
     {
       "country": "Yemen",
