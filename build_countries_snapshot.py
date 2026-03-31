@@ -170,39 +170,27 @@ COUNTRIES: List[Dict[str, str]] = [
     {"country": "Ukraine",        "iso2": "UA"},
 ]
 
-# Countries where elections are not competitive / not meaningful to track.
-NON_COMPETITIVE: Dict[str, str] = {
-    "CN": "One-party state. The Chinese Communist Party holds a monopoly on political power. National People's Congress 'elections' are uncontested single-party votes.",
-    "KP": "Totalitarian single-party state. Supreme People's Assembly elections feature a single Korean Workers' Party-approved candidate per seat with near-100% reported turnout.",
-    "CU": "One-party socialist republic. The Communist Party of Cuba is the only legal party. National Assembly candidates are pre-approved.",
-    "VN": "One-party socialist republic. The Communist Party of Vietnam controls all state institutions. National Assembly candidates are vetted by the party.",
-    "SA": "Absolute monarchy with no national elections for executive or legislative positions. The Consultative Assembly (Majlis al-Shura) is fully appointed by royal decree.",
-    "AE": "Federal constitutional monarchy. Executive positions are hereditary. The Federal National Council is half-appointed, half indirectly elected via a limited electorate.",
-    "SY": "Transitional authority following Assad's fall (December 2024). No elections scheduled; country is governed by interim administration (Hayat Tahrir al-Sham).",
-    "SD": "Military junta. Sudan is under Sudanese Armed Forces (SAF) control amid civil war with the RSF. No elections scheduled or possible under current conditions.",
-    "YE": "Civil war. Two parallel governments (Houthi/Ansar Allah in the north; Presidential Leadership Council in the south). No elections possible.",
-    "LY": "Divided state with two rival governments. Elections scheduled for 2021 were never held. No current electoral process.",
-    "MM": "Military junta (State Administration Council) since the February 2021 coup. The elected NLD government operates in exile as the National Unity Government.",
-    "PS": "No elections held since 2006 (legislative) and 2005 (presidential). Mahmoud Abbas rules by decree; Hamas controls Gaza. Elections indefinitely postponed.",
+# ── ELECTION COMPETITIVENESS & IPU APPLICABILITY ──────────────────────────────
+# These are NO LONGER hardcoded. Whether a country has competitive elections
+# and whether IPU data applies are determined dynamically by Claude via live
+# web search and stored in the snapshot:
+#   elections.competitiveElections         (bool)
+#   elections.nonCompetitiveReason         (str | null)
+#   elections.electionsSuspended           (bool)
+#   elections.ipu_not_applicable           (bool)
+#   elections.ipu_not_applicable_reason    (str | null)
+#
+# Claude re-evaluates these on:
+#   • First run / no snapshot
+#   • Any hard run triggered by sentinel alert or snapshot anomaly
+#   • Annual refresh (≥365 days since last competitiveness check)
+#   • Biweekly run when the value is >180 days old
+#
+# The only permanent structural exception is TW (Taiwan): not an IPU member
+# by definition (non-UN member state). All other country status is live.
+IPU_STRUCTURAL_EXCEPTIONS: set = {
+    "TW",  # Permanent: not an IPU member — non-UN member state.
 }
-
-# Countries where IPU data is not applicable
-IPU_NOT_APPLICABLE: Dict[str, str] = {
-    "TW": "Taiwan is not an IPU member (non-UN member state).",
-    "KP": "North Korea holds nominal single-party elections not tracked by IPU as competitive.",
-    "CN": "Non-competitive. Not meaningfully tracked by IPU.",
-    "CU": "Non-competitive single-party state.",
-    "VN": "Non-competitive single-party state.",
-    "SA": "No elections. Not in IPU.",
-    "AE": "No national elections. Not in IPU.",
-    "SY": "No elections. Transitional authority.",
-    "SD": "No elections. Military junta.",
-    "YE": "No elections. Civil war.",
-    "LY": "No elections. Divided state.",
-    "MM": "No elections. Military coup.",
-    "PS": "No elections. Legislative Council suspended.",
-}
-
 
 # ── HELPERS ───────────────────────────────────────────────────────────────────
 
@@ -838,11 +826,32 @@ def _classify_ipu_election(rec: Dict) -> str:
     return str(body)
 
 
-def fetch_ipu_elections(iso2: str) -> Dict[str, Any]:
-    if iso2.upper() in IPU_NOT_APPLICABLE:
-        reason = IPU_NOT_APPLICABLE[iso2.upper()]
+def fetch_ipu_elections(iso2: str, prev: Optional[Dict] = None) -> Dict[str, Any]:
+    """
+    Fetch IPU election data for a country.
+    Uses the previous snapshot to determine whether IPU data is applicable —
+    replacing the old hardcoded IPU_NOT_APPLICABLE dict. Claude sets
+    elections.ipu_not_applicable = true in the snapshot for countries where
+    IPU tracking is not meaningful (one-party states, monarchies, civil wars).
+
+    TW (Taiwan) is the only permanent structural exception: not an IPU member
+    by definition as a non-UN member state.
+    """
+    iso = iso2.upper()
+
+    # Permanent structural exception — not a political judgment
+    if iso in IPU_STRUCTURAL_EXCEPTIONS:
         return {"lastDate": None, "nextDate": None, "elections": [],
-                "source": "ipu_not_applicable", "notes": reason}
+                "source": "ipu_not_applicable",
+                "notes": "Taiwan is not an IPU member (non-UN member state)."}
+
+    # Dynamic: Claude previously determined IPU is not applicable here
+    if prev:
+        prev_elec = prev.get("elections") or {}
+        if prev_elec.get("ipu_not_applicable"):
+            reason = prev_elec.get("ipu_not_applicable_reason") or "IPU not applicable (set by Claude)."
+            return {"lastDate": None, "nextDate": None, "elections": [],
+                    "source": "ipu_not_applicable", "notes": reason}
 
     elections = _get_ipu_elections_for_country(iso2)
     if not elections:
@@ -1224,12 +1233,15 @@ Return ONLY a single valid JSON object — no markdown, no explanation — with 
   "headOfGovernment":     {"name": str, "partyOrGroup": str},
   "politicalSystem":      [str, ...],
   "legislature":          [{"name": str, "inControl": str}, ...],
-  "competitiveElections": bool,
-  "nonCompetitiveReason": str | null,
-  "electionsSuspended":   bool,
-  "suspensionReason":     str | null,
-  "electionWatchActive":  bool,
-  "electionWatchReason":  str | null,
+  "competitiveElections":       bool,
+  "nonCompetitiveReason":       str | null,
+  "electionsSuspended":         bool,
+  "suspensionReason":           str | null,
+  "lastCompetitivenessCheck":   str,
+  "ipu_not_applicable":         bool,
+  "ipu_not_applicable_reason":  str | null,
+  "electionWatchActive":        bool,
+  "electionWatchReason":        str | null,
   "legislative": {
     "lastElection": {"date": str, "type": str, "notes": str,
                      "runoffDate": str|null, "runoffCondition": str|null} | null,
@@ -1282,17 +1294,31 @@ CRITICAL RULES:
 9. runoffDate: only populate if a specific runoff date is scheduled. Otherwise use
    runoffCondition only.
 
-10. ELECTION WATCH — electionWatchActive field:
+10. WEB SEARCH IS MANDATORY ON EVERY CALL. You MUST use the web_search tool
+    before producing your response. Your training data has a cutoff and will be
+    stale on exactly the facts this dataset tracks (election results, leader
+    changes, coups, transitions). Do not answer from memory alone. Minimum
+    required searches:
+      - Current head of state/government (always search)
+      - Most recent election result (always search)
+      - Any upcoming election within 6 months (always search)
+      - For election-watch calls: search specifically for "[country] election
+        result [year]" and "[country] new government formed" to check if a
+        winner has been confirmed.
+      - For competitiveness-refresh calls: search "[country] political system
+        [year]" and "[country] elections [year]" to assess current status.
+    Never write electionWatchActive=false or competitiveElections=false/true
+    without first confirming via web search.
+
+17. ELECTION WATCH — electionWatchActive field:
     - Set to TRUE if: (a) an election date is within the next 3 days, OR (b) an
       election has occurred but no official winner/government has been confirmed yet
       (counting ongoing, coalition talks, runoff pending, result disputed, etc.).
     - Set to FALSE if: a clear winner or new government has been officially confirmed
       and power has transferred (or will transfer on a known date). When setting to
       false, populate electionWatchReason with a brief explanation.
-    - During election-watch calls, use web search aggressively to verify the current
-      status. Do NOT rely on training data for recent election outcomes.
 
-11. partyProfileUpdates: ONLY include parties that are newly in power (executive or
+17. partyProfileUpdates: ONLY include parties that are newly in power (executive or
     legislature) OR whose profile does not yet exist in the snapshot. Do not
     re-submit profiles for parties already profiled and still in power.
     - politicalOrientation: one of "Far-Left", "Left", "Centre-Left", "Centre",
@@ -1301,22 +1327,22 @@ CRITICAL RULES:
     - ideologyTags: short list of tags, e.g. ["social democracy", "Keynesian economics"]
     - keyPlatforms: 3-5 bullet points describing their main policy positions
 
-12. dataAvailabilityNotes MUST be plain text only — no HTML, no <cite> tags, no
+17. dataAvailabilityNotes MUST be plain text only — no HTML, no <cite> tags, no
     markdown, no angle brackets of any kind. If the previous snapshot contains
     <cite ...> markup in any field, strip it completely and rewrite as plain prose.
 
-13. lastElection must NEVER be null for a competitive country that has held a
+17. lastElection must NEVER be null for a competitive country that has held a
     national election within the last 10 years. If the previous snapshot has
     null lastElection and you know the election occurred (via web search), populate
     it. Do not leave it null because the previous run missed it.
 
-14. headOfGovernment.name must reflect the person ACTUALLY exercising executive
+17. headOfGovernment.name must reflect the person ACTUALLY exercising executive
     power today — not a ceremonial president, not a title prefix like
     "Acting President – [Name]". Store the clean name only (e.g. "Delcy Rodríguez",
     not "Acting President – Delcy Rodríguez"). Use dataAvailabilityNotes to
     explain acting/interim status.
 
-15. For one-party states where the party General Secretary and the formal
+17. For one-party states where the party General Secretary and the formal
     President are different people:
       - headOfState.name  = the formal President (constitutional head of state)
       - headOfGovernment  = the Premier/Prime Minister
@@ -1325,7 +1351,17 @@ CRITICAL RULES:
     Do NOT list the General Secretary as headOfState unless they also hold
     the formal Presidency.
 
-16. Return ONLY the JSON object — no markdown fences, no preamble, no explanation.\
+17. lastCompetitivenessCheck: always set this to today's ISO date (YYYY-MM-DD).
+    It is used by the scheduler to determine when the next competitiveness review
+    is due. Never omit it.
+
+18. ipu_not_applicable: set to true for countries where IPU Parline tracking is
+    not meaningful — one-party states, absolute monarchies, countries with no
+    functioning legislature or elections, and countries in civil war or under
+    military junta. Set ipu_not_applicable_reason to a plain-text explanation.
+    Verify via web search before setting; do not rely on training data.
+
+19. Return ONLY the JSON object — no markdown fences, no preamble, no explanation.\
 """
 
 
@@ -1403,25 +1439,32 @@ def _snapshot_anomaly_detected(iso2: str, prev: Optional[Dict]) -> Tuple[bool, s
     elections = prev.get("elections") or {}
     competitive = elections.get("competitiveElections")
 
-    # Countries where we don't expect election data — skip A/E checks
-    NO_ELECTION_ISOS = {
-        "SA", "AE", "CN", "KP", "CU", "VN", "SY", "SD", "YE", "LY", "MM", "PS",
-    }
-    if iso in NO_ELECTION_ISOS:
-        return False, ""
+    # Read election status from the snapshot itself — no hardcoded country lists.
+    # competitiveElections=False means Claude already classified this country as
+    # non-competitive; we skip the null-lastElection check for those.
+    # electionsSuspended=True is similar — no meaningful election data expected.
+    elections_suspended = elections.get("electionsSuspended", False)
+    ipu_not_applicable  = elections.get("ipu_not_applicable", False)
 
-    # A: lastElection is null for a competitive country
+    # A: lastElection is null for a country where we DO expect election data.
+    # Skip if: explicitly non-competitive, suspended, or no competitiveness verdict
+    # yet (competitive=None means Claude hasn't assessed it — first run catches that).
     leg_last  = (elections.get("legislative") or {}).get("lastElection")
     exec_last = (elections.get("executive") or {}).get("lastElection")
-    if competitive is not False and leg_last is None and exec_last is None:
+    expect_election_data = (competitive is True and not elections_suspended)
+    if expect_election_data and leg_last is None and exec_last is None:
         return True, "null_lastElection_for_competitive_country"
 
-    # E: Null executive name for a non-failed-state country
-    FAILED_STATE_ISOS = {"SY", "SD", "YE", "LY", "MM", "SO"}
+    # E: Null executive name. Any country should have at least a head of state.
+    # The only legitimate nulls are countries mid-transition where Claude explicitly
+    # wrote nonCompetitiveReason or suspensionReason (both indicate Claude has
+    # assessed the situation and knows power is contested/absent).
+    has_competitive_assessment = (competitive is not None)
     exec_block = prev.get("executive") or {}
     hos_name = (exec_block.get("headOfState") or {}).get("name")
     hog_name = (exec_block.get("headOfGovernment") or {}).get("name")
-    if iso not in FAILED_STATE_ISOS and not hos_name and not hog_name:
+    has_suspension_context = bool(elections.get("nonCompetitiveReason") or elections.get("suspensionReason"))
+    if has_competitive_assessment and not has_suspension_context and not hos_name and not hog_name:
         return True, "null_executive_names"
 
     return False, ""
@@ -1480,6 +1523,11 @@ def _should_call_claude(
     if anomaly:
         return True, f"snapshot_anomaly ({anomaly_reason})"
 
+    # Trigger 5b: Competitiveness classification needs refresh (annual / semi-annual)
+    needs_comp, comp_reason = _needs_competitiveness_refresh(prev)
+    if needs_comp:
+        return True, f"competitiveness_refresh ({comp_reason})"
+
     # ── Biweekly-only triggers (suppressed on non-Tuesday daily runs) ─────────
     if not biweekly_tuesday:
         # On a normal daily run with no alerts or election watch, do nothing.
@@ -1509,6 +1557,65 @@ def _should_call_claude(
     days_old = _days_since_claude(prev)
     if days_old >= 13:
         return True, f"biweekly_tuesday_refresh (last_update_{days_old}d_ago)"
+
+    return False, ""
+
+
+def _needs_competitiveness_refresh(prev: Optional[Dict]) -> Tuple[bool, str]:
+    """
+    Return (True, reason) if the country's competitiveness classification needs
+    to be re-evaluated by Claude.
+
+    Fires when ANY of:
+      a) competitiveElections is None — Claude has never assessed this country.
+      b) lastCompetitivenessCheck is absent or >365 days old — annual refresh.
+      c) The country is currently non-competitive and the check is >180 days old —
+         more frequent re-check for fluid situations (juntas, civil wars, transitions)
+         where status can change faster than once a year.
+      d) changeInPowerAlert is unresolved — covered by snapshot_anomaly_detected
+         but we also re-check competitiveness on those runs.
+
+    Note: This is checked as part of _should_call_claude's always-on triggers
+    so it fires on any daily run, not just biweekly ones.
+    """
+    if not prev:
+        return True, "first_run_competitiveness"
+
+    elections = prev.get("elections") or {}
+    competitive = elections.get("competitiveElections")
+
+    # (a) Never assessed
+    if competitive is None:
+        return True, "competitiveness_never_assessed"
+
+    last_check_str = elections.get("lastCompetitivenessCheck")
+    if not last_check_str:
+        return True, "competitiveness_check_date_missing"
+
+    try:
+        # Claude may write this as YYYY-MM-DD (date-only) or a full ISO timestamp.
+        # Normalise to a timezone-aware datetime so the subtraction always works.
+        raw = last_check_str.strip().replace("Z", "+00:00")
+        if len(raw) == 10:  # bare date: YYYY-MM-DD
+            last_check = datetime(
+                int(raw[:4]), int(raw[5:7]), int(raw[8:10]), tzinfo=timezone.utc
+            )
+        else:
+            last_check = datetime.fromisoformat(raw)
+            if last_check.tzinfo is None:
+                last_check = last_check.replace(tzinfo=timezone.utc)
+        days_since = (datetime.now(timezone.utc) - last_check).days
+    except (ValueError, AttributeError, IndexError):
+        return True, "competitiveness_check_date_unparseable"
+
+    # (b) Annual refresh for all countries
+    if days_since >= 365:
+        return True, f"annual_competitiveness_refresh ({days_since}d since last check)"
+
+    # (c) More frequent re-check for non-competitive / suspended countries
+    suspended = elections.get("electionsSuspended", False)
+    if (competitive is False or suspended) and days_since >= 180:
+        return True, f"semi_annual_noncompetitive_refresh ({days_since}d since last check)"
 
     return False, ""
 
@@ -1785,14 +1892,19 @@ def _assemble_from_claude(
     election_watch_active = bool(cl.get("electionWatchActive", False))
     election_watch_reason = cl.get("electionWatchReason")
 
+    today_iso = today_str  # already set by caller
+
     elections_block = {
-        "competitiveElections": cl.get("competitiveElections", True),
-        "nonCompetitiveReason": cl.get("nonCompetitiveReason"),
-        "electionsSuspended":   cl.get("electionsSuspended", False),
-        "suspensionReason":     cl.get("suspensionReason"),
-        "electionToday":        election_today,
-        "electionWatchActive":  election_watch_active,
-        "electionWatchReason":  election_watch_reason,
+        "competitiveElections":      cl.get("competitiveElections", True),
+        "nonCompetitiveReason":      cl.get("nonCompetitiveReason"),
+        "electionsSuspended":        cl.get("electionsSuspended", False),
+        "suspensionReason":          cl.get("suspensionReason"),
+        "lastCompetitivenessCheck":  cl.get("lastCompetitivenessCheck", today_iso),
+        "ipu_not_applicable":        bool(cl.get("ipu_not_applicable", False)),
+        "ipu_not_applicable_reason": cl.get("ipu_not_applicable_reason"),
+        "electionToday":             election_today,
+        "electionWatchActive":       election_watch_active,
+        "electionWatchReason":       election_watch_reason,
         "legislative": {
             "lastElection": _norm_election(cl_leg.get("lastElection")),
             "nextElection": leg_next,
@@ -1831,7 +1943,7 @@ def build_country(
     print(f"  [{iso2}] HOS={_clean_wiki(wiki.get('hosName'))}, HOG={_clean_wiki(wiki.get('hogName'))}")
 
     print(f"  [{iso2}] IPU elections fetch...")
-    ipu = fetch_ipu_elections(iso2)
+    ipu = fetch_ipu_elections(iso2, prev)
     print(f"  [{iso2}] IPU: last={ipu.get('lastDate')} next={ipu.get('nextDate')} src={ipu.get('source')}")
 
     print(f"  [{iso2}] ElectionGuide lookup...")
@@ -1888,10 +2000,12 @@ def build_country(
         }
         legislature_block = {"bodies": [], "source": "unknown"}
         elections_block   = {
-            "competitiveElections": None, "nonCompetitiveReason": None,
-            "electionsSuspended": False, "suspensionReason": None,
-            "electionToday": False,
-            "electionWatchActive": False, "electionWatchReason": None,
+            "competitiveElections":      None,  "nonCompetitiveReason":      None,
+            "electionsSuspended":        False, "suspensionReason":           None,
+            "lastCompetitivenessCheck":  None,  # will trigger annual check on next run
+            "ipu_not_applicable":        False, "ipu_not_applicable_reason":  None,
+            "electionToday":             False,
+            "electionWatchActive":       False, "electionWatchReason":        None,
             "legislative": {"lastElection": None, "nextElection": None, "source": "unknown"},
             "executive":   {"lastElection": None, "nextElection": None, "source": "unknown"},
         }
