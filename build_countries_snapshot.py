@@ -2,30 +2,51 @@
 Build a Base44-friendly JSON snapshot for multiple countries.
 Output: docs/countries_snapshot.json
 
-Run:  python scripts/build_countries_snapshot.py
+Run:  python build_countries_snapshot.py
 Deps: pip install requests beautifulsoup4 lxml
 
 Data strategy (March 2026):
   - Executive names/parties:    Wikipedia (free) → Claude API (fills gaps, verifies)
-  - Legislature bodies/control: Claude API (smart diff, 7-day refresh ceiling)
+  - Legislature bodies/control: Claude API (smart diff, biweekly ceiling)
   - Elections:                  IPU Parline + ElectionGuide (dates) → Claude API (context, notes)
-                                Daily refresh triggered when election within 7 days
+                                Daily hard refresh triggered 3 days before AND during active
+                                elections (until Claude confirms a winner has been chosen).
   - Political system:           Claude API
+  - Party profiles:             Claude API (updated only when a new party gains power)
   - Metadata:                   REST Countries API (live)
   - Governance:                 World Bank WGI API (live)
 
-Election data model per country:
-  elections:
-    competitiveElections: bool
-    nonCompetitiveReason: str | null
-    legislative:
-      lastElection:  { date, type, notes }  | null
-      nextElection:  { date, type, notes }  | null
-      source: str
-    executive:
-      lastElection:  { date, type, notes }  | null
-      nextElection:  { date, type, notes }  | null
-      source: str
+── NEW FEATURES ──────────────────────────────────────────────────────────────
+
+  BIWEEKLY SCHEDULE (every other Tuesday):
+    The weekly Tuesday refresh logic has been replaced with a biweekly cadence.
+    The script tracks the last full-sweep date in the snapshot. If today is a
+    Tuesday and it has been ≥13 days since the last full sweep, all countries
+    are considered for a Claude refresh.
+
+  ELECTION WATCH (daily hard search):
+    The previous snapshot is inspected for any election within 3 days (before
+    the date). Once that window opens, a hard Claude search fires every day.
+    The watch continues AFTER election day as long as the snapshot marks
+    electionWatchActive: true. Claude is asked to determine if a winner/
+    candidate has been officially chosen. When Claude confirms the election is
+    resolved, it sets electionWatchActive: false and the daily watch ends.
+
+  CHANGE-IN-POWER SENTINEL (every 24 hours):
+    At the start of each run the script fetches:
+      https://stratagemdrive.github.io/change-in-power-checks/leadership-outputs.json
+    Claude reads this JSON (no web search) and identifies any articles that
+    signal an unexpected change in power not yet reflected in the snapshot.
+    Affected countries are flagged with changeInPowerAlert in their entry;
+    the flag is picked up on the next scheduled hard refresh for that country.
+    Previously seen article IDs are stored in the snapshot so Claude only
+    evaluates genuinely new articles.
+
+  PARTY PROFILES:
+    Each entry gains a partyProfiles block keyed by party name. Profiles
+    include politicalOrientation, ideologyTags, and keyPlatforms.
+    Claude only updates/adds a profile when a new party gains power in that
+    country (executive or legislature change). Existing profiles are preserved.
 """
 
 from __future__ import annotations
@@ -63,14 +84,17 @@ RETRY_SLEEP = 1.5
 
 WIKIDATA_SPARQL      = "https://query.wikidata.org/sparql"
 WORLD_BANK_BASE      = "https://api.worldbank.org/v2"
-# IPU Parline v2 API — correct base and endpoints as of 2025
-# Docs: https://data.ipu.org/api-doc
 IPU_API_BASE         = "https://data.ipu.org"
 IPU_PARLIAMENTS_URL  = f"{IPU_API_BASE}/api/parliaments"
 IPU_ELECTIONS_URL    = f"{IPU_API_BASE}/api/elections"
 REST_COUNTRIES_BASE  = "https://restcountries.com/v3.1"
 WIKIPEDIA_API        = "https://en.wikipedia.org/w/api.php"
 ELECTIONGUIDE_BASE   = "https://electionguide.org"
+
+# URL for the change-in-power sentinel feed
+CHANGE_IN_POWER_URL = (
+    "https://stratagemdrive.github.io/change-in-power-checks/leadership-outputs.json"
+)
 
 WGI_PERCENTILE_INDICATORS: Dict[str, str] = {
     "voiceAccountability":      "VA.PER.RNK",
@@ -147,7 +171,6 @@ COUNTRIES: List[Dict[str, str]] = [
 ]
 
 # Countries where elections are not competitive / not meaningful to track.
-# Value is the human-readable reason shown in output.
 NON_COMPETITIVE: Dict[str, str] = {
     "CN": "One-party state. The Chinese Communist Party holds a monopoly on political power. National People's Congress 'elections' are uncontested single-party votes.",
     "KP": "Totalitarian single-party state. Supreme People's Assembly elections feature a single Korean Workers' Party-approved candidate per seat with near-100% reported turnout.",
@@ -163,7 +186,7 @@ NON_COMPETITIVE: Dict[str, str] = {
     "PS": "No elections held since 2006 (legislative) and 2005 (presidential). Mahmoud Abbas rules by decree; Hamas controls Gaza. Elections indefinitely postponed.",
 }
 
-# Countries where IPU data is not applicable (not IPU members or not tracked)
+# Countries where IPU data is not applicable
 IPU_NOT_APPLICABLE: Dict[str, str] = {
     "TW": "Taiwan is not an IPU member (non-UN member state).",
     "KP": "North Korea holds nominal single-party elections not tracked by IPU as competitive.",
@@ -214,7 +237,6 @@ def req_json(url: str, params: Optional[dict] = None,
     return None
 
 def req_html(url: str, label: str = "") -> Optional[str]:
-    """Fetch a URL and return the raw HTML text."""
     h = dict(HEADERS)
     h["Accept"] = "text/html,application/xhtml+xml,*/*;q=0.8"
     tag = label or url
@@ -241,8 +263,17 @@ def load_previous_snapshot(path: Path) -> Dict[str, Any]:
     if not path.exists():
         return {}
     try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-        return {c["iso2"]: c for c in data.get("countries", []) if c.get("iso2")}
+        raw = json.loads(path.read_text(encoding="utf-8"))
+        return {c["iso2"]: c for c in raw.get("countries", []) if c.get("iso2")}
+    except Exception:
+        return {}
+
+def load_full_previous_snapshot(path: Path) -> Dict[str, Any]:
+    """Load the entire previous snapshot dict (not just countries)."""
+    if not path.exists():
+        return {}
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
     except Exception:
         return {}
 
@@ -264,6 +295,233 @@ def percentile_to_label(p: Optional[float], dim: str) -> Optional[str]:
 def overall_label(p: Optional[float]) -> Optional[str]:
     tier = percentile_to_tier(p)
     return WGI_OVERALL_LABELS.get(tier) if tier else None
+
+# ── BIWEEKLY REFRESH LOGIC ─────────────────────────────────────────────────────
+# Fires on every-other-Tuesday. The previous snapshot stores the last full-sweep
+# date so we can compare across runs. "Every other Tuesday" = Tuesday AND ≥13
+# days since the last full sweep (13-day floor allows for 1-day scheduling drift).
+
+def _is_biweekly_tuesday(prev_full_snapshot: Dict[str, Any]) -> bool:
+    """Return True if today is Tuesday and ≥13 days since the last full sweep."""
+    today = datetime.now(timezone.utc)
+    if today.weekday() != 1:   # 0=Mon, 1=Tue …
+        return False
+    last_sweep = prev_full_snapshot.get("lastFullSweepDate")
+    if not last_sweep:
+        return True            # First ever run — treat as biweekly
+    try:
+        last_dt = datetime.fromisoformat(last_sweep.replace("Z", "+00:00"))
+        days_since = (today - last_dt).days
+        return days_since >= 13
+    except (ValueError, AttributeError):
+        return True
+
+
+# ── ELECTION WATCH ─────────────────────────────────────────────────────────────
+# A country enters "election watch" when any election date in its snapshot is
+# within the next 3 calendar days (inclusive of today). Once open, the watch
+# stays active (electionWatchActive: true) until Claude reports the election as
+# resolved. The watch also fires if electionWatchActive is already true in the
+# previous snapshot (carries forward until explicitly cleared by Claude).
+
+def _election_watch_active(prev: Optional[Dict]) -> Tuple[bool, str]:
+    """
+    Returns (is_active, reason).
+
+    Triggers if:
+      (a) electionWatchActive is already True in the previous snapshot, OR
+      (b) Any nextElection date is within 3 calendar days from today.
+    """
+    if not prev:
+        return False, ""
+
+    # (a) Carry-forward: still active from a previous run
+    if prev.get("elections", {}).get("electionWatchActive"):
+        return True, "election_watch_carry_forward"
+
+    today = datetime.now(timezone.utc).date()
+    elec = prev.get("elections") or {}
+
+    for block_key in ("legislative", "executive"):
+        block = elec.get(block_key) or {}
+        for phase_key in ("nextElection",):
+            obj = block.get(phase_key)
+            if not obj:
+                continue
+            d = obj.get("date")
+            if not d:
+                continue
+            try:
+                s = str(d)
+                if len(s) == 10:
+                    dt = datetime.strptime(s, "%Y-%m-%d").date()
+                elif len(s) == 7:
+                    y, m = s.split("-")
+                    dt = datetime(int(y), int(m), 15).date()
+                else:
+                    continue
+                days_until = (dt - today).days
+                if 0 <= days_until <= 3:
+                    return True, f"election_within_3_days ({d})"
+                # Also watch up to 14 days after (result period) when watch was
+                # already open — handled by carry-forward above, but belt+suspenders
+                if -14 <= days_until < 0 and prev.get("elections", {}).get("electionWatchActive"):
+                    return True, f"election_result_window ({d})"
+            except (ValueError, AttributeError):
+                continue
+
+    return False, ""
+
+
+# ── CHANGE-IN-POWER SENTINEL ───────────────────────────────────────────────────
+# Fetches the sentinel JSON feed, compares article IDs against previously-seen
+# IDs stored in the snapshot, and asks Claude (no web search) to evaluate only
+# new articles. Affected countries get a changeInPowerAlert flag in their entry
+# so the next scheduled hard refresh picks it up.
+
+SENTINEL_SYSTEM = """\
+You are a political analyst reviewing news article summaries for unexpected \
+changes in political power. You receive a JSON array of article objects. \
+Each object has: id, country (ISO2), title, summary (may be null), url.
+
+Return ONLY a valid JSON array of objects for articles that clearly indicate \
+an unexpected, significant change in political leadership or power structure \
+(coup, resignation, death of a leader, snap election called, government \
+collapse, etc.). Each output object must have:
+  { "id": <article_id>, "iso2": <country_iso2>, "alert": <1-sentence summary> }
+
+If NO articles indicate such a change, return an empty array: []
+Return ONLY the JSON array — no markdown, no explanation.\
+"""
+
+
+def run_change_in_power_sentinel(
+    prev_full_snapshot: Dict[str, Any],
+) -> Dict[str, str]:
+    """
+    Fetches the sentinel JSON, evaluates new articles with Claude (no web search),
+    and returns a dict mapping iso2 → alert_string for any flagged countries.
+    Also returns the updated set of seen article IDs (stored back to snapshot).
+    """
+    api_key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
+
+    print("\n── Change-in-Power Sentinel ──────────────────────────────────────────")
+
+    raw = req_json(CHANGE_IN_POWER_URL, label="change-in-power sentinel feed")
+    if not raw:
+        print("  [SENTINEL] Failed to fetch sentinel feed — skipping")
+        return {}
+
+    # The feed may be a list of articles or a dict with an articles key
+    articles: List[Dict] = []
+    if isinstance(raw, list):
+        articles = raw
+    elif isinstance(raw, dict):
+        articles = (raw.get("articles") or raw.get("items") or raw.get("data")
+                    or raw.get("results") or [])
+        if not articles:
+            # Treat the dict itself as a single-entry list if it has id/title
+            if raw.get("id") or raw.get("title"):
+                articles = [raw]
+
+    if not articles:
+        print("  [SENTINEL] No articles found in feed")
+        return {}
+
+    print(f"  [SENTINEL] {len(articles)} article(s) in feed")
+
+    # Load previously-seen IDs so we only evaluate new articles
+    seen_ids: set = set(prev_full_snapshot.get("sentinelSeenIds") or [])
+    new_articles = [
+        a for a in articles
+        if isinstance(a, dict) and str(a.get("id", a.get("url", ""))) not in seen_ids
+    ]
+
+    if not new_articles:
+        print("  [SENTINEL] No new articles since last run — skipping Claude call")
+        return {}
+
+    print(f"  [SENTINEL] {len(new_articles)} new article(s) to evaluate")
+
+    if not api_key:
+        print("  [SENTINEL] No ANTHROPIC_API_KEY — skipping Claude evaluation")
+        return {}
+
+    headers = {
+        "x-api-key":         api_key,
+        "anthropic-version": "2023-06-01",
+        "content-type":      "application/json",
+    }
+
+    try:
+        resp = requests.post(
+            ANTHROPIC_API_URL,
+            headers=headers,
+            json={
+                "model":      CLAUDE_MODEL,
+                "max_tokens": 1000,
+                "system":     SENTINEL_SYSTEM,
+                # No tools — Claude reads the JSON only, no web search
+                "messages":   [{"role": "user", "content": json.dumps(new_articles, ensure_ascii=False)}],
+            },
+            timeout=60,
+        )
+        resp.raise_for_status()
+        data = resp.json()
+
+        text = ""
+        for block in data.get("content", []):
+            if block.get("type") == "text":
+                text += block.get("text", "")
+
+        raw_text = text.strip()
+        raw_text = re.sub(r"^```(?:json)?\s*", "", raw_text)
+        raw_text = re.sub(r"\s*```$", "", raw_text)
+
+        bracket_start = raw_text.find("[")
+        bracket_end   = raw_text.rfind("]") + 1
+        if bracket_start != -1 and bracket_end > bracket_start:
+            raw_text = raw_text[bracket_start:bracket_end]
+
+        flagged = json.loads(raw_text)
+        if not isinstance(flagged, list):
+            flagged = []
+
+        alerts: Dict[str, str] = {}
+        for item in flagged:
+            if isinstance(item, dict) and item.get("iso2") and item.get("alert"):
+                iso2 = str(item["iso2"]).upper()
+                alerts[iso2] = str(item["alert"])
+                print(f"  [SENTINEL] ⚠️  {iso2}: {item['alert']}")
+
+        if not alerts:
+            print("  [SENTINEL] ✓  No unexpected changes flagged")
+
+        return alerts
+
+    except json.JSONDecodeError as e:
+        print(f"  [SENTINEL] ⚠️  JSON parse error: {e}")
+    except requests.HTTPError as e:
+        print(f"  [SENTINEL] ⚠️  Claude HTTP error: {e}")
+    except Exception as e:
+        print(f"  [SENTINEL] ⚠️  Error: {e}")
+
+    return {}
+
+
+def update_sentinel_seen_ids(
+    prev_full_snapshot: Dict[str, Any],
+    current_feed_articles: List[Dict],
+) -> List[str]:
+    """Merge current article IDs into the seen-IDs list for storage."""
+    seen: set = set(prev_full_snapshot.get("sentinelSeenIds") or [])
+    for a in current_feed_articles:
+        if isinstance(a, dict):
+            art_id = str(a.get("id", a.get("url", "")))
+            if art_id:
+                seen.add(art_id)
+    return sorted(seen)
+
 
 # ── WIKIPEDIA ADAPTIVE EXECUTIVE LOOKUP ──────────────────────────────────────
 
@@ -409,20 +667,12 @@ def _load_wiki_exec_cache() -> Dict[str, Dict[str, Optional[str]]]:
     _wiki_exec_cache = result
     return result
 
-# ── IPU PARLINE (correct v2 API) ──────────────────────────────────────────────
-# IPU Parline API documentation: https://data.ipu.org/api-doc
-# The correct approach is:
-#   GET /api/parliaments          → list all parliaments with their IDs
-#   GET /api/elections?...        → filter elections by parliament ID
-# The old /v1/chambers/{ISO2} endpoint no longer exists.
 
-_ipu_parliament_map: Optional[Dict[str, Dict]] = None  # iso2 → parliament record
+# ── IPU PARLINE ───────────────────────────────────────────────────────────────
+
+_ipu_parliament_map: Optional[Dict[str, Dict]] = None
 
 def _load_ipu_parliament_map() -> Dict[str, Dict]:
-    """
-    Load the full IPU parliament list once and build a lookup by ISO2.
-    IPU uses its own parliament IDs, so we need this map to query elections.
-    """
     global _ipu_parliament_map
     if _ipu_parliament_map is not None:
         return _ipu_parliament_map
@@ -430,8 +680,6 @@ def _load_ipu_parliament_map() -> Dict[str, Dict]:
     print("  [IPU] Loading parliament list from IPU Parline API...")
     _ipu_parliament_map = {}
 
-    # Try the v2 parliaments endpoint
-    # IPU API returns paginated JSON; iterate pages
     page = 1
     per_page = 100
     total_loaded = 0
@@ -448,24 +696,20 @@ def _load_ipu_parliament_map() -> Dict[str, Dict]:
             print(f"  [IPU] Failed to load parliament list page {page}")
             break
 
-        # Handle both list and paginated dict response
         records: List[Dict] = []
         if isinstance(data, list):
             records = data
         elif isinstance(data, dict):
             records = data.get("data") or data.get("results") or data.get("parliaments") or []
-            # Check if this is the only page
             if not records and "id" in data:
                 records = [data]
 
         if not records:
-            print(f"  [IPU] No records on page {page}, stopping pagination")
             break
 
         for rec in records:
             if not isinstance(rec, dict):
                 continue
-            # Extract ISO2 from various possible fields
             country = rec.get("country") or rec.get("countryCode") or {}
             iso2 = None
             if isinstance(country, dict):
@@ -483,7 +727,6 @@ def _load_ipu_parliament_map() -> Dict[str, Dict]:
 
         print(f"  [IPU] Page {page}: loaded {len(records)} records, {len(_ipu_parliament_map)} unique countries so far")
 
-        # If fewer records than per_page, we've hit the last page
         if len(records) < per_page:
             break
 
@@ -492,7 +735,6 @@ def _load_ipu_parliament_map() -> Dict[str, Dict]:
 
     print(f"  [IPU] Parliament map loaded: {len(_ipu_parliament_map)} countries")
 
-    # Log a sample to understand the data shape
     if _ipu_parliament_map:
         sample_iso2 = next(iter(_ipu_parliament_map))
         sample = _ipu_parliament_map[sample_iso2]
@@ -502,24 +744,18 @@ def _load_ipu_parliament_map() -> Dict[str, Dict]:
 
 
 def _get_ipu_elections_for_country(iso2: str) -> List[Dict]:
-    """
-    Fetch recent and upcoming elections for a country from IPU.
-    Returns a list of election records sorted by date descending.
-    """
     parl_map = _load_ipu_parliament_map()
     parl = parl_map.get(iso2.upper())
 
     if not parl:
         return []
 
-    # Try to get parliament ID in various formats
     parl_id = parl.get("id") or parl.get("parliamentId") or parl.get("parliament_id")
     if not parl_id:
         return []
 
     print(f"    [IPU] Fetching elections for {iso2} (parliament ID: {parl_id})")
 
-    # Query elections endpoint
     params = {
         "parliament": parl_id,
         "format": "json",
@@ -562,7 +798,6 @@ def _parse_ipu_date(raw: Any) -> Optional[str]:
 
 
 def _extract_ipu_election_date(rec: Dict) -> Optional[str]:
-    """Try multiple field names for the election date in an IPU record."""
     for field in ("date", "electionDate", "election_date", "dateOfElection",
                   "lastElectionDate", "date_of_election"):
         val = rec.get(field)
@@ -574,11 +809,6 @@ def _extract_ipu_election_date(rec: Dict) -> Optional[str]:
 
 
 def _classify_ipu_election(rec: Dict) -> str:
-    """
-    Derive a human-readable election type label from an IPU record.
-    Detects snap, runoff, extraordinary, by-election etc.
-    """
-    # Direct type fields
     etype = (rec.get("electionType") or rec.get("election_type") or
              rec.get("type") or rec.get("round") or "")
     if isinstance(etype, dict):
@@ -609,14 +839,6 @@ def _classify_ipu_election(rec: Dict) -> str:
 
 
 def fetch_ipu_elections(iso2: str) -> Dict[str, Any]:
-    """
-    Returns a dict:
-      lastDate: str | None
-      nextDate: str | None
-      elections: list of raw election records (for debugging)
-      source: str
-      notes: str
-    """
     if iso2.upper() in IPU_NOT_APPLICABLE:
         reason = IPU_NOT_APPLICABLE[iso2.upper()]
         return {"lastDate": None, "nextDate": None, "elections": [],
@@ -636,9 +858,7 @@ def fetch_ipu_elections(iso2: str) -> Dict[str, Any]:
         d = _extract_ipu_election_date(rec)
         if not d:
             continue
-        # Parse to compare with today
         try:
-            # Handle partial dates (YYYY-MM, YYYY)
             if len(d) == 4:
                 dt = datetime(int(d), 12, 31).date()
             elif len(d) == 7:
@@ -657,7 +877,6 @@ def fetch_ipu_elections(iso2: str) -> Dict[str, Any]:
     last_date = max(past_dates) if past_dates else None
     next_date = min(future_dates) if future_dates else None
 
-    # Find the actual next election record to extract its type
     next_record = None
     if future_dates:
         earliest_next = min(future_dates)
@@ -670,21 +889,17 @@ def fetch_ipu_elections(iso2: str) -> Dict[str, Any]:
         "lastDate": last_date,
         "nextDate": next_date,
         "nextType": _classify_ipu_election(next_record) if next_record else None,
-        "elections": elections[:5],  # keep a few for debugging
+        "elections": elections[:5],
         "source": "ipu_parline",
         "notes": f"IPU Parline: {len(elections)} election record(s) found.",
     }
 
-# ── ELECTIONGUIDE SCRAPER (fallback enrichment) ───────────────────────────────
 
-_eg_cache: Optional[Dict[str, List[Dict]]] = None  # iso2 → list of election dicts
+# ── ELECTIONGUIDE SCRAPER ─────────────────────────────────────────────────────
+
+_eg_cache: Optional[Dict[str, List[Dict]]] = None
 
 def _load_electionguide_cache() -> Dict[str, List[Dict]]:
-    """
-    Scrape ElectionGuide's past and upcoming election pages.
-    Returns a dict mapping country names → list of {date, body, url, status}.
-    We then cross-reference with our COUNTRIES list by name.
-    """
     global _eg_cache
     if _eg_cache is not None:
         return _eg_cache
@@ -695,8 +910,6 @@ def _load_electionguide_cache() -> Dict[str, List[Dict]]:
         print("  [EG] beautifulsoup4 not available, skipping ElectionGuide scrape")
         return _eg_cache
 
-    # Map ElectionGuide country names → ISO2
-    # ElectionGuide uses its own country naming; these are the common mismatches
     EG_NAME_OVERRIDES: Dict[str, str] = {
         "United Kingdom of Great Britain and Northern Ireland": "GB",
         "United Arab Emirates": "AE",
@@ -717,9 +930,7 @@ def _load_electionguide_cache() -> Dict[str, List[Dict]]:
         "Republic of Korea": "KR",
     }
 
-    # Build reverse map from our COUNTRIES list
     country_name_to_iso2: Dict[str, str] = {c["country"].lower(): c["iso2"] for c in COUNTRIES}
-    # Add official name overrides
     for eg_name, iso2 in EG_NAME_OVERRIDES.items():
         country_name_to_iso2[eg_name.lower()] = iso2
 
@@ -727,14 +938,12 @@ def _load_electionguide_cache() -> Dict[str, List[Dict]]:
         clean = name.strip().lower()
         if clean in country_name_to_iso2:
             return country_name_to_iso2[clean]
-        # Partial match fallback
         for known, code in country_name_to_iso2.items():
             if known in clean or clean in known:
                 return code
         return None
 
     def _parse_eg_page(url: str, status: str) -> None:
-        """Parse an ElectionGuide listing page and populate _eg_cache."""
         print(f"  [EG] Scraping {url}")
         html = req_html(url, label=f"ElectionGuide {status}")
         if not html:
@@ -742,33 +951,25 @@ def _load_electionguide_cache() -> Dict[str, List[Dict]]:
             return
 
         soup = BeautifulSoup(html, "lxml")
-
-        # ElectionGuide election listings are in <table> rows or structured divs
-        # Each row typically has: flag, date+body name, country name
-        # The structure as of 2025: rows with class pattern or just td structure
         parsed_count = 0
 
-        # Try table rows first
         for row in soup.find_all("tr"):
             cells = row.find_all("td")
             if len(cells) < 2:
                 continue
 
-            # Extract date — usually first or second cell with date text
             date_text = ""
             body_text = ""
             country_text = ""
 
             for cell in cells:
                 text = cell.get_text(separator=" ", strip=True)
-                # Date pattern: "Mar 24 2026" or "Mar 24 2026 (d)"
                 date_m = re.search(
                     r"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2}\s+\d{4}",
                     text,
                 )
                 if date_m and not date_text:
                     date_text = date_m.group(0)
-                # Links give us body name and country
                 for a in cell.find_all("a"):
                     href = a.get("href", "")
                     link_text = a.get_text(strip=True)
@@ -780,7 +981,6 @@ def _load_electionguide_cache() -> Dict[str, List[Dict]]:
             if not (date_text and country_text):
                 continue
 
-            # Parse date to ISO format
             try:
                 dt = datetime.strptime(date_text, "%b %d %Y")
                 iso_date = dt.strftime("%Y-%m-%d")
@@ -813,9 +1013,6 @@ def _load_electionguide_cache() -> Dict[str, List[Dict]]:
 
 
 def get_electionguide_dates(iso2: str) -> Dict[str, Optional[str]]:
-    """
-    Returns best lastDate / nextDate from ElectionGuide for the given iso2.
-    """
     cache = _load_electionguide_cache()
     records = cache.get(iso2.upper(), [])
     if not records:
@@ -836,13 +1033,11 @@ def get_electionguide_dates(iso2: str) -> Dict[str, Optional[str]]:
         except ValueError:
             past.append(d)
 
-    # Also capture the body name for the next upcoming election (for type labeling)
     next_record = None
     if future:
         earliest = min(future)
         next_record = next((r for r in records if r.get("date") == earliest), None)
 
-    # Detect snap/runoff/extraordinary from body text
     def _eg_classify(rec: Optional[Dict]) -> Optional[str]:
         if not rec:
             return None
@@ -862,6 +1057,7 @@ def get_electionguide_dates(iso2: str) -> Dict[str, Optional[str]]:
         "nextType": _eg_classify(next_record),
         "source": "electionguide",
     }
+
 
 # ── REST COUNTRIES ────────────────────────────────────────────────────────────
 
@@ -909,6 +1105,7 @@ def fetch_rest_countries(iso2: str) -> Dict[str, Any]:
         "officialName": official,
         "source":       "restcountries",
     }
+
 
 # ── WORLD BANK WGI ────────────────────────────────────────────────────────────
 
@@ -979,13 +1176,118 @@ def merge_wb_sticky(new_wb: Dict, prev: Optional[Dict]) -> Dict:
     out.pop("ok", None)
     return out
 
-# ── BUILD ELECTION OBJECT ─────────────────────────────────────────────────────
+
+# ── CLAUDE API ────────────────────────────────────────────────────────────────
+
+import os
+
+ANTHROPIC_API_URL    = "https://api.anthropic.com/v1/messages"
+CLAUDE_MODEL         = "claude-sonnet-4-20250514"
+CLAUDE_MAX_TOKENS    = 4000
+CLAUDE_FORCE_REFRESH = os.environ.get("CLAUDE_FORCE_REFRESH", "").strip() == "1"
+
+# ── CLAUDE SYSTEM PROMPT ──────────────────────────────────────────────────────
+
+CLAUDE_SYSTEM = """\
+You are a political data analyst maintaining a structured JSON dataset of country \
+leadership, legislature control, election data, and party profiles. You will receive:
+  - The country name and ISO2 code
+  - Whatever the free scrapers found (Wikipedia leader names, IPU/EG election dates)
+  - The previous snapshot for this country (may be months old)
+  - Today's date
+  - Whether this is an election-watch call (electionWatchActive in previous snapshot)
+
+Return ONLY a single valid JSON object — no markdown, no explanation — with these keys:
+
+{
+  "headOfState":          {"name": str, "partyOrGroup": str},
+  "headOfGovernment":     {"name": str, "partyOrGroup": str},
+  "politicalSystem":      [str, ...],
+  "legislature":          [{"name": str, "inControl": str}, ...],
+  "competitiveElections": bool,
+  "nonCompetitiveReason": str | null,
+  "electionsSuspended":   bool,
+  "suspensionReason":     str | null,
+  "electionWatchActive":  bool,
+  "electionWatchReason":  str | null,
+  "legislative": {
+    "lastElection": {"date": str, "type": str, "notes": str,
+                     "runoffDate": str|null, "runoffCondition": str|null} | null,
+    "nextElection": {"date": str, "type": str, "notes": str,
+                     "runoffDate": str|null, "runoffCondition": str|null} | null
+  },
+  "executive": {
+    "lastElection": {"date": str, "type": str, "notes": str,
+                     "runoffDate": str|null, "runoffCondition": str|null} | null,
+    "nextElection": {"date": str, "type": str, "notes": str,
+                     "runoffDate": str|null, "runoffCondition": str|null} | null
+  },
+  "partyProfileUpdates": {
+    "<party_name>": {
+      "politicalOrientation": str,
+      "ideologyTags": [str, ...],
+      "keyPlatforms": [str, ...]
+    }
+  },
+  "dataAvailabilityNotes": str | null
+}
+
+CRITICAL RULES:
+
+1. NEVER put a future date in lastElection. lastElection must only contain elections
+   where the vote has already been cast (date < today). If an election is scheduled
+   but has not yet happened, it goes in nextElection only.
+
+2. NEVER fabricate results. If uncertain whether an election has occurred, treat
+   it as upcoming. Do not invent winners, vote shares, or coalition outcomes.
+
+3. POST-ELECTION COALITION TALKS: If parliament just voted and coalition talks are
+   ongoing, notes must say "Coalition talks ongoing as of [date]". Do not state a
+   PM has been confirmed until that is factual.
+
+4. For acting/interim leaders, use the person actually exercising power today.
+
+5. For one-party states: headOfState = formal president. Note supreme power-holder
+   in dataAvailabilityNotes.
+
+6. dataAvailabilityNotes is mandatory for disputed legitimacy, parallel governments,
+   suspended elections, acting leaders, one-party context, or any nuance needed.
+
+7. election notes: factual, 1-2 sentences. Past-tense for completed events.
+   Future-tense for scheduled events.
+
+8. legislature[].inControl: reflect post-election reality. If coalition talks are
+   ongoing, say "Pending coalition formation (election [date])".
+
+9. runoffDate: only populate if a specific runoff date is scheduled. Otherwise use
+   runoffCondition only.
+
+10. ELECTION WATCH — electionWatchActive field:
+    - Set to TRUE if: (a) an election date is within the next 3 days, OR (b) an
+      election has occurred but no official winner/government has been confirmed yet
+      (counting ongoing, coalition talks, runoff pending, result disputed, etc.).
+    - Set to FALSE if: a clear winner or new government has been officially confirmed
+      and power has transferred (or will transfer on a known date). When setting to
+      false, populate electionWatchReason with a brief explanation.
+    - During election-watch calls, use web search aggressively to verify the current
+      status. Do NOT rely on training data for recent election outcomes.
+
+11. partyProfileUpdates: ONLY include parties that are newly in power (executive or
+    legislature) OR whose profile does not yet exist in the snapshot. Do not
+    re-submit profiles for parties already profiled and still in power.
+    - politicalOrientation: one of "Far-Left", "Left", "Centre-Left", "Centre",
+      "Centre-Right", "Right", "Far-Right", "Authoritarian", "Theocratic",
+      "Nationalist", "Communist", "Mixed/Unclear"
+    - ideologyTags: short list of tags, e.g. ["social democracy", "Keynesian economics"]
+    - keyPlatforms: 3-5 bullet points describing their main policy positions
+
+12. Return ONLY the JSON object — no markdown fences, no preamble, no explanation.\
+"""
 
 
-# ── BUILD ONE COUNTRY ─────────────────────────────────────────────────────────
+# ── CLAUDE TRIGGER LOGIC ──────────────────────────────────────────────────────
 
 def _clean_wiki(s: Optional[str]) -> Optional[str]:
-    """Strip Wikipedia title prefixes and footnote brackets from a name."""
     if not s:
         return None
     _TITLE_RE = re.compile(
@@ -1001,49 +1303,7 @@ def _clean_wiki(s: Optional[str]) -> Optional[str]:
     return s or None
 
 
-def _election_window_active(prev: Optional[Dict], days: int = 7) -> bool:
-    """
-    Return True if any election date in the previous snapshot falls within
-    `days` days before OR after today. Used to trigger daily Claude refresh
-    around election periods so results get picked up quickly.
-    """
-    if not prev:
-        return False
-    today = datetime.now(timezone.utc).date()
-    elec = prev.get("elections") or {}
-    candidates = []
-    for block in (elec.get("legislative") or {}, elec.get("executive") or {}):
-        for key in ("lastElection", "nextElection"):
-            obj = block.get(key) if isinstance(block, dict) else None
-            if obj:
-                candidates.append(obj.get("date"))
-        # Also check runoffDate
-        for key in ("lastElection", "nextElection"):
-            obj = block.get(key) if isinstance(block, dict) else None
-            if obj:
-                candidates.append(obj.get("runoffDate"))
-
-    for d in candidates:
-        if not d:
-            continue
-        try:
-            s = str(d)
-            if len(s) == 10:
-                dt = datetime.strptime(s, "%Y-%m-%d").date()
-            elif len(s) == 7:
-                y, m = s.split("-")
-                dt = datetime(int(y), int(m), 15).date()
-            else:
-                continue
-            if abs((dt - today).days) <= days:
-                return True
-        except (ValueError, AttributeError):
-            continue
-    return False
-
-
 def _days_since_claude(prev: Optional[Dict]) -> int:
-    """Return days since Claude last updated this country. 999 if never."""
     if not prev:
         return 999
     ts = prev.get("lastClaudeUpdate")
@@ -1056,23 +1316,27 @@ def _days_since_claude(prev: Optional[Dict]) -> int:
         return 999
 
 
-def _should_call_claude(iso2: str, wiki_names: Dict, ipu: Dict, eg: Dict,
-                        prev: Optional[Dict]) -> Tuple[bool, str]:
+def _should_call_claude(
+    iso2: str,
+    wiki_names: Dict,
+    ipu: Dict,
+    eg: Dict,
+    prev: Optional[Dict],
+    biweekly_tuesday: bool,
+    sentinel_alerts: Dict[str, str],
+) -> Tuple[bool, str]:
     """
     Decide whether to call Claude for this country.
     Returns (should_call, reason).
 
-    Trigger rules (checked in priority order):
-      1. CLAUDE_FORCE_REFRESH env var → always refresh everything
-      2. No previous snapshot → first run
-      3. Election within 7 days of today (before OR after) → daily refresh
-         NOTE: This fires REGARDLESS of Wikipedia — Claude's live web search
-         is authoritative near elections, not Wikipedia scraping.
-      4. Wikipedia returned a different leader name → possible leadership change
-         (lower priority than election window — wiki can lag real events)
-      5. IPU or EG returned a new election date not in snapshot
-      6. Today is Tuesday AND last Claude update was ≥6 days ago → weekly refresh
-         (Tuesday ensures consistent weekly cadence for the full 44-country sweep)
+    Priority order:
+      1. CLAUDE_FORCE_REFRESH env var
+      2. No previous snapshot (first run)
+      3. Election watch active (daily hard search until winner confirmed)
+      4. Sentinel flagged this country in the current run
+      5. Wikipedia returned a different leader name
+      6. IPU or EG returned a new election date not in snapshot
+      7. Biweekly Tuesday refresh (≥13 days since last full sweep)
     """
     if CLAUDE_FORCE_REFRESH:
         return True, "forced_refresh"
@@ -1080,14 +1344,16 @@ def _should_call_claude(iso2: str, wiki_names: Dict, ipu: Dict, eg: Dict,
     if not prev:
         return True, "first_run"
 
-    # Trigger 3: election window — fires regardless of Wikipedia state.
-    # Claude's live web search is the authoritative source near elections,
-    # so we skip the Wikipedia comparison and go straight to Claude.
-    if _election_window_active(prev, days=7):
-        return True, "election_window_active"
+    # Priority 3: Election watch
+    watch_active, watch_reason = _election_watch_active(prev)
+    if watch_active:
+        return True, f"election_watch ({watch_reason})"
 
-    # Trigger 4: Wikipedia name changed (secondary signal — wiki can be stale
-    # or wrong; Claude will verify via web search and override if needed)
+    # Priority 4: Sentinel alert for this country
+    if iso2.upper() in sentinel_alerts:
+        return True, f"sentinel_alert: {sentinel_alerts[iso2.upper()]}"
+
+    # Priority 5: Wikipedia name changed
     prev_hos = ((prev.get("executive") or {}).get("headOfState") or {}).get("name")
     prev_hog = ((prev.get("executive") or {}).get("headOfGovernment") or {}).get("name")
     wiki_hos = _clean_wiki(wiki_names.get("hosName"))
@@ -1097,7 +1363,7 @@ def _should_call_claude(iso2: str, wiki_names: Dict, ipu: Dict, eg: Dict,
     if wiki_hog and wiki_hog != prev_hog:
         return True, f"executive_name_changed ({prev_hog!r} → {wiki_hog!r})"
 
-    # Trigger 5: IPU/EG has a date not in prev snapshot
+    # Priority 6: IPU/EG new date
     prev_leg_next = ((prev.get("elections") or {}).get("legislative") or {}).get("nextElection") or {}
     ipu_next = ipu.get("nextDate")
     eg_next  = eg.get("nextDate")
@@ -1106,113 +1372,21 @@ def _should_call_claude(iso2: str, wiki_names: Dict, ipu: Dict, eg: Dict,
     if eg_next and eg_next != prev_leg_next.get("date"):
         return True, f"eg_date_changed ({eg_next})"
 
-    # Trigger 6: Weekly Tuesday refresh — fires if today is Tuesday AND the
-    # last Claude update was ≥6 days ago (allows a 1-day grace window so a
-    # Tuesday run never misses due to minor scheduling drift).
+    # Priority 7: Biweekly Tuesday
     days_old = _days_since_claude(prev)
-    today_weekday = datetime.now(timezone.utc).weekday()  # 0=Monday … 6=Sunday
-    is_tuesday = (today_weekday == 1)
-    if is_tuesday and days_old >= 6:
-        return True, f"weekly_tuesday_refresh (last_update_{days_old}d_ago)"
+    if biweekly_tuesday and days_old >= 13:
+        return True, f"biweekly_tuesday_refresh (last_update_{days_old}d_ago)"
 
     return False, ""
 
 
-# ── CLAUDE API ─────────────────────────────────────────────────────────────────
-
-import os
-
-ANTHROPIC_API_URL = "https://api.anthropic.com/v1/messages"
-CLAUDE_MODEL      = "claude-sonnet-4-20250514"
-CLAUDE_MAX_TOKENS = 4000  # higher limit needed for web search tool-use turns
-CLAUDE_FORCE_REFRESH = os.environ.get("CLAUDE_FORCE_REFRESH", "").strip() == "1"
-
-CLAUDE_SYSTEM = """\
-You are a political data analyst maintaining a structured JSON dataset of country \
-leadership, legislature control, and election data. You will receive:
-  - The country name and ISO2 code
-  - Whatever the free scrapers found (Wikipedia leader names, IPU/EG election dates)
-  - The previous snapshot for this country (may be months old)
-  - Today's date
-
-Return ONLY a single valid JSON object — no markdown, no explanation — with these keys:
-
-{
-  "headOfState":          {"name": str, "partyOrGroup": str},
-  "headOfGovernment":     {"name": str, "partyOrGroup": str},
-  "politicalSystem":      [str, ...],
-  "legislature":          [{"name": str, "inControl": str}, ...],
-  "competitiveElections": bool,
-  "nonCompetitiveReason": str | null,
-  "electionsSuspended":   bool,
-  "suspensionReason":     str | null,
-  "legislative": {
-    "lastElection": {"date": str, "type": str, "notes": str,
-                     "runoffDate": str|null, "runoffCondition": str|null} | null,
-    "nextElection": {"date": str, "type": str, "notes": str,
-                     "runoffDate": str|null, "runoffCondition": str|null} | null
-  },
-  "executive": {
-    "lastElection": {"date": str, "type": str, "notes": str,
-                     "runoffDate": str|null, "runoffCondition": str|null} | null,
-    "nextElection": {"date": str, "type": str, "notes": str,
-                     "runoffDate": str|null, "runoffCondition": str|null} | null
-  },
-  "dataAvailabilityNotes": str | null
-}
-
-CRITICAL RULES:
-
-1. NEVER put a future date in lastElection. lastElection must only contain elections
-   where the vote has already been cast (date < today). If an election is scheduled
-   but has not yet happened, it goes in nextElection only — never in lastElection.
-
-2. NEVER fabricate results. If you are uncertain whether an election has occurred,
-   treat it as upcoming. Do not invent winners, vote shares, seat counts, or
-   coalition outcomes for events that have not yet happened.
-
-3. POST-ELECTION COALITION TALKS ARE NOT A COMPLETED RESULT. If a parliament just
-   voted and coalition negotiations are ongoing, notes must say "Coalition talks
-   ongoing as of [date]" and the PM/government composition may not yet be final.
-   Do not state a PM has been confirmed until that is actually factual.
-
-4. For acting/interim leaders (e.g. Venezuela's Rodríguez, transitional govts),
-   use the person actually exercising power today — not someone claiming legitimacy
-   from exile, detention, or a disputed election.
-
-5. For one-party states and Vietnam specifically: the President (head of state) and
-   General Secretary (party chief, holds supreme power) may be DIFFERENT people.
-   headOfState = the formal president. Note supreme power-holder in dataAvailabilityNotes.
-
-6. dataAvailabilityNotes is mandatory for: disputed legitimacy, parallel/rival
-   governments, suspended elections, acting leaders, one-party context, or any
-   nuance a data consumer needs to interpret the data correctly. Never leave this
-   null when the political situation is complex or contested.
-
-7. notes on election objects: factual, 1-2 sentences. Past-tense for completed
-   events (include seat counts, vote %, key outcomes). Future-tense for scheduled
-   events (include what is known: date, who is eligible, term-limit context).
-
-8. legislature[].inControl: reflect post-election reality. If an election just
-   happened and results are in, update this. If coalition talks are ongoing, say
-   "Pending coalition formation (election [date])".
-
-9. runoffDate: only populate if (a) a two-round system exists AND (b) a specific
-   runoff date is scheduled or constitutionally guaranteed. If the runoff date
-   depends on round-1 results not yet known, use runoffCondition only.
-
-10. Return ONLY the JSON object — no markdown fences, no preamble, no explanation.\
-"""
-
+# ── CLAUDE API CALL ───────────────────────────────────────────────────────────
 
 def _call_claude(country_name: str, iso2: str,
                  wiki_names: Dict, ipu: Dict, eg: Dict,
                  prev: Optional[Dict], trigger_reason: str) -> Optional[Dict]:
     """
-    Call the Claude API with live web search enabled.
-    Claude will search for current leadership and election data before responding,
-    ensuring results reflect real-world events rather than training data alone.
-    Handles the multi-turn tool-use loop that web search requires.
+    Call Claude with live web search. Handles the multi-turn tool-use loop.
     """
     api_key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
     if not api_key:
@@ -1220,13 +1394,21 @@ def _call_claude(country_name: str, iso2: str,
 
     today = datetime.now(timezone.utc).date().isoformat()
 
-    # Build context — scraper data gives Claude a starting point and
-    # hints at what to search for; it will verify and expand via web search
+    # Include electionWatchActive in context so Claude knows to be thorough
+    election_watch_context = False
+    if prev:
+        election_watch_context = bool(
+            (prev.get("elections") or {}).get("electionWatchActive")
+        )
+    watch_active, _ = _election_watch_active(prev)
+    election_watch_context = election_watch_context or watch_active
+
     context = {
         "country": country_name,
         "iso2": iso2,
         "today": today,
         "triggerReason": trigger_reason,
+        "electionWatchActive": election_watch_context,
         "scraperData": {
             "wikipedia": {
                 "hosName": _clean_wiki(wiki_names.get("hosName")),
@@ -1244,16 +1426,15 @@ def _call_claude(country_name: str, iso2: str,
             },
         },
         "previousSnapshot": {
-            "executive":        prev.get("executive")       if prev else None,
-            "politicalSystem":  prev.get("politicalSystem") if prev else None,
-            "legislature":      prev.get("legislature")     if prev else None,
-            "elections":        prev.get("elections")       if prev else None,
-            "lastClaudeUpdate": prev.get("lastClaudeUpdate") if prev else None,
+            "executive":          prev.get("executive")       if prev else None,
+            "politicalSystem":    prev.get("politicalSystem") if prev else None,
+            "legislature":        prev.get("legislature")     if prev else None,
+            "elections":          prev.get("elections")       if prev else None,
+            "partyProfiles":      prev.get("partyProfiles")   if prev else None,
+            "lastClaudeUpdate":   prev.get("lastClaudeUpdate") if prev else None,
         } if prev else None,
     }
 
-    # Web search tool — Anthropic hosts the search infrastructure,
-    # no separate API key needed beyond ANTHROPIC_API_KEY
     WEB_SEARCH_TOOL = {
         "type": "web_search_20250305",
         "name": "web_search",
@@ -1265,14 +1446,10 @@ def _call_claude(country_name: str, iso2: str,
         "content-type":      "application/json",
     }
 
-    # Messages accumulate across tool-use turns
     messages = [{"role": "user", "content": json.dumps(context, ensure_ascii=False)}]
 
     try:
-        # Tool-use loop: Claude may call web_search multiple times before
-        # returning its final text response. We keep sending results back
-        # until we get a stop_reason of "end_turn".
-        max_turns = 8  # safety cap — Claude typically uses 2-4 searches per country
+        max_turns = 8
         final_text = ""
 
         for turn in range(max_turns):
@@ -1286,7 +1463,7 @@ def _call_claude(country_name: str, iso2: str,
                     "tools":      [WEB_SEARCH_TOOL],
                     "messages":   messages,
                 },
-                timeout=90,  # longer timeout to allow search round-trips
+                timeout=90,
             )
             resp.raise_for_status()
             data = resp.json()
@@ -1294,22 +1471,16 @@ def _call_claude(country_name: str, iso2: str,
             stop_reason = data.get("stop_reason")
             content_blocks = data.get("content", [])
 
-            # Collect any text from this turn
             for block in content_blocks:
                 if block.get("type") == "text":
                     final_text += block.get("text", "")
 
-            # If Claude is done, break out of the loop
             if stop_reason == "end_turn":
                 break
 
-            # If Claude wants to use a tool, process the tool calls and
-            # return results so it can continue
             if stop_reason == "tool_use":
-                # Add Claude's response (containing tool_use blocks) to messages
                 messages.append({"role": "assistant", "content": content_blocks})
 
-                # Build tool results for all tool_use blocks in this turn
                 tool_results = []
                 for block in content_blocks:
                     if block.get("type") == "tool_use":
@@ -1321,10 +1492,6 @@ def _call_claude(country_name: str, iso2: str,
                             query = tool_input.get("query", "")
                             print(f"  [{iso2}] 🔍 Web search: {query!r}")
 
-                        # The search result is returned by Anthropic's infrastructure
-                        # as part of the next API response — we send back a
-                        # tool_result block with the content from the block itself
-                        # (Anthropic's web_search tool populates content server-side)
                         tool_results.append({
                             "type":        "tool_result",
                             "tool_use_id": tool_id,
@@ -1334,7 +1501,6 @@ def _call_claude(country_name: str, iso2: str,
                 messages.append({"role": "user", "content": tool_results})
                 continue
 
-            # Any other stop reason (max_tokens, etc.) — break and use what we have
             print(f"  [{iso2}] ⚠️  Unexpected stop_reason: {stop_reason}")
             break
 
@@ -1342,13 +1508,10 @@ def _call_claude(country_name: str, iso2: str,
             print(f"  [{iso2}] ⚠️  Claude returned no text after {turn + 1} turn(s)")
             return None
 
-        # Parse the JSON response
         raw = final_text.strip()
         raw = re.sub(r"^```(?:json)?\s*", "", raw)
         raw = re.sub(r"\s*```$", "", raw)
 
-        # Claude sometimes wraps the JSON in extra text when using tools;
-        # extract just the JSON object
         brace_start = raw.find("{")
         brace_end   = raw.rfind("}") + 1
         if brace_start != -1 and brace_end > brace_start:
@@ -1368,22 +1531,51 @@ def _call_claude(country_name: str, iso2: str,
     return None
 
 
-def _assemble_from_claude(iso2: str, cl: Dict, ipu: Dict, eg: Dict,
-                          trigger: str, today_str: str) -> Tuple[Dict, Dict, Dict]:
+# ── PARTY PROFILES ────────────────────────────────────────────────────────────
+
+def _merge_party_profiles(
+    prev_profiles: Optional[Dict],
+    new_updates: Optional[Dict],
+) -> Optional[Dict]:
     """
-    Turn Claude's response dict into (executive_block, legislature_block, elections_block).
+    Merge incoming partyProfileUpdates from Claude into the existing profiles.
+    Existing profiles are never deleted — only added or updated.
+    """
+    result = dict(prev_profiles or {})
+    if new_updates and isinstance(new_updates, dict):
+        for party_name, profile in new_updates.items():
+            if party_name and isinstance(profile, dict):
+                result[party_name] = {
+                    "politicalOrientation": profile.get("politicalOrientation"),
+                    "ideologyTags":         profile.get("ideologyTags", []),
+                    "keyPlatforms":         profile.get("keyPlatforms", []),
+                    "lastUpdated":          iso_z(now_utc()),
+                }
+    return result if result else None
+
+
+# ── ASSEMBLE FROM CLAUDE ──────────────────────────────────────────────────────
+
+def _assemble_from_claude(
+    iso2: str, cl: Dict, ipu: Dict, eg: Dict,
+    trigger: str, today_str: str,
+    prev_profiles: Optional[Dict],
+) -> Tuple[Dict, Dict, Dict, Optional[Dict]]:
+    """
+    Turn Claude's response dict into:
+      (executive_block, legislature_block, elections_block, party_profiles)
     """
 
     def _norm_election(obj: Optional[Dict]) -> Optional[Dict]:
         if not obj:
             return None
         return {
-            "date":           obj.get("date"),
-            "type":           obj.get("type"),
-            "notes":          obj.get("notes"),
-            "runoffDate":     obj.get("runoffDate"),
-            "runoffCondition":obj.get("runoffCondition"),
-            "electionDay":    str(obj.get("date", "")) == today_str,
+            "date":            obj.get("date"),
+            "type":            obj.get("type"),
+            "notes":           obj.get("notes"),
+            "runoffDate":      obj.get("runoffDate"),
+            "runoffCondition": obj.get("runoffCondition"),
+            "electionDay":     str(obj.get("date", "")) == today_str,
         }
 
     def _flag_today(obj: Optional[Dict]) -> Optional[Dict]:
@@ -1440,10 +1632,11 @@ def _assemble_from_claude(iso2: str, cl: Dict, ipu: Dict, eg: Dict,
     leg_next  = _flag_today(_norm_election(cl_leg.get("nextElection")))
     exec_next = _flag_today(_norm_election(cl_exec.get("nextElection")))
 
-    election_today = (str((cl_leg.get("nextElection") or {}).get("date", "")) == today_str or
-                      str((cl_exec.get("nextElection") or {}).get("date", "")) == today_str)
+    election_today = (
+        str((cl_leg.get("nextElection") or {}).get("date", "")) == today_str or
+        str((cl_exec.get("nextElection") or {}).get("date", "")) == today_str
+    )
 
-    # Prefer IPU/EG date over Claude if more precise and same year
     def _maybe_refine_date(election_obj: Optional[Dict], scraper_date: Optional[str]) -> Optional[Dict]:
         if not election_obj or not scraper_date or len(scraper_date) != 10:
             return election_obj
@@ -1455,18 +1648,24 @@ def _assemble_from_claude(iso2: str, cl: Dict, ipu: Dict, eg: Dict,
 
     leg_next = _maybe_refine_date(leg_next, ipu.get("nextDate") or eg.get("nextDate"))
 
+    # Election watch: use what Claude returned, defaulting to False if absent
+    election_watch_active = bool(cl.get("electionWatchActive", False))
+    election_watch_reason = cl.get("electionWatchReason")
+
     elections_block = {
         "competitiveElections": cl.get("competitiveElections", True),
         "nonCompetitiveReason": cl.get("nonCompetitiveReason"),
         "electionsSuspended":   cl.get("electionsSuspended", False),
         "suspensionReason":     cl.get("suspensionReason"),
         "electionToday":        election_today,
+        "electionWatchActive":  election_watch_active,
+        "electionWatchReason":  election_watch_reason,
         "legislative": {
             "lastElection": _norm_election(cl_leg.get("lastElection")),
             "nextElection": leg_next,
-            "source":       f"claude ({trigger})" + (
-                " + ipu_parline" if ipu.get("nextDate") else "") + (
-                " + electionguide" if eg.get("nextDate") else ""),
+            "source": f"claude ({trigger})" +
+                      (" + ipu_parline" if ipu.get("nextDate") else "") +
+                      (" + electionguide" if eg.get("nextDate") else ""),
         },
         "executive": {
             "lastElection": _norm_election(cl_exec.get("lastElection")),
@@ -1475,14 +1674,25 @@ def _assemble_from_claude(iso2: str, cl: Dict, ipu: Dict, eg: Dict,
         },
     }
 
-    return executive_block, legislature_block, elections_block
+    # Merge party profiles
+    party_profiles = _merge_party_profiles(prev_profiles, cl.get("partyProfileUpdates"))
+
+    return executive_block, legislature_block, elections_block, party_profiles
 
 
-def build_country(name: str, iso2: str, prev_by_iso2: Dict[str, Any]) -> Dict[str, Any]:
+# ── BUILD ONE COUNTRY ─────────────────────────────────────────────────────────
+
+def build_country(
+    name: str,
+    iso2: str,
+    prev_by_iso2: Dict[str, Any],
+    biweekly_tuesday: bool,
+    sentinel_alerts: Dict[str, str],
+) -> Dict[str, Any]:
     prev = prev_by_iso2.get(iso2)
     today_str = datetime.now(timezone.utc).date().isoformat()
 
-    # ── Free scrapers ─────────────────────────────────────────────────────────
+    # ── Free scrapers ──────────────────────────────────────────────────────────
     print(f"  [{iso2}] Wikipedia lookup...")
     wiki = _load_wiki_exec_cache().get(iso2, {})
     print(f"  [{iso2}] HOS={_clean_wiki(wiki.get('hosName'))}, HOG={_clean_wiki(wiki.get('hogName'))}")
@@ -1501,8 +1711,10 @@ def build_country(name: str, iso2: str, prev_by_iso2: Dict[str, Any]) -> Dict[st
     print(f"  [{iso2}] REST Countries fetch...")
     meta = fetch_rest_countries(iso2)
 
-    # ── Claude trigger decision ───────────────────────────────────────────────
-    should_call, trigger_reason = _should_call_claude(iso2, wiki, ipu, eg, prev)
+    # ── Claude trigger decision ────────────────────────────────────────────────
+    should_call, trigger_reason = _should_call_claude(
+        iso2, wiki, ipu, eg, prev, biweekly_tuesday, sentinel_alerts,
+    )
 
     if should_call:
         print(f"  [{iso2}] 🤖 Claude triggered: {trigger_reason}")
@@ -1511,25 +1723,26 @@ def build_country(name: str, iso2: str, prev_by_iso2: Dict[str, Any]) -> Dict[st
         cl = None
         print(f"  [{iso2}] ✓  Claude skipped (last updated {_days_since_claude(prev)}d ago)")
 
-    # ── Assemble output ───────────────────────────────────────────────────────
+    # ── Assemble output ────────────────────────────────────────────────────────
+    prev_profiles = (prev or {}).get("partyProfiles")
+
     if cl:
-        executive_block, legislature_block, elections_block = \
-            _assemble_from_claude(iso2, cl, ipu, eg, trigger_reason, today_str)
+        executive_block, legislature_block, elections_block, party_profiles = \
+            _assemble_from_claude(iso2, cl, ipu, eg, trigger_reason, today_str, prev_profiles)
         pol_sys = {"values": cl.get("politicalSystem", ["unknown"]),
                    "source": f"claude ({trigger_reason})"}
         data_avail_note = cl.get("dataAvailabilityNotes")
         last_claude_update = iso_z(now_utc())
     elif prev:
-        # No Claude call — carry forward previous political data unchanged
         print(f"  [{iso2}] ↩  Carrying forward previous political data")
-        executive_block  = prev.get("executive",      {})
-        legislature_block= prev.get("legislature",    {})
-        elections_block  = prev.get("elections",      {})
-        pol_sys          = prev.get("politicalSystem", {"values": ["unknown"], "source": "carried_forward"})
-        data_avail_note  = (prev.get("dataAvailability") or {}).get("executive")
+        executive_block   = prev.get("executive",   {})
+        legislature_block = prev.get("legislature", {})
+        elections_block   = prev.get("elections",   {})
+        party_profiles    = prev_profiles
+        pol_sys           = prev.get("politicalSystem", {"values": ["unknown"], "source": "carried_forward"})
+        data_avail_note   = (prev.get("dataAvailability") or {}).get("executive")
         last_claude_update = prev.get("lastClaudeUpdate")
     else:
-        # No Claude, no previous data — bare skeleton
         print(f"  [{iso2}] ⚠️  No Claude response and no previous data — output will be sparse")
         wiki_hos = _clean_wiki(wiki.get("hosName"))
         wiki_hog = _clean_wiki(wiki.get("hogName"))
@@ -1544,14 +1757,19 @@ def build_country(name: str, iso2: str, prev_by_iso2: Dict[str, Any]) -> Dict[st
             "competitiveElections": None, "nonCompetitiveReason": None,
             "electionsSuspended": False, "suspensionReason": None,
             "electionToday": False,
+            "electionWatchActive": False, "electionWatchReason": None,
             "legislative": {"lastElection": None, "nextElection": None, "source": "unknown"},
             "executive":   {"lastElection": None, "nextElection": None, "source": "unknown"},
         }
-        pol_sys = {"values": ["unknown"], "source": "unknown"}
-        data_avail_note = None
+        party_profiles    = None
+        pol_sys           = {"values": ["unknown"], "source": "unknown"}
+        data_avail_note   = None
         last_claude_update = None
 
-    # World Bank availability note
+    # Attach sentinel alert if present (cleared on next hard refresh)
+    sentinel_alert = sentinel_alerts.get(iso2.upper())
+
+    # Data availability notes
     avail: Dict[str, str] = {}
     if data_avail_note:
         avail["executive"] = data_avail_note
@@ -1560,7 +1778,7 @@ def build_country(name: str, iso2: str, prev_by_iso2: Dict[str, Any]) -> Dict[st
     if not meta.get("capital") and not meta.get("population"):
         avail["metadata"] = f"REST Countries API returned no data for '{iso2}'."
 
-    return {
+    entry = {
         "country":  name,
         "iso2":     iso2,
         "metadata": {
@@ -1575,57 +1793,121 @@ def build_country(name: str, iso2: str, prev_by_iso2: Dict[str, Any]) -> Dict[st
             "languages":    meta["languages"],
             "source":       meta["source"],
         },
-        "politicalSystem":    pol_sys,
-        "executive":          executive_block,
-        "legislature":        legislature_block,
-        "worldBankGovernance":wb_gov,
-        "dataAvailability":   avail if avail else None,
-        "elections":          elections_block,
-        "lastClaudeUpdate":   last_claude_update,
+        "politicalSystem":     pol_sys,
+        "executive":           executive_block,
+        "legislature":         legislature_block,
+        "partyProfiles":       party_profiles,
+        "worldBankGovernance": wb_gov,
+        "dataAvailability":    avail if avail else None,
+        "elections":           elections_block,
+        "lastClaudeUpdate":    last_claude_update,
     }
+
+    if sentinel_alert:
+        entry["changeInPowerAlert"] = {
+            "alert":      sentinel_alert,
+            "detectedAt": iso_z(now_utc()),
+            "resolved":   False,
+        }
+    elif prev and prev.get("changeInPowerAlert") and not prev["changeInPowerAlert"].get("resolved"):
+        # Carry forward unresolved alert until a Claude refresh clears it
+        if cl:
+            # Claude just ran — mark as resolved (Claude's refresh supersedes)
+            entry["changeInPowerAlert"] = dict(prev["changeInPowerAlert"])
+            entry["changeInPowerAlert"]["resolved"] = True
+            entry["changeInPowerAlert"]["resolvedAt"] = iso_z(now_utc())
+        else:
+            entry["changeInPowerAlert"] = prev["changeInPowerAlert"]
+
+    return entry
 
 
 # ── MAIN ──────────────────────────────────────────────────────────────────────
 
 def main() -> None:
     out_path = Path("docs") / "countries_snapshot.json"
-    prev = load_previous_snapshot(out_path)
-    print(f"=== Starting build. Previous snapshot: {len(prev)} countries cached ===")
 
-    # Pre-load shared caches (one HTTP round-trip each, reused for all countries)
+    prev_full = load_full_previous_snapshot(out_path)
+    prev_by_iso2 = {c["iso2"]: c for c in prev_full.get("countries", []) if c.get("iso2")}
+    print(f"=== Starting build. Previous snapshot: {len(prev_by_iso2)} countries cached ===")
+
+    # ── Biweekly Tuesday check ─────────────────────────────────────────────────
+    biweekly_tuesday = _is_biweekly_tuesday(prev_full)
+    if biweekly_tuesday:
+        print(f"  [SCHEDULE] 📅 Biweekly Tuesday refresh triggered")
+    else:
+        today_wd = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][datetime.now(timezone.utc).weekday()]
+        days_since_sweep = "?"
+        last_sweep = prev_full.get("lastFullSweepDate")
+        if last_sweep:
+            try:
+                last_dt = datetime.fromisoformat(last_sweep.replace("Z", "+00:00"))
+                days_since_sweep = (datetime.now(timezone.utc) - last_dt).days
+            except Exception:
+                pass
+        print(f"  [SCHEDULE] Today is {today_wd}, {days_since_sweep}d since last sweep — biweekly NOT triggered")
+
+    # ── Change-in-power sentinel ───────────────────────────────────────────────
+    sentinel_alerts = run_change_in_power_sentinel(prev_full)
+
+    # Update seen IDs (will be saved into the output snapshot)
+    sentinel_feed_raw = req_json(CHANGE_IN_POWER_URL, label="sentinel feed (id update)")
+    sentinel_articles: List[Dict] = []
+    if isinstance(sentinel_feed_raw, list):
+        sentinel_articles = sentinel_feed_raw
+    elif isinstance(sentinel_feed_raw, dict):
+        sentinel_articles = (
+            sentinel_feed_raw.get("articles") or
+            sentinel_feed_raw.get("items") or
+            sentinel_feed_raw.get("data") or []
+        )
+    updated_seen_ids = update_sentinel_seen_ids(prev_full, sentinel_articles)
+
+    # ── Pre-load shared caches ─────────────────────────────────────────────────
     _load_ipu_parliament_map()
     _load_electionguide_cache()
     _load_wiki_exec_cache()
 
     out = {
         "generatedAt":        iso_z(now_utc()),
+        "lastFullSweepDate":  (
+            iso_z(now_utc()) if biweekly_tuesday
+            else prev_full.get("lastFullSweepDate", iso_z(now_utc()))
+        ),
         "worldBankYearRule":  "latest_non_null_per_indicator",
+        "sentinelSeenIds":    updated_seen_ids,
         "countries":          [],
         "sources": {
-            "executives":            "wikipedia_adaptive + claude_api (smart diff, 7d ceiling)",
-            "legislature":           "claude_api (smart diff, 7d ceiling)",
-            "elections":             "ipu_parline + electionguide + claude_api (daily near elections)",
-            "wikipedia_adaptive":    WIKIPEDIA_API,
-            "world_bank_base":       WORLD_BANK_BASE,
-            "ipu_parline":           f"{IPU_API_BASE}/api",
-            "electionguide":         ELECTIONGUIDE_BASE,
-            "rest_countries":        REST_COUNTRIES_BASE,
+            "executives":             "wikipedia_adaptive + claude_api (smart diff, biweekly ceiling)",
+            "legislature":            "claude_api (smart diff, biweekly ceiling)",
+            "elections":              "ipu_parline + electionguide + claude_api (daily near elections)",
+            "changeInPowerSentinel":  CHANGE_IN_POWER_URL,
+            "wikipedia_adaptive":     WIKIPEDIA_API,
+            "world_bank_base":        WORLD_BANK_BASE,
+            "ipu_parline":            f"{IPU_API_BASE}/api",
+            "electionguide":          ELECTIONGUIDE_BASE,
+            "rest_countries":         REST_COUNTRIES_BASE,
         },
         "worldBankIndicatorsUsed": WGI_PERCENTILE_INDICATORS,
         "electionDataModel": {
             "description": (
                 "Each country's elections block contains competitiveElections (bool), "
-                "nonCompetitiveReason (str|null for one-party/non-democratic states), "
-                "and legislative/executive sub-blocks each with lastElection and nextElection. "
-                "Election objects contain: date (ISO string or year), type (string description), "
-                "notes (context string)."
+                "nonCompetitiveReason (str|null), electionWatchActive (bool — true when "
+                "an election is within 3 days or results are still pending), and "
+                "legislative/executive sub-blocks each with lastElection and nextElection. "
+                "Election objects contain: date, type, notes, runoffDate, runoffCondition. "
+                "partyProfiles contains orientation, ideology tags, and key platforms for "
+                "each party currently or recently in power."
             ),
         },
     }
 
     for c in COUNTRIES:
         print(f"\n▶ {c['country']} ({c['iso2']})")
-        country_data = build_country(c["country"], c["iso2"], prev)
+        country_data = build_country(
+            c["country"], c["iso2"], prev_by_iso2,
+            biweekly_tuesday, sentinel_alerts,
+        )
         out["countries"].append(country_data)
         time.sleep(0.25)
 
