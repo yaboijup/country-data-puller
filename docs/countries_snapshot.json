@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-01T08:05:24.637207Z",
+  "generatedAt": "2026-04-03T06:52:10.185168Z",
   "lastFullSweepDate": "2026-03-31T05:15:08.096403Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "sentinelSeenIds": [],
@@ -232,7 +232,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 45.88,
+        "overallPercentile": 47.59,
         "band": "Medium",
         "bandLabel": "Moderate governance overall",
         "year": 2023,
@@ -263,10 +263,9 @@
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 56.1320762634277,
+            "label": "Moderate rule of law",
+            "year": 2023
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
@@ -364,18 +363,18 @@
         "values": [
           "federal parliamentary constitutional republic"
         ],
-        "source": "claude (stale_999d)"
+        "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
       },
       "executive": {
         "headOfState": {
           "name": "Asif Ali Zardari",
           "partyOrGroup": "Pakistan Peoples Party",
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "headOfGovernment": {
           "name": "Shehbaz Sharif",
           "partyOrGroup": "Pakistan Muslim League (N)",
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "executiveInPower": {
           "leader": "Shehbaz Sharif",
@@ -388,15 +387,15 @@
           {
             "name": "National Assembly",
             "inControl": "PML-N-led coalition",
-            "controlMethod": "claude (stale_999d)"
+            "controlMethod": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
           },
           {
             "name": "Senate",
             "inControl": "Coalition government",
-            "controlMethod": "claude (stale_999d)"
+            "controlMethod": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
           }
         ],
-        "source": "claude (stale_999d)"
+        "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
       },
       "partyProfiles": null,
       "worldBankGovernance": {
@@ -452,53 +451,60 @@
         },
         "notes": null
       },
-      "dataAvailability": null,
+      "dataAvailability": {
+        "executive": "PML-N leads coalition government with PPP, MQM-P, and other smaller parties controlling over two-thirds majority in National Assembly. PTI-backed independents form largest opposition bloc but many joined Sunni Ittehad Council for reserved seats allocation. Pakistan's military establishment continues to wield significant behind-the-scenes influence over political process."
+      },
       "elections": {
         "competitiveElections": true,
         "nonCompetitiveReason": null,
         "electionsSuspended": false,
         "suspensionReason": null,
+        "lastCompetitivenessCheck": "2026-04-03",
+        "ipu_not_applicable": false,
+        "ipu_not_applicable_reason": null,
         "electionToday": false,
+        "electionWatchActive": false,
+        "electionWatchReason": "Government fully formed and stable since March 2024 coalition agreement",
         "legislative": {
           "lastElection": {
             "date": "2024-02-08",
             "type": "General election",
-            "notes": "PTI-backed independents won most seats; PML-N formed coalition government.",
+            "notes": "PTI-backed independents won plurality (93 seats) but PML-N formed coalition government with PPP and smaller parties.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
           "nextElection": {
-            "date": "2029",
+            "date": "2029-02-28",
             "type": "General election",
-            "notes": null,
+            "notes": "Scheduled by constitutional five-year term limit.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "executive": {
           "lastElection": {
-            "date": "2024-03",
+            "date": "2024-03-09",
             "type": "Presidential (indirect)",
-            "notes": "Asif Ali Zardari elected president by parliament.",
+            "notes": "Asif Ali Zardari elected president by electoral college comprising National Assembly, Senate and provincial assemblies.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
           "nextElection": {
-            "date": "2029",
+            "date": "2029-03",
             "type": "Presidential (indirect)",
-            "notes": null,
+            "notes": "Five-year presidential term concurrent with National Assembly.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T22:31:21.851397Z"
+      "lastClaudeUpdate": "2026-04-03T06:52:42.827161Z"
     },
     {
       "country": "China",
@@ -554,7 +560,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 42.63,
+        "overallPercentile": 41.97,
         "band": "Medium",
         "bandLabel": "Moderate governance overall",
         "year": 2023,
@@ -579,10 +585,9 @@
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 38.6792449951172,
+            "label": "Low regulatory quality",
+            "year": 2023
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
@@ -720,7 +725,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 84.04,
+        "overallPercentile": 84.89,
         "band": "Very High",
         "bandLabel": "Very high governance overall",
         "year": 2023,
@@ -751,10 +756,9 @@
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 89.1509399414062,
+            "label": "Very high rule of law",
+            "year": 2023
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
@@ -882,17 +886,16 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 84.51,
+        "overallPercentile": 87.6,
         "band": "Very High",
         "bandLabel": "Very high governance overall",
         "year": 2023,
         "components": {
           "voiceAccountability": {
             "indicator": "VA.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 94.6078414916992,
+            "label": "Very high voice & accountability",
+            "year": 2023
           },
           "politicalStability": {
             "indicator": "PV.PER.RNK",
@@ -914,10 +917,9 @@
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 92.9245300292969,
+            "label": "Very high rule of law",
+            "year": 2023
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
@@ -1039,7 +1041,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 68.98,
+        "overallPercentile": 71.24,
         "band": "High",
         "bandLabel": "High governance overall",
         "year": 2023,
@@ -1076,10 +1078,9 @@
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 82.5471725463867,
+            "label": "Very high control of corruption",
+            "year": 2023
           }
         },
         "sources": {
@@ -1181,7 +1182,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 51.33,
+        "overallPercentile": 54.25,
         "band": "Medium",
         "bandLabel": "Moderate governance overall",
         "year": 2023,
@@ -1206,10 +1207,9 @@
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 68.8679275512695,
+            "label": "High regulatory quality",
+            "year": 2023
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
@@ -1312,7 +1312,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 60.33,
+        "overallPercentile": 67.19,
         "band": "High",
         "bandLabel": "High governance overall",
         "year": 2023,
@@ -1337,17 +1337,15 @@
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 84.4339599609375,
+            "label": "Very high regulatory quality",
+            "year": 2023
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 77.3584899902344,
+            "label": "High rule of law",
+            "year": 2023
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
@@ -1471,9 +1469,9 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 17.6,
-        "band": "Very Low",
-        "bandLabel": "Very low governance overall",
+        "overallPercentile": 21.66,
+        "band": "Low",
+        "bandLabel": "Low governance overall",
         "year": 2023,
         "components": {
           "voiceAccountability": {
@@ -1496,10 +1494,9 @@
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 41.9811325073242,
+            "label": "Moderate regulatory quality",
+            "year": 2023
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
@@ -1617,7 +1614,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 38.63,
+        "overallPercentile": 32.67,
         "band": "Low",
         "bandLabel": "Low governance overall",
         "year": 2023,
@@ -1648,17 +1645,15 @@
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 24.056604385376,
+            "label": "Low rule of law",
+            "year": 2023
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 17.4528293609619,
+            "label": "Very low control of corruption",
+            "year": 2023
           }
         },
         "sources": {
@@ -1778,17 +1773,16 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 35.4,
+        "overallPercentile": 39.47,
         "band": "Low",
         "bandLabel": "Low governance overall",
         "year": 2023,
         "components": {
           "voiceAccountability": {
             "indicator": "VA.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 59.8039207458496,
+            "label": "Moderate voice & accountability",
+            "year": 2023
           },
           "politicalStability": {
             "indicator": "PV.PER.RNK",
@@ -2098,24 +2092,22 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 18.63,
+        "overallPercentile": 19.08,
         "band": "Very Low",
         "bandLabel": "Very low governance overall",
         "year": 2023,
         "components": {
           "voiceAccountability": {
             "indicator": "VA.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 32.3529396057129,
+            "label": "Low voice & accountability",
+            "year": 2023
           },
           "politicalStability": {
             "indicator": "PV.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 7.5829381942749,
+            "label": "Very low political stability",
+            "year": 2023
           },
           "governmentEffectiveness": {
             "indicator": "GE.PER.RNK",
@@ -2264,7 +2256,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 89.21,
+        "overallPercentile": 89.75,
         "band": "Very High",
         "bandLabel": "Very high governance overall",
         "year": 2023,
@@ -2289,10 +2281,9 @@
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 92.4528274536133,
+            "label": "Very high regulatory quality",
+            "year": 2023
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
@@ -2576,24 +2567,22 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 1.73,
+        "overallPercentile": 1.74,
         "band": "Very Low",
         "bandLabel": "Very low governance overall",
         "year": 2023,
         "components": {
           "voiceAccountability": {
             "indicator": "VA.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 1.47058820724487,
+            "label": "Very low voice & accountability",
+            "year": 2023
           },
           "politicalStability": {
             "indicator": "PV.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 0.0,
+            "label": "Very low political stability",
+            "year": 2023
           },
           "governmentEffectiveness": {
             "indicator": "GE.PER.RNK",
@@ -2603,10 +2592,9 @@
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 3.77358484268188,
+            "label": "Very low regulatory quality",
+            "year": 2023
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
@@ -2717,9 +2705,9 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 85.02,
-        "band": "Very High",
-        "bandLabel": "Very high governance overall",
+        "overallPercentile": 79.99,
+        "band": "High",
+        "bandLabel": "High governance overall",
         "year": 2023,
         "components": {
           "voiceAccountability": {
@@ -2730,10 +2718,9 @@
           },
           "politicalStability": {
             "indicator": "PV.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 55.9241714477539,
+            "label": "Moderate political stability",
+            "year": 2023
           },
           "governmentEffectiveness": {
             "indicator": "GE.PER.RNK",
@@ -2755,10 +2742,9 @@
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 83.9622650146484,
+            "label": "Very high control of corruption",
+            "year": 2023
           }
         },
         "sources": {
@@ -2874,17 +2860,16 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 31.27,
+        "overallPercentile": 31.93,
         "band": "Low",
         "bandLabel": "Low governance overall",
         "year": 2023,
         "components": {
           "voiceAccountability": {
             "indicator": "VA.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 25.0,
+            "label": "Low voice & accountability",
+            "year": 2023
           },
           "politicalStability": {
             "indicator": "PV.PER.RNK",
@@ -2894,10 +2879,9 @@
           },
           "governmentEffectiveness": {
             "indicator": "GE.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 41.5094337463379,
+            "label": "Moderate government effectiveness",
+            "year": 2023
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
@@ -3030,24 +3014,22 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 2.52,
+        "overallPercentile": 4.77,
         "band": "Very Low",
         "bandLabel": "Very low governance overall",
         "year": 2023,
         "components": {
           "voiceAccountability": {
             "indicator": "VA.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 6.86274528503418,
+            "label": "Very low voice & accountability",
+            "year": 2023
           },
           "politicalStability": {
             "indicator": "PV.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 12.3222751617432,
+            "label": "Very low political stability",
+            "year": 2023
           },
           "governmentEffectiveness": {
             "indicator": "GE.PER.RNK",
@@ -3057,10 +3039,9 @@
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 1.88679242134094,
+            "label": "Very low regulatory quality",
+            "year": 2023
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
@@ -3180,7 +3161,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 41.01,
+        "overallPercentile": 40.62,
         "band": "Medium",
         "bandLabel": "Moderate governance overall",
         "year": 2023,
@@ -3217,10 +3198,9 @@
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 38.6792449951172,
+            "label": "Low control of corruption",
+            "year": 2023
           }
         },
         "sources": {
@@ -3384,7 +3364,7 @@
             "percentile": null,
             "label": null,
             "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "notes": "Unexpected WB response shape."
           }
         },
         "sources": {
@@ -3503,7 +3483,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 76.84,
+        "overallPercentile": 78.45,
         "band": "High",
         "bandLabel": "High governance overall",
         "year": 2023,
@@ -3529,10 +3509,9 @@
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 84.9056625366211,
+            "label": "Very high regulatory quality",
+            "year": 2023
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
@@ -3660,7 +3639,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 7.95,
+        "overallPercentile": 7.57,
         "band": "Very Low",
         "bandLabel": "Very low governance overall",
         "year": 2023,
@@ -3691,10 +3670,9 @@
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 5.66037750244141,
+            "label": "Very low rule of law",
+            "year": 2023
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
@@ -3807,7 +3785,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 53.23,
+        "overallPercentile": 49.17,
         "band": "Medium",
         "bandLabel": "Moderate governance overall",
         "year": 2023,
@@ -3820,10 +3798,9 @@
           },
           "politicalStability": {
             "indicator": "PV.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 28.9099521636963,
+            "label": "Low political stability",
+            "year": 2023
           },
           "governmentEffectiveness": {
             "indicator": "GE.PER.RNK",
@@ -4103,7 +4080,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 45.3,
+        "overallPercentile": 45.06,
         "band": "Medium",
         "bandLabel": "Moderate governance overall",
         "year": 2023,
@@ -4122,10 +4099,9 @@
           },
           "governmentEffectiveness": {
             "indicator": "GE.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 43.8679237365723,
+            "label": "Moderate government effectiveness",
+            "year": 2023
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
@@ -4258,17 +4234,16 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 31.81,
+        "overallPercentile": 28.06,
         "band": "Low",
         "bandLabel": "Low governance overall",
         "year": 2023,
         "components": {
           "voiceAccountability": {
             "indicator": "VA.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 9.31372547149658,
+            "label": "Very low voice & accountability",
+            "year": 2023
           },
           "politicalStability": {
             "indicator": "PV.PER.RNK",
@@ -4427,7 +4402,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 45.09,
+        "overallPercentile": 41.12,
         "band": "Medium",
         "bandLabel": "Moderate governance overall",
         "year": 2023,
@@ -4440,10 +4415,9 @@
           },
           "politicalStability": {
             "indicator": "PV.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 29.8578205108643,
+            "label": "Low political stability",
+            "year": 2023
           },
           "governmentEffectiveness": {
             "indicator": "GE.PER.RNK",
@@ -4459,17 +4433,15 @@
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 48.5849075317383,
+            "label": "Moderate rule of law",
+            "year": 2023
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 33.0188674926758,
+            "label": "Low control of corruption",
+            "year": 2023
           }
         },
         "sources": {
@@ -4576,7 +4548,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 3.36,
+        "overallPercentile": 2.15,
         "band": "Very Low",
         "bandLabel": "Very low governance overall",
         "year": 2023,
@@ -4595,10 +4567,9 @@
           },
           "governmentEffectiveness": {
             "indicator": "GE.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 1.88679242134094,
+            "label": "Very low government effectiveness",
+            "year": 2023
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
@@ -4608,17 +4579,15 @@
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 0.0,
+            "label": "Very low rule of law",
+            "year": 2023
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 0.943396210670471,
+            "label": "Very low control of corruption",
+            "year": 2023
           }
         },
         "sources": {
@@ -6460,7 +6429,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 98.95,
+        "overallPercentile": 95.26,
         "band": "Very High",
         "bandLabel": "Very high governance overall",
         "year": 2023,
@@ -6473,10 +6442,9 @@
           },
           "politicalStability": {
             "indicator": "PV.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 76.7772521972656,
+            "label": "High political stability",
+            "year": 2023
           },
           "governmentEffectiveness": {
             "indicator": "GE.PER.RNK",
@@ -6713,18 +6681,18 @@
         "values": [
           "semi-presidential republic (martial law)"
         ],
-        "source": "claude (stale_999d)"
+        "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
       },
       "executive": {
         "headOfState": {
           "name": "Volodymyr Zelenskyy",
           "partyOrGroup": "Servant of the People",
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "headOfGovernment": {
           "name": "Yulia Svyrydenko",
           "partyOrGroup": "Servant of the People",
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "executiveInPower": {
           "leader": "Yulia Svyrydenko",
@@ -6736,11 +6704,11 @@
         "bodies": [
           {
             "name": "Verkhovna Rada",
-            "inControl": "Servant of the People (majority; elections suspended)",
-            "controlMethod": "claude (stale_999d)"
+            "inControl": "Servant of the People (254/450 seats; elections suspended under martial law)",
+            "controlMethod": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
           }
         ],
-        "source": "claude (stale_999d)"
+        "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
       },
       "partyProfiles": null,
       "worldBankGovernance": {
@@ -6797,40 +6765,45 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Elections suspended indefinitely under martial law declared in February 2022 following Russian invasion"
+        "executive": "Ukraine remains under martial law since February 2022, extended until May 4, 2026. Constitution allows extension of presidential and parliamentary terms during martial law. All major parties agreed in 2023 to postpone elections until after war ends. Peace negotiations are ongoing but have not yielded breakthrough. Zelensky indicates readiness for elections if security guaranteed by allies within 60-90 days, but this remains contingent on ceasefire agreement. Prime Minister Svyrydenko appointed July 2025, replacing Denys Shmyhal as part of government reshuffle focused on wartime economic management and weapons production."
       },
       "elections": {
         "competitiveElections": true,
         "nonCompetitiveReason": null,
         "electionsSuspended": true,
-        "suspensionReason": "Elections suspended under martial law due to Russian invasion",
+        "suspensionReason": "Elections suspended under martial law due to Russian invasion; all parties agreed to postpone until war ends",
+        "lastCompetitivenessCheck": "2026-04-03",
+        "ipu_not_applicable": false,
+        "ipu_not_applicable_reason": null,
         "electionToday": false,
+        "electionWatchActive": false,
+        "electionWatchReason": "No elections scheduled; martial law extended until May 4, 2026; peace negotiations ongoing but no election timeline established",
         "legislative": {
           "lastElection": {
             "date": "2019-07-21",
             "type": "Parliamentary",
-            "notes": "Servant of the People won supermajority (254/450 seats). Elections suspended under martial law since 2022.",
+            "notes": "Servant of the People won supermajority (254/450 seats). Elections suspended under martial law since February 2022.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
           "nextElection": null,
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "executive": {
           "lastElection": {
             "date": "2019-04-21",
             "type": "Presidential (runoff)",
-            "notes": "Zelensky defeated Poroshenko 73% to 25%. Elections suspended under martial law; term extended by parliament.",
+            "notes": "Zelensky defeated Poroshenko 73% to 25%. Term extended under martial law provisions; parliamentary resolution affirms elections only after war ends.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
           "nextElection": null,
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T22:35:43.923745Z"
+      "lastClaudeUpdate": "2026-04-03T06:55:46.944527Z"
     }
   ],
   "sources": {
