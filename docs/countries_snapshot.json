@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-04T06:15:18.941893Z",
+  "generatedAt": "2026-04-05T06:47:53.163913Z",
   "lastFullSweepDate": "2026-03-31T05:15:08.096403Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "sentinelSeenIds": [],
@@ -692,18 +692,18 @@
           "parliamentary democracy",
           "unitary state"
         ],
-        "source": "claude (eg_date_changed (2026-05-07))"
+        "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
       },
       "executive": {
         "headOfState": {
           "name": "Charles III",
           "partyOrGroup": "Non-partisan (monarchy)",
-          "source": "claude (eg_date_changed (2026-05-07))"
+          "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
         },
         "headOfGovernment": {
           "name": "Keir Starmer",
           "partyOrGroup": "Labour Party",
-          "source": "claude (eg_date_changed (2026-05-07))"
+          "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
         },
         "executiveInPower": {
           "leader": "Keir Starmer",
@@ -716,15 +716,15 @@
           {
             "name": "House of Commons",
             "inControl": "Labour Party",
-            "controlMethod": "claude (eg_date_changed (2026-05-07))"
+            "controlMethod": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
           },
           {
             "name": "House of Lords",
             "inControl": "Cross-bench (appointed, non-elected)",
-            "controlMethod": "claude (eg_date_changed (2026-05-07))"
+            "controlMethod": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
           }
         ],
-        "source": "claude (eg_date_changed (2026-05-07))"
+        "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
       },
       "partyProfiles": null,
       "worldBankGovernance": {
@@ -781,19 +781,24 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Data reflects UK-wide context. Scotland has devolved government: <cite index=\"11-1,19-1,11-4\">John Swinney serves as First Minister of Scotland since May 2024 and leads the Scottish National Party</cite>. <cite index=\"1-1,2-1\">Scottish Parliament elections scheduled for May 7, 2026</cite>, with <cite index=\"19-12\">SNP currently holding 63 of 129 seats</cite>. The scraperData shows October 24, 2025 election date but <cite index=\"26-8,26-38\">there were no local elections in Scotland in 2025</cite>, so this may be an error or refer to a different type of election."
+        "executive": "Starmer faces significant political challenges including poor polling numbers, internal party discontent, and leadership speculation from within Labour ranks. Recent by-election losses to Green Party indicate declining government support. Multiple reports suggest potential leadership challenge discussions among Labour MPs, though Starmer remains defiant about continuing as PM."
       },
       "elections": {
         "competitiveElections": true,
         "nonCompetitiveReason": null,
         "electionsSuspended": false,
         "suspensionReason": null,
+        "lastCompetitivenessCheck": "2026-04-05",
+        "ipu_not_applicable": false,
+        "ipu_not_applicable_reason": null,
         "electionToday": false,
+        "electionWatchActive": false,
+        "electionWatchReason": "No national elections scheduled within 3 days and last general election (July 2024) concluded with clear winner",
         "legislative": {
           "lastElection": {
             "date": "2024-07-04",
             "type": "General election",
-            "notes": "Labour won a landslide majority (412/650 seats). Keir Starmer became PM.",
+            "notes": "Labour won 411 seats with a landslide majority, ending 14 years of Conservative rule. Keir Starmer became Prime Minister.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
@@ -801,18 +806,18 @@
           "nextElection": {
             "date": "2029",
             "type": "General election",
-            "notes": "Due by January 2029 under the Dissolution and Calling of Parliament Act 2022.",
+            "notes": "Due by August 2029 under the Dissolution and Calling of Parliament Act 2022. Parliament automatically dissolves 9 July 2029 unless dissolved earlier.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (eg_date_changed (2026-05-07)) + electionguide"
+          "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability)) + electionguide"
         },
         "executive": {
           "lastElection": {
             "date": "2024-07-04",
             "type": "General election (parliamentary selection of PM)",
-            "notes": "PM is appointed after winning a parliamentary majority.",
+            "notes": "Prime Minister appointed after Labour won parliamentary majority. Keir Starmer appointed by King Charles III on 5 July 2024.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
@@ -820,15 +825,15 @@
           "nextElection": {
             "date": "2029",
             "type": "General election",
-            "notes": "Next UK general election due by January 2029.",
+            "notes": "Next UK general election due by August 2029 determines new government composition.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (eg_date_changed (2026-05-07))"
+          "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T23:09:07.192005Z"
+      "lastClaudeUpdate": "2026-04-05T06:48:28.551564Z"
     },
     {
       "country": "Germany",
@@ -2095,7 +2100,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 19.08,
+        "overallPercentile": 18.84,
         "band": "Very Low",
         "bandLabel": "Very low governance overall",
         "year": 2023,
@@ -2114,9 +2119,10 @@
           },
           "governmentEffectiveness": {
             "indicator": "GE.PER.RNK",
-            "percentile": 20.2830181121826,
-            "label": "Low government effectiveness",
-            "year": 2023
+            "percentile": null,
+            "label": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
@@ -2223,18 +2229,18 @@
           "constitutional monarchy",
           "parliamentary democracy"
         ],
-        "source": "claude (executive_name_changed ('Emperor Naruhito' → 'Naruhito'))"
+        "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
       },
       "executive": {
         "headOfState": {
           "name": "Naruhito",
           "partyOrGroup": "Non-partisan (imperial household)",
-          "source": "claude (executive_name_changed ('Emperor Naruhito' → 'Naruhito'))"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "headOfGovernment": {
           "name": "Sanae Takaichi",
           "partyOrGroup": "Liberal Democratic Party",
-          "source": "claude (executive_name_changed ('Emperor Naruhito' → 'Naruhito'))"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "executiveInPower": {
           "leader": "Sanae Takaichi",
@@ -2246,20 +2252,20 @@
         "bodies": [
           {
             "name": "House of Representatives (Shugiin)",
-            "inControl": "LDP (supermajority — 316/465 seats, Feb 2026)",
-            "controlMethod": "claude (executive_name_changed ('Emperor Naruhito' → 'Naruhito'))"
+            "inControl": "LDP (316/465 seats, Feb 2026 election)",
+            "controlMethod": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
           },
           {
             "name": "House of Councillors (Sangiin)",
-            "inControl": "LDP-led coalition",
-            "controlMethod": "claude (executive_name_changed ('Emperor Naruhito' → 'Naruhito'))"
+            "inControl": "Opposition majority (LDP lost majority in 2025 election)",
+            "controlMethod": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
           }
         ],
-        "source": "claude (executive_name_changed ('Emperor Naruhito' → 'Naruhito'))"
+        "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 89.75,
+        "overallPercentile": 89.68,
         "band": "Very High",
         "bandLabel": "Very high governance overall",
         "year": 2023,
@@ -2296,9 +2302,10 @@
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
-            "percentile": 90.0943374633789,
-            "label": "Very high control of corruption",
-            "year": 2023
+            "percentile": null,
+            "label": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           }
         },
         "sources": {
@@ -2311,53 +2318,60 @@
         },
         "notes": null
       },
-      "dataAvailability": null,
+      "dataAvailability": {
+        "executive": "LDP achieved historic two-thirds supermajority in House of Representatives (316/465 seats) in February 2026 snap election, but remains minority in House of Councillors following 2025 defeat. Coalition partner Japan Innovation Party holds 36 seats. Next upper house election scheduled for July 2028."
+      },
       "elections": {
         "competitiveElections": true,
         "nonCompetitiveReason": null,
         "electionsSuspended": false,
         "suspensionReason": null,
+        "lastCompetitivenessCheck": "2026-04-05",
+        "ipu_not_applicable": false,
+        "ipu_not_applicable_reason": null,
         "electionToday": false,
+        "electionWatchActive": false,
+        "electionWatchReason": "February 2026 election completed and clear winner confirmed. LDP won historic supermajority with 316 seats, Takaichi re-elected PM on February 18, 2026.",
         "legislative": {
           "lastElection": {
             "date": "2026-02-08",
-            "type": "Snap election (House of Representatives)",
-            "notes": "LDP won historic supermajority of 316/465 seats. First snap election called by Takaichi as PM.",
+            "type": "Snap general election (House of Representatives)",
+            "notes": "LDP won historic landslide with 316/465 seats, achieving largest single-party victory in postwar history.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
           "nextElection": {
-            "date": "2030",
+            "date": "2030-02-08",
             "type": "General election (House of Representatives)",
-            "notes": null,
+            "notes": "Four-year maximum term expires",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (executive_name_changed ('Emperor Naruhito' → 'Naruhito'))"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "executive": {
           "lastElection": {
             "date": "2026-02-08",
-            "type": "Snap election (PM selected by supermajority)",
-            "notes": "PM emerges from the parliamentary majority. Takaichi confirmed.",
+            "type": "Parliamentary election determining PM",
+            "notes": "Takaichi re-elected Prime Minister by Diet on February 18 following LDP electoral victory.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
           "nextElection": {
-            "date": "2030",
-            "type": "General election",
-            "notes": null,
+            "date": "2028-07",
+            "type": "Upper house election",
+            "notes": "Next scheduled national election affects parliamentary balance",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (executive_name_changed ('Emperor Naruhito' → 'Naruhito'))"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T22:32:30.034841Z"
+      "lastClaudeUpdate": "2026-04-05T06:51:48.883913Z"
     },
     {
       "country": "Iran",
@@ -2709,9 +2723,9 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 79.99,
-        "band": "High",
-        "bandLabel": "High governance overall",
+        "overallPercentile": 84.81,
+        "band": "Very High",
+        "bandLabel": "Very high governance overall",
         "year": 2023,
         "components": {
           "voiceAccountability": {
@@ -2722,9 +2736,10 @@
           },
           "politicalStability": {
             "indicator": "PV.PER.RNK",
-            "percentile": 55.9241714477539,
-            "label": "Moderate political stability",
-            "year": 2023
+            "percentile": null,
+            "label": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           },
           "governmentEffectiveness": {
             "indicator": "GE.PER.RNK",
@@ -3165,7 +3180,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 40.62,
+        "overallPercentile": 41.1,
         "band": "Medium",
         "bandLabel": "Moderate governance overall",
         "year": 2023,
@@ -3190,9 +3205,10 @@
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
-            "percentile": 38.2075462341309,
-            "label": "Low regulatory quality",
-            "year": 2023
+            "percentile": null,
+            "label": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
@@ -6154,7 +6170,7 @@
         }
       },
       "worldBankGovernance": {
-        "overallPercentile": 48.74,
+        "overallPercentile": 47.3,
         "band": "Medium",
         "bandLabel": "Moderate governance overall",
         "year": 2023,
@@ -6185,10 +6201,9 @@
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 40.0943412780762,
+            "label": "Moderate rule of law",
+            "year": 2023
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
@@ -6316,9 +6331,9 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 38.42,
-        "band": "Low",
-        "bandLabel": "Low governance overall",
+        "overallPercentile": 40.98,
+        "band": "Medium",
+        "bandLabel": "Moderate governance overall",
         "year": 2023,
         "components": {
           "voiceAccountability": {
@@ -6335,10 +6350,9 @@
           },
           "governmentEffectiveness": {
             "indicator": "GE.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 53.7735862731934,
+            "label": "Moderate government effectiveness",
+            "year": 2023
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
