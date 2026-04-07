@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-06T08:14:10.782999Z",
+  "generatedAt": "2026-04-07T07:59:34.960851Z",
   "lastFullSweepDate": "2026-03-31T05:15:08.096403Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "sentinelSeenIds": [],
@@ -1025,18 +1025,18 @@
           "federal constitutional monarchy",
           "absolute monarchy"
         ],
-        "source": "claude (stale_999d)"
+        "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
       },
       "executive": {
         "headOfState": {
           "name": "Sheikh Mohamed bin Zayed Al Nahyan",
           "partyOrGroup": "Non-partisan (monarchy)",
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "headOfGovernment": {
           "name": "Sheikh Mohammed bin Rashid Al Maktoum",
           "partyOrGroup": "Non-partisan (monarchy)",
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "executiveInPower": {
           "leader": "Sheikh Mohammed bin Rashid Al Maktoum",
@@ -1049,10 +1049,10 @@
           {
             "name": "Federal National Council",
             "inControl": "Non-partisan (advisory body; half appointed, half indirectly elected)",
-            "controlMethod": "claude (stale_999d)"
+            "controlMethod": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
           }
         ],
-        "source": "claude (stale_999d)"
+        "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
       },
       "partyProfiles": null,
       "worldBankGovernance": {
@@ -1108,39 +1108,46 @@
         },
         "notes": null
       },
-      "dataAvailability": null,
+      "dataAvailability": {
+        "executive": "The UAE operates as a federal constitutional monarchy where the president is elected by the Federal Supreme Council (comprising the seven emirate rulers) every five years, and the prime minister is appointed by the president. Both positions are effectively hereditary within the Al Nahyan and Al Maktoum ruling families respectively. The Federal National Council serves only in an advisory capacity with limited powers."
+      },
       "elections": {
         "competitiveElections": false,
-        "nonCompetitiveReason": "Federal constitutional monarchy. Executive positions are hereditary. The Federal National Council is half-appointed, half indirectly elected via a limited electorate.",
+        "nonCompetitiveReason": "Federal constitutional monarchy where executive positions are hereditary. The Federal National Council is half-appointed, half indirectly elected via a limited electorate of ~400,000 selected by emirate rulers. Political parties are banned.",
         "electionsSuspended": false,
         "suspensionReason": null,
+        "lastCompetitivenessCheck": "2026-04-07",
+        "ipu_not_applicable": false,
+        "ipu_not_applicable_reason": null,
         "electionToday": false,
+        "electionWatchActive": false,
+        "electionWatchReason": null,
         "legislative": {
           "lastElection": {
             "date": "2023-10-07",
             "type": "Federal National Council (limited indirect election)",
-            "notes": "Only half of the 40-seat FNC is indirectly elected by an appointed electorate of ~300,000. The body is advisory only.",
+            "notes": "Only half of the 40-seat FNC is indirectly elected by an appointed electorate of ~399,000. The body is advisory only. Results were certified on October 13, 2023.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
           "nextElection": {
-            "date": "2027",
+            "date": "2027-10",
             "type": "Federal National Council (limited indirect)",
-            "notes": null,
+            "notes": "Expected based on four-year terms. Exact date typically announced closer to election year.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "executive": {
           "lastElection": null,
           "nextElection": null,
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T22:31:44.998068Z"
+      "lastClaudeUpdate": "2026-04-07T08:00:18.544767Z"
     },
     {
       "country": "Saudi Arabia",
@@ -3036,16 +3043,17 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 5.35,
+        "overallPercentile": 4.35,
         "band": "Very Low",
         "bandLabel": "Very low governance overall",
         "year": 2023,
         "components": {
           "voiceAccountability": {
             "indicator": "VA.PER.RNK",
-            "percentile": 6.86274528503418,
-            "label": "Very low voice & accountability",
-            "year": 2023
+            "percentile": null,
+            "label": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           },
           "politicalStability": {
             "indicator": "PV.PER.RNK",
@@ -3061,10 +3069,9 @@
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 1.88679242134094,
+            "label": "Very low regulatory quality",
+            "year": 2023
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
