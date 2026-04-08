@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-07T07:59:34.960851Z",
+  "generatedAt": "2026-04-08T08:02:21.999276Z",
   "lastFullSweepDate": "2026-03-31T05:15:08.096403Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "sentinelSeenIds": [],
@@ -1173,18 +1173,18 @@
           "absolute monarchy",
           "theocratic state"
         ],
-        "source": "claude (forced_refresh)"
+        "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
       },
       "executive": {
         "headOfState": {
           "name": "Salman",
           "partyOrGroup": "Non-partisan (monarchy)",
-          "source": "claude (forced_refresh)"
+          "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
         },
         "headOfGovernment": {
           "name": "Mohammed bin Salman",
           "partyOrGroup": "Non-partisan (monarchy)",
-          "source": "claude (forced_refresh)"
+          "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
         },
         "executiveInPower": {
           "leader": "Mohammed bin Salman",
@@ -1197,10 +1197,10 @@
           {
             "name": "Consultative Assembly (Majlis al-Shura)",
             "inControl": "Royal appointments (no elections)",
-            "controlMethod": "claude (forced_refresh)"
+            "controlMethod": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
           }
         ],
-        "source": "claude (forced_refresh)"
+        "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
       },
       "partyProfiles": null,
       "worldBankGovernance": {
@@ -1257,26 +1257,31 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "<cite index=\"6-30,6-31,6-33\">King Salman has held the throne since January 23, 2015, and was Prime Minister from 2015 to 2022.</cite> <cite index=\"1-9,1-14,2-1\">Crown Prince Mohammed bin Salman serves as both Crown Prince (since 2017) and Prime Minister (since 2022)</cite>, making him <cite index=\"1-9,5-1\">the de facto ruler of Saudi Arabia</cite>. In this absolute monarchy system, the King remains head of state while the Crown Prince has assumed the role of head of government and exercises most executive power."
+        "executive": "King Salman remains the formal head of state but Crown Prince Mohammed bin Salman has consolidated de facto power as Prime Minister since 2022. Municipal elections have been postponed indefinitely under Vision 2030. The Consultative Assembly consists of 150 appointed members with advisory functions only."
       },
       "elections": {
         "competitiveElections": false,
-        "nonCompetitiveReason": "Absolute monarchy with no national elections for executive or legislative positions. The Consultative Assembly (Majlis al-Shura) is fully appointed by royal decree.",
+        "nonCompetitiveReason": "Absolute monarchy with no national elections for executive or legislative positions. The Consultative Assembly is fully appointed by royal decree.",
         "electionsSuspended": false,
         "suspensionReason": null,
+        "lastCompetitivenessCheck": "2026-04-08",
+        "ipu_not_applicable": true,
+        "ipu_not_applicable_reason": "One-party state with no competitive national elections. The Shura Council is entirely appointed by the King.",
         "electionToday": false,
+        "electionWatchActive": false,
+        "electionWatchReason": null,
         "legislative": {
           "lastElection": null,
           "nextElection": null,
-          "source": "claude (forced_refresh)"
+          "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
         },
         "executive": {
           "lastElection": null,
           "nextElection": null,
-          "source": "claude (forced_refresh)"
+          "source": "claude (snapshot_anomaly (cite_markup_in_dataAvailability))"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T23:53:20.867977Z"
+      "lastClaudeUpdate": "2026-04-08T08:03:29.840950Z"
     },
     {
       "country": "Israel",
@@ -1759,18 +1764,18 @@
         "values": [
           "federal presidential republic"
         ],
-        "source": "claude (stale_999d)"
+        "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
       },
       "executive": {
         "headOfState": {
           "name": "Luiz Inácio Lula da Silva",
           "partyOrGroup": "Workers' Party (PT)",
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "headOfGovernment": {
           "name": "Luiz Inácio Lula da Silva",
           "partyOrGroup": "Workers' Party (PT)",
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "executiveInPower": {
           "leader": "Luiz Inácio Lula da Silva",
@@ -1783,15 +1788,15 @@
           {
             "name": "Chamber of Deputies",
             "inControl": "Centre-right coalition (PL largest party)",
-            "controlMethod": "claude (stale_999d)"
+            "controlMethod": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
           },
           {
             "name": "Federal Senate",
             "inControl": "Coalition government (PSD largest bloc)",
-            "controlMethod": "claude (stale_999d)"
+            "controlMethod": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
           }
         ],
-        "source": "claude (stale_999d)"
+        "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
       },
       "partyProfiles": null,
       "worldBankGovernance": {
@@ -1847,13 +1852,20 @@
         },
         "notes": null
       },
-      "dataAvailability": null,
+      "dataAvailability": {
+        "executive": "Lula announced in October 2025 that he will seek a fourth term in the 2026 election. Jair Bolsonaro has been convicted and sentenced to 27 years in prison for attempting a coup, making him ineligible to run. His son Flávio Bolsonaro has emerged as a leading opposition candidate. Brazilian democracy remains competitive with free and fair elections despite political polarization."
+      },
       "elections": {
         "competitiveElections": true,
         "nonCompetitiveReason": null,
         "electionsSuspended": false,
         "suspensionReason": null,
+        "lastCompetitivenessCheck": "2026-04-08",
+        "ipu_not_applicable": false,
+        "ipu_not_applicable_reason": null,
         "electionToday": false,
+        "electionWatchActive": false,
+        "electionWatchReason": "No elections scheduled within 3 days and no recent elections awaiting result confirmation",
         "legislative": {
           "lastElection": {
             "date": "2022-10-02",
@@ -1871,7 +1883,7 @@
             "runoffCondition": "if no presidential candidate wins >50% of valid votes in round 1",
             "electionDay": false
           },
-          "source": "claude (stale_999d) + electionguide"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing)) + electionguide"
         },
         "executive": {
           "lastElection": {
@@ -1890,10 +1902,10 @@
             "runoffCondition": "if no candidate wins >50% of valid votes in round 1",
             "electionDay": false
           },
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T22:32:12.689283Z"
+      "lastClaudeUpdate": "2026-04-08T08:04:34.118515Z"
     },
     {
       "country": "Canada",
@@ -2278,7 +2290,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 89.75,
+        "overallPercentile": 89.21,
         "band": "Very High",
         "bandLabel": "Very high governance overall",
         "year": 2023,
@@ -2309,9 +2321,10 @@
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
-            "percentile": 92.4528274536133,
-            "label": "Very high rule of law",
-            "year": 2023
+            "percentile": null,
+            "label": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           },
           "controlOfCorruption": {
             "indicator": "CC.PER.RNK",
@@ -3043,17 +3056,16 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 4.35,
+        "overallPercentile": 4.77,
         "band": "Very Low",
         "bandLabel": "Very low governance overall",
         "year": 2023,
         "components": {
           "voiceAccountability": {
             "indicator": "VA.PER.RNK",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 6.86274528503418,
+            "label": "Very low voice & accountability",
+            "year": 2023
           },
           "politicalStability": {
             "indicator": "PV.PER.RNK",
@@ -6310,18 +6322,18 @@
         "values": [
           "presidential republic"
         ],
-        "source": "claude (stale_999d)"
+        "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
       },
       "executive": {
         "headOfState": {
           "name": "Nayib Bukele",
           "partyOrGroup": "New Ideas",
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "headOfGovernment": {
           "name": "Nayib Bukele",
           "partyOrGroup": "New Ideas",
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "executiveInPower": {
           "leader": "Nayib Bukele",
@@ -6333,11 +6345,11 @@
         "bodies": [
           {
             "name": "Legislative Assembly",
-            "inControl": "New Ideas (supermajority)",
-            "controlMethod": "claude (stale_999d)"
+            "inControl": "New Ideas (supermajority 54/60 seats)",
+            "controlMethod": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
           }
         ],
-        "source": "claude (stale_999d)"
+        "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
       },
       "partyProfiles": null,
       "worldBankGovernance": {
@@ -6393,53 +6405,60 @@
         },
         "notes": null
       },
-      "dataAvailability": null,
+      "dataAvailability": {
+        "executive": "El Salvador has undergone severe democratic backsliding under Bukele with institutional capture of judiciary and legislature, ongoing state of emergency since March 2022 suspending constitutional rights, mass arbitrary arrests of over 80,000 people, and elimination of effective political competition. Constitutional reforms in July 2025 abolished presidential term limits and eliminated runoff elections. Freedom House rates the country as Partly Free with score declining from 56 to 47 out of 100 between 2023-2025. Multiple international organizations classify El Salvador as having transitioned to authoritarianism or hybrid regime status."
+      },
       "elections": {
-        "competitiveElections": true,
-        "nonCompetitiveReason": null,
+        "competitiveElections": false,
+        "nonCompetitiveReason": "Authoritarian consolidation under Bukele has eliminated effective political competition through institutional capture, constitutional manipulation, mass arbitrary arrests, harassment of opposition, and uneven playing field",
         "electionsSuspended": false,
         "suspensionReason": null,
+        "lastCompetitivenessCheck": "2026-04-08",
+        "ipu_not_applicable": false,
+        "ipu_not_applicable_reason": null,
         "electionToday": false,
+        "electionWatchActive": false,
+        "electionWatchReason": "Next elections scheduled for February 2027 with clear electoral processes in place",
         "legislative": {
           "lastElection": {
             "date": "2024-02-04",
-            "type": "Presidential + Legislative (simultaneous)",
-            "notes": "New Ideas won 54/60 seats (supermajority). Bukele re-elected with ~85%.",
+            "type": "Legislative",
+            "notes": "New Ideas won 54 of 60 seats (90% supermajority). Concurrent with presidential election. Electoral reforms favored ruling party through D'Hondt system adoption.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
           "nextElection": {
-            "date": "2027",
-            "type": "Legislative midterm",
-            "notes": null,
+            "date": "2027-02-28",
+            "type": "Legislative",
+            "notes": "Scheduled concurrently with presidential and municipal elections. Term length unchanged at 3 years.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "executive": {
           "lastElection": {
             "date": "2024-02-04",
             "type": "Presidential",
-            "notes": "Bukele won ~85% in a non-competitive race after sidelining opposition.",
+            "notes": "Bukele won 84.65% in landslide victory despite constitutional prohibition on consecutive terms. Supreme Court ruling enabled his candidacy.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
           "nextElection": {
-            "date": "2030",
+            "date": "2027-02-28",
             "type": "Presidential",
-            "notes": "Constitutional status of future terms uncertain given court rulings on term limits.",
+            "notes": "Constitutional reforms approved July 2025 eliminated term limits, extended terms to 6 years, and moved election from 2029 to 2027 to synchronize with legislative elections.",
             "runoffDate": null,
-            "runoffCondition": null,
+            "runoffCondition": "Second round eliminated by constitutional reform",
             "electionDay": false
           },
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T22:35:25.567375Z"
+      "lastClaudeUpdate": "2026-04-08T08:07:34.749347Z"
     },
     {
       "country": "Denmark",
@@ -6651,7 +6670,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 3.89,
+        "overallPercentile": 3.73,
         "band": "Very Low",
         "bandLabel": "Very low governance overall",
         "year": 2023,
@@ -6676,9 +6695,10 @@
           },
           "regulatoryQuality": {
             "indicator": "RQ.PER.RNK",
-            "percentile": 4.71698093414307,
-            "label": "Very low regulatory quality",
-            "year": 2023
+            "percentile": null,
+            "label": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           },
           "ruleOfLaw": {
             "indicator": "RL.PER.RNK",
