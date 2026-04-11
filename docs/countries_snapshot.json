@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-10T08:12:09.963934Z",
+  "generatedAt": "2026-04-11T04:55:19.946780Z",
   "lastFullSweepDate": "2026-03-31T05:15:08.096403Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "sentinelSeenIds": [],
@@ -1472,18 +1472,18 @@
           "semi-presidential republic",
           "disputed/occupied territory"
         ],
-        "source": "claude (stale_999d)"
+        "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
       },
       "executive": {
         "headOfState": {
           "name": "Mahmoud Abbas",
           "partyOrGroup": "Fatah",
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "headOfGovernment": {
           "name": "Mohammad Mustafa",
           "partyOrGroup": "Fatah",
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "executiveInPower": {
           "leader": "Mohammad Mustafa",
@@ -1496,10 +1496,10 @@
           {
             "name": "Palestinian Legislative Council",
             "inControl": "Suspended (no elections since 2006)",
-            "controlMethod": "claude (stale_999d)"
+            "controlMethod": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
           }
         ],
-        "source": "claude (stale_999d)"
+        "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
       },
       "partyProfiles": null,
       "worldBankGovernance": {
@@ -1555,13 +1555,20 @@
         },
         "notes": "Kept previous values; latest fetch failed: No WGI percentile values available."
       },
-      "dataAvailability": null,
+      "dataAvailability": {
+        "executive": "Abbas continues to serve as president despite his term expiring in 2009, ruling by decree since dismissing the Hamas-led legislature in 2007. Gaza operates under a fragile ceasefire with Israeli forces controlling over half the territory and Hamas retaining weapons. The Trump Gaza peace plan Phase Two established a Palestinian National Committee for the Administration of Gaza under international oversight, but Hamas has not disarmed and political control remains divided. Only local elections are scheduled for April 25, 2026, not national elections. The Palestinian Authority controls parts of the West Bank while Israel maintains security control over most areas."
+      },
       "elections": {
         "competitiveElections": false,
-        "nonCompetitiveReason": "No elections held since 2006 (legislative) and 2005 (presidential). Mahmoud Abbas rules by decree; Hamas controls Gaza. Elections indefinitely postponed.",
+        "nonCompetitiveReason": "No national elections held since 2006 (legislative) and 2005 (presidential). Abbas rules by decree; Hamas controls parts of Gaza under ceasefire arrangements. National elections indefinitely postponed due to political divisions and Israeli restrictions.",
         "electionsSuspended": false,
         "suspensionReason": null,
+        "lastCompetitivenessCheck": "2026-04-11",
+        "ipu_not_applicable": false,
+        "ipu_not_applicable_reason": null,
         "electionToday": false,
+        "electionWatchActive": false,
+        "electionWatchReason": "Local elections scheduled for April 25, 2026 are municipal/village council elections only, not national legislative or presidential elections",
         "legislative": {
           "lastElection": {
             "date": "2006-01-25",
@@ -1572,7 +1579,7 @@
             "electionDay": false
           },
           "nextElection": null,
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "executive": {
           "lastElection": {
@@ -1584,10 +1591,10 @@
             "electionDay": false
           },
           "nextElection": null,
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T22:32:00.186453Z"
+      "lastClaudeUpdate": "2026-04-11T04:56:20.154864Z"
     },
     {
       "country": "Mexico",
