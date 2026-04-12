@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-11T04:55:19.946780Z",
+  "generatedAt": "2026-04-12T05:23:44.949537Z",
   "lastFullSweepDate": "2026-03-31T05:15:08.096403Z",
   "worldBankYearRule": "latest_non_null_per_indicator",
   "sentinelSeenIds": [],
@@ -1619,18 +1619,18 @@
         "values": [
           "federal presidential republic"
         ],
-        "source": "claude (stale_999d)"
+        "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
       },
       "executive": {
         "headOfState": {
           "name": "Claudia Sheinbaum",
           "partyOrGroup": "Morena",
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "headOfGovernment": {
           "name": "Claudia Sheinbaum",
           "partyOrGroup": "Morena",
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "executiveInPower": {
           "leader": "Claudia Sheinbaum",
@@ -1643,15 +1643,15 @@
           {
             "name": "Chamber of Deputies",
             "inControl": "Morena-led coalition (supermajority)",
-            "controlMethod": "claude (stale_999d)"
+            "controlMethod": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
           },
           {
             "name": "Senate",
-            "inControl": "Morena-led coalition",
-            "controlMethod": "claude (stale_999d)"
+            "inControl": "Morena-led coalition (supermajority)",
+            "controlMethod": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
           }
         ],
-        "source": "claude (stale_999d)"
+        "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
       },
       "partyProfiles": null,
       "worldBankGovernance": {
@@ -1707,37 +1707,44 @@
         },
         "notes": "Kept previous values; latest fetch failed: No WGI percentile values available."
       },
-      "dataAvailability": null,
+      "dataAvailability": {
+        "executive": "President Claudia Sheinbaum serves as both head of state and head of government in Mexico's presidential system. The Morena-led coalition secured supermajorities in both chambers following the 2024 elections, with 364 of 500 seats in the Chamber of Deputies and eventually achieved a supermajority in the Senate through party defections. Sheinbaum has been actively pursuing electoral and constitutional reforms during her presidency."
+      },
       "elections": {
         "competitiveElections": true,
         "nonCompetitiveReason": null,
         "electionsSuspended": false,
         "suspensionReason": null,
+        "lastCompetitivenessCheck": "2026-04-12",
+        "ipu_not_applicable": false,
+        "ipu_not_applicable_reason": null,
         "electionToday": false,
+        "electionWatchActive": false,
+        "electionWatchReason": "No elections within next 3 days and current government established with clear majorities",
         "legislative": {
           "lastElection": {
             "date": "2024-06-02",
             "type": "Congressional (Chamber of Deputies)",
-            "notes": "Morena coalition won supermajority (364/500 seats in Chamber).",
+            "notes": "Morena coalition won supermajority with 364 of 500 seats in Chamber.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
           "nextElection": {
-            "date": "2027",
+            "date": "2027-06-06",
             "type": "Midterm (Chamber of Deputies)",
-            "notes": null,
+            "notes": "All 500 Chamber seats up for election; Senate seats not up for election.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "executive": {
           "lastElection": {
             "date": "2024-06-02",
             "type": "Presidential",
-            "notes": "Claudia Sheinbaum won with ~59% of vote.",
+            "notes": "Claudia Sheinbaum won with approximately 59% of vote, becoming Mexico's first female president.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
@@ -1745,15 +1752,15 @@
           "nextElection": {
             "date": "2030",
             "type": "Presidential",
-            "notes": "Mexico has a single 6-year term (sexenio) with no re-election.",
+            "notes": "Mexico has single 6-year term (sexenio) with no re-election allowed.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (stale_999d)"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T22:32:06.322773Z"
+      "lastClaudeUpdate": "2026-04-12T05:31:08.688297Z"
     },
     {
       "country": "Brazil",
@@ -5996,18 +6003,18 @@
         "values": [
           "unitary presidential republic"
         ],
-        "source": "claude (eg_date_changed (2026-05-31))"
+        "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
       },
       "executive": {
         "headOfState": {
           "name": "Gustavo Petro",
           "partyOrGroup": "Colombia Humana / Pacto Histórico",
-          "source": "claude (eg_date_changed (2026-05-31))"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "headOfGovernment": {
           "name": "Gustavo Petro",
           "partyOrGroup": "Colombia Humana / Pacto Histórico",
-          "source": "claude (eg_date_changed (2026-05-31))"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         },
         "executiveInPower": {
           "leader": "Gustavo Petro",
@@ -6019,16 +6026,16 @@
         "bodies": [
           {
             "name": "Senate",
-            "inControl": "Pacto Histórico plurality (25 seats of 103); fragmented, no majority",
-            "controlMethod": "claude (eg_date_changed (2026-05-31))"
+            "inControl": "Pacto Histórico leads with 25 seats of 103, plurality control",
+            "controlMethod": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
           },
           {
             "name": "House of Representatives",
-            "inControl": "Fragmented; Democratic Center leads with 32 of 183 seats, no clear majority",
-            "controlMethod": "claude (eg_date_changed (2026-05-31))"
+            "inControl": "Democratic Center leads with 32 of 183 seats; fragmented, no clear majority",
+            "controlMethod": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
           }
         ],
-        "source": "claude (eg_date_changed (2026-05-31))"
+        "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
       },
       "partyProfiles": null,
       "worldBankGovernance": {
@@ -6085,19 +6092,24 @@
         "notes": "Kept previous values; latest fetch failed: No WGI percentile values available."
       },
       "dataAvailability": {
-        "executive": "Colombia faces significant security challenges with over 60 political leaders killed during the 2026 campaign period. Congressional results show continued fragmentation with no party achieving majority control in either chamber."
+        "executive": "Gustavo Petro remains president as of April 2026, serving his constitutionally limited single term until August 2026. His approval rating has fluctuated significantly, reaching lows of 26% in 2023 but rebounding to 54% by March 2026. Colombia faces ongoing tensions with the US under Trump administration, with investigations into Petro's alleged drug ties strongly denied by his government."
       },
       "elections": {
         "competitiveElections": true,
         "nonCompetitiveReason": null,
         "electionsSuspended": false,
         "suspensionReason": null,
+        "lastCompetitivenessCheck": "2026-04-12",
+        "ipu_not_applicable": false,
+        "ipu_not_applicable_reason": null,
         "electionToday": false,
+        "electionWatchActive": false,
+        "electionWatchReason": "No election is imminent within 3 days and no recent election result is pending",
         "legislative": {
           "lastElection": {
             "date": "2026-03-08",
             "type": "Congressional",
-            "notes": "Pacto Histórico won plurality in Senate with 25 seats. Democratic Center took most House seats with 32. Results fragmented across both chambers with no party achieving majority. Over 60 political leaders killed during campaign.",
+            "notes": "Historic Pact won 25 Senate seats (up from 20) and 42 House seats. Democratic Center won 17 Senate seats (up from 13) and 32 House seats. Turnout was 50.16%, higher than 2022 elections. Campaign marred by over 60 political leader killings.",
             "runoffDate": null,
             "runoffCondition": null,
             "electionDay": false
@@ -6110,7 +6122,7 @@
             "runoffCondition": null,
             "electionDay": false
           },
-          "source": "claude (eg_date_changed (2026-05-31)) + electionguide"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing)) + electionguide"
         },
         "executive": {
           "lastElection": {
@@ -6124,15 +6136,15 @@
           "nextElection": {
             "date": "2026-05-31",
             "type": "Presidential",
-            "notes": "First round scheduled for May 31, 2026. Leading candidates include Iván Cepeda (Pacto Histórico), Paloma Valencia (Democratic Center), and Abelardo de la Espriella (far-right). Petro constitutionally barred from reelection.",
+            "notes": "First round scheduled for May 31, 2026. Leading candidates include Iván Cepeda (Pacto Histórico), Abelardo de la Espriella (far-right), and Paloma Valencia (Democratic Center). Petro constitutionally barred from reelection.",
             "runoffDate": "2026-06-21",
             "runoffCondition": "if no candidate wins >50% of valid votes in round 1",
             "electionDay": false
           },
-          "source": "claude (eg_date_changed (2026-05-31))"
+          "source": "claude (competitiveness_refresh (competitiveness_check_date_missing))"
         }
       },
-      "lastClaudeUpdate": "2026-03-30T23:02:30.896725Z"
+      "lastClaudeUpdate": "2026-04-12T05:32:47.097962Z"
     },
     {
       "country": "Panama",
