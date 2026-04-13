@@ -1457,10 +1457,18 @@ def fetch_rest_countries(iso2: str) -> Dict[str, Any]:
 # ── WORLD BANK WGI ────────────────────────────────────────────────────────────
 
 def _parse_wb(payload: Any) -> Tuple[Optional[float], Optional[int], Optional[str]]:
-    if (not isinstance(payload, list) or len(payload) < 2
-            or not isinstance(payload[1], list)):
-        return None, None, "Unexpected WB response shape."
-    for row in payload[1]:
+    rows = []
+    if isinstance(payload, list):
+        if len(payload) >= 2 and isinstance(payload[1], list):
+            rows = payload[1]
+        elif len(payload) >= 1 and isinstance(payload[0], list):
+            rows = payload[0]
+        else:
+            rows = [x for x in payload if isinstance(x, dict) and "value" in x]
+    elif isinstance(payload, dict):
+        rows = payload.get("data") or payload.get("results") or []
+
+    for row in rows:
         if not isinstance(row, dict):
             continue
         val = row.get("value")
@@ -1468,7 +1476,7 @@ def _parse_wb(payload: Any) -> Tuple[Optional[float], Optional[int], Optional[st
         if val is None or dt is None:
             continue
         try:
-            return float(val), int(dt), None
+            return float(val), int(str(dt)[:4]), None
         except Exception:
             continue
     return None, None, "No non-null value in WB series."
@@ -1761,25 +1769,38 @@ def _snapshot_anomaly_detected(iso2: str, prev: Optional[Dict]) -> Tuple[bool, s
     if expect_election_data and leg_last is None and exec_last is None:
         return True, "null_lastElection_for_competitive_country"
 
-    # E: Null executive name for assessed country without suspension context
-    has_competitive_assessment = (competitive is not None)
+    # E: Any blank political data — check all key fields together
     exec_block = prev.get("executive") or {}
     hos_name = (exec_block.get("headOfState") or {}).get("name")
     hog_name = (exec_block.get("headOfGovernment") or {}).get("name")
-    has_suspension_context = bool(elections.get("nonCompetitiveReason") or elections.get("suspensionReason"))
-    if has_competitive_assessment and not has_suspension_context and not hos_name and not hog_name:
-        return True, "null_executive_names"
+    leg_block = prev.get("legislature") or {}
+    leg_bodies = leg_block.get("bodies", [])
+    pol_sys = (prev.get("politicalSystem") or {}).get("values", ["unknown"])
+    data_is_blank = (
+        not hos_name
+        and not hog_name
+        and not leg_bodies
+        and pol_sys == ["unknown"]
+    )
+    if data_is_blank:
+        # If Claude already tried and came back empty, don't retry
+        if prev.get("claudeAttemptedWithNoData"):
+            return False, ""
+        return True, "blank_political_data"
 
     return False, ""
 
 
-def _needs_competitiveness_refresh(prev: Optional[Dict]) -> Tuple[bool, str]:
+def _needs_competitiveness_refresh(prev: Optional[Dict], always_on: bool = False) -> Tuple[bool, str]:
     """
     Return (True, reason) if the country's competitiveness classification needs
     to be re-evaluated by Claude.
+
+    always_on=False: only fires for genuinely annual/overdue cases (safe on daily runs)
+    always_on=True:  also fires for semi-annual non-competitive checks (biweekly runs only)
     """
     if not prev:
-        return True, "first_run_competitiveness"
+        return False, ""  # handled by first_run logic in _should_call_claude
 
     elections = prev.get("elections") or {}
     competitive = elections.get("competitiveElections")
@@ -1805,8 +1826,13 @@ def _needs_competitiveness_refresh(prev: Optional[Dict]) -> Tuple[bool, str]:
     except (ValueError, AttributeError, IndexError):
         return True, "competitiveness_check_date_unparseable"
 
+    # Annual refresh fires on any day — genuinely overdue
     if days_since >= 365:
         return True, f"annual_competitiveness_refresh ({days_since}d since last check)"
+
+    # Semi-annual only fires when explicitly allowed (biweekly runs)
+    if not always_on:
+        return False, ""
 
     suspended = elections.get("electionsSuspended", False)
     if (competitive is False or suspended) and days_since >= 180:
@@ -1832,7 +1858,10 @@ def _should_call_claude(
         return True, "forced_refresh"
 
     if not prev:
-        return True, "first_run"
+        if CLAUDE_FORCE_REFRESH or biweekly_tuesday:
+            return True, "first_run"
+        else:
+            return False, "new_country_pending_biweekly"
 
     # ── Always-on triggers ─────────────────────────────────────────────────────
     watch_active, watch_reason = _election_watch_active(prev)
@@ -1846,13 +1875,17 @@ def _should_call_claude(
     if anomaly:
         return True, f"snapshot_anomaly ({anomaly_reason})"
 
-    needs_comp, comp_reason = _needs_competitiveness_refresh(prev)
+    needs_comp, comp_reason = _needs_competitiveness_refresh(prev, always_on=False)
     if needs_comp:
         return True, f"competitiveness_refresh ({comp_reason})"
 
-    # ── Biweekly-only triggers ─────────────────────────────────────────────────
+    # ── Biweekly-only triggers (suppressed on non-Tuesday daily runs) ─────────
     if not biweekly_tuesday:
         return False, ""
+
+    needs_comp, comp_reason = _needs_competitiveness_refresh(prev, always_on=True)
+    if needs_comp:
+        return True, f"competitiveness_refresh ({comp_reason})"
 
     prev_hos = ((prev.get("executive") or {}).get("headOfState") or {}).get("name")
     prev_hog = ((prev.get("executive") or {}).get("headOfGovernment") or {}).get("name")
@@ -2226,6 +2259,16 @@ def build_country(
         days_old = _days_since_claude(prev)
         print(f"  [{iso2}] 💤 SOFT RUN — carrying forward data (last Claude: {days_old}d ago)")
 
+# ── Track whether Claude was attempted but returned no data ────────────────
+    claude_attempted_no_data = False
+    if should_call and not cl:
+        claude_attempted_no_data = True
+    elif should_call and cl:
+        hos = (cl.get("headOfState") or {}).get("name")
+        hog = (cl.get("headOfGovernment") or {}).get("name")
+        if not hos and not hog:
+            claude_attempted_no_data = True
+
     # ── Assemble output ────────────────────────────────────────────────────────
     prev_profiles = (prev or {}).get("partyProfiles")
 
@@ -2303,7 +2346,8 @@ def build_country(
         "worldBankGovernance": wb_gov,
         "dataAvailability":    avail if avail else None,
         "elections":           elections_block,
-        "lastClaudeUpdate":    last_claude_update,
+        "lastClaudeUpdate":          last_claude_update,
+        "claudeAttemptedWithNoData": claude_attempted_no_data,
     }
 
     if sentinel_alert:
@@ -2320,7 +2364,7 @@ def build_country(
         else:
             entry["changeInPowerAlert"] = prev["changeInPowerAlert"]
 
-    return entry
+    return entry, should_call
 
 
 # ── MAIN ──────────────────────────────────────────────────────────────────────
@@ -2414,12 +2458,12 @@ def main() -> None:
 
     for c in COUNTRIES:
         print(f"\n▶ {c['country']} ({c['iso2']})")
-        country_data = build_country(
+        country_data, used_claude = build_country(
             c["country"], c["iso2"], prev_by_iso2,
             biweekly_tuesday, sentinel_alerts,
         )
         out["countries"].append(country_data)
-        time.sleep(0.25)
+        time.sleep(4 if used_claude else 0.1)
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
