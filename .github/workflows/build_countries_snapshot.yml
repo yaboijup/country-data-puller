@@ -32,7 +32,7 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 90
 
     steps:
       # ── 1. Checkout ───────────────────────────────────────────────────────────
@@ -66,8 +66,7 @@ jobs:
           OUTPUT_DIR: "docs"
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           # Set CLAUDE_FORCE_REFRESH=1 in GitHub repo vars to force Claude to
-          # re-verify all 44 countries. Useful after major world events.
-          # Costs ~$0.12 for the full pass.
+          # re-verify all countries. Useful after major world events.
           CLAUDE_FORCE_REFRESH: ${{ vars.CLAUDE_FORCE_REFRESH || '' }}
 
       # ── 6. Verify output ──────────────────────────────────────────────────────
@@ -99,11 +98,17 @@ jobs:
           election_watch_count  = 0
           sentinel_alerts       = 0
           missing_leg_next      = []
+          special_status        = []
+
+          SPECIAL_STATUS_CODES = {'TW', 'HK', 'XK'}
 
           for c in countries:
               iso2 = c.get('iso2', '?')
               name = c.get('country', '?')
               elec = c.get('elections', {})
+
+              if iso2 in SPECIAL_STATUS_CODES:
+                  special_status.append(f'{name} ({iso2})')
 
               if elec.get('competitiveElections') is False:
                   non_competitive_count += 1
@@ -124,6 +129,7 @@ jobs:
           print(f'Election watch active:         {election_watch_count}')
           print(f'Unresolved sentinel alerts:    {sentinel_alerts}')
           print(f'Competitive missing nextElec:  {len(missing_leg_next)}')
+          print(f'Special-status entries:        {len(special_status)} ({\", \".join(special_status)})')
           for m in missing_leg_next:
               print(f'  - {m}')
 
