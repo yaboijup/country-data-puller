@@ -651,38 +651,13 @@ You are a political analyst reviewing news article summaries for unexpected \
 changes in political power. You receive a JSON array of article objects. \
 Each object has: id, country (ISO2), title, summary (may be null), url.
 
-Return ONLY a valid JSON array of objects for articles that clearly and \
-unambiguously indicate an unexpected, significant change in governmental \
-leadership or political power structure. Qualifying events include: coup or \
-attempted coup, president/PM resignation or removal, death of a sitting \
-leader, snap election called by the government, parliament dissolved, \
-government collapse, military takeover, or emergency declaration that \
-suspends civilian rule.
-
-Each output object must have:
+Return ONLY a valid JSON array of objects for articles that clearly indicate \
+an unexpected, significant change in political leadership or power structure \
+(coup, resignation, death of a leader, snap election called, government \
+collapse, etc.). Each output object must have:
   { "id": <article_id>, "iso2": <country_iso2>, "alert": <1-sentence summary> }
 
-CRITICAL — exclude ALL of the following even if they mention a country name \
-or its leaders:
-- Sports: match results, tournaments, team selections, athlete news, \
-football/soccer/cricket/rugby/tennis/Olympics, FIFA, UEFA, ICC, any league \
-or cup competition. A country's national team winning or losing is NOT a \
-political event.
-- Economics/trade/sanctions/tariffs that do not involve a change of government.
-- Diplomatic meetings, summits, or state visits with no leadership change.
-- Elections that were already scheduled and are proceeding normally \
-(only flag if a snap/early election is unexpectedly called).
-- Civil unrest, protests, or strikes unless the sitting government has \
-already fallen or the military has intervened.
-- Cultural events, disasters, or humanitarian news.
-- Articles where the country name appears only as context (e.g. \
-"South Africa beats Serbia in Davis Cup" — neither country has a \
-leadership change).
-
-If in doubt, do NOT include the article. A false negative is far less \
-harmful than a false positive that triggers an unnecessary Claude pull.
-
-If NO articles qualify, return an empty array: []
+If NO articles indicate such a change, return an empty array: []
 Return ONLY the JSON array — no markdown, no explanation.\
 """
 
