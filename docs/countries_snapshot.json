@@ -1,6 +1,7 @@
 {
-  "generatedAt": "2026-04-14T01:43:40.414503Z",
+  "generatedAt": "2026-04-14T02:06:52.964315Z",
   "lastFullSweepDate": "2026-04-14T01:43:40.414511Z",
+  "rollingBucket": 4,
   "worldBankYearRule": "latest_non_null_per_indicator",
   "sentinelSeenIds": [],
   "countries": [
@@ -319,7 +320,7 @@
         }
       },
       "lastClaudeUpdate": "2026-03-31T05:56:31.474953Z",
-      "claudeAttemptedWithNoData": true,
+      "claudeAttemptedWithNoData": false,
       "claudeDeferred": false
     },
     {
@@ -991,7 +992,7 @@
         }
       },
       "lastClaudeUpdate": "2026-04-05T06:48:28.551564Z",
-      "claudeAttemptedWithNoData": true,
+      "claudeAttemptedWithNoData": false,
       "claudeDeferred": false
     },
     {
@@ -2768,7 +2769,7 @@
         }
       },
       "lastClaudeUpdate": "2026-04-13T05:43:42.722016Z",
-      "claudeAttemptedWithNoData": true,
+      "claudeAttemptedWithNoData": false,
       "claudeDeferred": false
     },
     {
@@ -3429,7 +3430,7 @@
         }
       },
       "lastClaudeUpdate": "2026-04-13T05:45:59.788770Z",
-      "claudeAttemptedWithNoData": true,
+      "claudeAttemptedWithNoData": false,
       "claudeDeferred": false
     },
     {
@@ -3592,7 +3593,7 @@
         }
       },
       "lastClaudeUpdate": "2026-04-13T05:46:20.010305Z",
-      "claudeAttemptedWithNoData": true,
+      "claudeAttemptedWithNoData": false,
       "claudeDeferred": false
     },
     {
@@ -4069,7 +4070,7 @@
         }
       },
       "lastClaudeUpdate": "2026-04-13T05:47:55.294793Z",
-      "claudeAttemptedWithNoData": true,
+      "claudeAttemptedWithNoData": false,
       "claudeDeferred": false
     },
     {
@@ -5206,7 +5207,7 @@
         }
       },
       "lastClaudeUpdate": "2026-04-13T05:51:11.050428Z",
-      "claudeAttemptedWithNoData": true,
+      "claudeAttemptedWithNoData": false,
       "claudeDeferred": false
     },
     {
@@ -6435,7 +6436,7 @@
         }
       },
       "lastClaudeUpdate": "2026-04-13T00:21:58.255329Z",
-      "claudeAttemptedWithNoData": true,
+      "claudeAttemptedWithNoData": false,
       "claudeDeferred": false
     },
     {
@@ -6603,7 +6604,7 @@
         }
       },
       "lastClaudeUpdate": "2026-04-12T05:32:47.097962Z",
-      "claudeAttemptedWithNoData": true,
+      "claudeAttemptedWithNoData": false,
       "claudeDeferred": false
     },
     {
@@ -6784,7 +6785,7 @@
         }
       },
       "lastClaudeUpdate": "2026-03-31T06:00:05.954135Z",
-      "claudeAttemptedWithNoData": true,
+      "claudeAttemptedWithNoData": false,
       "claudeDeferred": false
     },
     {
@@ -8242,7 +8243,7 @@
         }
       },
       "lastClaudeUpdate": "2026-04-13T05:58:30.851143Z",
-      "claudeAttemptedWithNoData": true,
+      "claudeAttemptedWithNoData": false,
       "claudeDeferred": false
     },
     {
@@ -9844,7 +9845,7 @@
         }
       },
       "lastClaudeUpdate": "2026-04-13T06:02:29.870414Z",
-      "claudeAttemptedWithNoData": true,
+      "claudeAttemptedWithNoData": false,
       "claudeDeferred": false
     },
     {
@@ -10027,7 +10028,7 @@
         }
       },
       "lastClaudeUpdate": "2026-04-13T06:03:09.209225Z",
-      "claudeAttemptedWithNoData": true,
+      "claudeAttemptedWithNoData": false,
       "claudeDeferred": false
     },
     {
@@ -12405,7 +12406,7 @@
       },
       "lastClaudeUpdate": "2026-04-13T06:10:51.525477Z",
       "claudeAttemptedWithNoData": false,
-      "claudeDeferred": true
+      "claudeDeferred": false
     },
     {
       "country": "Montenegro",
@@ -12950,7 +12951,7 @@
       },
       "lastClaudeUpdate": "2026-04-13T06:12:41.982323Z",
       "claudeAttemptedWithNoData": false,
-      "claudeDeferred": true
+      "claudeDeferred": false
     },
     {
       "country": "Malta",
@@ -13117,7 +13118,7 @@
       },
       "lastClaudeUpdate": "2026-04-13T06:13:24.626503Z",
       "claudeAttemptedWithNoData": false,
-      "claudeDeferred": true
+      "claudeDeferred": false
     },
     {
       "country": "Cyprus",
@@ -13299,7 +13300,7 @@
       },
       "lastClaudeUpdate": "2026-04-13T06:14:01.964441Z",
       "claudeAttemptedWithNoData": false,
-      "claudeDeferred": true
+      "claudeDeferred": false
     },
     {
       "country": "Georgia",
@@ -13480,7 +13481,7 @@
       },
       "lastClaudeUpdate": "2026-04-13T06:14:39.102152Z",
       "claudeAttemptedWithNoData": false,
-      "claudeDeferred": true
+      "claudeDeferred": false
     },
     {
       "country": "Kosovo",
@@ -14186,8 +14187,8 @@
         }
       },
       "lastClaudeUpdate": null,
-      "claudeAttemptedWithNoData": false,
-      "claudeDeferred": true
+      "claudeAttemptedWithNoData": true,
+      "claudeDeferred": false
     },
     {
       "country": "Lebanon",
@@ -14314,8 +14315,8 @@
         }
       },
       "lastClaudeUpdate": null,
-      "claudeAttemptedWithNoData": false,
-      "claudeDeferred": true
+      "claudeAttemptedWithNoData": true,
+      "claudeDeferred": false
     },
     {
       "country": "Kuwait",
@@ -14441,8 +14442,8 @@
         }
       },
       "lastClaudeUpdate": null,
-      "claudeAttemptedWithNoData": false,
-      "claudeDeferred": true
+      "claudeAttemptedWithNoData": true,
+      "claudeDeferred": false
     },
     {
       "country": "Bahrain",
@@ -14568,8 +14569,8 @@
         }
       },
       "lastClaudeUpdate": null,
-      "claudeAttemptedWithNoData": false,
-      "claudeDeferred": true
+      "claudeAttemptedWithNoData": true,
+      "claudeDeferred": false
     },
     {
       "country": "Oman",
@@ -14695,8 +14696,8 @@
         }
       },
       "lastClaudeUpdate": null,
-      "claudeAttemptedWithNoData": false,
-      "claudeDeferred": true
+      "claudeAttemptedWithNoData": true,
+      "claudeDeferred": false
     },
     {
       "country": "Qatar",
@@ -14822,8 +14823,8 @@
         }
       },
       "lastClaudeUpdate": null,
-      "claudeAttemptedWithNoData": false,
-      "claudeDeferred": true
+      "claudeAttemptedWithNoData": true,
+      "claudeDeferred": false
     },
     {
       "country": "Afghanistan",
@@ -14951,8 +14952,8 @@
         }
       },
       "lastClaudeUpdate": null,
-      "claudeAttemptedWithNoData": false,
-      "claudeDeferred": true
+      "claudeAttemptedWithNoData": true,
+      "claudeDeferred": false
     },
     {
       "country": "Turkmenistan",
@@ -15118,7 +15119,7 @@
       },
       "lastClaudeUpdate": "2026-04-13T00:25:52.861970Z",
       "claudeAttemptedWithNoData": false,
-      "claudeDeferred": true
+      "claudeDeferred": false
     },
     {
       "country": "Kazakhstan",
@@ -15245,8 +15246,8 @@
         }
       },
       "lastClaudeUpdate": null,
-      "claudeAttemptedWithNoData": false,
-      "claudeDeferred": true
+      "claudeAttemptedWithNoData": true,
+      "claudeDeferred": false
     },
     {
       "country": "Uzbekistan",
@@ -15373,8 +15374,8 @@
         }
       },
       "lastClaudeUpdate": null,
-      "claudeAttemptedWithNoData": false,
-      "claudeDeferred": true
+      "claudeAttemptedWithNoData": true,
+      "claudeDeferred": false
     },
     {
       "country": "Kyrgyzstan",
@@ -24151,8 +24152,8 @@
     }
   ],
   "sources": {
-    "executives": "wikipedia_adaptive + claude_api (smart diff, biweekly ceiling)",
-    "legislature": "claude_api (smart diff, biweekly ceiling)",
+    "executives": "wikipedia_adaptive (rolling 16/day) + claude_api (on mismatch or election watch)",
+    "legislature": "claude_api (rolling scrape + election watch)",
     "elections": "ipu_parline + electionguide + claude_api (daily near elections)",
     "changeInPowerSentinel": "https://stratagemdrive.github.io/change-in-power-checks/leadership-outputs.json",
     "wikipedia_adaptive": "https://en.wikipedia.org/w/api.php",
