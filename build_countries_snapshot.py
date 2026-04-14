@@ -163,6 +163,11 @@ WB_ISO2_OVERRIDES: Dict[str, str] = {
 
 # ── RATE-LIMIT CONFIG ─────────────────────────────────────────────────────────
 
+# Maximum competitiveness-refresh Claude calls per run. Prevents a flood of
+# competitiveness checks during initial bootstrap when lastCompetitivenessCheck
+# is missing for many countries. They'll be picked up on subsequent weekly runs.
+MAX_COMPETITIVENESS_PER_RUN = int(os.environ.get("MAX_COMPETITIVENESS_PER_RUN", "3"))
+
 # Maximum Claude API calls per single script execution (Tier 1 safety cap).
 # Priority 1 calls (election_watch, sentinel) are never deferred.
 # Priority 2 and 3 calls are deferred once this cap is reached.
@@ -1778,6 +1783,7 @@ def _should_call_claude(
     prev: Optional[Dict],
     weekly_slice: set,
     sentinel_alerts: Dict[str, str],
+    comp_calls_made: Optional[List[int]] = None,  # mutable [count] for competitiveness cap
 ) -> Tuple[bool, str]:
     if CLAUDE_FORCE_REFRESH:
         return True, "forced_refresh"
@@ -1805,10 +1811,6 @@ def _should_call_claude(
     anomaly, anomaly_reason = _snapshot_anomaly_detected(iso2, prev)
     if anomaly:
         return True, f"snapshot_anomaly ({anomaly_reason})"
-
-    needs_comp, comp_reason = _needs_competitiveness_refresh(prev, always_on=False)
-    if needs_comp:
-        return True, f"competitiveness_refresh ({comp_reason})"
 
     # ── Weekly-slice triggers (only fire when this country is in this week's bucket)
     if iso2.upper() not in weekly_slice:
@@ -1853,9 +1855,17 @@ def _should_call_claude(
     if eg_next and eg_next != prev_leg_next.get("date"):
         return True, f"eg_date_changed ({eg_next})"
 
-    # Within the slice: check competitiveness staleness
+    # Within the slice: check competitiveness staleness.
+    # Capped at MAX_COMPETITIVENESS_PER_RUN per run to prevent bootstrapping
+    # floods when many countries have never been assessed.
     needs_comp, comp_reason = _needs_competitiveness_refresh(prev, always_on=True)
     if needs_comp:
+        if comp_calls_made is not None:
+            if comp_calls_made[0] < MAX_COMPETITIVENESS_PER_RUN:
+                comp_calls_made[0] += 1
+                return True, f"competitiveness_refresh ({comp_reason})"
+            else:
+                return False, ""   # cap reached — defer to next week's slice
         return True, f"competitiveness_refresh ({comp_reason})"
 
     # Within the slice but no changes detected: do a refresh if data is
@@ -2173,33 +2183,72 @@ def build_country(
     prev_by_iso2: Dict[str, Any],
     weekly_slice: set,
     sentinel_alerts: Dict[str, str],
-    claude_calls_made: List[int],   # mutable counter: [current_count]
+    claude_calls_made: List[int],       # mutable counter: [current_count]
+    comp_calls_made: List[int],         # mutable counter: [competitiveness_count]
 ) -> Tuple[Dict[str, Any], bool]:
     prev = prev_by_iso2.get(iso2)
     today_str = datetime.now(timezone.utc).date().isoformat()
 
-    # ── Free scrapers ──────────────────────────────────────────────────────────
+    # ── Always-needed scrapers (run every time) ───────────────────────────────
+    # Wikipedia is cheap (one cached page fetch for all countries at startup)
+    # and drives the name-mismatch trigger, so it always runs.
     print(f"  [{iso2}] Wikipedia lookup...")
     wiki = _load_wiki_exec_cache().get(iso2, {})
     print(f"  [{iso2}] HOS={_clean_wiki(wiki.get('hosName'))}, HOG={_clean_wiki(wiki.get('hogName'))}")
 
-    print(f"  [{iso2}] IPU elections fetch...")
-    ipu = fetch_ipu_elections(iso2, prev)
-    print(f"  [{iso2}] IPU: last={ipu.get('lastDate')} next={ipu.get('nextDate')} src={ipu.get('source')}")
+    # ── Pre-check: does this country need a Claude call at all? ───────────────
+    # Run a lightweight trigger check using only snapshot data (no live election
+    # fetches yet) to decide whether we need the expensive scrapers.
+    # IPU, EG, WGI, and REST Countries are only fetched if the country is
+    # actually going to use the data (in weekly slice or always-on trigger).
+    _ipu_stub = {"lastDate": None, "nextDate": None, "nextType": None, "source": "stub"}
+    _eg_stub  = {"lastDate": None, "nextDate": None, "nextType": None}
+    needs_live_data, _ = _should_call_claude(
+        iso2, wiki, _ipu_stub, _eg_stub, prev, weekly_slice, sentinel_alerts,
+        comp_calls_made=None,   # don't count against cap on pre-check stub
+    )
+    in_weekly_slice = iso2.upper() in weekly_slice
 
-    print(f"  [{iso2}] ElectionGuide lookup...")
-    eg = get_electionguide_dates(iso2)
-    print(f"  [{iso2}] EG: last={eg.get('lastDate')} next={eg.get('nextDate')}")
+    if needs_live_data or in_weekly_slice:
+        # Full scrape — this country is active this week or has an urgent trigger
+        print(f"  [{iso2}] IPU elections fetch...")
+        ipu = fetch_ipu_elections(iso2, prev)
+        print(f"  [{iso2}] IPU: last={ipu.get('lastDate')} next={ipu.get('nextDate')} src={ipu.get('source')}")
 
-    print(f"  [{iso2}] World Bank WGI fetch...")
-    wb_gov = merge_wb_sticky(fetch_wgi(iso2), prev)
+        print(f"  [{iso2}] ElectionGuide lookup...")
+        eg = get_electionguide_dates(iso2)
+        print(f"  [{iso2}] EG: last={eg.get('lastDate')} next={eg.get('nextDate')}")
 
-    print(f"  [{iso2}] REST Countries fetch...")
-    meta = fetch_rest_countries(iso2)
+        print(f"  [{iso2}] World Bank WGI fetch...")
+        wb_gov = merge_wb_sticky(fetch_wgi(iso2), prev)
 
-    # ── Claude trigger decision ────────────────────────────────────────────────
+        print(f"  [{iso2}] REST Countries fetch...")
+        meta = fetch_rest_countries(iso2)
+    else:
+        # Soft pass — carry forward stored election dates, WGI, and metadata.
+        # No live fetches needed; nothing will change in the output.
+        ipu  = {"lastDate": None, "nextDate": None, "nextType": None, "source": "carried_forward"}
+        eg   = {"lastDate": None, "nextDate": None, "nextType": None}
+        wb_gov = merge_wb_sticky({"ok": False}, prev)   # sticky: returns prev values
+        prev_meta = prev or {}
+        meta = {
+            "officialName": (prev_meta.get("metadata") or {}).get("officialName"),
+            "capital":      (prev_meta.get("metadata") or {}).get("capital"),
+            "population":   (prev_meta.get("metadata") or {}).get("population"),
+            "region":       (prev_meta.get("metadata") or {}).get("region"),
+            "subregion":    (prev_meta.get("metadata") or {}).get("subregion"),
+            "flag":         (prev_meta.get("metadata") or {}).get("flag"),
+            "flagPng":      (prev_meta.get("metadata") or {}).get("flagPng"),
+            "currencies":   (prev_meta.get("metadata") or {}).get("currencies", []),
+            "languages":    (prev_meta.get("metadata") or {}).get("languages", []),
+            "source":       "carried_forward",
+        }
+        print(f"  [{iso2}] ⏭  Skipping live scrapers — not in weekly slice, no urgent trigger")
+
+    # ── Final trigger decision (now with real ipu/eg data if fetched) ─────────
     should_call, trigger_reason = _should_call_claude(
         iso2, wiki, ipu, eg, prev, weekly_slice, sentinel_alerts,
+        comp_calls_made=comp_calls_made,
     )
 
     cl = None
@@ -2364,7 +2413,8 @@ def _plan_calls(
         eg   = {"lastDate": None, "nextDate": None, "nextType": None}
 
         should_call, reason = _should_call_claude(
-            iso2, wiki, ipu, eg, prev, weekly_slice, sentinel_alerts
+            iso2, wiki, ipu, eg, prev, weekly_slice, sentinel_alerts,
+            comp_calls_made=None,   # planning scan — don't count
         )
         if not should_call:
             soft.append(iso2)
@@ -2443,8 +2493,9 @@ def main() -> None:
         )
     updated_seen_ids = update_sentinel_seen_ids(prev_full, sentinel_articles)
 
-    _load_ipu_parliament_map()
-    _load_electionguide_cache()
+    # Wikipedia drives name-mismatch triggers for all 160 countries so load
+    # it once upfront. IPU is removed (persistent 403). EG loads lazily
+    # inside the per-country gate only when a country is being actively scraped.
     _load_wiki_exec_cache()
 
     # Print call plan summary before processing starts
@@ -2482,16 +2533,18 @@ def main() -> None:
             ),
         },
         "rateLimitConfig": {
-            "maxClaudeCallsPerRun": MAX_CLAUDE_CALLS_PER_RUN,
-            "sleepSecondsSonnet":   CLAUDE_SLEEP_SECONDS,
-            "sleepSecondsHaiku":    CLAUDE_SLEEP_HAIKU_SECONDS,
-            "modelSonnet":          CLAUDE_MODEL_SONNET,
-            "modelHaiku":           CLAUDE_MODEL_HAIKU,
+            "maxClaudeCallsPerRun":       MAX_CLAUDE_CALLS_PER_RUN,
+            "maxCompetitivenessPerRun":   MAX_COMPETITIVENESS_PER_RUN,
+            "sleepSecondsSonnet":         CLAUDE_SLEEP_SECONDS,
+            "sleepSecondsHaiku":          CLAUDE_SLEEP_HAIKU_SECONDS,
+            "modelSonnet":                CLAUDE_MODEL_SONNET,
+            "modelHaiku":                 CLAUDE_MODEL_HAIKU,
         },
     }
 
-    # Shared mutable counter — passed into build_country so it can enforce the cap
+    # Shared mutable counters — passed into build_country so they can enforce caps
     claude_calls_made = [0]
+    comp_calls_made   = [0]   # separate cap for competitiveness refreshes
 
     for c in COUNTRIES:
         print(f"\n▶ {c['country']} ({c['iso2']})")
@@ -2499,12 +2552,14 @@ def main() -> None:
             c["country"], c["iso2"], prev_by_iso2,
             weekly_slice, sentinel_alerts,
             claude_calls_made,
+            comp_calls_made,
         )
         out["countries"].append(country_data)
         # No extra sleep here — adaptive sleep is now inside build_country after each call
 
     print(f"\n✅ Wrote {len(out['countries'])} countries → {out_path.resolve()}")
-    print(f"   Total Claude calls this run: {claude_calls_made[0]} / {MAX_CLAUDE_CALLS_PER_RUN}")
+    print(f"   Total Claude calls this run:        {claude_calls_made[0]} / {MAX_CLAUDE_CALLS_PER_RUN}")
+    print(f"   Competitiveness refreshes this run: {comp_calls_made[0]} / {MAX_COMPETITIVENESS_PER_RUN}")
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
