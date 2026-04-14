@@ -16,6 +16,30 @@ Data strategy (March 2026):
   - Metadata:                   REST Countries API (live)
   - Governance:                 World Bank WGI API (live)
 
+── RATE-LIMIT PROTECTIONS (Tier 1) ──────────────────────────────────────────
+
+  HARD CAP PER RUN:
+    MAX_CLAUDE_CALLS_PER_RUN caps the number of Claude calls in a single
+    execution. Countries are prioritised:
+      Priority 1 — election_watch, sentinel_alert
+      Priority 2 — snapshot_anomaly, competitiveness_refresh (annual)
+      Priority 3 — biweekly_tuesday_refresh, executive_name_changed, date_changed
+    Once the cap is reached, remaining hard-run candidates are deferred
+    (claudeDeferred=True in their entry) and picked up on the next daily run.
+
+  ADAPTIVE SLEEP:
+    CLAUDE_SLEEP_SECONDS (default 20) between every Claude call.
+    CLAUDE_SLEEP_HAIKU_SECONDS (default 8) for Haiku calls.
+
+  MODEL ROUTING:
+    High-stakes calls (election_watch, sentinel_alert, snapshot_anomaly) use
+    CLAUDE_MODEL_SONNET.  Low-stakes biweekly refresh calls for stable countries
+    use CLAUDE_MODEL_HAIKU, which has much higher Tier-1 rate limits.
+
+  SLIM CONTEXT:
+    The previousSnapshot payload sent to Claude is stripped to only the fields
+    Claude actually needs for comparison, dramatically reducing input tokens.
+
 ── NEW FEATURES ──────────────────────────────────────────────────────────────
 
   BIWEEKLY SCHEDULE (every other Tuesday):
@@ -52,6 +76,7 @@ Data strategy (March 2026):
 from __future__ import annotations
 
 import json
+import os
 import re
 import time
 from datetime import datetime, timezone
@@ -96,13 +121,19 @@ CHANGE_IN_POWER_URL = (
     "https://stratagemdrive.github.io/change-in-power-checks/leadership-outputs.json"
 )
 
+# World Bank WGI indicators migrated to source 3 (GOV_WGI_*.SC) in 2024.
+# The old VA.PER.RNK / PV.PER.RNK etc. codes are now archived (source 57)
+# and return no data for many countries. The new GOV_WGI_*.SC codes return
+# a 0-100 governance score that is functionally equivalent to the old
+# percentile rank and uses the same 0-100 scale, so all label/tier logic
+# is unchanged.  Requests must include source=3 to hit the live WGI dataset.
 WGI_PERCENTILE_INDICATORS: Dict[str, str] = {
-    "voiceAccountability":      "VA.PER.RNK",
-    "politicalStability":       "PV.PER.RNK",
-    "governmentEffectiveness":  "GE.PER.RNK",
-    "regulatoryQuality":        "RQ.PER.RNK",
-    "ruleOfLaw":                "RL.PER.RNK",
-    "controlOfCorruption":      "CC.PER.RNK",
+    "voiceAccountability":      "GOV_WGI_VA.SC",
+    "politicalStability":       "GOV_WGI_PV.SC",
+    "governmentEffectiveness":  "GOV_WGI_GE.SC",
+    "regulatoryQuality":        "GOV_WGI_RQ.SC",
+    "ruleOfLaw":                "GOV_WGI_RL.SC",
+    "controlOfCorruption":      "GOV_WGI_CC.SC",
 }
 
 WGI_LABEL_TEMPLATES: Dict[str, Dict[str, str]] = {
@@ -126,6 +157,56 @@ WB_ISO2_OVERRIDES: Dict[str, str] = {
     "XK": "XKX",  # Kosovo — World Bank uses XKX
     "TW": "TWN",  # Taiwan — World Bank uses TWN (data may be sparse)
 }
+
+# ── RATE-LIMIT CONFIG ─────────────────────────────────────────────────────────
+
+# Maximum Claude API calls per single script execution (Tier 1 safety cap).
+# Priority 1 calls (election_watch, sentinel) are never deferred.
+# Priority 2 and 3 calls are deferred once this cap is reached.
+MAX_CLAUDE_CALLS_PER_RUN = int(os.environ.get("MAX_CLAUDE_CALLS_PER_RUN", "30"))
+
+# Seconds to sleep between Claude Sonnet calls (high-stakes).
+CLAUDE_SLEEP_SECONDS = int(os.environ.get("CLAUDE_SLEEP_SECONDS", "20"))
+
+# Seconds to sleep between Claude Haiku calls (low-stakes biweekly refresh).
+CLAUDE_SLEEP_HAIKU_SECONDS = int(os.environ.get("CLAUDE_SLEEP_HAIKU_SECONDS", "8"))
+
+# Model names
+CLAUDE_MODEL_SONNET = "claude-haiku-4-5-20251001"   # high-stakes
+CLAUDE_MODEL_HAIKU  = "claude-haiku-4-5-20251001"   # low-stakes / biweekly refresh
+
+# Trigger reasons that always use Sonnet regardless of cap
+HIGH_STAKES_TRIGGERS = {
+    "election_watch",
+    "sentinel_alert",
+    "snapshot_anomaly",
+    "forced_refresh",
+    "first_run",
+}
+
+# Call priority buckets (lower number = higher priority, never deferred first)
+TRIGGER_PRIORITY: Dict[str, int] = {
+    "election_watch":                1,
+    "sentinel_alert":                1,
+    "forced_refresh":                1,
+    "first_run":                     2,
+    "snapshot_anomaly":              2,
+    "competitiveness_refresh":       2,
+    "executive_name_changed":        3,
+    "ipu_date_changed":              3,
+    "eg_date_changed":               3,
+    "biweekly_tuesday_refresh":      3,
+}
+
+def _trigger_priority(reason: str) -> int:
+    for key, pri in TRIGGER_PRIORITY.items():
+        if reason.startswith(key):
+            return pri
+    return 3
+
+def _use_haiku(reason: str) -> bool:
+    """Return True if this trigger is low-stakes enough for Haiku."""
+    return _trigger_priority(reason) == 3
 
 # ── COUNTRY LIST ──────────────────────────────────────────────────────────────
 
@@ -255,8 +336,8 @@ COUNTRIES: List[Dict[str, str]] = [
     {"country": "Angola",                "iso2": "AO"},
     {"country": "South Africa",          "iso2": "ZA"},
     {"country": "Kenya",                 "iso2": "KE"},
-    {"country": "DRC",                   "iso2": "CD"},  # Democratic Republic of the Congo (Kinshasa)
-    {"country": "Congo",                 "iso2": "CG"},  # Republic of the Congo (Brazzaville)
+    {"country": "DRC",                   "iso2": "CD"},
+    {"country": "Congo",                 "iso2": "CG"},
     {"country": "Tunisia",               "iso2": "TN"},
     {"country": "Ethiopia",              "iso2": "ET"},
     {"country": "Ghana",                 "iso2": "GH"},
@@ -307,8 +388,6 @@ COUNTRIES: List[Dict[str, str]] = [
 
 
 # ── SPECIAL SOVEREIGNTY / STATUS NOTES ───────────────────────────────────────
-# Countries that are not fully sovereign UN member states get tracked but
-# Claude is informed of their special status in the context payload.
 
 SOVEREIGNTY_NOTES: Dict[str, str] = {
     "TW": (
@@ -335,25 +414,6 @@ SOVEREIGNTY_NOTES: Dict[str, str] = {
     ),
 }
 
-
-# ── ELECTION COMPETITIVENESS & IPU APPLICABILITY ──────────────────────────────
-# These are NO LONGER hardcoded. Whether a country has competitive elections
-# and whether IPU data applies are determined dynamically by Claude via live
-# web search and stored in the snapshot:
-#   elections.competitiveElections         (bool)
-#   elections.nonCompetitiveReason         (str | null)
-#   elections.electionsSuspended           (bool)
-#   elections.ipu_not_applicable           (bool)
-#   elections.ipu_not_applicable_reason    (str | null)
-#
-# Claude re-evaluates these on:
-#   • First run / no snapshot
-#   • Any hard run triggered by sentinel alert or snapshot anomaly
-#   • Annual refresh (≥365 days since last competitiveness check)
-#   • Biweekly run when the value is >180 days old
-#
-# Permanent structural IPU exceptions — non-UN/non-IPU member states by definition.
-# All other ipu_not_applicable determinations are made dynamically by Claude.
 IPU_STRUCTURAL_EXCEPTIONS: set = {
     "TW",  # Taiwan    — not a UN member state, not an IPU member
     "HK",  # Hong Kong — SAR of China, not a sovereign IPU member
@@ -425,13 +485,77 @@ def load_previous_snapshot(path: Path) -> Dict[str, Any]:
         return {}
 
 def load_full_previous_snapshot(path: Path) -> Dict[str, Any]:
-    """Load the entire previous snapshot dict (not just countries)."""
     if not path.exists():
         return {}
     try:
         return json.loads(path.read_text(encoding="utf-8"))
     except Exception:
         return {}
+
+# ── SLIM CONTEXT BUILDER ──────────────────────────────────────────────────────
+
+def _slim_prev(prev: Optional[Dict]) -> Optional[Dict]:
+    """
+    Return a stripped-down version of the previous snapshot to send to Claude.
+    Only includes fields Claude actually needs for comparison/continuation.
+    This dramatically reduces input token usage on every call.
+    """
+    if not prev:
+        return None
+
+    elections = prev.get("elections") or {}
+    leg = elections.get("legislative") or {}
+    exc = elections.get("executive") or {}
+
+    def _slim_election(obj: Optional[Dict]) -> Optional[Dict]:
+        if not obj:
+            return None
+        return {
+            "date":  obj.get("date"),
+            "type":  obj.get("type"),
+            "notes": obj.get("notes"),
+        }
+
+    return {
+        "executive": {
+            "headOfState": {
+                "name":         ((prev.get("executive") or {}).get("headOfState") or {}).get("name"),
+                "partyOrGroup": ((prev.get("executive") or {}).get("headOfState") or {}).get("partyOrGroup"),
+            },
+            "headOfGovernment": {
+                "name":         ((prev.get("executive") or {}).get("headOfGovernment") or {}).get("name"),
+                "partyOrGroup": ((prev.get("executive") or {}).get("headOfGovernment") or {}).get("partyOrGroup"),
+            },
+        },
+        "politicalSystem": (prev.get("politicalSystem") or {}).get("values"),
+        "legislature": [
+            {"name": b.get("name"), "inControl": b.get("inControl")}
+            for b in ((prev.get("legislature") or {}).get("bodies") or [])
+        ],
+        "elections": {
+            "competitiveElections":      elections.get("competitiveElections"),
+            "nonCompetitiveReason":      elections.get("nonCompetitiveReason"),
+            "electionsSuspended":        elections.get("electionsSuspended"),
+            "suspensionReason":          elections.get("suspensionReason"),
+            "lastCompetitivenessCheck":  elections.get("lastCompetitivenessCheck"),
+            "ipu_not_applicable":        elections.get("ipu_not_applicable"),
+            "ipu_not_applicable_reason": elections.get("ipu_not_applicable_reason"),
+            "electionWatchActive":       elections.get("electionWatchActive"),
+            "electionWatchReason":       elections.get("electionWatchReason"),
+            "legislative": {
+                "lastElection": _slim_election(leg.get("lastElection")),
+                "nextElection": _slim_election(leg.get("nextElection")),
+            },
+            "executive": {
+                "lastElection": _slim_election(exc.get("lastElection")),
+                "nextElection": _slim_election(exc.get("nextElection")),
+            },
+        },
+        # Keep party profiles so Claude can decide what's already profiled
+        "partyProfiles": list((prev.get("partyProfiles") or {}).keys()),
+        "lastClaudeUpdate": prev.get("lastClaudeUpdate"),
+    }
+
 
 # ── QUALITATIVE LABELS ────────────────────────────────────────────────────────
 
@@ -455,13 +579,12 @@ def overall_label(p: Optional[float]) -> Optional[str]:
 # ── BIWEEKLY REFRESH LOGIC ─────────────────────────────────────────────────────
 
 def _is_biweekly_tuesday(prev_full_snapshot: Dict[str, Any]) -> bool:
-    """Return True if today is Tuesday and ≥13 days since the last full sweep."""
     today = datetime.now(timezone.utc)
-    if today.weekday() != 1:   # 0=Mon, 1=Tue …
+    if today.weekday() != 1:
         return False
     last_sweep = prev_full_snapshot.get("lastFullSweepDate")
     if not last_sweep:
-        return True            # First ever run — treat as biweekly
+        return True
     try:
         last_dt = datetime.fromisoformat(last_sweep.replace("Z", "+00:00"))
         days_since = (today - last_dt).days
@@ -473,13 +596,6 @@ def _is_biweekly_tuesday(prev_full_snapshot: Dict[str, Any]) -> bool:
 # ── ELECTION WATCH ─────────────────────────────────────────────────────────────
 
 def _election_watch_active(prev: Optional[Dict]) -> Tuple[bool, str]:
-    """
-    Returns (is_active, reason).
-
-    Triggers if:
-      (a) electionWatchActive is already True in the previous snapshot, OR
-      (b) Any nextElection date is within 3 calendar days from today.
-    """
     if not prev:
         return False, ""
 
@@ -539,10 +655,6 @@ Return ONLY the JSON array — no markdown, no explanation.\
 def run_change_in_power_sentinel(
     prev_full_snapshot: Dict[str, Any],
 ) -> Dict[str, str]:
-    """
-    Fetches the sentinel JSON, evaluates new articles with Claude (no web search),
-    and returns a dict mapping iso2 → alert_string for any flagged countries.
-    """
     api_key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
 
     print("\n── Change-in-Power Sentinel ──────────────────────────────────────────")
@@ -595,7 +707,7 @@ def run_change_in_power_sentinel(
             ANTHROPIC_API_URL,
             headers=headers,
             json={
-                "model":      CLAUDE_MODEL,
+                "model":      CLAUDE_MODEL_HAIKU,   # sentinel uses Haiku (low stakes)
                 "max_tokens": 1000,
                 "system":     SENTINEL_SYSTEM,
                 "messages":   [{"role": "user", "content": json.dumps(new_articles, ensure_ascii=False)}],
@@ -649,7 +761,6 @@ def update_sentinel_seen_ids(
     prev_full_snapshot: Dict[str, Any],
     current_feed_articles: List[Dict],
 ) -> List[str]:
-    """Merge current article IDs into the seen-IDs list for storage."""
     seen: set = set(prev_full_snapshot.get("sentinelSeenIds") or [])
     for a in current_feed_articles:
         if isinstance(a, dict):
@@ -757,172 +868,48 @@ def _load_wiki_exec_cache() -> Dict[str, Dict[str, Optional[str]]]:
     parser.feed(html_text)
 
     WIKI_NAME_MAP = {
-        # Original
-        "RU": "Russia",
-        "IN": "India",
-        "PK": "Pakistan",
-        "CN": "China",
-        "GB": "United Kingdom",
-        "DE": "Germany",
-        "AE": "United Arab Emirates",
-        "SA": "Saudi Arabia",
-        "IL": "Israel",
-        "PS": "Palestine",
-        "MX": "Mexico",
-        "BR": "Brazil",
-        "CA": "Canada",
-        "NG": "Nigeria",
-        "JP": "Japan",
-        "IR": "Iran",
-        "SY": "Syria",
-        "FR": "France",
-        "TR": "Turkey",
-        "VE": "Venezuela",
-        "VN": "Vietnam",
-        "KR": "South Korea",
-        "KP": "North Korea",
-        "ID": "Indonesia",
-        "MM": "Myanmar",
-        "AM": "Armenia",
-        "AZ": "Azerbaijan",
-        "MA": "Morocco",
-        "SO": "Somalia",
-        "YE": "Yemen",
-        "LY": "Libya",
-        "EG": "Egypt",
-        "DZ": "Algeria",
-        "AR": "Argentina",
-        "CL": "Chile",
-        "PE": "Peru",
-        "CU": "Cuba",
-        "CO": "Colombia",
-        "PA": "Panama",
-        "SV": "El Salvador",
-        "DK": "Denmark",
-        "SD": "Sudan",
-        "UA": "Ukraine",
-        # Europe
-        "AU": "Australia",
-        "SG": "Singapore",
-        "PH": "Philippines",
-        "AF": "Afghanistan",
-        "IQ": "Iraq",
-        "ES": "Spain",
-        "IT": "Italy",
-        "PL": "Poland",
-        "BO": "Bolivia",
-        "NZ": "New Zealand",
-        "PT": "Portugal",
-        "CZ": "Czech Republic",
-        "NO": "Norway",
-        "RO": "Romania",
-        "SE": "Sweden",
-        "FI": "Finland",
-        "CH": "Switzerland",
-        "NL": "Netherlands",
-        "BE": "Belgium",
-        "IE": "Ireland",
-        "AT": "Austria",
-        "BY": "Belarus",
-        "HU": "Hungary",
-        "RS": "Serbia",
-        "AL": "Albania",
-        "BG": "Bulgaria",
-        "MD": "Moldova",
-        "GR": "Greece",
-        "HR": "Croatia",
-        "SK": "Slovakia",
-        "SI": "Slovenia",
-        "LT": "Lithuania",
-        "LV": "Latvia",
-        "EE": "Estonia",
-        "MK": "North Macedonia",
-        "BA": "Bosnia and Herzegovina",
-        "ME": "Montenegro",
-        "LU": "Luxembourg",
-        "IS": "Iceland",
-        "MT": "Malta",
-        "CY": "Cyprus",
-        "GE": "Georgia",
-        # Special status
-        "HK": "Hong Kong",
-        "XK": "Kosovo",
-        # Middle East & Central Asia
-        "OM": "Oman",
-        "QA": "Qatar",
-        "JO": "Jordan",
-        "LB": "Lebanon",
-        "KW": "Kuwait",
-        "BH": "Bahrain",
-        "TM": "Turkmenistan",
-        "KZ": "Kazakhstan",
-        "UZ": "Uzbekistan",
-        "KG": "Kyrgyzstan",
-        "TJ": "Tajikistan",
-        # Asia-Pacific
-        "MY": "Malaysia",
-        "TH": "Thailand",
-        "KH": "Cambodia",
-        "LA": "Laos",
-        "BD": "Bangladesh",
-        "NP": "Nepal",
-        "LK": "Sri Lanka",
-        "MN": "Mongolia",
-        "BN": "Brunei",
-        "TL": "Timor-Leste",
-        "MV": "Maldives",
-        "BT": "Bhutan",
-        "PG": "Papua New Guinea",
-        # Africa
-        "AO": "Angola",
-        "ZA": "South Africa",
-        "KE": "Kenya",
-        "CD": "Democratic Republic of the Congo",
-        "CG": "Republic of the Congo",
-        "TN": "Tunisia",
-        "ET": "Ethiopia",
-        "GH": "Ghana",
-        "CI": "Ivory Coast",
-        "SN": "Senegal",
-        "RW": "Rwanda",
-        "UG": "Uganda",
-        "ZW": "Zimbabwe",
-        "ZM": "Zambia",
-        "CM": "Cameroon",
-        "MZ": "Mozambique",
-        "BF": "Burkina Faso",
-        "NE": "Niger",
-        "TD": "Chad",
-        "GN": "Guinea",
-        "ML": "Mali",
-        "BW": "Botswana",
-        "TZ": "Tanzania",
-        "MG": "Madagascar",
-        "SS": "South Sudan",
-        "ER": "Eritrea",
-        "DJ": "Djibouti",
-        "MR": "Mauritania",
-        "LR": "Liberia",
-        "SL": "Sierra Leone",
-        "GA": "Gabon",
-        "NA": "Namibia",
-        "SZ": "Eswatini",
-        "LS": "Lesotho",
-        "MW": "Malawi",
-        # Americas
-        "EC": "Ecuador",
-        "PY": "Paraguay",
-        "UY": "Uruguay",
-        "GY": "Guyana",
-        "DO": "Dominican Republic",
-        "GT": "Guatemala",
-        "HN": "Honduras",
-        "NI": "Nicaragua",
-        "CR": "Costa Rica",
-        "HT": "Haiti",
-        "TT": "Trinidad and Tobago",
-        "JM": "Jamaica",
-        "BS": "Bahamas",
+        "RU": "Russia", "IN": "India", "PK": "Pakistan", "CN": "China",
+        "GB": "United Kingdom", "DE": "Germany", "AE": "United Arab Emirates",
+        "SA": "Saudi Arabia", "IL": "Israel", "PS": "Palestine", "MX": "Mexico",
+        "BR": "Brazil", "CA": "Canada", "NG": "Nigeria", "JP": "Japan",
+        "IR": "Iran", "SY": "Syria", "FR": "France", "TR": "Turkey",
+        "VE": "Venezuela", "VN": "Vietnam", "KR": "South Korea", "KP": "North Korea",
+        "ID": "Indonesia", "MM": "Myanmar", "AM": "Armenia", "AZ": "Azerbaijan",
+        "MA": "Morocco", "SO": "Somalia", "YE": "Yemen", "LY": "Libya",
+        "EG": "Egypt", "DZ": "Algeria", "AR": "Argentina", "CL": "Chile",
+        "PE": "Peru", "CU": "Cuba", "CO": "Colombia", "PA": "Panama",
+        "SV": "El Salvador", "DK": "Denmark", "SD": "Sudan", "UA": "Ukraine",
+        "AU": "Australia", "SG": "Singapore", "PH": "Philippines", "AF": "Afghanistan",
+        "IQ": "Iraq", "ES": "Spain", "IT": "Italy", "PL": "Poland", "BO": "Bolivia",
+        "NZ": "New Zealand", "PT": "Portugal", "CZ": "Czech Republic", "NO": "Norway",
+        "RO": "Romania", "SE": "Sweden", "FI": "Finland", "CH": "Switzerland",
+        "NL": "Netherlands", "BE": "Belgium", "IE": "Ireland", "AT": "Austria",
+        "BY": "Belarus", "HU": "Hungary", "RS": "Serbia", "AL": "Albania",
+        "BG": "Bulgaria", "MD": "Moldova", "GR": "Greece", "HR": "Croatia",
+        "SK": "Slovakia", "SI": "Slovenia", "LT": "Lithuania", "LV": "Latvia",
+        "EE": "Estonia", "MK": "North Macedonia", "BA": "Bosnia and Herzegovina",
+        "ME": "Montenegro", "LU": "Luxembourg", "IS": "Iceland", "MT": "Malta",
+        "CY": "Cyprus", "GE": "Georgia", "HK": "Hong Kong", "XK": "Kosovo",
+        "OM": "Oman", "QA": "Qatar", "JO": "Jordan", "LB": "Lebanon",
+        "KW": "Kuwait", "BH": "Bahrain", "TM": "Turkmenistan", "KZ": "Kazakhstan",
+        "UZ": "Uzbekistan", "KG": "Kyrgyzstan", "TJ": "Tajikistan",
+        "MY": "Malaysia", "TH": "Thailand", "KH": "Cambodia", "LA": "Laos",
+        "BD": "Bangladesh", "NP": "Nepal", "LK": "Sri Lanka", "MN": "Mongolia",
+        "BN": "Brunei", "TL": "Timor-Leste", "MV": "Maldives", "BT": "Bhutan",
+        "PG": "Papua New Guinea", "AO": "Angola", "ZA": "South Africa",
+        "KE": "Kenya", "CD": "Democratic Republic of the Congo",
+        "CG": "Republic of the Congo", "TN": "Tunisia", "ET": "Ethiopia",
+        "GH": "Ghana", "CI": "Ivory Coast", "SN": "Senegal", "RW": "Rwanda",
+        "UG": "Uganda", "ZW": "Zimbabwe", "ZM": "Zambia", "CM": "Cameroon",
+        "MZ": "Mozambique", "BF": "Burkina Faso", "NE": "Niger", "TD": "Chad",
+        "GN": "Guinea", "ML": "Mali", "BW": "Botswana", "TZ": "Tanzania",
+        "MG": "Madagascar", "SS": "South Sudan", "ER": "Eritrea", "DJ": "Djibouti",
+        "MR": "Mauritania", "LR": "Liberia", "SL": "Sierra Leone", "GA": "Gabon",
+        "NA": "Namibia", "SZ": "Eswatini", "LS": "Lesotho", "MW": "Malawi",
+        "EC": "Ecuador", "PY": "Paraguay", "UY": "Uruguay", "GY": "Guyana",
+        "DO": "Dominican Republic", "GT": "Guatemala", "HN": "Honduras",
+        "NI": "Nicaragua", "CR": "Costa Rica", "HT": "Haiti",
+        "TT": "Trinidad and Tobago", "JM": "Jamaica", "BS": "Bahamas",
     }
     rev = {v.lower(): k for k, v in WIKI_NAME_MAP.items()}
 
@@ -1024,12 +1011,6 @@ def _load_ipu_parliament_map() -> Dict[str, Dict]:
         time.sleep(0.3)
 
     print(f"  [IPU] Parliament map loaded: {len(_ipu_parliament_map)} countries")
-
-    if _ipu_parliament_map:
-        sample_iso2 = next(iter(_ipu_parliament_map))
-        sample = _ipu_parliament_map[sample_iso2]
-        print(f"  [IPU] Sample record ({sample_iso2}) keys: {list(sample.keys())[:15]}")
-
     return _ipu_parliament_map
 
 
@@ -1129,11 +1110,6 @@ def _classify_ipu_election(rec: Dict) -> str:
 
 
 def fetch_ipu_elections(iso2: str, prev: Optional[Dict] = None) -> Dict[str, Any]:
-    """
-    Fetch IPU election data for a country.
-    TW, HK, XK are permanent structural exceptions (not IPU members).
-    All other ipu_not_applicable determinations are made dynamically by Claude.
-    """
     iso = iso2.upper()
 
     if iso in IPU_STRUCTURAL_EXCEPTIONS:
@@ -1221,60 +1197,26 @@ def _load_electionguide_cache() -> Dict[str, List[Dict]]:
 
     EG_NAME_OVERRIDES: Dict[str, str] = {
         "United Kingdom of Great Britain and Northern Ireland": "GB",
-        "United Arab Emirates":                                "AE",
-        "Korea, Republic of":                                  "KR",
-        "Korea (North)":                                       "KP",
-        "Korea, Democratic People's Republic of":              "KP",
-        "Viet Nam":                                            "VN",
-        "Vietnam":                                             "VN",
-        "Iran, Islamic Republic of":                           "IR",
-        "Syrian Arab Republic":                                "SY",
-        "Bolivia, Plurinational State of":                     "BO",
-        "Venezuela, Bolivarian Republic of":                   "VE",
-        "Congo (Brazzaville)":                                 "CG",
-        "Congo, Democratic Republic of the":                   "CD",
-        "Congo (Kinshasa)":                                    "CD",
-        "Democratic Republic of the Congo":                    "CD",
-        "Republic of the Congo":                               "CG",
-        "Türkiye":                                             "TR",
-        "Turkey":                                              "TR",
-        "Russian Federation":                                  "RU",
-        "Republic of Korea":                                   "KR",
-        "Czechia":                                             "CZ",
-        "Czech Republic":                                      "CZ",
-        "Ivory Coast":                                         "CI",
-        "Côte d'Ivoire":                                       "CI",
-        "Eswatini":                                            "SZ",
-        "Swaziland":                                           "SZ",
-        "North Macedonia":                                     "MK",
-        "Macedonia":                                           "MK",
-        "Bosnia and Herzegovina":                              "BA",
-        "Bosnia & Herzegovina":                                "BA",
-        "Trinidad and Tobago":                                 "TT",
-        "Trinidad & Tobago":                                   "TT",
-        "Timor-Leste":                                         "TL",
-        "East Timor":                                          "TL",
-        "Papua New Guinea":                                    "PG",
-        "Dominican Republic":                                  "DO",
-        "El Salvador":                                         "SV",
-        "South Korea":                                         "KR",
-        "North Korea":                                         "KP",
-        "South Sudan":                                         "SS",
-        "Hong Kong":                                           "HK",
-        "Kosovo":                                              "XK",
-        "Laos":                                                "LA",
-        "Lao People's Democratic Republic":                    "LA",
-        "Myanmar":                                             "MM",
-        "Burma":                                               "MM",
-        "Burkina Faso":                                        "BF",
-        "Sierra Leone":                                        "SL",
-        "Sri Lanka":                                           "LK",
-        "New Zealand":                                         "NZ",
-        "Saudi Arabia":                                        "SA",
-        "South Africa":                                        "ZA",
-        "Guinea-Bissau":                                       "GW",
-        "Equatorial Guinea":                                   "GQ",
-        "Central African Republic":                            "CF",
+        "United Arab Emirates": "AE", "Korea, Republic of": "KR",
+        "Korea (North)": "KP", "Korea, Democratic People's Republic of": "KP",
+        "Viet Nam": "VN", "Vietnam": "VN", "Iran, Islamic Republic of": "IR",
+        "Syrian Arab Republic": "SY", "Bolivia, Plurinational State of": "BO",
+        "Venezuela, Bolivarian Republic of": "VE", "Congo (Brazzaville)": "CG",
+        "Congo, Democratic Republic of the": "CD", "Congo (Kinshasa)": "CD",
+        "Democratic Republic of the Congo": "CD", "Republic of the Congo": "CG",
+        "Türkiye": "TR", "Turkey": "TR", "Russian Federation": "RU",
+        "Republic of Korea": "KR", "Czechia": "CZ", "Czech Republic": "CZ",
+        "Ivory Coast": "CI", "Côte d'Ivoire": "CI", "Eswatini": "SZ",
+        "Swaziland": "SZ", "North Macedonia": "MK", "Macedonia": "MK",
+        "Bosnia and Herzegovina": "BA", "Bosnia & Herzegovina": "BA",
+        "Trinidad and Tobago": "TT", "Trinidad & Tobago": "TT",
+        "Timor-Leste": "TL", "East Timor": "TL", "Papua New Guinea": "PG",
+        "Dominican Republic": "DO", "El Salvador": "SV", "South Korea": "KR",
+        "North Korea": "KP", "South Sudan": "SS", "Hong Kong": "HK",
+        "Kosovo": "XK", "Laos": "LA", "Lao People's Democratic Republic": "LA",
+        "Myanmar": "MM", "Burma": "MM", "Burkina Faso": "BF",
+        "Sierra Leone": "SL", "Sri Lanka": "LK", "New Zealand": "NZ",
+        "Saudi Arabia": "SA", "South Africa": "ZA",
     }
 
     country_name_to_iso2: Dict[str, str] = {c["country"].lower(): c["iso2"] for c in COUNTRIES}
@@ -1482,8 +1424,8 @@ def _parse_wb(payload: Any) -> Tuple[Optional[float], Optional[int], Optional[st
     return None, None, "No non-null value in WB series."
 
 def fetch_wgi(iso2: str) -> Dict[str, Any]:
-    # Some territories use non-standard World Bank country codes
-    wb_code = WB_ISO2_OVERRIDES.get(iso2.upper(), iso2.lower())
+    # WGI source 3 requires uppercase ISO2 codes; overrides apply for Kosovo/Taiwan
+    wb_code = WB_ISO2_OVERRIDES.get(iso2.upper(), iso2.upper())
 
     components: Dict[str, Any] = {}
     years:  List[int]   = []
@@ -1492,7 +1434,9 @@ def fetch_wgi(iso2: str) -> Dict[str, Any]:
 
     for dim, code in WGI_PERCENTILE_INDICATORS.items():
         url = f"{WORLD_BANK_BASE}/country/{wb_code}/indicator/{code}"
-        payload = req_json(url, params={"format": "json", "per_page": 60},
+        # source=3  -- Worldwide Governance Indicators (live, updated annually)
+        # mrv=1     -- most recent value only (faster, less data to parse)
+        payload = req_json(url, params={"source": "3", "format": "json", "mrv": 1},
                            label=f"WB {code} {iso2}")
         sources[dim] = url
         if payload is None:
@@ -1537,10 +1481,7 @@ def merge_wb_sticky(new_wb: Dict, prev: Optional[Dict]) -> Dict:
 
 # ── CLAUDE API ────────────────────────────────────────────────────────────────
 
-import os
-
 ANTHROPIC_API_URL    = "https://api.anthropic.com/v1/messages"
-CLAUDE_MODEL         = "claude-sonnet-4-20250514"
 CLAUDE_MAX_TOKENS    = 4000
 CLAUDE_FORCE_REFRESH = os.environ.get("CLAUDE_FORCE_REFRESH", "").strip() == "1"
 
@@ -1552,7 +1493,7 @@ leadership, legislature control, election data, and party profiles. You will rec
   - The country name and ISO2 code
   - A sovereigntyNote if the country has special status (SAR, partially recognized, etc.)
   - Whatever the free scrapers found (Wikipedia leader names, IPU/EG election dates)
-  - The previous snapshot for this country (may be months old)
+  - The previous snapshot for this country (may be months old — stripped to key fields only)
   - Today's date
   - Whether this is an election-watch call (electionWatchActive in previous snapshot)
 
@@ -1601,11 +1542,10 @@ CRITICAL RULES:
    but has not yet happened, it goes in nextElection only.
 
 2. NEVER fabricate results. If uncertain whether an election has occurred, treat
-   it as upcoming. Do not invent winners, vote shares, or coalition outcomes.
+   it as upcoming.
 
-3. POST-ELECTION COALITION TALKS: If parliament just voted and coalition talks are
-   ongoing, notes must say "Coalition talks ongoing as of [date]". Do not state a
-   PM has been confirmed until that is factual.
+3. POST-ELECTION COALITION TALKS: notes must say "Coalition talks ongoing as of [date]".
+   Do not state a PM has been confirmed until that is factual.
 
 4. For acting/interim leaders, use the person actually exercising power today.
 
@@ -1617,88 +1557,55 @@ CRITICAL RULES:
    sovereignty recognition, or any nuance needed.
 
 7. election notes: factual, 1-2 sentences. Past-tense for completed events.
-   Future-tense for scheduled events.
 
 8. legislature[].inControl: reflect post-election reality. If coalition talks are
    ongoing, say "Pending coalition formation (election [date])".
 
-9. runoffDate: only populate if a specific runoff date is scheduled. Otherwise use
-   runoffCondition only.
+9. runoffDate: only populate if a specific runoff date is scheduled.
 
 10. WEB SEARCH IS MANDATORY ON EVERY CALL. You MUST use the web_search tool
-    before producing your response. Your training data has a cutoff and will be
-    stale on exactly the facts this dataset tracks (election results, leader
-    changes, coups, transitions). Do not answer from memory alone. Minimum
-    required searches:
+    before producing your response. Minimum required searches:
       - Current head of state/government (always search)
       - Most recent election result (always search)
       - Any upcoming election within 6 months (always search)
-      - For election-watch calls: search specifically for "[country] election
-        result [year]" and "[country] new government formed" to check if a
-        winner has been confirmed.
-      - For competitiveness-refresh calls: search "[country] political system
-        [year]" and "[country] elections [year]" to assess current status.
-    Never write electionWatchActive=false or competitiveElections=false/true
-    without first confirming via web search.
+      - For election-watch calls: "[country] election result [year]" and
+        "[country] new government formed"
+    Never produce output without first searching.
 
-11. SOVEREIGNTY / SPECIAL STATUS: If a sovereigntyNote is provided in your context,
-    you MUST acknowledge the special status prominently in dataAvailabilityNotes.
-    For SARs (Hong Kong): track the Chief Executive and LegCo; note Beijing oversight.
-    For partially recognized states (Kosovo): track elected government normally;
-    note partial recognition and non-UN-member status.
-    For non-UN self-governing territories (Taiwan): track de facto government normally;
-    note contested sovereignty.
+11. SOVEREIGNTY / SPECIAL STATUS: If a sovereigntyNote is provided, acknowledge
+    the special status prominently in dataAvailabilityNotes.
 
 12. ELECTION WATCH — electionWatchActive field:
-    - Set to TRUE if: (a) an election date is within the next 3 days, OR (b) an
-      election has occurred but no official winner/government has been confirmed yet
-      (counting ongoing, coalition talks, runoff pending, result disputed, etc.).
-    - Set to FALSE if: a clear winner or new government has been officially confirmed
-      and power has transferred (or will transfer on a known date). When setting to
-      false, populate electionWatchReason with a brief explanation.
+    - TRUE if: election within 3 days, OR election occurred but no confirmed winner yet.
+    - FALSE if: clear winner officially confirmed and power transferred.
 
-13. partyProfileUpdates: ONLY include parties that are newly in power (executive or
-    legislature) OR whose profile does not yet exist in the snapshot. Do not
-    re-submit profiles for parties already profiled and still in power.
+13. partyProfileUpdates: ONLY include parties newly in power OR not yet profiled.
+    The previousSnapshot.partyProfiles field lists existing party names — do NOT
+    re-submit profiles already listed there.
     - politicalOrientation: one of "Far-Left", "Left", "Centre-Left", "Centre",
       "Centre-Right", "Right", "Far-Right", "Authoritarian", "Theocratic",
       "Nationalist", "Communist", "Mixed/Unclear"
-    - ideologyTags: short list of tags, e.g. ["social democracy", "Keynesian economics"]
-    - keyPlatforms: 3-5 bullet points describing their main policy positions
+    - ideologyTags: short list of tags
+    - keyPlatforms: 3-5 bullet points
 
 14. dataAvailabilityNotes MUST be plain text only — no HTML, no <cite> tags, no
-    markdown, no angle brackets of any kind. If the previous snapshot contains
-    <cite ...> markup in any field, strip it completely and rewrite as plain prose.
+    markdown, no angle brackets.
 
 15. lastElection must NEVER be null for a competitive country that has held a
-    national election within the last 10 years. If the previous snapshot has
-    null lastElection and you know the election occurred (via web search), populate
-    it. Do not leave it null because the previous run missed it.
+    national election within the last 10 years.
 
 16. headOfGovernment.name must reflect the person ACTUALLY exercising executive
-    power today — not a ceremonial president, not a title prefix like
-    "Acting President – [Name]". Store the clean name only (e.g. "Delcy Rodríguez",
-    not "Acting President – Delcy Rodríguez"). Use dataAvailabilityNotes to
-    explain acting/interim status.
+    power today — store the clean name only, no title prefixes.
 
-17. For one-party states where the party General Secretary and the formal
-    President are different people:
-      - headOfState.name  = the formal President (constitutional head of state)
-      - headOfGovernment  = the Premier/Prime Minister
-      - dataAvailabilityNotes must name the General Secretary as the supreme
-        power-holder (e.g. "General Secretary Tô Lâm holds supreme power …")
-    Do NOT list the General Secretary as headOfState unless they also hold
-    the formal Presidency.
+17. For one-party states where General Secretary ≠ formal President:
+      headOfState.name  = the formal President
+      headOfGovernment  = the Premier/Prime Minister
+      dataAvailabilityNotes must name the General Secretary as supreme power-holder.
 
-18. lastCompetitivenessCheck: always set this to today's ISO date (YYYY-MM-DD).
-    It is used by the scheduler to determine when the next competitiveness review
-    is due. Never omit it.
+18. lastCompetitivenessCheck: always set to today's ISO date (YYYY-MM-DD).
 
-19. ipu_not_applicable: set to true for countries where IPU Parline tracking is
-    not meaningful — one-party states, absolute monarchies, countries with no
-    functioning legislature or elections, and countries in civil war or under
-    military junta. Set ipu_not_applicable_reason to a plain-text explanation.
-    Verify via web search before setting; do not rely on training data.
+19. ipu_not_applicable: true for one-party states, absolute monarchies, countries
+    with no functioning legislature/elections, civil war, or military junta.
 
 20. Return ONLY the JSON object — no markdown fences, no preamble, no explanation.\
 """
@@ -1736,23 +1643,16 @@ def _days_since_claude(prev: Optional[Dict]) -> int:
 
 
 def _snapshot_anomaly_detected(iso2: str, prev: Optional[Dict]) -> Tuple[bool, str]:
-    """
-    Inspect the stored JSON entry for a country and return (True, reason) if
-    there are known data quality problems that require a hard Claude refresh.
-    """
     if not prev:
         return False, ""
 
-    # C: Unresolved sentinel alert
     alert = prev.get("changeInPowerAlert")
     if alert and not alert.get("resolved"):
         return True, "unresolved_sentinel_alert"
 
-    # D: Election watch already active
     if (prev.get("elections") or {}).get("electionWatchActive"):
         return True, "election_watch_active_in_snapshot"
 
-    # B: Raw citation markup leaked into dataAvailability
     da = prev.get("dataAvailability") or {}
     for field_val in da.values():
         if isinstance(field_val, str) and "<cite" in field_val:
@@ -1762,14 +1662,12 @@ def _snapshot_anomaly_detected(iso2: str, prev: Optional[Dict]) -> Tuple[bool, s
     competitive = elections.get("competitiveElections")
     elections_suspended = elections.get("electionsSuspended", False)
 
-    # A: lastElection is null for a competitive country
     leg_last  = (elections.get("legislative") or {}).get("lastElection")
     exec_last = (elections.get("executive") or {}).get("lastElection")
     expect_election_data = (competitive is True and not elections_suspended)
     if expect_election_data and leg_last is None and exec_last is None:
         return True, "null_lastElection_for_competitive_country"
 
-    # E: Any blank political data — check all key fields together
     exec_block = prev.get("executive") or {}
     hos_name = (exec_block.get("headOfState") or {}).get("name")
     hog_name = (exec_block.get("headOfGovernment") or {}).get("name")
@@ -1783,7 +1681,6 @@ def _snapshot_anomaly_detected(iso2: str, prev: Optional[Dict]) -> Tuple[bool, s
         and pol_sys == ["unknown"]
     )
     if data_is_blank:
-        # If Claude already tried and came back empty, don't retry
         if prev.get("claudeAttemptedWithNoData"):
             return False, ""
         return True, "blank_political_data"
@@ -1792,15 +1689,8 @@ def _snapshot_anomaly_detected(iso2: str, prev: Optional[Dict]) -> Tuple[bool, s
 
 
 def _needs_competitiveness_refresh(prev: Optional[Dict], always_on: bool = False) -> Tuple[bool, str]:
-    """
-    Return (True, reason) if the country's competitiveness classification needs
-    to be re-evaluated by Claude.
-
-    always_on=False: only fires for genuinely annual/overdue cases (safe on daily runs)
-    always_on=True:  also fires for semi-annual non-competitive checks (biweekly runs only)
-    """
     if not prev:
-        return False, ""  # handled by first_run logic in _should_call_claude
+        return False, ""
 
     elections = prev.get("elections") or {}
     competitive = elections.get("competitiveElections")
@@ -1826,11 +1716,9 @@ def _needs_competitiveness_refresh(prev: Optional[Dict], always_on: bool = False
     except (ValueError, AttributeError, IndexError):
         return True, "competitiveness_check_date_unparseable"
 
-    # Annual refresh fires on any day — genuinely overdue
     if days_since >= 365:
         return True, f"annual_competitiveness_refresh ({days_since}d since last check)"
 
-    # Semi-annual only fires when explicitly allowed (biweekly runs)
     if not always_on:
         return False, ""
 
@@ -1850,10 +1738,6 @@ def _should_call_claude(
     biweekly_tuesday: bool,
     sentinel_alerts: Dict[str, str],
 ) -> Tuple[bool, str]:
-    """
-    Decide whether to call Claude (hard run) for this country.
-    Returns (should_call, reason).
-    """
     if CLAUDE_FORCE_REFRESH:
         return True, "forced_refresh"
 
@@ -1879,7 +1763,7 @@ def _should_call_claude(
     if needs_comp:
         return True, f"competitiveness_refresh ({comp_reason})"
 
-    # ── Biweekly-only triggers (suppressed on non-Tuesday daily runs) ─────────
+    # ── Biweekly-only triggers ────────────────────────────────────────────────
     if not biweekly_tuesday:
         return False, ""
 
@@ -1913,11 +1797,19 @@ def _should_call_claude(
 
 # ── CLAUDE API CALL ───────────────────────────────────────────────────────────
 
-def _call_claude(country_name: str, iso2: str,
-                 wiki_names: Dict, ipu: Dict, eg: Dict,
-                 prev: Optional[Dict], trigger_reason: str) -> Optional[Dict]:
+def _call_claude(
+    country_name: str,
+    iso2: str,
+    wiki_names: Dict,
+    ipu: Dict,
+    eg: Dict,
+    prev: Optional[Dict],
+    trigger_reason: str,
+    model: str,
+) -> Optional[Dict]:
     """
     Call Claude with live web search. Handles the multi-turn tool-use loop.
+    Uses the provided model (Sonnet for high-stakes, Haiku for low-stakes).
     """
     api_key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
     if not api_key:
@@ -1939,7 +1831,6 @@ def _call_claude(country_name: str, iso2: str,
         "today": today,
         "triggerReason": trigger_reason,
         "electionWatchActive": election_watch_context,
-        # Inform Claude of any special sovereignty/status note
         "sovereigntyNote": SOVEREIGNTY_NOTES.get(iso2.upper()),
         "scraperData": {
             "wikipedia": {
@@ -1957,14 +1848,8 @@ def _call_claude(country_name: str, iso2: str,
                 "nextType": eg.get("nextType"),
             },
         },
-        "previousSnapshot": {
-            "executive":          prev.get("executive")       if prev else None,
-            "politicalSystem":    prev.get("politicalSystem") if prev else None,
-            "legislature":        prev.get("legislature")     if prev else None,
-            "elections":          prev.get("elections")       if prev else None,
-            "partyProfiles":      prev.get("partyProfiles")   if prev else None,
-            "lastClaudeUpdate":   prev.get("lastClaudeUpdate") if prev else None,
-        } if prev else None,
+        # Slim context — only fields Claude needs, not the full snapshot blob
+        "previousSnapshot": _slim_prev(prev),
     }
 
     WEB_SEARCH_TOOL = {
@@ -1989,7 +1874,7 @@ def _call_claude(country_name: str, iso2: str,
                 ANTHROPIC_API_URL,
                 headers=headers,
                 json={
-                    "model":      CLAUDE_MODEL,
+                    "model":      model,
                     "max_tokens": CLAUDE_MAX_TOKENS,
                     "system":     CLAUDE_SYSTEM,
                     "tools":      [WEB_SEARCH_TOOL],
@@ -2069,10 +1954,6 @@ def _merge_party_profiles(
     prev_profiles: Optional[Dict],
     new_updates: Optional[Dict],
 ) -> Optional[Dict]:
-    """
-    Merge incoming partyProfileUpdates from Claude into the existing profiles.
-    Existing profiles are never deleted — only added or updated.
-    """
     result = dict(prev_profiles or {})
     if new_updates and isinstance(new_updates, dict):
         for party_name, profile in new_updates.items():
@@ -2093,10 +1974,6 @@ def _assemble_from_claude(
     trigger: str, today_str: str,
     prev_profiles: Optional[Dict],
 ) -> Tuple[Dict, Dict, Dict, Optional[Dict]]:
-    """
-    Turn Claude's response dict into:
-      (executive_block, legislature_block, elections_block, party_profiles)
-    """
 
     def _norm_election(obj: Optional[Dict]) -> Optional[Dict]:
         if not obj:
@@ -2182,7 +2059,6 @@ def _assemble_from_claude(
 
     election_watch_active = bool(cl.get("electionWatchActive", False))
     election_watch_reason = cl.get("electionWatchReason")
-
     today_iso = today_str
 
     elections_block = {
@@ -2223,7 +2099,8 @@ def build_country(
     prev_by_iso2: Dict[str, Any],
     biweekly_tuesday: bool,
     sentinel_alerts: Dict[str, str],
-) -> Dict[str, Any]:
+    claude_calls_made: List[int],   # mutable counter: [current_count]
+) -> Tuple[Dict[str, Any], bool]:
     prev = prev_by_iso2.get(iso2)
     today_str = datetime.now(timezone.utc).date().isoformat()
 
@@ -2251,16 +2128,36 @@ def build_country(
         iso2, wiki, ipu, eg, prev, biweekly_tuesday, sentinel_alerts,
     )
 
+    cl = None
+    claude_attempted_no_data = False
+    deferred = False
+
     if should_call:
-        print(f"  [{iso2}] 🤖 HARD RUN — Claude triggered: {trigger_reason}")
-        cl = _call_claude(name, iso2, wiki, ipu, eg, prev, trigger_reason)
+        priority = _trigger_priority(trigger_reason)
+        use_haiku = _use_haiku(trigger_reason)
+        model = CLAUDE_MODEL_HAIKU if use_haiku else CLAUDE_MODEL_SONNET
+        model_label = "Haiku" if use_haiku else "Sonnet"
+
+        # Enforce the per-run cap — Priority 1 is never deferred
+        if priority > 1 and claude_calls_made[0] >= MAX_CLAUDE_CALLS_PER_RUN:
+            print(f"  [{iso2}] ⏸  DEFERRED — cap of {MAX_CLAUDE_CALLS_PER_RUN} Claude calls reached "
+                  f"(priority {priority}, trigger: {trigger_reason})")
+            deferred = True
+            should_call = False
+        else:
+            print(f"  [{iso2}] 🤖 HARD RUN [{model_label}] — Claude triggered: {trigger_reason}")
+            cl = _call_claude(name, iso2, wiki, ipu, eg, prev, trigger_reason, model)
+            claude_calls_made[0] += 1
+
+            # Adaptive sleep after the call
+            sleep_secs = CLAUDE_SLEEP_HAIKU_SECONDS if use_haiku else CLAUDE_SLEEP_SECONDS
+            print(f"  [{iso2}] 💤 Sleeping {sleep_secs}s after Claude call "
+                  f"({claude_calls_made[0]}/{MAX_CLAUDE_CALLS_PER_RUN} calls used)")
+            time.sleep(sleep_secs)
     else:
-        cl = None
         days_old = _days_since_claude(prev)
         print(f"  [{iso2}] 💤 SOFT RUN — carrying forward data (last Claude: {days_old}d ago)")
 
-# ── Track whether Claude was attempted but returned no data ────────────────
-    claude_attempted_no_data = False
     if should_call and not cl:
         claude_attempted_no_data = True
     elif should_call and cl:
@@ -2348,6 +2245,7 @@ def build_country(
         "elections":           elections_block,
         "lastClaudeUpdate":          last_claude_update,
         "claudeAttemptedWithNoData": claude_attempted_no_data,
+        "claudeDeferred":            deferred,
     }
 
     if sentinel_alert:
@@ -2364,7 +2262,66 @@ def build_country(
         else:
             entry["changeInPowerAlert"] = prev["changeInPowerAlert"]
 
-    return entry, should_call
+    used_claude = cl is not None
+    return entry, used_claude
+
+
+# ── PRE-SCAN: DETERMINE CALL PLAN ─────────────────────────────────────────────
+
+def _plan_calls(
+    prev_by_iso2: Dict[str, Any],
+    biweekly_tuesday: bool,
+    sentinel_alerts: Dict[str, str],
+) -> None:
+    """
+    Print a summary of how many Claude calls are planned and at what priority,
+    so the operator can see whether deferral will happen before the run starts.
+    """
+    p1, p2, p3 = [], [], []
+    soft = []
+
+    wiki_cache = _load_wiki_exec_cache()
+
+    for c in COUNTRIES:
+        iso2 = c["iso2"]
+        prev = prev_by_iso2.get(iso2)
+        wiki = wiki_cache.get(iso2, {})
+        ipu  = {"lastDate": None, "nextDate": None, "nextType": None}
+        eg   = {"lastDate": None, "nextDate": None, "nextType": None}
+
+        should_call, reason = _should_call_claude(
+            iso2, wiki, ipu, eg, prev, biweekly_tuesday, sentinel_alerts
+        )
+        if not should_call:
+            soft.append(iso2)
+            continue
+
+        pri = _trigger_priority(reason)
+        if pri == 1:
+            p1.append((iso2, reason))
+        elif pri == 2:
+            p2.append((iso2, reason))
+        else:
+            p3.append((iso2, reason))
+
+    total_hard = len(p1) + len(p2) + len(p3)
+    will_defer = max(0, total_hard - MAX_CLAUDE_CALLS_PER_RUN)
+    # Priority 1 is never deferred; deferral comes from p3 first, then p2
+    defer_from_p3 = min(will_defer, len(p3))
+    defer_from_p2 = max(0, will_defer - defer_from_p3)
+
+    print(f"\n── Call Plan ─────────────────────────────────────────────────────────")
+    print(f"  Soft runs (no Claude):        {len(soft)}")
+    print(f"  Hard runs planned:            {total_hard}")
+    print(f"    Priority 1 (never deferred): {len(p1)}  [{', '.join(i for i,_ in p1)}]")
+    print(f"    Priority 2:                  {len(p2)}")
+    print(f"    Priority 3 (Haiku):          {len(p3)}")
+    print(f"  Cap:                          {MAX_CLAUDE_CALLS_PER_RUN}")
+    print(f"  Will execute:                 {min(total_hard, MAX_CLAUDE_CALLS_PER_RUN)}")
+    print(f"  Will defer:                   {will_defer}")
+    if will_defer:
+        print(f"    (deferred p3: {defer_from_p3}, deferred p2: {defer_from_p2})")
+    print()
 
 
 # ── MAIN ──────────────────────────────────────────────────────────────────────
@@ -2375,6 +2332,8 @@ def main() -> None:
     prev_full = load_full_previous_snapshot(out_path)
     prev_by_iso2 = {c["iso2"]: c for c in prev_full.get("countries", []) if c.get("iso2")}
     print(f"=== Starting build. Previous snapshot: {len(prev_by_iso2)} countries cached ===")
+    print(f"  Rate-limit config: cap={MAX_CLAUDE_CALLS_PER_RUN}, "
+          f"sleep_sonnet={CLAUDE_SLEEP_SECONDS}s, sleep_haiku={CLAUDE_SLEEP_HAIKU_SECONDS}s")
 
     biweekly_tuesday = _is_biweekly_tuesday(prev_full)
     if CLAUDE_FORCE_REFRESH:
@@ -2392,7 +2351,6 @@ def main() -> None:
             except Exception:
                 pass
         print(f"  [SCHEDULE] 💤 SOFT DAILY RUN — {today_wd}, {days_since_sweep}d since last sweep")
-        print(f"             Hard pulls only for: election watch, sentinel alerts, snapshot anomalies")
 
     anomaly_countries: List[str] = []
     for c in COUNTRIES:
@@ -2401,8 +2359,7 @@ def main() -> None:
         if has_anomaly:
             anomaly_countries.append(c["iso2"])
     if anomaly_countries:
-        print(f"  [ANOMALY]  ⚠️  Snapshot anomalies detected in: {', '.join(anomaly_countries)}")
-        print(f"             These countries will get a hard Claude pull regardless of schedule")
+        print(f"  [ANOMALY]  ⚠️  Snapshot anomalies: {', '.join(anomaly_countries)}")
 
     sentinel_alerts = run_change_in_power_sentinel(prev_full)
 
@@ -2421,6 +2378,9 @@ def main() -> None:
     _load_ipu_parliament_map()
     _load_electionguide_cache()
     _load_wiki_exec_cache()
+
+    # Print call plan summary before processing starts
+    _plan_calls(prev_by_iso2, biweekly_tuesday, sentinel_alerts)
 
     out = {
         "generatedAt":        iso_z(now_utc()),
@@ -2454,20 +2414,33 @@ def main() -> None:
                 "each party currently or recently in power."
             ),
         },
+        "rateLimitConfig": {
+            "maxClaudeCallsPerRun": MAX_CLAUDE_CALLS_PER_RUN,
+            "sleepSecondsSonnet":   CLAUDE_SLEEP_SECONDS,
+            "sleepSecondsHaiku":    CLAUDE_SLEEP_HAIKU_SECONDS,
+            "modelSonnet":          CLAUDE_MODEL_SONNET,
+            "modelHaiku":           CLAUDE_MODEL_HAIKU,
+        },
     }
+
+    # Shared mutable counter — passed into build_country so it can enforce the cap
+    claude_calls_made = [0]
 
     for c in COUNTRIES:
         print(f"\n▶ {c['country']} ({c['iso2']})")
         country_data, used_claude = build_country(
             c["country"], c["iso2"], prev_by_iso2,
             biweekly_tuesday, sentinel_alerts,
+            claude_calls_made,
         )
         out["countries"].append(country_data)
-        time.sleep(4 if used_claude else 0.1)
+        # No extra sleep here — adaptive sleep is now inside build_country after each call
+
+    print(f"\n✅ Wrote {len(out['countries'])} countries → {out_path.resolve()}")
+    print(f"   Total Claude calls this run: {claude_calls_made[0]} / {MAX_CLAUDE_CALLS_PER_RUN}")
 
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"\n✅ Wrote {len(out['countries'])} countries → {out_path.resolve()}")
 
 
 if __name__ == "__main__":
