@@ -42,13 +42,14 @@ Data strategy (March 2026):
 
 ── NEW FEATURES ──────────────────────────────────────────────────────────────
 
-  ROLLING DAILY SCRAPE (16 countries/day):
-    Each daily run scrapes a deterministic slice of 16 countries (160 ÷ 10 days).
-    The slice is chosen by (day_of_year mod 10), so every country is freshly
-    Wikipedia-checked once every 10 days. If Wikipedia's leader name disagrees
-    with the snapshot, Claude does a hard Sonnet web search to resolve it.
-    Countries with no existing data (new additions, claudeAttemptedWithNoData)
-    always get a hard Claude call regardless of which slice is active.
+  WEEKLY ROTATING REFRESH (10 countries/week):
+    160 countries are split into 16 weekly buckets of 10 countries each.
+    The active bucket is determined by (ISO week number - 1) mod 16, so every
+    country gets a Claude refresh roughly once every 16 weeks (~112 days).
+    Within each week, all 7 daily runs check the same bucket — Wikipedia is
+    compared against the snapshot on each run, and if a name mismatch is found
+    Claude does a hard Sonnet web search to resolve it. Countries with no
+    existing data always get a hard Claude call regardless of the weekly bucket.
 
   ELECTION WATCH (daily hard search):
     The previous snapshot is inspected for any election within 3 days (before
@@ -198,7 +199,7 @@ TRIGGER_PRIORITY: Dict[str, int] = {
     "executive_name_changed":        2,   # promoted: name changes need Sonnet
     "ipu_date_changed":              3,
     "eg_date_changed":               3,
-    "rolling_daily_scrape":          3,
+    "weekly_rotating_refresh":        3,
 }
 
 # Countries that always use Sonnet regardless of trigger priority.
@@ -592,15 +593,26 @@ def overall_label(p: Optional[float]) -> Optional[str]:
 
 # ── BIWEEKLY REFRESH LOGIC ─────────────────────────────────────────────────────
 
-def _get_rolling_slice() -> set:
+def _get_weekly_slice() -> tuple:
     """
-    Return the set of ISO2 codes that are in today's rolling scrape slice.
-    160 countries split into 10 daily buckets of 16, cycled by day-of-year mod 10.
-    Every country is freshly Wikipedia-checked once every 10 days.
+    Return (slice_set, week_bucket, weeks_total) for this week's rotating refresh.
+
+    160 countries split into 16 weekly buckets of 10 countries each.
+    Bucket = ISO week number mod 16, so every country gets a Claude refresh
+    roughly once every 16 weeks (~112 days) under normal conditions.
+    Always-on triggers (election_watch, sentinel, anomaly) fire regardless.
+
+    Returns:
+        slice_set   — set of ISO2 codes in this week's bucket
+        week_bucket — int 0-15, which bucket is active this week
+        weeks_total — 16 (total number of buckets)
     """
-    bucket = datetime.now(timezone.utc).timetuple().tm_yday % 10
+    iso_week = datetime.now(timezone.utc).isocalendar()[1]  # 1-53
+    weeks_total = 16
+    week_bucket = (iso_week - 1) % weeks_total              # 0-15
     iso2_list = [c["iso2"] for c in COUNTRIES]
-    return set(iso2_list[bucket::10])
+    slice_set = set(iso2_list[week_bucket::weeks_total])
+    return slice_set, week_bucket, weeks_total
 
 
 # ── ELECTION WATCH ─────────────────────────────────────────────────────────────
@@ -1764,7 +1776,7 @@ def _should_call_claude(
     ipu: Dict,
     eg: Dict,
     prev: Optional[Dict],
-    rolling_slice: set,
+    weekly_slice: set,
     sentinel_alerts: Dict[str, str],
 ) -> Tuple[bool, str]:
     if CLAUDE_FORCE_REFRESH:
@@ -1798,8 +1810,8 @@ def _should_call_claude(
     if needs_comp:
         return True, f"competitiveness_refresh ({comp_reason})"
 
-    # ── Rolling-slice triggers (only fire when this country is in today's slice)
-    if iso2.upper() not in rolling_slice:
+    # ── Weekly-slice triggers (only fire when this country is in this week's bucket)
+    if iso2.upper() not in weekly_slice:
         return False, ""
 
     # Within the slice: check Wikipedia for name mismatches.
@@ -1846,12 +1858,12 @@ def _should_call_claude(
     if needs_comp:
         return True, f"competitiveness_refresh ({comp_reason})"
 
-    # Within the slice but no changes detected: still do a light refresh
-    # if data is more than 30 days old (catches countries with stable leadership
-    # that still need periodic verification)
+    # Within the slice but no changes detected: do a refresh if data is
+    # more than 90 days old. With a 16-week cycle most countries hit this on
+    # their regular rotation; this is a safety net for any that slipped through.
     days_old = _days_since_claude(prev)
-    if days_old >= 30:
-        return True, f"rolling_daily_scrape (last_update_{days_old}d_ago)"
+    if days_old >= 90:
+        return True, f"weekly_rotating_refresh (last_update_{days_old}d_ago)"
 
     return False, ""
 
@@ -2159,7 +2171,7 @@ def build_country(
     name: str,
     iso2: str,
     prev_by_iso2: Dict[str, Any],
-    rolling_slice: set,
+    weekly_slice: set,
     sentinel_alerts: Dict[str, str],
     claude_calls_made: List[int],   # mutable counter: [current_count]
 ) -> Tuple[Dict[str, Any], bool]:
@@ -2187,7 +2199,7 @@ def build_country(
 
     # ── Claude trigger decision ────────────────────────────────────────────────
     should_call, trigger_reason = _should_call_claude(
-        iso2, wiki, ipu, eg, prev, rolling_slice, sentinel_alerts,
+        iso2, wiki, ipu, eg, prev, weekly_slice, sentinel_alerts,
     )
 
     cl = None
@@ -2332,7 +2344,7 @@ def build_country(
 
 def _plan_calls(
     prev_by_iso2: Dict[str, Any],
-    rolling_slice: set,
+    weekly_slice: set,
     sentinel_alerts: Dict[str, str],
 ) -> None:
     """
@@ -2352,7 +2364,7 @@ def _plan_calls(
         eg   = {"lastDate": None, "nextDate": None, "nextType": None}
 
         should_call, reason = _should_call_claude(
-            iso2, wiki, ipu, eg, prev, rolling_slice, sentinel_alerts
+            iso2, wiki, ipu, eg, prev, weekly_slice, sentinel_alerts
         )
         if not should_call:
             soft.append(iso2)
@@ -2397,14 +2409,16 @@ def main() -> None:
     print(f"  Rate-limit config: cap={MAX_CLAUDE_CALLS_PER_RUN}, "
           f"sleep_sonnet={CLAUDE_SLEEP_SECONDS}s, sleep_haiku={CLAUDE_SLEEP_HAIKU_SECONDS}s")
 
-    rolling_slice = _get_rolling_slice()
-    bucket = datetime.now(timezone.utc).timetuple().tm_yday % 10
+    weekly_slice, week_bucket, weeks_total = _get_weekly_slice()
     today_wd = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][datetime.now(timezone.utc).weekday()]
+    iso_week = datetime.now(timezone.utc).isocalendar()[1]
     if CLAUDE_FORCE_REFRESH:
         print(f"  [SCHEDULE] 🔴 FORCED REFRESH — all countries will get a hard Claude pull")
     else:
-        print(f"  [SCHEDULE] 📅 ROLLING DAILY RUN — {today_wd}, bucket {bucket}/10, "
-              f"scraping {len(rolling_slice)} countries: {sorted(rolling_slice)}")
+        print(f"  [SCHEDULE] 📅 WEEKLY ROTATING RUN — {today_wd}, ISO week {iso_week}, "
+              f"bucket {week_bucket + 1}/{weeks_total} — "
+              f"{len(weekly_slice)} countries scheduled: {sorted(weekly_slice)}")
+        print(f"             Always-on: election_watch, sentinel_alert, anomaly fire daily regardless.")
 
     anomaly_countries: List[str] = []
     for c in COUNTRIES:
@@ -2434,17 +2448,18 @@ def main() -> None:
     _load_wiki_exec_cache()
 
     # Print call plan summary before processing starts
-    _plan_calls(prev_by_iso2, rolling_slice, sentinel_alerts)
+    _plan_calls(prev_by_iso2, weekly_slice, sentinel_alerts)
 
     out = {
         "generatedAt":        iso_z(now_utc()),
         "lastFullSweepDate":  prev_full.get("lastFullSweepDate", iso_z(now_utc())),
-        "rollingBucket":      datetime.now(timezone.utc).timetuple().tm_yday % 10,
+        "weeklyBucket":       week_bucket + 1,
+        "weeklyBucketTotal":  weeks_total,
         "worldBankYearRule":  "latest_non_null_per_indicator",
         "sentinelSeenIds":    updated_seen_ids,
         "countries":          [],
         "sources": {
-            "executives":             "wikipedia_adaptive (rolling 16/day) + claude_api (on mismatch or election watch)",
+            "executives":             "wikipedia_adaptive (weekly rotation, 10/week) + claude_api (on mismatch or election watch)",
             "legislature":            "claude_api (rolling scrape + election watch)",
             "elections":              "ipu_parline + electionguide + claude_api (daily near elections)",
             "changeInPowerSentinel":  CHANGE_IN_POWER_URL,
@@ -2482,7 +2497,7 @@ def main() -> None:
         print(f"\n▶ {c['country']} ({c['iso2']})")
         country_data, used_claude = build_country(
             c["country"], c["iso2"], prev_by_iso2,
-            rolling_slice, sentinel_alerts,
+            weekly_slice, sentinel_alerts,
             claude_calls_made,
         )
         out["countries"].append(country_data)
