@@ -1860,6 +1860,7 @@ def _call_claude(
     headers = {
         "x-api-key":         api_key,
         "anthropic-version": "2023-06-01",
+        "anthropic-beta":    "web-search-2025-03-05",
         "content-type":      "application/json",
     }
 
