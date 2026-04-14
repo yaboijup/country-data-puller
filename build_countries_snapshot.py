@@ -23,7 +23,7 @@ Data strategy (March 2026):
     execution. Countries are prioritised:
       Priority 1 — election_watch, sentinel_alert
       Priority 2 — snapshot_anomaly, competitiveness_refresh (annual)
-      Priority 3 — biweekly_tuesday_refresh, executive_name_changed, date_changed
+      Priority 3 — rolling_daily_scrape, date_changed (ipu/eg)
     Once the cap is reached, remaining hard-run candidates are deferred
     (claudeDeferred=True in their entry) and picked up on the next daily run.
 
@@ -42,11 +42,13 @@ Data strategy (March 2026):
 
 ── NEW FEATURES ──────────────────────────────────────────────────────────────
 
-  BIWEEKLY SCHEDULE (every other Tuesday):
-    The weekly Tuesday refresh logic has been replaced with a biweekly cadence.
-    The script tracks the last full-sweep date in the snapshot. If today is a
-    Tuesday and it has been ≥13 days since the last full sweep, all countries
-    are considered for a Claude refresh.
+  ROLLING DAILY SCRAPE (16 countries/day):
+    Each daily run scrapes a deterministic slice of 16 countries (160 ÷ 10 days).
+    The slice is chosen by (day_of_year mod 10), so every country is freshly
+    Wikipedia-checked once every 10 days. If Wikipedia's leader name disagrees
+    with the snapshot, Claude does a hard Sonnet web search to resolve it.
+    Countries with no existing data (new additions, claudeAttemptedWithNoData)
+    always get a hard Claude call regardless of which slice is active.
 
   ELECTION WATCH (daily hard search):
     The previous snapshot is inspected for any election within 3 days (before
@@ -189,13 +191,21 @@ TRIGGER_PRIORITY: Dict[str, int] = {
     "election_watch":                1,
     "sentinel_alert":                1,
     "forced_refresh":                1,
-    "first_run":                     2,
+    "first_run":                     1,   # new/empty countries: never deferred
+    "no_data_country":               1,   # claudeAttemptedWithNoData: never deferred
     "snapshot_anomaly":              2,
     "competitiveness_refresh":       2,
-    "executive_name_changed":        3,
+    "executive_name_changed":        2,   # promoted: name changes need Sonnet
     "ipu_date_changed":              3,
     "eg_date_changed":               3,
-    "biweekly_tuesday_refresh":      3,
+    "rolling_daily_scrape":          3,
+}
+
+# Countries that always use Sonnet regardless of trigger priority.
+# These have complex/volatile political situations where Haiku risks stale output.
+SONNET_ALWAYS: set = {
+    "VE", "SY", "YE", "LY", "SD", "SS", "MM", "KP", "IR", "AF",
+    "VN", "CU", "BY", "TM", "RU", "CN",
 }
 
 def _trigger_priority(reason: str) -> int:
@@ -204,8 +214,12 @@ def _trigger_priority(reason: str) -> int:
             return pri
     return 3
 
-def _use_haiku(reason: str) -> bool:
-    """Return True if this trigger is low-stakes enough for Haiku."""
+def _use_haiku(reason: str, iso2: str = "") -> bool:
+    """Return True if this trigger is low-stakes enough for Haiku.
+    Countries in SONNET_ALWAYS always use Sonnet regardless of trigger.
+    """
+    if iso2.upper() in SONNET_ALWAYS:
+        return False
     return _trigger_priority(reason) == 3
 
 # ── COUNTRY LIST ──────────────────────────────────────────────────────────────
@@ -578,19 +592,15 @@ def overall_label(p: Optional[float]) -> Optional[str]:
 
 # ── BIWEEKLY REFRESH LOGIC ─────────────────────────────────────────────────────
 
-def _is_biweekly_tuesday(prev_full_snapshot: Dict[str, Any]) -> bool:
-    today = datetime.now(timezone.utc)
-    if today.weekday() != 1:
-        return False
-    last_sweep = prev_full_snapshot.get("lastFullSweepDate")
-    if not last_sweep:
-        return True
-    try:
-        last_dt = datetime.fromisoformat(last_sweep.replace("Z", "+00:00"))
-        days_since = (today - last_dt).days
-        return days_since >= 13
-    except (ValueError, AttributeError):
-        return True
+def _get_rolling_slice() -> set:
+    """
+    Return the set of ISO2 codes that are in today's rolling scrape slice.
+    160 countries split into 10 daily buckets of 16, cycled by day-of-year mod 10.
+    Every country is freshly Wikipedia-checked once every 10 days.
+    """
+    bucket = datetime.now(timezone.utc).timetuple().tm_yday % 10
+    iso2_list = [c["iso2"] for c in COUNTRIES]
+    return set(iso2_list[bucket::10])
 
 
 # ── ELECTION WATCH ─────────────────────────────────────────────────────────────
@@ -641,13 +651,38 @@ You are a political analyst reviewing news article summaries for unexpected \
 changes in political power. You receive a JSON array of article objects. \
 Each object has: id, country (ISO2), title, summary (may be null), url.
 
-Return ONLY a valid JSON array of objects for articles that clearly indicate \
-an unexpected, significant change in political leadership or power structure \
-(coup, resignation, death of a leader, snap election called, government \
-collapse, etc.). Each output object must have:
+Return ONLY a valid JSON array of objects for articles that clearly and \
+unambiguously indicate an unexpected, significant change in governmental \
+leadership or political power structure. Qualifying events include: coup or \
+attempted coup, president/PM resignation or removal, death of a sitting \
+leader, snap election called by the government, parliament dissolved, \
+government collapse, military takeover, or emergency declaration that \
+suspends civilian rule.
+
+Each output object must have:
   { "id": <article_id>, "iso2": <country_iso2>, "alert": <1-sentence summary> }
 
-If NO articles indicate such a change, return an empty array: []
+CRITICAL — exclude ALL of the following even if they mention a country name \
+or its leaders:
+- Sports: match results, tournaments, team selections, athlete news, \
+football/soccer/cricket/rugby/tennis/Olympics, FIFA, UEFA, ICC, any league \
+or cup competition. A country's national team winning or losing is NOT a \
+political event.
+- Economics/trade/sanctions/tariffs that do not involve a change of government.
+- Diplomatic meetings, summits, or state visits with no leadership change.
+- Elections that were already scheduled and are proceeding normally \
+(only flag if a snap/early election is unexpectedly called).
+- Civil unrest, protests, or strikes unless the sitting government has \
+already fallen or the military has intervened.
+- Cultural events, disasters, or humanitarian news.
+- Articles where the country name appears only as context (e.g. \
+"South Africa beats Serbia in Davis Cup" — neither country has a \
+leadership change).
+
+If in doubt, do NOT include the article. A false negative is far less \
+harmful than a false positive that triggers an unnecessary Claude pull.
+
+If NO articles qualify, return an empty array: []
 Return ONLY the JSON array — no markdown, no explanation.\
 """
 
@@ -1642,6 +1677,25 @@ def _days_since_claude(prev: Optional[Dict]) -> int:
         return 999
 
 
+def _claude_updated_recently(prev: Optional[Dict], within_days: int = 7) -> bool:
+    """
+    Return True if Claude updated this country's snapshot within `within_days` days.
+    Used to suppress Wikipedia-mismatch triggers when Claude has already done a
+    recent web search and its result should be trusted over the Wikipedia scrape.
+    """
+    if not prev:
+        return False
+    ts = prev.get("lastClaudeUpdate")
+    if not ts:
+        return False
+    try:
+        last = datetime.fromisoformat(ts.replace("Z", "+00:00"))
+        days_ago = (datetime.now(timezone.utc) - last).days
+        return days_ago <= within_days
+    except (ValueError, AttributeError):
+        return False
+
+
 def _snapshot_anomaly_detected(iso2: str, prev: Optional[Dict]) -> Tuple[bool, str]:
     if not prev:
         return False, ""
@@ -1735,19 +1789,25 @@ def _should_call_claude(
     ipu: Dict,
     eg: Dict,
     prev: Optional[Dict],
-    biweekly_tuesday: bool,
+    rolling_slice: set,
     sentinel_alerts: Dict[str, str],
 ) -> Tuple[bool, str]:
     if CLAUDE_FORCE_REFRESH:
         return True, "forced_refresh"
 
+    # ── Countries with no data at all: always call, never defer ───────────────
     if not prev:
-        if CLAUDE_FORCE_REFRESH or biweekly_tuesday:
-            return True, "first_run"
-        else:
-            return False, "new_country_pending_biweekly"
+        return True, "first_run"
 
-    # ── Always-on triggers ─────────────────────────────────────────────────────
+    if prev.get("claudeAttemptedWithNoData"):
+        pol_sys = (prev.get("politicalSystem") or {}).get("values", ["unknown"])
+        exec_block = prev.get("executive") or {}
+        hos_name = (exec_block.get("headOfState") or {}).get("name")
+        hog_name = (exec_block.get("headOfGovernment") or {}).get("name")
+        if not hos_name and not hog_name and pol_sys == ["unknown"]:
+            return True, "no_data_country"
+
+    # ── Always-on triggers (run every day regardless of slice) ─────────────────
     watch_active, watch_reason = _election_watch_active(prev)
     if watch_active:
         return True, f"election_watch ({watch_reason})"
@@ -1763,23 +1823,41 @@ def _should_call_claude(
     if needs_comp:
         return True, f"competitiveness_refresh ({comp_reason})"
 
-    # ── Biweekly-only triggers ────────────────────────────────────────────────
-    if not biweekly_tuesday:
+    # ── Rolling-slice triggers (only fire when this country is in today's slice)
+    if iso2.upper() not in rolling_slice:
         return False, ""
 
-    needs_comp, comp_reason = _needs_competitiveness_refresh(prev, always_on=True)
-    if needs_comp:
-        return True, f"competitiveness_refresh ({comp_reason})"
-
+    # Within the slice: check Wikipedia for name mismatches.
+    # Skip if Claude updated this country recently — Claude does a live web
+    # search so its result is more authoritative than the Wikipedia scrape,
+    # which can lag days or weeks on leadership transitions.
     prev_hos = ((prev.get("executive") or {}).get("headOfState") or {}).get("name")
     prev_hog = ((prev.get("executive") or {}).get("headOfGovernment") or {}).get("name")
     wiki_hos = _clean_wiki(wiki_names.get("hosName"))
     wiki_hog = _clean_wiki(wiki_names.get("hogName"))
-    if wiki_hos and wiki_hos != prev_hos:
-        return True, f"executive_name_changed ({prev_hos!r} → {wiki_hos!r})"
-    if wiki_hog and wiki_hog != prev_hog:
-        return True, f"executive_name_changed ({prev_hog!r} → {wiki_hog!r})"
 
+    wiki_hos_mismatch = wiki_hos and wiki_hos != prev_hos
+    wiki_hog_mismatch = wiki_hog and wiki_hog != prev_hog
+
+    if wiki_hos_mismatch or wiki_hog_mismatch:
+        if _claude_updated_recently(prev, within_days=7):
+            # Claude already web-searched this country in the last 7 days.
+            # Trust Claude's result over the Wikipedia scrape — don't double-dip.
+            mismatch_detail = (
+                f"HOS: wiki={wiki_hos!r} vs snapshot={prev_hos!r}"
+                if wiki_hos_mismatch else
+                f"HOG: wiki={wiki_hog!r} vs snapshot={prev_hog!r}"
+            )
+            print(f"    [{iso2}] ⏭  Wiki mismatch suppressed — Claude updated "
+                  f"{_days_since_claude(prev)}d ago, trusting Claude. ({mismatch_detail})")
+        else:
+            # No recent Claude update — Wikipedia is our best live signal.
+            if wiki_hos_mismatch:
+                return True, f"executive_name_changed ({prev_hos!r} → {wiki_hos!r})"
+            if wiki_hog_mismatch:
+                return True, f"executive_name_changed ({prev_hog!r} → {wiki_hog!r})"
+
+    # Within the slice: check election date changes
     prev_leg_next = ((prev.get("elections") or {}).get("legislative") or {}).get("nextElection") or {}
     ipu_next = ipu.get("nextDate")
     eg_next  = eg.get("nextDate")
@@ -1788,9 +1866,17 @@ def _should_call_claude(
     if eg_next and eg_next != prev_leg_next.get("date"):
         return True, f"eg_date_changed ({eg_next})"
 
+    # Within the slice: check competitiveness staleness
+    needs_comp, comp_reason = _needs_competitiveness_refresh(prev, always_on=True)
+    if needs_comp:
+        return True, f"competitiveness_refresh ({comp_reason})"
+
+    # Within the slice but no changes detected: still do a light refresh
+    # if data is more than 30 days old (catches countries with stable leadership
+    # that still need periodic verification)
     days_old = _days_since_claude(prev)
-    if days_old >= 13:
-        return True, f"biweekly_tuesday_refresh (last_update_{days_old}d_ago)"
+    if days_old >= 30:
+        return True, f"rolling_daily_scrape (last_update_{days_old}d_ago)"
 
     return False, ""
 
@@ -2098,7 +2184,7 @@ def build_country(
     name: str,
     iso2: str,
     prev_by_iso2: Dict[str, Any],
-    biweekly_tuesday: bool,
+    rolling_slice: set,
     sentinel_alerts: Dict[str, str],
     claude_calls_made: List[int],   # mutable counter: [current_count]
 ) -> Tuple[Dict[str, Any], bool]:
@@ -2126,7 +2212,7 @@ def build_country(
 
     # ── Claude trigger decision ────────────────────────────────────────────────
     should_call, trigger_reason = _should_call_claude(
-        iso2, wiki, ipu, eg, prev, biweekly_tuesday, sentinel_alerts,
+        iso2, wiki, ipu, eg, prev, rolling_slice, sentinel_alerts,
     )
 
     cl = None
@@ -2135,7 +2221,7 @@ def build_country(
 
     if should_call:
         priority = _trigger_priority(trigger_reason)
-        use_haiku = _use_haiku(trigger_reason)
+        use_haiku = _use_haiku(trigger_reason, iso2)
         model = CLAUDE_MODEL_HAIKU if use_haiku else CLAUDE_MODEL_SONNET
         model_label = "Haiku" if use_haiku else "Sonnet"
 
@@ -2271,7 +2357,7 @@ def build_country(
 
 def _plan_calls(
     prev_by_iso2: Dict[str, Any],
-    biweekly_tuesday: bool,
+    rolling_slice: set,
     sentinel_alerts: Dict[str, str],
 ) -> None:
     """
@@ -2291,7 +2377,7 @@ def _plan_calls(
         eg   = {"lastDate": None, "nextDate": None, "nextType": None}
 
         should_call, reason = _should_call_claude(
-            iso2, wiki, ipu, eg, prev, biweekly_tuesday, sentinel_alerts
+            iso2, wiki, ipu, eg, prev, rolling_slice, sentinel_alerts
         )
         if not should_call:
             soft.append(iso2)
@@ -2336,22 +2422,14 @@ def main() -> None:
     print(f"  Rate-limit config: cap={MAX_CLAUDE_CALLS_PER_RUN}, "
           f"sleep_sonnet={CLAUDE_SLEEP_SECONDS}s, sleep_haiku={CLAUDE_SLEEP_HAIKU_SECONDS}s")
 
-    biweekly_tuesday = _is_biweekly_tuesday(prev_full)
+    rolling_slice = _get_rolling_slice()
+    bucket = datetime.now(timezone.utc).timetuple().tm_yday % 10
+    today_wd = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][datetime.now(timezone.utc).weekday()]
     if CLAUDE_FORCE_REFRESH:
         print(f"  [SCHEDULE] 🔴 FORCED REFRESH — all countries will get a hard Claude pull")
-    elif biweekly_tuesday:
-        print(f"  [SCHEDULE] 📅 BIWEEKLY TUESDAY — full sweep triggered")
     else:
-        today_wd = ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"][datetime.now(timezone.utc).weekday()]
-        days_since_sweep = "?"
-        last_sweep = prev_full.get("lastFullSweepDate")
-        if last_sweep:
-            try:
-                last_dt = datetime.fromisoformat(last_sweep.replace("Z", "+00:00"))
-                days_since_sweep = (datetime.now(timezone.utc) - last_dt).days
-            except Exception:
-                pass
-        print(f"  [SCHEDULE] 💤 SOFT DAILY RUN — {today_wd}, {days_since_sweep}d since last sweep")
+        print(f"  [SCHEDULE] 📅 ROLLING DAILY RUN — {today_wd}, bucket {bucket}/10, "
+              f"scraping {len(rolling_slice)} countries: {sorted(rolling_slice)}")
 
     anomaly_countries: List[str] = []
     for c in COUNTRIES:
@@ -2381,20 +2459,18 @@ def main() -> None:
     _load_wiki_exec_cache()
 
     # Print call plan summary before processing starts
-    _plan_calls(prev_by_iso2, biweekly_tuesday, sentinel_alerts)
+    _plan_calls(prev_by_iso2, rolling_slice, sentinel_alerts)
 
     out = {
         "generatedAt":        iso_z(now_utc()),
-        "lastFullSweepDate":  (
-            iso_z(now_utc()) if biweekly_tuesday
-            else prev_full.get("lastFullSweepDate", iso_z(now_utc()))
-        ),
+        "lastFullSweepDate":  prev_full.get("lastFullSweepDate", iso_z(now_utc())),
+        "rollingBucket":      datetime.now(timezone.utc).timetuple().tm_yday % 10,
         "worldBankYearRule":  "latest_non_null_per_indicator",
         "sentinelSeenIds":    updated_seen_ids,
         "countries":          [],
         "sources": {
-            "executives":             "wikipedia_adaptive + claude_api (smart diff, biweekly ceiling)",
-            "legislature":            "claude_api (smart diff, biweekly ceiling)",
+            "executives":             "wikipedia_adaptive (rolling 16/day) + claude_api (on mismatch or election watch)",
+            "legislature":            "claude_api (rolling scrape + election watch)",
             "elections":              "ipu_parline + electionguide + claude_api (daily near elections)",
             "changeInPowerSentinel":  CHANGE_IN_POWER_URL,
             "wikipedia_adaptive":     WIKIPEDIA_API,
@@ -2431,7 +2507,7 @@ def main() -> None:
         print(f"\n▶ {c['country']} ({c['iso2']})")
         country_data, used_claude = build_country(
             c["country"], c["iso2"], prev_by_iso2,
-            biweekly_tuesday, sentinel_alerts,
+            rolling_slice, sentinel_alerts,
             claude_calls_made,
         )
         out["countries"].append(country_data)
