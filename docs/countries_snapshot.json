@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-15T13:27:39.849798Z",
+  "generatedAt": "2026-04-16T05:30:38.435932Z",
   "lastFullSweepDate": "2026-04-14T01:43:40.414511Z",
   "weeklyBucket": 16,
   "weeklyBucketTotal": 16,
@@ -15816,16 +15816,17 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 85.96,
+        "overallPercentile": 85.87,
         "band": "Very High",
         "bandLabel": "Very high governance overall",
         "year": 2024,
         "components": {
           "voiceAccountability": {
             "indicator": "GOV_WGI_VA.SC",
-            "percentile": 86.4150424,
-            "label": "Very high voice & accountability",
-            "year": 2024
+            "percentile": null,
+            "label": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           },
           "politicalStability": {
             "indicator": "GOV_WGI_PV.SC",
