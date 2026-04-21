@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-21T05:26:53.965652Z",
+  "generatedAt": "2026-04-21T13:43:40.732659Z",
   "lastFullSweepDate": "2026-04-14T01:43:40.414511Z",
   "weeklyBucket": 1,
   "weeklyBucketTotal": 16,
@@ -2771,7 +2771,7 @@
         }
       },
       "lastClaudeUpdate": "2026-04-13T05:43:42.722016Z",
-      "claudeAttemptedWithNoData": false,
+      "claudeAttemptedWithNoData": true,
       "claudeDeferred": false
     },
     {
