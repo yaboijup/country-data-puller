@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-23T05:29:58.022570Z",
+  "generatedAt": "2026-04-23T13:46:50.407491Z",
   "lastFullSweepDate": "2026-04-14T01:43:40.414511Z",
   "weeklyBucket": 1,
   "weeklyBucketTotal": 16,
@@ -10,15 +10,19 @@
       "country": "Ukraine",
       "iso2": "UA",
       "metadata": {
-        "officialName": null,
-        "capital": null,
-        "population": null,
-        "region": null,
-        "subregion": null,
-        "flag": null,
-        "flagPng": null,
-        "currencies": [],
-        "languages": [],
+        "officialName": "Ukraine",
+        "capital": "Kyiv",
+        "population": 32862000,
+        "region": "Europe",
+        "subregion": "Eastern Europe",
+        "flag": "🇺🇦",
+        "flagPng": "https://flagcdn.com/w320/ua.png",
+        "currencies": [
+          "Ukrainian hryvnia"
+        ],
+        "languages": [
+          "Ukrainian"
+        ],
         "source": "restcountries"
       },
       "politicalSystem": {
@@ -109,8 +113,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Ukraine remains under martial law since February 2022, extended until May 4, 2026. Constitution allows extension of presidential and parliamentary terms during martial law. All major parties agreed in 2023 to postpone elections until after war ends. Peace negotiations are ongoing but have not yielded breakthrough. Zelensky indicates readiness for elections if security guaranteed by allies within 60-90 days, but this remains contingent on ceasefire agreement. Prime Minister Svyrydenko appointed July 2025, replacing Denys Shmyhal as part of government reshuffle focused on wartime economic management and weapons production.",
-        "metadata": "REST Countries API returned no data for 'UA'."
+        "executive": "Ukraine remains under martial law since February 2022, extended until May 4, 2026. Constitution allows extension of presidential and parliamentary terms during martial law. All major parties agreed in 2023 to postpone elections until after war ends. Peace negotiations are ongoing but have not yielded breakthrough. Zelensky indicates readiness for elections if security guaranteed by allies within 60-90 days, but this remains contingent on ceasefire agreement. Prime Minister Svyrydenko appointed July 2025, replacing Denys Shmyhal as part of government reshuffle focused on wartime economic management and weapons production."
       },
       "elections": {
         "competitiveElections": true,
@@ -2105,15 +2108,20 @@
       "country": "Canada",
       "iso2": "CA",
       "metadata": {
-        "officialName": null,
-        "capital": null,
-        "population": null,
-        "region": null,
-        "subregion": null,
-        "flag": null,
-        "flagPng": null,
-        "currencies": [],
-        "languages": [],
+        "officialName": "Canada",
+        "capital": "Ottawa",
+        "population": 41651653,
+        "region": "Americas",
+        "subregion": "North America",
+        "flag": "🇨🇦",
+        "flagPng": "https://flagcdn.com/w320/ca.png",
+        "currencies": [
+          "Canadian dollar"
+        ],
+        "languages": [
+          "English",
+          "French"
+        ],
         "source": "restcountries"
       },
       "politicalSystem": {
@@ -2209,8 +2217,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Election watch active as April 13, 2026 by-elections concluded but official winners not yet declared. These three by-elections are critical as Liberal victories in two or more could secure majority government (currently at 171 seats, need 172+ for majority). Terrebonne by-election ordered after Supreme Court annulled 2025 result due to mail-in ballot errors. Other vacancies from Freeland resignation (Ukraine advisor role) and Blair resignation (UK High Commissioner appointment).",
-        "metadata": "REST Countries API returned no data for 'CA'."
+        "executive": "Election watch active as April 13, 2026 by-elections concluded but official winners not yet declared. These three by-elections are critical as Liberal victories in two or more could secure majority government (currently at 171 seats, need 172+ for majority). Terrebonne by-election ordered after Supreme Court annulled 2025 result due to mail-in ballot errors. Other vacancies from Freeland resignation (Ukraine advisor role) and Blair resignation (UK High Commissioner appointment)."
       },
       "elections": {
         "competitiveElections": true,
@@ -2607,15 +2614,19 @@
       "country": "Iran",
       "iso2": "IR",
       "metadata": {
-        "officialName": null,
-        "capital": null,
-        "population": null,
-        "region": null,
-        "subregion": null,
-        "flag": null,
-        "flagPng": null,
-        "currencies": [],
-        "languages": [],
+        "officialName": "Islamic Republic of Iran",
+        "capital": "Tehran",
+        "population": 85961000,
+        "region": "Asia",
+        "subregion": "Southern Asia",
+        "flag": "🇮🇷",
+        "flagPng": "https://flagcdn.com/w320/ir.png",
+        "currencies": [
+          "Iranian rial"
+        ],
+        "languages": [
+          "Persian (Farsi)"
+        ],
         "source": "restcountries"
       },
       "politicalSystem": {
@@ -2707,8 +2718,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Major leadership transition following assassination of Supreme Leader Ali Khamenei on February 28, 2026, in Israeli-US strikes during 2026 Iran war. His son Mojtaba Khamenei was selected as new Supreme Leader by Assembly of Experts on March 9, 2026. Mojtaba Khamenei holds supreme power in the theocratic system, with close ties to the Islamic Revolutionary Guard Corps. Iran remains under severe US sanctions and recently concluded ceasefire negotiations with the US and Israel following intensive bombing campaign. President Pezeshkian continues to serve but his authority is limited by the Supreme Leader and IRGC influence. Elections are not competitive due to extensive Guardian Council vetting that eliminates most opposition candidates.",
-        "metadata": "REST Countries API returned no data for 'IR'."
+        "executive": "Major leadership transition following assassination of Supreme Leader Ali Khamenei on February 28, 2026, in Israeli-US strikes during 2026 Iran war. His son Mojtaba Khamenei was selected as new Supreme Leader by Assembly of Experts on March 9, 2026. Mojtaba Khamenei holds supreme power in the theocratic system, with close ties to the Islamic Revolutionary Guard Corps. Iran remains under severe US sanctions and recently concluded ceasefire negotiations with the US and Israel following intensive bombing campaign. President Pezeshkian continues to serve but his authority is limited by the Supreme Leader and IRGC influence. Elections are not competitive due to extensive Guardian Council vetting that eliminates most opposition candidates."
       },
       "elections": {
         "competitiveElections": false,
@@ -4888,15 +4898,20 @@
       "country": "Somalia",
       "iso2": "SO",
       "metadata": {
-        "officialName": null,
-        "capital": null,
-        "population": null,
-        "region": null,
-        "subregion": null,
-        "flag": null,
-        "flagPng": null,
-        "currencies": [],
-        "languages": [],
+        "officialName": "Federal Republic of Somalia",
+        "capital": "Mogadishu",
+        "population": 19655000,
+        "region": "Africa",
+        "subregion": "Eastern Africa",
+        "flag": "🇸🇴",
+        "flagPng": "https://flagcdn.com/w320/so.png",
+        "currencies": [
+          "Somali shilling"
+        ],
+        "languages": [
+          "Arabic",
+          "Somali"
+        ],
         "source": "restcountries"
       },
       "politicalSystem": {
@@ -4992,8 +5007,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Deep constitutional crisis over mandate legitimacy. Federal Parliament passed constitutional amendments in March 2026 extending presidential and legislative terms from four to five years, moving elections from May 2026 to 2027. Opposition groups, former presidents, and federal member states Puntland and Jubaland have rejected these changes as illegitimate power grabs. The Council for the Future of Somalia threatens parallel governance if federal government exceeds May 15, 2026 constitutional deadline. Three federal member states have withdrawn from federal cooperation as of April 2026. Security situation remains precarious with Al-Shabaab controlling territory and conducting attacks near Mogadishu.",
-        "metadata": "REST Countries API returned no data for 'SO'."
+        "executive": "Deep constitutional crisis over mandate legitimacy. Federal Parliament passed constitutional amendments in March 2026 extending presidential and legislative terms from four to five years, moving elections from May 2026 to 2027. Opposition groups, former presidents, and federal member states Puntland and Jubaland have rejected these changes as illegitimate power grabs. The Council for the Future of Somalia threatens parallel governance if federal government exceeds May 15, 2026 constitutional deadline. Three federal member states have withdrawn from federal cooperation as of April 2026. Security situation remains precarious with Al-Shabaab controlling territory and conducting attacks near Mogadishu."
       },
       "elections": {
         "competitiveElections": true,
@@ -5202,15 +5216,19 @@
       "country": "Libya",
       "iso2": "LY",
       "metadata": {
-        "officialName": null,
-        "capital": null,
-        "population": null,
-        "region": null,
-        "subregion": null,
-        "flag": null,
-        "flagPng": null,
-        "currencies": [],
-        "languages": [],
+        "officialName": "State of Libya",
+        "capital": "Tripoli",
+        "population": 7459000,
+        "region": "Africa",
+        "subregion": "Northern Africa",
+        "flag": "🇱🇾",
+        "flagPng": "https://flagcdn.com/w320/ly.png",
+        "currencies": [
+          "Libyan dinar"
+        ],
+        "languages": [
+          "Arabic"
+        ],
         "source": "restcountries"
       },
       "politicalSystem": {
@@ -5322,8 +5340,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Libya remains divided between two rival governments since 2014. The UN-recognised Government of National Unity based in Tripoli controls western Libya, while the eastern Government of National Stability in Tobruk is backed by Haftar's Libyan National Army. Mohamed al-Menfi serves as Chairman of the Presidential Council, a three-member collegial body that exercises head of state functions. The country has been without national elections since 2014, with 2021 elections postponed indefinitely due to political deadlock. Current election preparations for April 2026 face significant challenges including disputes over electoral laws, candidate eligibility requirements, and whether to form a unified interim government before voting.",
-        "metadata": "REST Countries API returned no data for 'LY'."
+        "executive": "Libya remains divided between two rival governments since 2014. The UN-recognised Government of National Unity based in Tripoli controls western Libya, while the eastern Government of National Stability in Tobruk is backed by Haftar's Libyan National Army. Mohamed al-Menfi serves as Chairman of the Presidential Council, a three-member collegial body that exercises head of state functions. The country has been without national elections since 2014, with 2021 elections postponed indefinitely due to political deadlock. Current election preparations for April 2026 face significant challenges including disputes over electoral laws, candidate eligibility requirements, and whether to form a unified interim government before voting."
       },
       "elections": {
         "competitiveElections": false,
@@ -6099,15 +6116,21 @@
       "country": "Peru",
       "iso2": "PE",
       "metadata": {
-        "officialName": null,
-        "capital": null,
-        "population": null,
-        "region": null,
-        "subregion": null,
-        "flag": null,
-        "flagPng": null,
-        "currencies": [],
-        "languages": [],
+        "officialName": "Republic of Peru",
+        "capital": "Lima",
+        "population": 34350244,
+        "region": "Americas",
+        "subregion": "South America",
+        "flag": "🇵🇪",
+        "flagPng": "https://flagcdn.com/w320/pe.png",
+        "currencies": [
+          "Peruvian sol"
+        ],
+        "languages": [
+          "Aymara",
+          "Quechua",
+          "Spanish"
+        ],
         "source": "restcountries"
       },
       "politicalSystem": {
@@ -6198,8 +6221,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "José María Balcázar became Peru's eighth president in a decade in February 2026 after Congress removed José Jerí over corruption allegations. At age 83, Balcázar is Peru's oldest president and serves as interim leader until July 28, 2026. He is a former judge and Supreme Court magistrate who was removed from the judiciary in 2011. Congress has maintained dominant control over Peru's government since 2023 when the Constitutional Court removed judicial oversight of the legislature. Far-right parties have held majority control since 2021.",
-        "metadata": "REST Countries API returned no data for 'PE'."
+        "executive": "José María Balcázar became Peru's eighth president in a decade in February 2026 after Congress removed José Jerí over corruption allegations. At age 83, Balcázar is Peru's oldest president and serves as interim leader until July 28, 2026. He is a former judge and Supreme Court magistrate who was removed from the judiciary in 2011. Congress has maintained dominant control over Peru's government since 2023 when the Constitutional Court removed judicial oversight of the legislature. Far-right parties have held majority control since 2021."
       },
       "elections": {
         "competitiveElections": true,
@@ -6935,15 +6957,19 @@
       "country": "Denmark",
       "iso2": "DK",
       "metadata": {
-        "officialName": null,
-        "capital": null,
-        "population": null,
-        "region": null,
-        "subregion": null,
-        "flag": null,
-        "flagPng": null,
-        "currencies": [],
-        "languages": [],
+        "officialName": "Kingdom of Denmark",
+        "capital": "Copenhagen",
+        "population": 6011488,
+        "region": "Europe",
+        "subregion": "Northern Europe",
+        "flag": "🇩🇰",
+        "flagPng": "https://flagcdn.com/w320/dk.png",
+        "currencies": [
+          "Danish krone"
+        ],
+        "languages": [
+          "Danish"
+        ],
         "source": "restcountries"
       },
       "politicalSystem": {
@@ -7035,8 +7061,7 @@
         "notes": null
       },
       "dataAvailability": {
-        "executive": "Mette Frederiksen is serving in caretaker capacity after submitting resignation on March 25, 2026. Coalition talks are ongoing with the Moderates holding kingmaker position with 14 seats. As of April 10, 2026, the Moderates leader Lars Lokke Rasmussen had blocked further negotiations involving a center-left government dependent on the Red-Green Alliance.",
-        "metadata": "REST Countries API returned no data for 'DK'."
+        "executive": "Mette Frederiksen is serving in caretaker capacity after submitting resignation on March 25, 2026. Coalition talks are ongoing with the Moderates holding kingmaker position with 14 seats. As of April 10, 2026, the Moderates leader Lars Lokke Rasmussen had blocked further negotiations involving a center-left government dependent on the Red-Green Alliance."
       },
       "elections": {
         "competitiveElections": true,
