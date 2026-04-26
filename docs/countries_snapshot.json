@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-26T05:39:10.620409Z",
+  "generatedAt": "2026-04-26T13:10:12.285363Z",
   "lastFullSweepDate": "2026-04-14T01:43:40.414511Z",
   "weeklyBucket": 1,
   "weeklyBucketTotal": 16,
@@ -5287,7 +5287,7 @@
         }
       },
       "worldBankGovernance": {
-        "overallPercentile": 27.0,
+        "overallPercentile": 27.12,
         "band": "Low",
         "bandLabel": "Low governance overall",
         "year": 2024,
@@ -5318,10 +5318,9 @@
           },
           "ruleOfLaw": {
             "indicator": "GOV_WGI_RL.SC",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 27.7407193,
+            "label": "Low rule of law",
+            "year": 2024
           },
           "controlOfCorruption": {
             "indicator": "GOV_WGI_CC.SC",
@@ -8140,7 +8139,7 @@
         }
       },
       "worldBankGovernance": {
-        "overallPercentile": 75.31,
+        "overallPercentile": 75.66,
         "band": "High",
         "bandLabel": "High governance overall",
         "year": 2024,
@@ -8171,10 +8170,9 @@
           },
           "ruleOfLaw": {
             "indicator": "GOV_WGI_RL.SC",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 77.4132754,
+            "label": "High rule of law",
+            "year": 2024
           },
           "controlOfCorruption": {
             "indicator": "GOV_WGI_CC.SC",
@@ -18394,7 +18392,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 36.25,
+        "overallPercentile": 37.55,
         "band": "Low",
         "bandLabel": "Low governance overall",
         "year": 2024,
@@ -18413,9 +18411,10 @@
           },
           "governmentEffectiveness": {
             "indicator": "GOV_WGI_GE.SC",
-            "percentile": 29.745211,
-            "label": "Low government effectiveness",
-            "year": 2024
+            "percentile": null,
+            "label": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           },
           "regulatoryQuality": {
             "indicator": "GOV_WGI_RQ.SC",
