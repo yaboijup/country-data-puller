@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-28T06:06:56.602398Z",
+  "generatedAt": "2026-04-28T14:10:11.115400Z",
   "lastFullSweepDate": "2026-04-14T01:43:40.414511Z",
   "weeklyBucket": 2,
   "weeklyBucketTotal": 16,
@@ -2845,7 +2845,7 @@
         }
       },
       "worldBankGovernance": {
-        "overallPercentile": 21.88,
+        "overallPercentile": 23.58,
         "band": "Low",
         "bandLabel": "Low governance overall",
         "year": 2024,
@@ -2882,9 +2882,10 @@
           },
           "controlOfCorruption": {
             "indicator": "GOV_WGI_CC.SC",
-            "percentile": 13.4112838,
-            "label": "Very low control of corruption",
-            "year": 2024
+            "percentile": null,
+            "label": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           }
         },
         "sources": {
@@ -3006,22 +3007,24 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 72.11,
+        "overallPercentile": 73.38,
         "band": "High",
         "bandLabel": "High governance overall",
         "year": 2024,
         "components": {
           "voiceAccountability": {
             "indicator": "GOV_WGI_VA.SC",
-            "percentile": 76.9537832,
-            "label": "High voice & accountability",
-            "year": 2024
+            "percentile": null,
+            "label": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           },
           "politicalStability": {
             "indicator": "GOV_WGI_PV.SC",
-            "percentile": 61.771486,
-            "label": "High political stability",
-            "year": 2024
+            "percentile": null,
+            "label": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           },
           "governmentEffectiveness": {
             "indicator": "GOV_WGI_GE.SC",
@@ -3037,9 +3040,10 @@
           },
           "ruleOfLaw": {
             "indicator": "GOV_WGI_RL.SC",
-            "percentile": 73.8081373,
-            "label": "High rule of law",
-            "year": 2024
+            "percentile": null,
+            "label": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           },
           "controlOfCorruption": {
             "indicator": "GOV_WGI_CC.SC",
