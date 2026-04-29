@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-29T05:54:15.577420Z",
+  "generatedAt": "2026-04-29T14:00:08.190294Z",
   "lastFullSweepDate": "2026-04-14T01:43:40.414511Z",
   "weeklyBucket": 2,
   "weeklyBucketTotal": 16,
@@ -6168,7 +6168,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 49.58,
+        "overallPercentile": 48.56,
         "band": "Medium",
         "bandLabel": "Moderate governance overall",
         "year": 2024,
@@ -6181,9 +6181,10 @@
           },
           "politicalStability": {
             "indicator": "GOV_WGI_PV.SC",
-            "percentile": 54.7158131,
-            "label": "Moderate political stability",
-            "year": 2024
+            "percentile": null,
+            "label": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           },
           "governmentEffectiveness": {
             "indicator": "GOV_WGI_GE.SC",
@@ -18261,7 +18262,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 25.97,
+        "overallPercentile": 27.41,
         "band": "Low",
         "bandLabel": "Low governance overall",
         "year": 2024,
@@ -18286,10 +18287,9 @@
           },
           "regulatoryQuality": {
             "indicator": "GOV_WGI_RQ.SC",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 34.5989483,
+            "label": "Low regulatory quality",
+            "year": 2024
           },
           "ruleOfLaw": {
             "indicator": "GOV_WGI_RL.SC",
