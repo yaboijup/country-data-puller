@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-05-17T13:22:54.292242Z",
+  "generatedAt": "2026-05-18T06:56:35.512469Z",
   "lastFullSweepDate": "2026-04-14T01:43:40.414511Z",
-  "weeklyBucket": 4,
+  "weeklyBucket": 5,
   "weeklyBucketTotal": 16,
   "worldBankYearRule": "latest_non_null_per_indicator",
   "sentinelSeenIds": [],
@@ -512,7 +512,7 @@
           "English",
           "Urdu"
         ],
-        "source": "restcountries"
+        "source": "carried_forward"
       },
       "politicalSystem": {
         "values": [
@@ -604,7 +604,7 @@
           "ruleOfLaw": "https://api.worldbank.org/v2/country/PK/indicator/GOV_WGI_RL.SC",
           "controlOfCorruption": "https://api.worldbank.org/v2/country/PK/indicator/GOV_WGI_CC.SC"
         },
-        "notes": null
+        "notes": "Kept previous values; latest fetch failed: None"
       },
       "dataAvailability": {
         "executive": "PML-N leads coalition government with PPP, MQM-P, and other smaller parties controlling over two-thirds majority in National Assembly. PTI-backed independents form largest opposition bloc but many joined Sunni Ittehad Council for reserved seats allocation. Pakistan's military establishment continues to wield significant behind-the-scenes influence over political process."
@@ -680,7 +680,7 @@
         "languages": [
           "Chinese"
         ],
-        "source": "carried_forward"
+        "source": "restcountries"
       },
       "politicalSystem": {
         "values": [
@@ -767,7 +767,7 @@
           "ruleOfLaw": "https://api.worldbank.org/v2/country/CN/indicator/GOV_WGI_RL.SC",
           "controlOfCorruption": "https://api.worldbank.org/v2/country/CN/indicator/GOV_WGI_CC.SC"
         },
-        "notes": "Kept previous values; latest fetch failed: None"
+        "notes": null
       },
       "dataAvailability": {
         "executive": "General Secretary Xi Jinping holds supreme power as leader of the Chinese Communist Party, though formally serves as President. The political system is a one-party state where the CCP exercises control over all government institutions including the National People's Congress."
@@ -823,7 +823,7 @@
         }
       },
       "lastClaudeUpdate": "2026-04-04T06:16:05.802545Z",
-      "claudeAttemptedWithNoData": false,
+      "claudeAttemptedWithNoData": true,
       "claudeDeferred": false
     },
     {
@@ -3132,7 +3132,7 @@
         "languages": [
           "Turkish"
         ],
-        "source": "restcountries"
+        "source": "carried_forward"
       },
       "politicalSystem": {
         "values": [
@@ -3220,7 +3220,7 @@
           "ruleOfLaw": "https://api.worldbank.org/v2/country/TR/indicator/GOV_WGI_RL.SC",
           "controlOfCorruption": "https://api.worldbank.org/v2/country/TR/indicator/GOV_WGI_CC.SC"
         },
-        "notes": null
+        "notes": "Kept previous values; latest fetch failed: None"
       },
       "dataAvailability": {
         "executive": "Turkey maintains competitive elections but with significant restrictions on opposition parties and media freedom. Recent polling shows opposition CHP leading AKP, though AKP retains parliamentary control through People's Alliance coalition. Erdoğan seeking path to third term through early election mechanism requiring 360 parliamentary votes. Democratic quality has deteriorated significantly under Erdoğan's rule with PolitPro Democracy Index score of only 19/100. Elections described as 'partially free and fair, primarily serving to secure government power'."
@@ -3296,7 +3296,7 @@
         "languages": [
           "Spanish"
         ],
-        "source": "carried_forward"
+        "source": "restcountries"
       },
       "politicalSystem": {
         "values": [
@@ -3383,7 +3383,7 @@
           "ruleOfLaw": "https://api.worldbank.org/v2/country/VE/indicator/GOV_WGI_RL.SC",
           "controlOfCorruption": "https://api.worldbank.org/v2/country/VE/indicator/GOV_WGI_CC.SC"
         },
-        "notes": "Kept previous values; latest fetch failed: None"
+        "notes": null
       },
       "dataAvailability": {
         "executive": "On January 3, 2026, US forces captured President Nicolás Maduro and his wife in a military operation. Acting President Delcy Rodríguez was sworn in January 5, 2026, initially for 90 days but has remained in power past the constitutional deadline. The Supreme Court declared Maduro's absence temporary rather than permanent, avoiding the constitutional requirement for new elections within 30 days. The National Assembly is controlled by PSUV with Jorge Rodríguez (Delcy's brother) as President. No new presidential elections have been scheduled despite constitutional requirements and international calls. The US has recognized Rodríguez as acting head of state and lifted sanctions on her while Maduro faces narco-terrorism charges in New York. Venezuela remains under authoritarian rule with systematic electoral manipulation and opposition exclusion, though some political prisoners have been released under an amnesty law."
@@ -3432,7 +3432,7 @@
         }
       },
       "lastClaudeUpdate": "2026-04-13T05:45:59.788770Z",
-      "claudeAttemptedWithNoData": false,
+      "claudeAttemptedWithNoData": true,
       "claudeDeferred": false
     },
     {
@@ -5774,7 +5774,7 @@
           "Guaraní",
           "Spanish"
         ],
-        "source": "restcountries"
+        "source": "carried_forward"
       },
       "politicalSystem": {
         "values": [
@@ -5866,7 +5866,7 @@
           "ruleOfLaw": "https://api.worldbank.org/v2/country/AR/indicator/GOV_WGI_RL.SC",
           "controlOfCorruption": "https://api.worldbank.org/v2/country/AR/indicator/GOV_WGI_CC.SC"
         },
-        "notes": null
+        "notes": "Kept previous values; latest fetch failed: None"
       },
       "dataAvailability": {
         "executive": "Argentina continues under Milei's libertarian presidency with strong performance in 2025 midterm elections. La Libertad Avanza became largest bloc in Chamber of Deputies but still lacks outright majority. Opposition Fuerza Patria retains control of Senate. Milei has implemented major economic reforms and maintained stable governance despite controversy over cryptocurrency involvement allegations."
@@ -5942,7 +5942,7 @@
         "languages": [
           "Spanish"
         ],
-        "source": "carried_forward"
+        "source": "restcountries"
       },
       "politicalSystem": {
         "values": [
@@ -6053,7 +6053,7 @@
           "ruleOfLaw": "https://api.worldbank.org/v2/country/CL/indicator/GOV_WGI_RL.SC",
           "controlOfCorruption": "https://api.worldbank.org/v2/country/CL/indicator/GOV_WGI_CC.SC"
         },
-        "notes": "Kept previous values; latest fetch failed: None"
+        "notes": null
       },
       "dataAvailability": {
         "executive": "José Antonio Kast was inaugurated as President on March 11, 2026, following his victory in the December 2025 runoff election with 58% of the vote. His Republican Party expanded significantly in the 2025 congressional elections, winning 31 seats in the Chamber of Deputies. The Senate remains evenly split 25-25 between left and right blocs. Kast campaigned on security, immigration control, and economic recovery, marking Chile's rightward shift since the end of dictatorship in 1990. His presidency represents the most conservative government since Pinochet, though he operates within democratic institutions and faces divided Congress that may constrain some proposals."
@@ -8624,7 +8624,7 @@
         "languages": [
           "Swedish"
         ],
-        "source": "restcountries"
+        "source": "carried_forward"
       },
       "politicalSystem": {
         "values": [
@@ -8777,7 +8777,7 @@
           "ruleOfLaw": "https://api.worldbank.org/v2/country/SE/indicator/GOV_WGI_RL.SC",
           "controlOfCorruption": "https://api.worldbank.org/v2/country/SE/indicator/GOV_WGI_CC.SC"
         },
-        "notes": null
+        "notes": "Kept previous values; latest fetch failed: None"
       },
       "dataAvailability": {
         "executive": "Sweden is a constitutional monarchy with King Carl XVI Gustaf as ceremonial head of state since 1973. Prime Minister Ulf Kristersson leads a minority coalition government of Moderates, Christian Democrats, and Liberals with confidence and supply support from the Sweden Democrats under the Tido Agreement since October 2022. The current government has 176 seats versus opposition's 173 seats in the 349-member Riksdag following the September 2022 election."
@@ -8840,7 +8840,7 @@
           "Finnish",
           "Swedish"
         ],
-        "source": "carried_forward"
+        "source": "restcountries"
       },
       "politicalSystem": {
         "values": [
@@ -8921,7 +8921,7 @@
           "ruleOfLaw": "https://api.worldbank.org/v2/country/FI/indicator/GOV_WGI_RL.SC",
           "controlOfCorruption": "https://api.worldbank.org/v2/country/FI/indicator/GOV_WGI_CC.SC"
         },
-        "notes": "Kept previous values; latest fetch failed: None"
+        "notes": null
       },
       "dataAvailability": null,
       "elections": {
@@ -8947,7 +8947,7 @@
         }
       },
       "lastClaudeUpdate": null,
-      "claudeAttemptedWithNoData": false,
+      "claudeAttemptedWithNoData": true,
       "claudeDeferred": false
     },
     {
@@ -11482,7 +11482,7 @@
         "languages": [
           "Lithuanian"
         ],
-        "source": "carried_forward"
+        "source": "restcountries"
       },
       "politicalSystem": {
         "values": [
@@ -11554,16 +11554,17 @@
         }
       },
       "worldBankGovernance": {
-        "overallPercentile": 76.45,
+        "overallPercentile": 76.09,
         "band": "High",
         "bandLabel": "High governance overall",
         "year": 2024,
         "components": {
           "voiceAccountability": {
             "indicator": "GOV_WGI_VA.SC",
-            "percentile": 78.248591,
-            "label": "High voice & accountability",
-            "year": 2024
+            "percentile": null,
+            "label": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           },
           "politicalStability": {
             "indicator": "GOV_WGI_PV.SC",
@@ -11604,7 +11605,7 @@
           "ruleOfLaw": "https://api.worldbank.org/v2/country/LT/indicator/GOV_WGI_RL.SC",
           "controlOfCorruption": "https://api.worldbank.org/v2/country/LT/indicator/GOV_WGI_CC.SC"
         },
-        "notes": "Kept previous values; latest fetch failed: None"
+        "notes": null
       },
       "dataAvailability": {
         "executive": "Lithuania is a stable parliamentary democracy with competitive multi-party elections. Current government led by PM Inga Ruginienė was formed in September 2025 after coalition negotiations following October 2024 parliamentary election victory by Social Democrats. President Nausėda serves as independent head of state with significant foreign policy authority. Coalition includes Social Democrats, Dawn of Nemunas, Union of Democrats For Lithuania, and Farmers and Greens Union with 86-seat parliamentary majority."
@@ -14213,7 +14214,7 @@
           "Arabic",
           "French"
         ],
-        "source": "restcountries"
+        "source": "carried_forward"
       },
       "politicalSystem": {
         "values": [
@@ -14294,7 +14295,7 @@
           "ruleOfLaw": "https://api.worldbank.org/v2/country/LB/indicator/GOV_WGI_RL.SC",
           "controlOfCorruption": "https://api.worldbank.org/v2/country/LB/indicator/GOV_WGI_CC.SC"
         },
-        "notes": null
+        "notes": "Kept previous values; latest fetch failed: None"
       },
       "dataAvailability": null,
       "elections": {
@@ -14320,7 +14321,7 @@
         }
       },
       "lastClaudeUpdate": null,
-      "claudeAttemptedWithNoData": true,
+      "claudeAttemptedWithNoData": false,
       "claudeDeferred": false
     },
     {
@@ -14340,7 +14341,7 @@
         "languages": [
           "Arabic"
         ],
-        "source": "carried_forward"
+        "source": "restcountries"
       },
       "politicalSystem": {
         "values": [
@@ -14421,7 +14422,7 @@
           "ruleOfLaw": "https://api.worldbank.org/v2/country/KW/indicator/GOV_WGI_RL.SC",
           "controlOfCorruption": "https://api.worldbank.org/v2/country/KW/indicator/GOV_WGI_CC.SC"
         },
-        "notes": "Kept previous values; latest fetch failed: None"
+        "notes": null
       },
       "dataAvailability": null,
       "elections": {
@@ -14447,7 +14448,7 @@
         }
       },
       "lastClaudeUpdate": null,
-      "claudeAttemptedWithNoData": false,
+      "claudeAttemptedWithNoData": true,
       "claudeDeferred": false
     },
     {
@@ -16298,7 +16299,7 @@
         "languages": [
           "Thai"
         ],
-        "source": "restcountries"
+        "source": "carried_forward"
       },
       "politicalSystem": {
         "values": [
@@ -16379,7 +16380,7 @@
           "ruleOfLaw": "https://api.worldbank.org/v2/country/TH/indicator/GOV_WGI_RL.SC",
           "controlOfCorruption": "https://api.worldbank.org/v2/country/TH/indicator/GOV_WGI_CC.SC"
         },
-        "notes": null
+        "notes": "Kept previous values; latest fetch failed: None"
       },
       "dataAvailability": null,
       "elections": {
@@ -16405,7 +16406,7 @@
         }
       },
       "lastClaudeUpdate": null,
-      "claudeAttemptedWithNoData": true,
+      "claudeAttemptedWithNoData": false,
       "claudeDeferred": false
     },
     {
@@ -16426,7 +16427,7 @@
         "languages": [
           "Khmer"
         ],
-        "source": "carried_forward"
+        "source": "restcountries"
       },
       "politicalSystem": {
         "values": [
@@ -16507,7 +16508,7 @@
           "ruleOfLaw": "https://api.worldbank.org/v2/country/KH/indicator/GOV_WGI_RL.SC",
           "controlOfCorruption": "https://api.worldbank.org/v2/country/KH/indicator/GOV_WGI_CC.SC"
         },
-        "notes": "Kept previous values; latest fetch failed: None"
+        "notes": null
       },
       "dataAvailability": null,
       "elections": {
@@ -16533,7 +16534,7 @@
         }
       },
       "lastClaudeUpdate": null,
-      "claudeAttemptedWithNoData": false,
+      "claudeAttemptedWithNoData": true,
       "claudeDeferred": false
     },
     {
@@ -18486,7 +18487,7 @@
         "languages": [
           "Arabic"
         ],
-        "source": "carried_forward"
+        "source": "restcountries"
       },
       "politicalSystem": {
         "values": [
@@ -18567,7 +18568,7 @@
           "ruleOfLaw": "https://api.worldbank.org/v2/country/TN/indicator/GOV_WGI_RL.SC",
           "controlOfCorruption": "https://api.worldbank.org/v2/country/TN/indicator/GOV_WGI_CC.SC"
         },
-        "notes": "Kept previous values; latest fetch failed: None"
+        "notes": null
       },
       "dataAvailability": null,
       "elections": {
@@ -20410,7 +20411,7 @@
         "languages": [
           "French"
         ],
-        "source": "restcountries"
+        "source": "carried_forward"
       },
       "politicalSystem": {
         "values": [
@@ -20491,7 +20492,7 @@
           "ruleOfLaw": "https://api.worldbank.org/v2/country/ML/indicator/GOV_WGI_RL.SC",
           "controlOfCorruption": "https://api.worldbank.org/v2/country/ML/indicator/GOV_WGI_CC.SC"
         },
-        "notes": null
+        "notes": "Kept previous values; latest fetch failed: None"
       },
       "dataAvailability": null,
       "elections": {
@@ -20517,7 +20518,7 @@
         }
       },
       "lastClaudeUpdate": null,
-      "claudeAttemptedWithNoData": true,
+      "claudeAttemptedWithNoData": false,
       "claudeDeferred": false
     },
     {
@@ -20538,7 +20539,7 @@
           "English",
           "Tswana"
         ],
-        "source": "carried_forward"
+        "source": "restcountries"
       },
       "politicalSystem": {
         "values": [
@@ -20619,7 +20620,7 @@
           "ruleOfLaw": "https://api.worldbank.org/v2/country/BW/indicator/GOV_WGI_RL.SC",
           "controlOfCorruption": "https://api.worldbank.org/v2/country/BW/indicator/GOV_WGI_CC.SC"
         },
-        "notes": "Kept previous values; latest fetch failed: None"
+        "notes": null
       },
       "dataAvailability": null,
       "elections": {
@@ -22466,7 +22467,7 @@
         "languages": [
           "Spanish"
         ],
-        "source": "restcountries"
+        "source": "carried_forward"
       },
       "politicalSystem": {
         "values": [
@@ -22547,7 +22548,7 @@
           "ruleOfLaw": "https://api.worldbank.org/v2/country/EC/indicator/GOV_WGI_RL.SC",
           "controlOfCorruption": "https://api.worldbank.org/v2/country/EC/indicator/GOV_WGI_CC.SC"
         },
-        "notes": null
+        "notes": "Kept previous values; latest fetch failed: None"
       },
       "dataAvailability": null,
       "elections": {
@@ -22573,7 +22574,7 @@
         }
       },
       "lastClaudeUpdate": null,
-      "claudeAttemptedWithNoData": true,
+      "claudeAttemptedWithNoData": false,
       "claudeDeferred": false
     },
     {
@@ -22594,7 +22595,7 @@
           "Guaraní",
           "Spanish"
         ],
-        "source": "carried_forward"
+        "source": "restcountries"
       },
       "politicalSystem": {
         "values": [
@@ -22675,7 +22676,7 @@
           "ruleOfLaw": "https://api.worldbank.org/v2/country/PY/indicator/GOV_WGI_RL.SC",
           "controlOfCorruption": "https://api.worldbank.org/v2/country/PY/indicator/GOV_WGI_CC.SC"
         },
-        "notes": "Kept previous values; latest fetch failed: None"
+        "notes": null
       },
       "dataAvailability": null,
       "elections": {
