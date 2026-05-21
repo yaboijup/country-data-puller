@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-20T15:22:41.800817Z",
+  "generatedAt": "2026-05-21T06:53:23.140998Z",
   "lastFullSweepDate": "2026-04-14T01:43:40.414511Z",
   "weeklyBucket": 5,
   "weeklyBucketTotal": 16,
@@ -8871,7 +8871,7 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 87.65,
+        "overallPercentile": 87.84,
         "band": "Very High",
         "bandLabel": "Very high governance overall",
         "year": 2024,
@@ -8890,9 +8890,10 @@
           },
           "governmentEffectiveness": {
             "indicator": "GOV_WGI_GE.SC",
-            "percentile": 86.6733953,
-            "label": "Very high government effectiveness",
-            "year": 2024
+            "percentile": null,
+            "label": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           },
           "regulatoryQuality": {
             "indicator": "GOV_WGI_RQ.SC",
@@ -13142,7 +13143,7 @@
           "Greek",
           "Turkish"
         ],
-        "source": "carried_forward"
+        "source": "restcountries"
       },
       "politicalSystem": {
         "values": [
@@ -13197,7 +13198,7 @@
         }
       },
       "worldBankGovernance": {
-        "overallPercentile": 69.69,
+        "overallPercentile": 67.85,
         "band": "High",
         "bandLabel": "High governance overall",
         "year": 2024,
@@ -13234,10 +13235,9 @@
           },
           "controlOfCorruption": {
             "indicator": "GOV_WGI_CC.SC",
-            "percentile": null,
-            "label": null,
-            "year": null,
-            "notes": "Failed to fetch WB indicator."
+            "percentile": 58.6330074,
+            "label": "Moderate control of corruption",
+            "year": 2024
           }
         },
         "sources": {
@@ -13248,7 +13248,7 @@
           "ruleOfLaw": "https://api.worldbank.org/v2/country/CY/indicator/GOV_WGI_RL.SC",
           "controlOfCorruption": "https://api.worldbank.org/v2/country/CY/indicator/GOV_WGI_CC.SC"
         },
-        "notes": "Kept previous values; latest fetch failed: None"
+        "notes": null
       },
       "dataAvailability": {
         "executive": "Cyprus operates as a full presidential system unique among EU member states, with the President serving as both head of state and government. The scraped data incorrectly identified Tufan Erhu­rman as head of government - he is actually the president of the Turkish Republic of Northern Cyprus, the unrecognized northern territory. Current parliamentary composition shows DISY with 17 seats, AKEL with 15 seats, with President Christodoulides supported by a minority coalition of DIKO, EDEK, and DIPA parties. The upcoming May 2026 legislative elections are generating significant political uncertainty with new parties like ALMA and far-right ELAM potentially reshaping the parliamentary landscape. The 2025 election date reference in scraped data appears to be an error - the last Cypriot legislative election was in 2021, with the next scheduled for May 24, 2026."
@@ -13304,7 +13304,7 @@
         }
       },
       "lastClaudeUpdate": "2026-04-13T06:14:01.964441Z",
-      "claudeAttemptedWithNoData": false,
+      "claudeAttemptedWithNoData": true,
       "claudeDeferred": false
     },
     {
@@ -16457,9 +16457,9 @@
       },
       "partyProfiles": null,
       "worldBankGovernance": {
-        "overallPercentile": 41.32,
-        "band": "Medium",
-        "bandLabel": "Moderate governance overall",
+        "overallPercentile": 35.97,
+        "band": "Low",
+        "bandLabel": "Low governance overall",
         "year": 2024,
         "components": {
           "voiceAccountability": {
@@ -16470,9 +16470,10 @@
           },
           "politicalStability": {
             "indicator": "GOV_WGI_PV.SC",
-            "percentile": 68.0880671,
-            "label": "High political stability",
-            "year": 2024
+            "percentile": null,
+            "label": null,
+            "year": null,
+            "notes": "Failed to fetch WB indicator."
           },
           "governmentEffectiveness": {
             "indicator": "GOV_WGI_GE.SC",
